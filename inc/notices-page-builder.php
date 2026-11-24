@@ -978,11 +978,6 @@ function mvc_render_notices_hero() {
                         <span class="mvc-notices-inst-badge">VKSU ARA CONSTITUENT UNIT</span>
                     </div>
                     <h1>Official Notices &amp; Administrative Circulars</h1>
-                    <div class="mvc-notices-hero-hindi">महर्षि विश्वामित्र महाविद्यालय – आधिकारिक सूचना एवं परिपत्र पटल</div>
-                    <p class="mvc-notices-hero-sub">
-                        Authorized notices, semester examination schedules, admissions circulars, tender procurements, 
-                        and institutional memos issued under the authority of Veer Kunwar Singh University &amp; M.V. College, Buxar.
-                    </p>
                 </div>
 
                 <!-- Live Counter Stats -->

@@ -884,11 +884,6 @@ function mvc_render_events_hero() {
                         <span class="mvc-events-inst-badge">M.V. COLLEGE BUXAR</span>
                     </div>
                     <h1>Campus Events, Academic Seminars &amp; Celebrations</h1>
-                    <div class="mvc-events-hero-hindi">महाविद्यालयीन शैक्षणिक संगोष्ठी, कार्यशालाएं एवं सांस्कृतिक उत्सव</div>
-                    <p class="mvc-events-hero-sub">
-                        National conventions, faculty development workshops, inter-departmental athletic championships, 
-                        and cultural festivals fostering intellectual inquiry, civic engagement, and holistic student development.
-                    </p>
                 </div>
 
                 <!-- Live Counter Stats -->

@@ -1761,11 +1761,6 @@ function mvc_render_academic_calendar_page() {
 
                 <!-- Main Titles -->
                 <h1>Academic Calendar &amp; Curricular Roadmap</h1>
-                <div class="mvc-cal-hero-hindi"><?php echo esc_html($subtitle_hi); ?></div>
-                
-                <p class="mvc-cal-hero-lead">
-                    <?php echo esc_html($subtitle_en); ?>
-                </p>
 
                 <!-- Featured Gazette Hero Card (Dual Action Spotlight) -->
                 <?php if ($featured_gazette) : ?>

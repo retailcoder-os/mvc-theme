@@ -678,10 +678,7 @@ function mvc_render_library_page() {
                     <span>Automated Central Library</span>
                 </nav>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">🏛 Established 11 June 1958</span>
                     <span class="mvc-util-pill">📖 15,000+ Print Volumes</span>
@@ -1035,10 +1032,7 @@ function mvc_render_e_resources_page() {
                     <span>e-Resources</span>
                 </nav>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">🌐 11 National Gateways</span>
                     <span class="mvc-util-pill">📖 Open Access Repositories</span>
@@ -1142,10 +1136,7 @@ function mvc_render_anti_ragging_page() {
                     <span>Anti-Ragging Cell</span>
                 </nav>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">⚖️ UGC Regulations 2009 Mandate</span>
                     <span class="mvc-util-pill">🚫 Zero Tolerance Campus</span>
@@ -1376,10 +1367,7 @@ function mvc_render_tender_page() {
                     <span>Tenders & Quotations</span>
                 </nav>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">📑 Public Procurement Transparency</span>
                     <span class="mvc-util-pill">📥 Direct PDF Downloads</span>
@@ -1725,10 +1713,7 @@ function mvc_render_help_desk_page($override_form_id = null) {
                     <span>Institutional Help Desk</span>
                 </nav>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">⚡ Rapid Response Desks</span>
                     <span class="mvc-util-pill">🕒 Mon–Sat: 10:00 AM – 5:30 PM</span>
@@ -1884,10 +1869,7 @@ function mvc_render_onos_page() {
                     <span>🌐</span>
                 </div>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">🏛 Ministry of Education (MoE) Initiative</span>
                     <span class="mvc-util-pill">📚 Global Peer-Reviewed Journals</span>
@@ -2016,10 +1998,7 @@ function mvc_render_research_page() {
                     <span>🔬</span>
                 </div>
                 <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-util-hero-subtitle"><?php echo esc_html($hero_subtitle); ?></div>
-                <p class="mvc-util-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">🏛 UGC Recognized Research</span>
                     <span class="mvc-util-pill">📖 Peer-Reviewed Publications</span>

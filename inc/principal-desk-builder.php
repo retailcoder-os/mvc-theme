@@ -1268,11 +1268,7 @@ function mvc_render_principal_desk_page() {
                 </div>
 
                 <!-- Single H1 Title -->
-                <h1 class="mvc-pd-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-pd-hero-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-pd-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+                <h1 class="mvc-pd-hero-title" style="margin: 0 0 16px;"><?php echo esc_html($hero_title); ?></h1>
 
                 <!-- 4 KPI Metrics Ribbon -->
                 <div class="mvc-pd-kpi-ribbon">

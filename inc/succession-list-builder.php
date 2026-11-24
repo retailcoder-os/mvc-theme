@@ -1849,11 +1849,7 @@ function mvc_render_succession_list_page() {
                 </div>
 
                 <!-- Single H1 Title -->
-                <h1 class="mvc-sc-hero-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-sc-hero-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-sc-hero-desc">
-                    <?php echo esc_html($hero_desc); ?>
-                </p>
+                <h1 class="mvc-sc-hero-title" style="margin: 0 0 16px;"><?php echo esc_html($hero_title); ?></h1>
 
                 <!-- 4 KPI Metrics Ribbon -->
                 <div class="mvc-sc-kpi-ribbon">

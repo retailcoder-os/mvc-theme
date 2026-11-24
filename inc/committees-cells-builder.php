@@ -543,11 +543,7 @@ function mvc_render_committees_cells_page($override_form_id = null) {
                     <span style="color: var(--mvc-gold);">Committees &amp; Cells</span>
                 </nav>
 
-                <h1>Statutory Committees &amp; Cells</h1>
-                <div class="mvc-comm-hero-hindi">सांविधिक समितियां एवं प्रकोष्ठ — महर्षि विश्वामित्र महाविद्यालय</div>
-                <p class="mvc-comm-hero-desc">
-                    Participatory governance framework safeguarding academic standards, anti-ragging vigilance, student grievance redressal, quality assurance, and community extension.
-                </p>
+                <h1 style="margin: 0 0 16px;">Statutory Committees &amp; Cells</h1>
             </div>
         </header>
 

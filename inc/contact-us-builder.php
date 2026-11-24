@@ -724,10 +724,6 @@ function mvc_render_contact_hero() {
             <span>Contact Us</span>
         </div>
         <h1><?php echo esc_html($hero_title); ?></h1>
-        <div class="mvc-contact-hero-hindi"><?php echo esc_html($hero_hindi); ?></div>
-        <p class="mvc-contact-hero-desc">
-            <?php echo esc_html($hero_desc); ?>
-        </p>
         <div class="mvc-contact-hero-pills">
             <span class="mvc-contact-hero-pill">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>

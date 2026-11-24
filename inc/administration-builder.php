@@ -860,12 +860,7 @@ function mvc_render_our_administration_page($override_form_id = null) {
                     <span>Our Administration</span>
                 </nav>
 
-                <h1>Our Administration</h1>
-                <div class="mvc-admin-hero-hindi">महाविद्यालय शीर्ष प्रशासन एवं सांविधिक प्रभाग</div>
-                <p class="mvc-admin-hero-desc">
-                    Statutory Governance &amp; Executive Leadership of Maharshi Vishwamitra Mahavidyalaya (M.V. College, Buxar).
-                    A Constituent Unit of Veer Kunwar Singh University (VKSU), Ara &bull; Approved under UGC Section 2(f) &amp; 12(B).
-                </p>
+                <h1 style="margin: 0 0 16px;">Our Administration</h1>
             </div>
         </header>
 

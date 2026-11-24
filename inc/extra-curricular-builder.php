@@ -1122,8 +1122,6 @@ function mvc_render_ec_hero($slug) {
             <span><?php echo esc_html($meta['short_title']); ?></span>
         </div>
         <h1><?php echo esc_html($meta['title']); ?></h1>
-        <div class="mvc-ec-hero-hindi"><?php echo esc_html($meta['hindi_title']); ?></div>
-        <p class="mvc-ec-hero-desc"><?php echo esc_html($meta['desc']); ?></p>
     </header>
     <?php
 }

@@ -1221,11 +1221,6 @@ function mvc_render_teaching_staff_page() {
 
                 <!-- Main Titles -->
                 <h1>Academic Faculty &amp; Scholar Directory</h1>
-                <div class="mvc-staff-hero-hindi">महाविद्यालय शैक्षणिक संकाय एवं प्राध्यापक संदर्शिका</div>
-                
-                <p class="mvc-staff-hero-lead">
-                    Distinguished professors, associate professors, assistant professors, and research scholars across 15 academic disciplines under the statutory framework of Veer Kunwar Singh University (VKSU), Ara.
-                </p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-staff-kpi-ribbon">
@@ -1849,11 +1844,6 @@ function mvc_render_non_teaching_staff_page() {
 
                 <!-- Main Titles -->
                 <h1>Non-Teaching &amp; Administrative Staff Directory</h1>
-                <div class="mvc-nt-hero-hindi">गैर-शैक्षणिक एवं प्रशासनिक कर्मचारी संदर्शिका</div>
-                
-                <p class="mvc-nt-hero-lead">
-                    Dedicated ministerial, clerical, technical, laboratory, and support personnel driving daily administrative operations, student admissions, university examinations, and campus maintenance at Maharshi Vishwamitra Mahavidyalaya, Buxar.
-                </p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-staff-kpi-ribbon">

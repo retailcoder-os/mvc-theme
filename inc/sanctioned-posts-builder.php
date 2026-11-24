@@ -2015,11 +2015,7 @@ function mvc_render_sanctioned_teachers_page() {
                 </div>
 
                 <h1><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-sp-hero-hindi"><?php echo esc_html($hero_hindi); ?></div>
 
-                <p class="mvc-sp-hero-lead">
-                    <?php echo esc_html($hero_lead); ?>
-                </p>
 
                 <!-- 4 Master KPI Ribbon -->
                 <div class="mvc-sp-kpi-ribbon">
@@ -2414,11 +2410,7 @@ function mvc_render_sanctioned_non_teachers_page() {
                 </div>
 
                 <h1><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-sp-hero-hindi"><?php echo esc_html($hero_hindi); ?></div>
 
-                <p class="mvc-sp-hero-lead">
-                    <?php echo esc_html($hero_lead); ?>
-                </p>
 
                 <!-- 4 Master KPI Ribbon -->
                 <div class="mvc-sp-kpi-ribbon">

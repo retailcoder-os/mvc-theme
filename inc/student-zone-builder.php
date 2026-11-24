@@ -769,8 +769,6 @@ function mvc_render_student_zone_hero($slug) {
             <span><?php echo esc_html($meta['short_title']); ?></span>
         </div>
         <h1><?php echo esc_html($meta['title']); ?></h1>
-        <div class="mvc-sz-hero-hindi"><?php echo esc_html($meta['hindi_title']); ?></div>
-        <p class="mvc-sz-hero-desc"><?php echo esc_html($meta['desc']); ?></p>
     </header>
     <?php
 }

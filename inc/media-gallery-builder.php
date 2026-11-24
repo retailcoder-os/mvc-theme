@@ -1878,10 +1878,6 @@ function mvc_render_photo_gallery_page() {
                 </div>
 
                 <h1 class="mvc-media-hero-title">Photo Gallery & Campus Moments</h1>
-                <div class="mvc-media-hero-subtitle-hi">महर्षि विश्वामित्र महाविद्यालय छायाचित्र दीर्घा</div>
-                <p class="mvc-media-hero-desc">
-                    Explore the official photographic chronicles of Maharshi Vishwamitra Mahavidyalaya. Discover high-definition captures of sports championships, international academic symposia, national commemorations, and vibrant student life across 2017–2026.
-                </p>
 
                 <!-- STATS STRIP -->
                 <div class="mvc-media-stats-strip">
@@ -2115,10 +2111,6 @@ function mvc_render_video_gallery_page() {
                 </div>
 
                 <h1 class="mvc-media-hero-title">Video Gallery & Broadcast Media</h1>
-                <div class="mvc-media-hero-subtitle-hi">महर्षि विश्वामित्र महाविद्यालय वीडियो एवं दृश्य-श्रव्य दीर्घा</div>
-                <p class="mvc-media-hero-desc">
-                    Experience the dynamic pulse of Maharshi Vishwamitra Mahavidyalaya through official YouTube recordings, annual sports championships, scholastic discourses, convocation events, and student cultural performances.
-                </p>
 
                 <!-- STATS STRIP -->
                 <div class="mvc-media-stats-strip">
@@ -2352,10 +2344,6 @@ function mvc_render_press_media_page() {
                 </div>
 
                 <h1 class="mvc-media-hero-title">Press & Media Coverage</h1>
-                <div class="mvc-media-hero-subtitle-hi">महर्षि विश्वामित्र महाविद्यालय समाचार एवं प्रेस विज्ञप्ति</div>
-                <p class="mvc-media-hero-desc">
-                    Archival record of newspaper coverage, institutional press announcements, and media reports featuring Maharshi Vishwamitra Mahavidyalaya across leading dailies including Dainik Jagran, Prabhat Khabar, Hindustan, and regional publications.
-                </p>
 
                 <!-- STATS STRIP -->
                 <div class="mvc-media-stats-strip">

@@ -824,11 +824,7 @@ function mvc_render_university_administration_page($override_form_id = null) {
                     <span style="color: var(--mvc-gold);">University Administration</span>
                 </nav>
 
-                <h1>Veer Kunwar Singh University (VKSU) Administration</h1>
-                <div class="mvc-univ-hero-hindi">वीर कुंवर सिंह विश्वविद्यालय, आरा — शीर्ष सांविधिक प्रशासन</div>
-                <p class="mvc-univ-hero-desc">
-                    Affiliating apex governance, statutory university officers, deans of faculties, and postgraduate departments administering higher education across Bhojpur, Buxar, Kaimur, and Rohtas. Maharshi Vishwamitra Mahavidyalaya is a Constituent Unit of VKSU.
-                </p>
+                <h1 style="margin: 0 0 16px;">Veer Kunwar Singh University (VKSU) Administration</h1>
             </div>
         </header>
 

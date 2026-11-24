@@ -2486,326 +2486,21 @@ function mvc_render_master_plan_page() {
     $kpi_4_val = get_post_meta($post_id, 'about_kpi_4_val', true) ?: 'Estd. 1958';
     $kpi_4_lbl = get_post_meta($post_id, 'about_kpi_4_lbl', true) ?: 'Historical Siddhashram Campus';
 
-    // AUTHENTIC CAMPUS INFRASTRUCTURE ELEMENTS DERIVED FROM OFFICIAL TEXT
-    $facilities = array(
-        array(
-            'title'    => '10 Bighas Ganga Riverfront Estate',
-            'subtitle' => 'Sacred Siddhashram Land Grant',
-            'icon'     => '🌊',
-            'badge'    => 'Historical Grant',
-            'desc'     => 'Donated by the honourable Raja of Dumraon State due to his deep love and affection with Khaki Baba, situated gracefully on the tranquil bank of the Holy Ganga at Charitravan.'
-        ),
-        array(
-            'title'    => 'Eastern Main Collegiate Building & Academic Departments',
-            'subtitle' => 'Arts, Science & Administration',
-            'icon'     => '🏛️',
-            'badge'    => 'Academic Core',
-            'desc'     => 'The eastern part of campus houses the main collegiate building along with various academic departments in Arts and Science, departmental staff rooms, Principal\'s Chamber, and Administrative Block.'
-        ),
-        array(
-            'title'    => 'Manas Bhawan (Auditorium cum Examination Hall)',
-            'subtitle' => 'Capacity of 200+ Seats',
-            'icon'     => '🎭',
-            'badge'    => 'Prized Possession',
-            'desc'     => 'A prized possession of the college, Manas Bhawan serves as a spacious multi-purpose auditorium cum examination hall with a seating capacity of 200+ persons for university examinations and convocations.'
-        ),
-        array(
-            'title'    => 'Central Library & Reading Room',
-            'subtitle' => '15,000+ Books & INFLIBNET',
-            'icon'     => '📚',
-            'badge'    => 'Knowledge Hub',
-            'desc'     => 'The college library features a rich collection of over 15,000 books with a spacious and well-furnished reading room. The college is also a proud member of INFLIBNET.'
-        ),
-        array(
-            'title'    => 'Science Laboratories Complex',
-            'subtitle' => 'Physics, Chemistry, Botany & Zoology',
-            'icon'     => '🔬',
-            'badge'    => 'Estd. 1967',
-            'desc'     => 'Commissioned under Principal Dr. Jitram Pathak in 1967, featuring specialized experimental laboratories and modern scientific equipment fulfilling collegiate needs.'
-        ),
-        array(
-            'title'    => 'Professional Centers (BCA, IGNOU & Prak Pariksha)',
-            'subtitle' => 'Vocational & Competitive Training',
-            'icon'     => '💻',
-            'badge'    => 'Vocational Wing',
-            'desc'     => 'Accommodates the Bachelor of Computer Applications (BCA) introduced in 2015-16, the full-fledged IGNOU centre (functioning since 1997 with 1500+ students), and the Bihar Government Prak Pariksha Prashikshan Kendra.'
-        ),
-        array(
-            'title'    => 'Sacred Heritage Shrines on Campus',
-            'subtitle' => 'Ram Lakshman Janki Mandir & Kaldhatri Mandir',
-            'icon'     => '🛕',
-            'badge'    => 'Ancient Heritage',
-            'desc'     => 'The beautiful temple of Ram Lakshman Janki with architectural devices to beautify the college, and the temple of Kaldhatri (Gaiya Maiya) Mandir representing ancient architecture.'
-        ),
-        array(
-            'title'    => 'Student Amenities, Sports Grounds, NCC & NSS',
-            'subtitle' => 'Common Rooms, Grounds & Post Office',
-            'icon'     => '🏃',
-            'badge'    => 'Student Welfare',
-            'desc'     => 'Separate common rooms for boys and girls, active N.C.C. and N.S.S. offices, regular annual sports and debating society facilities, along with an on-campus post office.'
-        )
-    );
-
     ob_start();
     ?>
     <style>
         <?php echo mvc_get_about_shared_css(); ?>
-
-        .mvc-mp-plan-tabs {
-            display: flex;
-            align-items: center;
-            background: #FFFFFF;
-            border: 1.5px solid var(--mvc-border);
+        .mvc-pdf-document-card {
+            background: #ffffff;
+            border: 1px solid #E2E8F0;
             border-radius: 14px;
-            padding: 4px;
-            gap: 6px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 14px rgba(0, 33, 71, 0.04);
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .mvc-mp-tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 10px 14px;
-            font-size: 13.5px;
-            font-weight: 800;
-            color: #475569;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
-            min-height: 42px;
-        }
-
-        .mvc-mp-tab-btn:hover {
-            background: #F1F5F9;
-            color: var(--mvc-navy);
-        }
-
-        .mvc-mp-tab-btn.is-active {
-            background: var(--mvc-navy);
-            color: #FFFFFF !important;
-            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.2);
-        }
-
-        .mvc-mp-plan-panel {
-            display: none;
-        }
-
-        .mvc-mp-plan-panel.is-active {
-            display: block;
-        }
-
-        /* 2D & 3D BLUEPRINT DISPLAY */
-        .mvc-mp-blueprint-box {
-            background: linear-gradient(135deg, #0A192F 0%, #002147 100%);
-            border: 2px solid var(--mvc-gold);
-            border-radius: 16px;
-            padding: clamp(24px, 4vw, 36px);
-            color: #FFFFFF;
+            padding: 24px 28px;
+            box-shadow: 0 4px 16px rgba(0, 33, 71, 0.06);
             margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(0, 33, 71, 0.2);
-            position: relative;
-            overflow: hidden;
         }
-
-        .mvc-mp-blueprint-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-            background-size: 30px 30px;
-            pointer-events: none;
-        }
-
-        .mvc-mp-bp-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
-
-        .mvc-mp-bp-title {
-            font-size: clamp(18px, 2.5vw, 22px);
-            font-weight: 800;
-            color: var(--mvc-gold-light);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mvc-mp-bp-badge {
-            background: rgba(212, 175, 55, 0.2);
-            border: 1px solid var(--mvc-gold);
-            color: #FEF08A;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 999px;
-            text-transform: uppercase;
-        }
-
-        .mvc-mp-bp-schematic {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .mvc-mp-bp-zone-node {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 16px;
-            backdrop-filter: blur(4px);
-            transition: all 0.2s ease;
-        }
-
-        .mvc-mp-bp-zone-node:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--mvc-gold);
-            transform: translateY(-2px);
-        }
-
-        .mvc-mp-bp-node-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .mvc-mp-bp-node-title {
-            font-size: 13.5px;
-            font-weight: 800;
-            color: #FFFFFF;
-            margin: 0 0 4px;
-        }
-
-        .mvc-mp-bp-node-desc {
-            font-size: 11.5px;
-            color: #CBD5E1;
-            line-height: 1.45;
-            margin: 0;
-        }
-
-        /* FACILITIES GRID */
-        .mvc-mp-fac-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 22px;
-        }
-
-        .mvc-mp-fac-card {
-            background: #FFFFFF;
-            border: 1.5px solid var(--mvc-border);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 16px rgba(0, 33, 71, 0.04);
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-        }
-
-        .mvc-mp-fac-card:hover {
-            border-color: var(--mvc-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(0, 33, 71, 0.08);
-        }
-
-        .mvc-mp-fac-icon-box {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 12px;
-            background: #F8FAFC;
-            border: 1px solid var(--mvc-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .mvc-mp-fac-body {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .mvc-mp-fac-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .mvc-mp-fac-badge {
-            font-size: 11px;
-            font-weight: 800;
-            color: var(--mvc-navy);
-            background: #EFF6FF;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid #BFDBFE;
-        }
-
-        .mvc-mp-fac-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--mvc-navy);
-            margin: 0 0 2px;
-            line-height: 1.35;
-        }
-
-        .mvc-mp-fac-subtitle {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--mvc-gold-amber);
-            margin-bottom: 8px;
-        }
-
-        .mvc-mp-fac-desc {
-            font-size: 13.5px;
-            line-height: 1.6;
-            color: #475569;
-            margin: 0;
-        }
-
-        @media (max-width: 991px) {
-            .mvc-mp-bp-schematic {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .mvc-mp-fac-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .mvc-mp-bp-schematic {
-                grid-template-columns: 1fr;
-            }
-            .mvc-mp-plan-tabs {
-                flex-direction: column;
-            }
-            .mvc-mp-tab-btn {
-                width: 100%;
+        @media (max-width: 640px) {
+            .mvc-pdf-document-card {
+                padding: 16px;
             }
         }
     </style>
@@ -2856,38 +2551,43 @@ function mvc_render_master_plan_page() {
             <!-- SUITE CHAPTER NAVIGATOR -->
             <?php echo mvc_render_about_suite_nav('master-plan'); ?>
 
-            <!-- MASTER PLAN STATUS -->
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-left:4px solid var(--mvc-navy); border-radius:10px; padding:14px 18px; margin-bottom:24px;">
-                <p style="margin:0; font-size:14px; color:#475569; line-height:1.5;">
-                    ℹ️ <strong>Campus Master Plan:</strong> The physical facilities and collegiate spatial layout across 10 bighas on the Ganga riverfront at Charitravan, Buxar are detailed below.
-                </p>
+            <!-- MASTER PLAN PDF SHOWCASE (Clean, Direct, Zero Extra Fluff) -->
+            <?php
+            $master_pdf = get_post_meta($post_id, 'master_plan_pdf', true);
+            if (empty($master_pdf)) {
+                $master_pdf = home_url('/wp-content/uploads/live_imported/docs/Master_Plan_MV_College.pdf');
+            }
+            ?>
+            <div class="mvc-pdf-document-card" style="background:#ffffff; border:1px solid #E2E8F0; border-radius:14px; padding:24px 28px; box-shadow:0 4px 16px rgba(0,33,71,0.06); margin-bottom:30px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:20px; padding-bottom:16px; border-bottom:1.5px solid #F1F5F9;">
+                    <div>
+                        <span style="font-size:12px; font-weight:800; color:var(--mvc-maroon, #800000); text-transform:uppercase; letter-spacing:0.8px; display:block; margin-bottom:4px;">
+                            🏛️ Official Institutional Document
+                        </span>
+                        <h2 style="font-size:20px; font-weight:800; color:var(--mvc-navy, #002147); margin:0 0 6px;">
+                            Campus Master Plan &amp; Spatial Infrastructure Layout
+                        </h2>
+                        <p style="margin:0; font-size:13.5px; color:#64748B;">
+                            Official 2D &amp; 3D architectural roadmap across 10 Bighas on Ganga Riverfront, Charitravan, Buxar
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="<?php echo esc_url($master_pdf); ?>" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:6px; font-size:13.5px; font-weight:700; background:var(--mvc-maroon, #800000); color:#ffffff; text-decoration:none; box-shadow:0 2px 6px rgba(128,0,0,0.2);">
+                            📄 Download Master Plan PDF &rarr;
+                        </a>
+                        <a href="<?php echo esc_url($master_pdf); ?>" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; padding:10px 18px; border-radius:6px; font-size:13.5px; font-weight:700; background:#EFF6FF; color:var(--mvc-navy, #002147); text-decoration:none; border:1px solid #BFDBFE;">
+                            ↗ Open Fullscreen
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EMBEDDED PDF VIEWER -->
+                <div style="width:100%; border-radius:10px; overflow:hidden; border:1px solid #E2E8F0; background:#f8fafc;">
+                    <iframe src="<?php echo esc_url($master_pdf); ?>#toolbar=1&navpanes=0" width="100%" height="800px" style="border:none; display:block;" title="Campus Master Plan PDF Viewer">
+                        <p style="padding:24px; text-align:center;">Your browser does not support inline PDF viewing. <a href="<?php echo esc_url($master_pdf); ?>" target="_blank">Click here to download the Master Plan PDF</a>.</p>
+                    </iframe>
+                </div>
             </div>
-
-            <!-- AUTHENTIC CAMPUS FACILITIES DIRECTORY -->
-            <section class="mvc-ab-section">
-                <div class="mvc-ab-sec-header">
-                    <h2 class="mvc-ab-sec-title">
-                        <span>🗺️ Campus Physical Infrastructure Details</span>
-                    </h2>
-                    <span class="mvc-ab-sec-tag">Official Facilities</span>
-                </div>
-
-                <div class="mvc-mp-fac-grid">
-                    <?php foreach ($facilities as $fac) : ?>
-                        <div class="mvc-mp-fac-card">
-                            <div class="mvc-mp-fac-icon-box"><?php echo esc_html($fac['icon']); ?></div>
-                            <div class="mvc-mp-fac-body">
-                                <div class="mvc-mp-fac-top">
-                                     <span class="mvc-mp-fac-badge"><?php echo esc_html($fac['badge']); ?></span>
-                                </div>
-                                <h3 class="mvc-mp-fac-title"><?php echo esc_html($fac['title']); ?></h3>
-                                <div class="mvc-mp-fac-subtitle"><?php echo esc_html($fac['subtitle']); ?></div>
-                                <p class="mvc-mp-fac-desc"><?php echo esc_html($fac['desc']); ?></p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </section>
         </main>
     </div>
 
