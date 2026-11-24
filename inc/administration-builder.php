@@ -758,6 +758,55 @@ function mvc_render_our_administration_page($override_form_id = null) {
             scrollbar-width: thin;
         }
 
+        /* MOBILE DROPDOWN STYLES */
+        .mvc-mobile-dept-dropdown-wrap,
+        .mvc-mobile-cadre-dropdown-wrap {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .mvc-mobile-dept-label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .mvc-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .mvc-mobile-dept-select {
+            width: 100%;
+            padding: 12px 42px 12px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--mvc-navy);
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-radius: 10px;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.04);
+            box-sizing: border-box;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23002147' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-mobile-dept-select:focus {
+            border-color: var(--mvc-navy);
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+        }
+
         .mvc-dept-pill-btn {
             background: #FFFFFF;
             border: 1px solid var(--mvc-border);
@@ -846,6 +895,28 @@ function mvc_render_our_administration_page($override_form_id = null) {
             }
         }
 
+        @media (max-width: 768px) {
+            /* Mobile: Dropdown filter active, hide horizontal pills track */
+            .mvc-mobile-dept-dropdown-wrap,
+            .mvc-mobile-cadre-dropdown-wrap {
+                display: block !important;
+            }
+            .mvc-dept-pill-track {
+                display: none !important;
+            }
+
+            /* Mobile: ONLY keep card view, hide view switcher and tabular view */
+            .mvc-view-toggle {
+                display: none !important;
+            }
+            .mvc-table-container {
+                display: none !important;
+            }
+            .mvc-fac-grid-view {
+                display: grid !important;
+            }
+        }
+
         @media (max-width: 640px) {
             .mvc-faculty-grid {
                 grid-template-columns: 1fr;
@@ -867,14 +938,8 @@ function mvc_render_our_administration_page($override_form_id = null) {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .mvc-view-toggle {
-                align-self: flex-start;
-            }
             .mvc-dept-header {
                 padding: 14px 16px;
-            }
-            .mvc-table-container {
-                padding: 0 16px 16px;
             }
         }
     </style>
@@ -951,6 +1016,23 @@ function mvc_render_our_administration_page($override_form_id = null) {
                  TAB 1: TEACHING FACULTY (GROUPED BY DEPARTMENT)
                  ======================================================== -->
             <div id="mvcTeachingFacultyView">
+                <!-- Mobile Department Dropdown Filter -->
+                <div class="mvc-mobile-dept-dropdown-wrap">
+                    <label for="mvcMobileDeptSelect" class="mvc-mobile-dept-label">Select Academic Department:</label>
+                    <div class="mvc-select-wrapper">
+                        <select id="mvcMobileDeptSelect" class="mvc-mobile-dept-select" onchange="mvcFilterFacultyByDept(this.value, null);">
+                            <option value="all">All Departments (<?php echo count($faculty_by_dept); ?>)</option>
+                            <?php foreach ($faculty_by_dept as $dname => $fmembers): 
+                                $icon = $dept_meta_map[$dname]['icon'] ?? '📚';
+                            ?>
+                                <option value="<?php echo esc_attr(sanitize_title($dname)); ?>">
+                                    <?php echo esc_html($icon . ' ' . $dname . ' (' . count($fmembers) . ')'); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Department Fast-Jump Pills -->
                 <div class="mvc-dept-pill-track">
                     <button type="button" class="mvc-dept-pill-btn is-active" onclick="mvcFilterFacultyByDept('all', this);">
@@ -1066,6 +1148,21 @@ function mvc_render_our_administration_page($override_form_id = null) {
                  TAB 2: NON-TEACHING STAFF (GROUPED BY CADRE / WING)
                  ======================================================== -->
             <div id="mvcNonTeachingStaffView" style="display: none;">
+                <!-- Mobile Cadre Dropdown Filter -->
+                <div class="mvc-mobile-cadre-dropdown-wrap">
+                    <label for="mvcMobileCadreSelect" class="mvc-mobile-dept-label">Select Staff Cadre / Wing:</label>
+                    <div class="mvc-select-wrapper">
+                        <select id="mvcMobileCadreSelect" class="mvc-mobile-dept-select" onchange="mvcFilterStaffByCadre(this.value, null);">
+                            <option value="all">All Cadres (<?php echo count($staff_by_cadre); ?>)</option>
+                            <?php foreach ($staff_by_cadre as $ckey => $cdata): ?>
+                                <option value="<?php echo esc_attr($ckey); ?>">
+                                    <?php echo esc_html($cdata['icon'] . ' ' . $cdata['badge'] . ' (' . count($cdata['members']) . ')'); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Cadre Fast-Jump Pills -->
                 <div class="mvc-dept-pill-track">
                     <button type="button" class="mvc-dept-pill-btn is-active" onclick="mvcFilterStaffByCadre('all', this);">
@@ -1254,7 +1351,19 @@ function mvc_render_our_administration_page($override_form_id = null) {
         mvcActiveDept = dept;
         var buttons = document.querySelectorAll('#mvcTeachingFacultyView .mvc-dept-pill-btn');
         buttons.forEach(function(b) { b.classList.remove('is-active'); });
-        if (btn) btn.classList.add('is-active');
+        var select = document.getElementById('mvcMobileDeptSelect');
+        if (btn) {
+            btn.classList.add('is-active');
+            if (select) select.value = dept;
+        } else if (select) {
+            dept = select.value;
+            buttons.forEach(function(b) {
+                if ((b.getAttribute('onclick') || '').indexOf("'" + dept + "'") !== -1) {
+                    b.classList.add('is-active');
+                }
+            });
+        }
+        mvcActiveDept = dept;
         mvcFilterMasterDirectory();
     }
 
@@ -1262,7 +1371,19 @@ function mvc_render_our_administration_page($override_form_id = null) {
         mvcActiveCadre = cadre;
         var buttons = document.querySelectorAll('#mvcNonTeachingStaffView .mvc-dept-pill-btn');
         buttons.forEach(function(b) { b.classList.remove('is-active'); });
-        if (btn) btn.classList.add('is-active');
+        var select = document.getElementById('mvcMobileCadreSelect');
+        if (btn) {
+            btn.classList.add('is-active');
+            if (select) select.value = cadre;
+        } else if (select) {
+            cadre = select.value;
+            buttons.forEach(function(b) {
+                if ((b.getAttribute('onclick') || '').indexOf("'" + cadre + "'") !== -1) {
+                    b.classList.add('is-active');
+                }
+            });
+        }
+        mvcActiveCadre = cadre;
         mvcFilterMasterDirectory();
     }
 
