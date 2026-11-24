@@ -369,16 +369,9 @@ function mvc_render_department_page($post_or_slug = null) {
     // Dynamic Navigation Registry (Merged Section Anchor Bar)
     $tabs = array();
 
-    $tabs['overview'] = array(
-        'id'    => 'overview',
-        'label' => 'Overview',
-        'icon'  => '🏛️',
-        'count' => ''
-    );
-
     $tabs['faculty'] = array(
         'id'    => 'faculty',
-        'label' => 'Faculty Roster',
+        'label' => 'Faculty & Leadership',
         'icon'  => '👨‍🏫',
         'count' => $faculty_count > 0 ? (string)$faculty_count : ''
     );
@@ -855,89 +848,53 @@ function mvc_render_department_page($post_or_slug = null) {
         }
 
         /* ========================================================
-           TAB 1: 10/10 CREATIVE ACADEMIC VISION & HERITAGE
+           EXECUTIVE LEADERSHIP & DOSSIER GRID
            ======================================================== */
-        .mvc-overview-bento-grid {
+        .mvc-leadership-banner-grid {
             display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 28px;
-            align-items: start;
-        }
-
-        /* Editorial Prose Card */
-        .mvc-about-prose-card {
-            background: var(--mvc-surface-card);
-            border: 1px solid var(--mvc-border-light);
-            border-radius: var(--mvc-radius-card);
-            padding: 32px 30px;
-            box-shadow: var(--mvc-shadow-card);
-        }
-        .mvc-editorial-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid #F1F5F9;
-        }
-        .mvc-editorial-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--mvc-navy-royal);
-            margin: 0;
-        }
-        .mvc-editorial-badge {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            background: var(--mvc-gold-light);
-            color: #78350F;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            white-space: nowrap;
-        }
-
-        .mvc-prose-lead {
-            font-size: 16.5px;
-            line-height: 1.85;
-            color: #1E293B;
-            font-weight: 500;
-            margin-bottom: 18px;
-        }
-        .mvc-prose-paragraph {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #475569;
-            margin-bottom: 16px;
-        }
-
-        /* Right Column: Institutional Dossier Sidebar */
-        .mvc-dossier-sidebar {
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: 1fr 340px;
             gap: 22px;
+            align-items: stretch;
+            margin-bottom: 28px;
         }
 
-        /* Executive HOD Chair Card */
-        .mvc-hod-card-box {
+        /* Executive HOD Spotlight Card */
+        .mvc-hod-spotlight-card {
             background: #ffffff;
-            border: 1px solid #E2E8F0;
+            border: 1px solid var(--mvc-border-light);
             border-top: 5px solid var(--mvc-maroon-crimson);
             border-radius: var(--mvc-radius-card);
+            padding: 24px 26px;
             box-shadow: var(--mvc-shadow-card);
-            overflow: hidden;
-            text-align: center;
+            display: flex;
+            align-items: center;
             transition: all 0.25s var(--mvc-ease);
         }
-        .mvc-hod-card-box:hover {
+        .mvc-hod-spotlight-card:hover {
             border-top-color: var(--mvc-gold-primary);
             box-shadow: var(--mvc-shadow-hover);
         }
-        .mvc-hod-card-inner {
-            padding: 24px 22px;
+        .mvc-hod-spotlight-inner {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+        }
+        .mvc-hod-info-col {
+            flex-grow: 1;
+            min-width: 0;
+        }
+        .mvc-hod-lead-quote {
+            font-size: 13.5px;
+            color: #475569;
+            line-height: 1.6;
+            margin: 6px 0 14px;
+        }
+        .mvc-hod-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .mvc-hod-ribbon-tag {
             display: inline-flex;
@@ -957,11 +914,13 @@ function mvc_render_department_page($post_or_slug = null) {
         .mvc-hod-avatar-frame {
             width: 112px;
             height: 112px;
+            min-width: 112px;
             border-radius: 50%;
-            margin: 0 auto 14px;
+            margin: 0;
             padding: 3.5px;
             background: linear-gradient(135deg, var(--mvc-gold-primary) 0%, var(--mvc-navy-royal) 100%);
             box-shadow: 0 6px 18px rgba(0, 33, 71, 0.15);
+            flex-shrink: 0;
         }
         .mvc-hod-img {
             width: 100%;
@@ -1451,7 +1410,7 @@ function mvc_render_department_page($post_or_slug = null) {
             .mvc-metrics-ribbon {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .mvc-overview-bento-grid {
+            .mvc-leadership-banner-grid {
                 grid-template-columns: 1fr;
             }
             .mvc-campus-desk-cards {
@@ -1484,8 +1443,16 @@ function mvc_render_department_page($post_or_slug = null) {
                 padding: 8px 14px;
                 font-size: 13px;
             }
-            .mvc-about-prose-card {
-                padding: 22px 18px;
+            .mvc-hod-spotlight-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 14px;
+            }
+            .mvc-hod-avatar-frame {
+                margin: 0 auto;
+            }
+            .mvc-hod-cta-row {
+                justify-content: center;
             }
             .mvc-faculty-cards-flow {
                 grid-template-columns: 1fr;
@@ -1644,120 +1611,18 @@ function mvc_render_department_page($post_or_slug = null) {
         <main class="mvc-portal-body" id="mvcPortalBody">
             <div class="mvc-portal-container">
 
-                <!-- 1. OVERVIEW -->
-                <section class="mvc-dept-section" id="section-overview">
-                    <div class="mvc-overview-bento-grid">
-                        
-                        <!-- Left: Department Overview Story -->
-                        <div class="mvc-about-prose-card">
-                            <div class="mvc-editorial-header">
-                                <h3 class="mvc-editorial-title">🏛️ Department Overview</h3>
-                                <span class="mvc-editorial-badge">Est. <?php echo esc_html($formatted_est_year); ?></span>
-                            </div>
-
-                            <div class="mvc-prose-body">
-                                <?php if (!empty($overview_data['lead'])) : ?>
-                                    <p class="mvc-prose-lead"><?php echo esc_html($overview_data['lead']); ?></p>
-                                <?php endif; ?>
-
-                                <?php foreach ($overview_data['paragraphs'] as $p_text) : ?>
-                                    <p class="mvc-prose-paragraph"><?php echo esc_html($p_text); ?></p>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                        <!-- Right: Institutional Dossier Sidebar -->
-                        <aside class="mvc-dossier-sidebar">
-                            
-                            <!-- Executive HOD Card -->
-                            <?php if ($hod_post) : 
-                                $hod_id = $hod_post->ID;
-                                $hod_name = $hod_post->post_title;
-                                $hod_desig = get_field('designation', $hod_id) ?: 'Assistant Professor & Head';
-                                $hod_qual = get_field('qualification', $hod_id) ?: 'M.A., Ph.D.';
-                                $hod_email = get_field('email', $hod_id) ?: '';
-                                $hod_photo = get_the_post_thumbnail_url($hod_id, 'medium');
-                                $hod_mono = mvc_get_faculty_monogram($hod_name);
-                            ?>
-                                <div class="mvc-hod-card-box">
-                                    <div class="mvc-hod-card-inner">
-                                        <div class="mvc-hod-ribbon-tag">👑 Head of Department (HOD)</div>
-                                        
-                                        <div class="mvc-hod-avatar-frame">
-                                            <?php if (!empty($hod_photo)) : ?>
-                                                <img src="<?php echo esc_url($hod_photo); ?>" alt="<?php echo esc_attr($hod_name); ?>" class="mvc-hod-img" loading="lazy">
-                                            <?php else : ?>
-                                                <div class="mvc-hod-monogram-circle" aria-hidden="true">
-                                                    <span><?php echo esc_html($hod_mono); ?></span>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-
-                                        <h3 class="mvc-hod-name-txt"><?php echo esc_html($hod_name); ?></h3>
-                                        <div class="mvc-hod-desig-txt"><?php echo esc_html($hod_desig); ?></div>
-                                        <div class="mvc-hod-qual-badge"><?php echo esc_html($hod_qual); ?></div>
-
-                                        <div class="mvc-hod-actions-group">
-                                            <?php if (!empty($hod_email)) : ?>
-                                                <a href="mailto:<?php echo esc_attr($hod_email); ?>" class="mvc-hod-email-btn" title="Contact HOD">
-                                                    ✉️ Contact Department Head
-                                                </a>
-                                            <?php endif; ?>
-                                            <a href="#section-faculty" class="mvc-hod-roster-link-btn" id="mvcHodToRosterBtn">
-                                                👨‍🏫 View Full Faculty Roster &darr;
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-
-                            <!-- Department Specifications Factsheet -->
-                            <div class="mvc-factsheet-card">
-                                <h4 class="mvc-factsheet-head">📋 Department Dossier</h4>
-                                <ul class="mvc-factsheet-list">
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">🏛️ Faculty</span>
-                                        <span class="mvc-factsheet-val">Faculty of <?php echo esc_html($faculty_group); ?></span>
-                                    </li>
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">📅 Established</span>
-                                        <span class="mvc-factsheet-val"><?php echo esc_html($formatted_est_year); ?></span>
-                                    </li>
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">👥 Intake Quota</span>
-                                        <span class="mvc-factsheet-val"><?php echo esc_html($formatted_seats); ?></span>
-                                    </li>
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">📜 Framework</span>
-                                        <span class="mvc-factsheet-val">NEP 2020 &bull; CBCS</span>
-                                    </li>
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">🌐 Instruction</span>
-                                        <span class="mvc-factsheet-val">Bilingual (English &amp; Hindi)</span>
-                                    </li>
-                                    <li class="mvc-factsheet-item">
-                                        <span class="mvc-factsheet-key">🎓 University</span>
-                                        <span class="mvc-factsheet-val">VKSU Ara (UGC Approved)</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </aside>
-
-                    </div>
-                </section>
-
-                <!-- 2. FACULTY ROSTER -->
+                <!-- 1. FACULTY MEMBERS & LEADERSHIP -->
                 <section class="mvc-dept-section" id="section-faculty">
                     <div class="mvc-pane-head-box">
                         <div>
-                            <h2 class="mvc-pane-title-txt">👨‍🏫 Faculty Members</h2>
-                            <p class="mvc-pane-sub-txt">Distinguished professors, scholars, and academic mentors of <?php echo esc_html($dept_title); ?></p>
+                            <h2 class="mvc-pane-title-txt">👨‍🏫 Faculty Members &amp; Academic Leadership</h2>
+                            <p class="mvc-pane-sub-txt">Distinguished professors, scholars, and academic administration of <?php echo esc_html($dept_title); ?></p>
                         </div>
                         <span class="mvc-hero-badge-pill" style="color: var(--mvc-navy-royal); border-color: #cbd5e1; background: #ffffff;">
                             <?php echo esc_html($faculty_count); ?> Active Educators
                         </span>
                     </div>
+
 
                     <?php if (!empty($faculty_posts)) : ?>
                         <div class="mvc-faculty-cards-flow">
@@ -2167,7 +2032,7 @@ function mvc_render_department_page($post_or_slug = null) {
             </div>
         </main>
 
-        <!-- 4. PURE VANILLA JS ANCHOR NAVIGATION & SCROLLSPY CONTROLLER -->
+        <!-- 4. PURE VANILLA JS ANCHOR NAVIGATION CONTROLLER -->
         <script>
         (function() {
             function initUnifiedDeptNav() {
@@ -2215,7 +2080,10 @@ function mvc_render_department_page($post_or_slug = null) {
                     setTimeout(updateNavArrowStates, 120);
                 }
 
-                // Smooth scroll to section on navigation click
+                var isProgrammaticScroll = false;
+                var scrollTimeout = null;
+
+                // Smooth scroll to section ONLY on explicit navigation click
                 navLinks.forEach(function(link) {
                     link.addEventListener('click', function(e) {
                         var targetId = this.getAttribute('data-target');
@@ -2223,9 +2091,8 @@ function mvc_render_department_page($post_or_slug = null) {
                         if (!targetEl) return;
                         e.preventDefault();
 
-                        var navHeight = navBar.offsetHeight || 60;
-                        var targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
-                        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                        isProgrammaticScroll = true;
+                        clearTimeout(scrollTimeout);
 
                         navLinks.forEach(function(btn) { 
                             btn.classList.remove('active'); 
@@ -2234,77 +2101,67 @@ function mvc_render_department_page($post_or_slug = null) {
                         this.classList.add('active');
                         this.setAttribute('aria-selected', 'true');
 
-                        var cleanId = targetId.replace('section-', '');
-                        if (window.history && window.history.replaceState) {
-                            window.history.replaceState(null, null, '#' + cleanId);
+                        // Horizontal track centering without window scroll
+                        if (scrollTrack) {
+                            var btnLeft = this.offsetLeft;
+                            var btnWidth = this.offsetWidth;
+                            var trackWidth = scrollTrack.offsetWidth;
+                            scrollTrack.scrollTo({ left: btnLeft - (trackWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
                         }
+
+                        var navHeight = navBar.offsetHeight || 60;
+                        var targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
+                        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+                        scrollTimeout = setTimeout(function() {
+                            isProgrammaticScroll = false;
+                        }, 800);
                     });
                 });
 
-                // HOD Card Quick Link to Roster Section
-                var hodRosterBtn = document.getElementById('mvcHodToRosterBtn');
-                if (hodRosterBtn) {
-                    hodRosterBtn.addEventListener('click', function(e) {
-                        var facultySec = document.getElementById('section-faculty');
-                        if (facultySec) {
-                            e.preventDefault();
-                            var navHeight = navBar.offsetHeight || 60;
-                            var targetTop = facultySec.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
-                            window.scrollTo({ top: targetTop, behavior: 'smooth' });
-                            var facBtn = document.getElementById('tab-btn-faculty');
-                            if (facBtn) {
-                                navLinks.forEach(function(btn) { btn.classList.remove('active'); });
-                                facBtn.classList.add('active');
-                            }
-                        }
-                    });
-                }
-
-                // ScrollSpy via IntersectionObserver
-                if ('IntersectionObserver' in window && sections.length > 0) {
-                    var observer = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
-                            if (entry.isIntersecting) {
-                                var secId = entry.target.id;
-                                var tid = secId.replace('section-', '');
-                                var activeBtn = document.getElementById('tab-btn-' + tid);
-                                if (activeBtn) {
-                                    navLinks.forEach(function(btn) { 
-                                        btn.classList.remove('active'); 
-                                        btn.setAttribute('aria-selected', 'false'); 
-                                    });
-                                    activeBtn.classList.add('active');
-                                    activeBtn.setAttribute('aria-selected', 'true');
-                                    if (activeBtn.scrollIntoView) {
-                                        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                                    }
-                                }
-                            }
-                        });
-                    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+                // ScrollSpy: highlight active tab as user scrolls naturally
+                function onScrollSpy() {
+                    if (isProgrammaticScroll) return;
+                    var navHeight = navBar.offsetHeight || 60;
+                    var scrollPos = window.pageYOffset + navHeight + 60;
+                    var currentSection = null;
 
                     sections.forEach(function(sec) {
-                        observer.observe(sec);
+                        var top = sec.offsetTop;
+                        var height = sec.offsetHeight;
+                        if (scrollPos >= top && scrollPos < (top + height)) {
+                            currentSection = sec;
+                        }
                     });
-                }
 
-                // Initial hash support (e.g. #faculty, #notices)
-                var currentHash = window.location.hash.replace('#', '');
-                if (currentHash) {
-                    var targetSection = document.getElementById('section-' + currentHash);
-                    if (targetSection) {
-                        setTimeout(function() {
-                            var navHeight = navBar.offsetHeight || 60;
-                            var targetTop = targetSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
-                            window.scrollTo({ top: targetTop, behavior: 'smooth' });
-                            var hashBtn = document.getElementById('tab-btn-' + currentHash);
-                            if (hashBtn) {
-                                navLinks.forEach(function(btn) { btn.classList.remove('active'); });
-                                hashBtn.classList.add('active');
+                    // If at the very bottom of page, activate last section
+                    if ((window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 60) && sections.length > 0) {
+                        currentSection = sections[sections.length - 1];
+                    }
+
+                    if (currentSection) {
+                        var tid = currentSection.id.replace('section-', '');
+                        var activeBtn = document.getElementById('tab-btn-' + tid);
+                        if (activeBtn && !activeBtn.classList.contains('active')) {
+                            navLinks.forEach(function(btn) { 
+                                btn.classList.remove('active'); 
+                                btn.setAttribute('aria-selected', 'false'); 
+                            });
+                            activeBtn.classList.add('active');
+                            activeBtn.setAttribute('aria-selected', 'true');
+
+                            // Horizontal track centering ONLY (never touches window scroll)
+                            if (scrollTrack) {
+                                var btnLeft = activeBtn.offsetLeft;
+                                var btnWidth = activeBtn.offsetWidth;
+                                var trackWidth = scrollTrack.offsetWidth;
+                                scrollTrack.scrollTo({ left: btnLeft - (trackWidth / 2) + (btnWidth / 2), behavior: 'smooth' });
                             }
-                        }, 300);
+                        }
                     }
                 }
+
+                window.addEventListener('scroll', onScrollSpy, { passive: true });
             }
 
             if (document.readyState === 'loading') {
