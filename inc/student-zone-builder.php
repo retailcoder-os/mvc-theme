@@ -1657,7 +1657,7 @@ function mvc_render_sz_study_material() {
             <h2 class="mvc-sz-section-title">
                 e-Learning Resources & Faculty Notes
             </h2>
-            <span class="mvc-sz-badge">100% Repository Self-Contained</span>
+            <!-- <span class="mvc-sz-badge">100% Repository Self-Contained</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             Digital study notes, lecture slide handouts, and reference readings prepared and uploaded by M.V. College faculty members to support students beyond classroom lectures:
@@ -1728,7 +1728,7 @@ function mvc_render_sz_outcomes() {
             <h2 class="mvc-sz-section-title">
                 Undergraduate Outcomes Matrix (PO / PSO / CO)
             </h2>
-            <span class="mvc-sz-badge">NAAC Criterion 2.6 Mandate</span>
+            <!-- <span class="mvc-sz-badge">NAAC Criterion 2.6 Mandate</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             Articulated Course Outcomes (CO), Program Specific Outcomes (PSO), and Program Outcomes (PO) defining expected graduate attributes upon completion of degree programs:
@@ -1786,7 +1786,7 @@ function mvc_render_sz_outcomes() {
             <h2 class="mvc-sz-section-title">
                 Postgraduate (M.A.) Learning Outcomes Matrix
             </h2>
-            <span class="mvc-sz-badge">Postgraduate Studies</span>
+            <!-- <span class="mvc-sz-badge">Postgraduate Studies</span> -->
         </div>
 
         <div class="mvc-sz-table-wrap">
@@ -1847,7 +1847,7 @@ function mvc_render_sz_result() {
             <h2 class="mvc-sz-section-title">
                 Veer Kunwar Singh University Examination & Results Portal
             </h2>
-            <span class="mvc-sz-badge">VKSU Ara Centralized Gateway</span>
+            <!-- <span class="mvc-sz-badge">VKSU Ara Centralized Gateway</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:24px;">
             Semester and annual examination results for undergraduate and postgraduate students are tabulated, verified, and published centrally by the Examination Department of Veer Kunwar Singh University, Ara. Use the verified gateways below:
@@ -1918,7 +1918,7 @@ function mvc_render_sz_holiday_calendar() {
             <h2 class="mvc-sz-section-title">
                 Annual Institutional Holiday Calendar
             </h2>
-            <span class="mvc-sz-badge">Approved by Chancellor's Secretariat</span>
+            <!-- <span class="mvc-sz-badge">Approved by Chancellor's Secretariat</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             The list of gazetted, executive, and academic recess holidays observed by Maharshi Vishwamitra Mahavidyalaya as officially approved by Raj Bhavan, Patna and Veer Kunwar Singh University, Ara:
@@ -1994,7 +1994,7 @@ function mvc_render_sz_student_testimonial() {
             <h2 class="mvc-sz-section-title">
                 Student Testimonials & Scholar Journeys
             </h2>
-            <span class="mvc-sz-badge">Student Voices & Experiences</span>
+            <!-- <span class="mvc-sz-badge">Student Voices & Experiences</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:28px;">
             Reflections and authentic experiences from scholars across Humanities, Social Sciences, Science, and Postgraduate departments who have grown and achieved through the academic ecosystem of M.V. College, Buxar:
@@ -2046,7 +2046,7 @@ function mvc_render_sz_alumni_registration() {
             <h2 class="mvc-sz-section-title">
                 M.V. College Alumni Association (MVCAA)
             </h2>
-            <span class="mvc-sz-badge">Lifelong Institutional Bond</span>
+            <!-- <span class="mvc-sz-badge">Lifelong Institutional Bond</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             Maharshi Vishwamitra Mahavidyalaya takes immense pride in its alumni serving with distinction in judiciary, civil services, academic research, public governance, defense forces, and multinational industries across India and abroad.
@@ -2121,7 +2121,7 @@ function mvc_render_sz_360_feedback() {
             <h2 class="mvc-sz-section-title">
                 360° Comprehensive Stakeholder Feedback Mechanism
             </h2>
-            <span class="mvc-sz-badge">IQAC Quality Enhancement Mandate</span>
+            <!-- <span class="mvc-sz-badge">IQAC Quality Enhancement Mandate</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             In compliance with National Assessment and Accreditation Council (NAAC) Criterion 1.4, Maharshi Vishwamitra Mahavidyalaya operates a structured 360-degree feedback system collecting qualitative and quantitative evaluations from all institutional stakeholders:
@@ -2201,7 +2201,7 @@ function mvc_render_sz_feedback_report() {
             <h2 class="mvc-sz-section-title">
                 Feedback Analysis & Action Taken Reports (ATR)
             </h2>
-            <span class="mvc-sz-badge">IQAC Statutory Resolution</span>
+            <!-- <span class="mvc-sz-badge">IQAC Statutory Resolution</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             Summarized analysis of annual stakeholder feedback and documented Action Taken Reports (ATR) approved by the Internal Quality Assurance Cell (IQAC) and Governing Body:
@@ -2260,7 +2260,7 @@ function mvc_render_sz_student_grievance() {
             <h2 class="mvc-sz-section-title">
                 Statutory Student Grievance Redressal Cell
             </h2>
-            <span class="mvc-sz-badge">UGC (Redress of Grievance) Regulations</span>
+            <!-- <span class="mvc-sz-badge">UGC (Redress of Grievance) Regulations</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:14.5px; line-height:1.6; margin-bottom:20px;">
             Established in accordance with the University Grants Commission (Redress of Grievance of Students) Regulations, the Grievance Redressal Cell provides an impartial, transparent, and confidential platform for resolving grievances relating to admissions, evaluations, fee receipts, or campus facilities:
@@ -2335,7 +2335,7 @@ function mvc_render_sz_default_overview() {
             <h2 class="mvc-sz-section-title">
                 Student Zone Academic & Service Directory
             </h2>
-            <span class="mvc-sz-badge">Centralized Student Gateways</span>
+            <!-- <span class="mvc-sz-badge">Centralized Student Gateways</span> -->
         </div>
         <p style="color:var(--mvc-slate-light); font-size:15px; line-height:1.6; margin-bottom:28px;">
             Welcome to the centralized Student Zone portal of Maharshi Vishwamitra Mahavidyalaya (M.V. College, Buxar). Explore academic guidelines, course syllabi, examination notifications, and student welfare services below:

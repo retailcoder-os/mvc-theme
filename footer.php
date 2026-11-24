@@ -42,9 +42,8 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 
 <footer class="mvc-grand-footer" id="mvcSiteFooter" itemscope itemtype="https://schema.org/CollegeOrUniversity">
     
-
     <!-- ========================================================
-         2. MAIN GRAND 4-COLUMN FOOTER MATRIX
+         MAIN GRAND 4-COLUMN FOOTER MATRIX
          ======================================================== -->
     <div class="mvc-footer-main">
         <div class="mvc-container">
@@ -66,7 +65,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                     </div>
 
                     <p class="mvc-footer-heritage-text" itemprop="description">
-                        Rooted in the sacred Siddhashram heritage of Buxar where Maharshi Vishwamitra nurtured Vedic intellectual awakening, Maharshi Vishwamitra Mahavidyalaya empowers thousands of undergraduate and postgraduate scholars through multidisciplinary CBCS education, state-of-the-art laboratories, and research-led mentorship.
+                        Established in 1958 in the historic Siddhashram of Buxar, Maharshi Vishwamitra Mahavidyalaya is a premier constituent college fostering multidisciplinary academic distinction, research mentorship, and holistic student growth under NEP-2020.
                     </p>
 
                     <div class="mvc-footer-motto-badge">
@@ -77,137 +76,161 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                         </div>
                     </div>
 
-                    <!-- <div class="mvc-footer-accred-tags">
-                        <span class="mvc-accred-tag">🏛️ UGC 2(f) &amp; 12(B)</span>
-                        <span class="mvc-accred-tag">⭐ NAAC Cycle 1 in Process</span>
-                        <span class="mvc-accred-tag">🛡️ AICTE Approved</span>
-                        <span class="mvc-accred-tag">📋 AISHE Registered</span>
-                    </div> -->
+                    <div class="mvc-footer-accred-tags">
+                        <span class="mvc-accred-tag">🏛️ VKSU Constituent</span>
+                        <span class="mvc-accred-tag">⭐ UGC 2(f) &amp; 12(B)</span>
+                        <span class="mvc-accred-tag">📋 AISHE: C-27158</span>
+                        <span class="mvc-accred-tag">📅 Estd. 1958</span>
+                    </div>
                 </div>
 
-                <!-- Col 2: Academic Wings & Faculty Matrix -->
+                <!-- Col 2: Academic Portals -->
                 <div class="mvc-footer-col">
                     <h4 class="mvc-footer-col-title">
-                        <span>Academic Wings</span>
+                        <span>Academic Portals</span>
                         <span class="mvc-title-bar"></span>
                     </h4>
                     <ul class="mvc-footer-nav-list">
-                        <li>
-                            <a href="/glance">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>College at a Glance</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/admission-procedure/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Undergraduate &amp; PG Programs</span>
+                                </span>
+                                <span class="mvc-nav-badge">NEP-2020</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/#mvcFacultyMatrix">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Four-Year FYUGP CBCS Programs</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/our-administration/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Faculty &amp; Staff Directories</span>
+                                </span>
+                                <span class="mvc-nav-badge">Directory</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/#mvcFacultyMatrix">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Postgraduate (P.G.) Faculties</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/library/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Central Digital Library &amp; OPAC</span>
+                                </span>
+                                <span class="mvc-nav-badge">e-Library</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/teaching-staff">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Teaching Faculty Directory</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/academic-calendar/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Academic Calendar &amp; Schedules</span>
+                                </span>
+                                <span class="mvc-nav-badge">2024–25</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/non-teaching-staff">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Non-Teaching Administrative Staff</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/research/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Research, ONOS &amp; Publications</span>
+                                </span>
+                                <span class="mvc-nav-badge">Journals</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/library">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Central Digital Library &amp; e-Resources</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/onos/">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>One Nation One Subscription (ONOS)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/research/">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Research &amp; Publications</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/college-prospectus">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>College Prospectus &amp; Syllabus</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/sanctioned-teachers">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Sanctioned Faculty Posts</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/sanctioned-teachers/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Sanctioned Faculty Posts</span>
+                                </span>
+                                <span class="mvc-nav-badge">UGC Matrix</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Col 3: Statutory Governance & Student Portal -->
+                <!-- Col 3: Statutory Governance & Cells -->
                 <div class="mvc-footer-col">
                     <h4 class="mvc-footer-col-title">
                         <span>Governance &amp; Cells</span>
                         <span class="mvc-title-bar"></span>
                     </h4>
                     <ul class="mvc-footer-nav-list">
-                        <li>
-                            <a href="/iqac">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Internal Quality Assurance (IQAC)</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/iqac/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Internal Quality Assurance (IQAC)</span>
+                                </span>
+                                <span class="mvc-nav-badge">NAAC</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/anti-ragging-cell">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Anti-Ragging Cell &amp; 24x7 Helpline</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/anti-ragging-cell/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Statutory Anti-Ragging Cell</span>
+                                </span>
+                                <span class="mvc-nav-badge">24×7 Active</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/student-grievance">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Student Grievance Redressal</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/student-grievance/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Student Grievance Redressal</span>
+                                </span>
+                                <span class="mvc-nav-badge">Online Portal</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/committees-cells">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Statutory Committees &amp; Cells</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/committees-cells/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Statutory Committees &amp; Cells</span>
+                                </span>
+                                <span class="mvc-nav-badge">Committees</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/facility">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Campus Facilities, Sports &amp; NSS</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/facility/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Campus Facilities &amp; Amenities</span>
+                                </span>
+                                <span class="mvc-nav-badge">23+ Wings</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/code-of-conduct">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Code of Conduct &amp; Ethics</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/tender">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Public Tenders &amp; Procurements</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/media">
-                                <svg class="mvc-nav-arrow" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
-                                <span>Press Media &amp; Newspaper Clippings</span>
+                        <li class="mvc-footer-nav-item">
+                            <a href="/media/" class="mvc-footer-nav-link">
+                                <span class="mvc-footer-nav-link-left">
+                                    <span class="mvc-nav-arrow-wrap">
+                                        <svg class="mvc-nav-arrow" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                                    </span>
+                                    <span class="mvc-nav-text">Press &amp; Media Coverage</span>
+                                </span>
+                                <span class="mvc-nav-badge">Press Archive</span>
                             </a>
                         </li>
                     </ul>
@@ -268,9 +291,9 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                             <span>Open in Google Maps &nearr;</span>
                         </a>
-                        <a href="tel:18001805522" class="mvc-footer-action-btn mvc-emergency-btn">
+                        <a href="/help-desk/" class="mvc-footer-action-btn mvc-emergency-btn">
                             <span class="mvc-pulse-dot"></span>
-                            <span>24x7 Anti-Ragging: 1800-180-5522</span>
+                            <span>24×7 Help Desk &amp; Hotline</span>
                         </a>
                     </div>
                 </div>
@@ -280,13 +303,12 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     </div>
 
     <!-- ========================================================
-         3. LIVE REAL-TIME FOOTFALL & DIGITAL PORTAL METRICS
+         LIVE REAL-TIME FOOTFALL & DIGITAL PORTAL METRICS
          ======================================================== -->
     <div class="mvc-footer-analytics-bar">
         <div class="mvc-container">
             <div class="mvc-analytics-inner">
                 <div class="mvc-analytics-header">
-                    <!-- <span class="mvc-analytics-badge">Verified Portal Traffic</span> -->
                     <h5 class="mvc-analytics-title">Live Footfall</h5>
                 </div>
                 <div class="mvc-analytics-grid">
@@ -333,7 +355,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     </div>
 
     <!-- ========================================================
-         4. BOTTOM LEGAL, COPYRIGHT & SOCIAL BAR
+         BOTTOM LEGAL, COPYRIGHT & SOCIAL BAR
          ======================================================== -->
     <div class="mvc-footer-bottom">
         <div class="mvc-container">
@@ -349,15 +371,17 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                 </div>
 
                 <div class="mvc-bottom-legal-links">
-                    <a href="/vision-mission">Vision &amp; Mission</a>
+                    <a href="/vision-mission/">Vision &amp; Mission</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/rules-regulations">Rules &amp; Regulations</a>
+                    <a href="/rules-regulations/">Rules &amp; Regulations</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/student-grievance">RTI Act Cell</a>
+                    <a href="/code-of-conduct/">Code of Conduct</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/tender">Procurement</a>
+                    <a href="/student-grievance/">RTI Act Cell</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/contact-us">Help Desk</a>
+                    <a href="/tender/">Procurement</a>
+                    <span class="mvc-sep">&bull;</span>
+                    <a href="/help-desk/">Help Desk</a>
                 </div>
 
                 <div class="mvc-bottom-social-bar">
@@ -391,6 +415,14 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 /* ========================================================
    GRAND INSTITUTIONAL FOOTER STYLES (10/10 STANDARD)
    ======================================================== */
+.mvc-container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
 .mvc-grand-footer {
     background: #001226;
     color: #CBD5E1;
@@ -401,70 +433,18 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     line-height: 1.6;
 }
 
-/* 1. National Portals & Regulatory Ribbon */
-.mvc-footer-portals-ribbon {
-    background: #000c1a;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    padding: 14px 0;
-}
-.mvc-portals-flex {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-.mvc-portals-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #D4AF37;
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    white-space: nowrap;
-}
-.mvc-portals-pills {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    flex: 1;
-}
-.mvc-portal-pill {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #E2E8F0 !important;
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 999px;
-    text-decoration: none !important;
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-}
-.mvc-portal-pill:hover {
-    background: #800000;
-    border-color: #D4AF37;
-    color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(128, 0, 0, 0.35);
-}
-
-/* 2. Main Footer Body */
+/* Main Footer Body */
 .mvc-footer-main {
-    padding: 70px 0 50px;
+    padding: 60px 0 45px;
     background: radial-gradient(circle at 10% 20%, rgba(128, 0, 0, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(0, 33, 71, 0.3) 0%, transparent 45%),
                 #00142B;
 }
 .mvc-footer-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-    gap: 40px;
+    grid-template-columns: 1.35fr 1fr 1fr 1.15fr;
+    gap: 36px;
+    align-items: start;
 }
 
 /* Col 1: Brand & Heritage */
@@ -472,11 +452,11 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 .mvc-footer-seal-ring {
-    width: 68px;
-    height: 68px;
+    width: 66px;
+    height: 66px;
     border-radius: 50%;
     background: #ffffff;
     border: 2.5px solid #D4AF37;
@@ -504,7 +484,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     color: #ffffff;
     font-size: 12px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.25;
     margin: 0 0 3px;
     letter-spacing: 0.4px;
     white-space: nowrap;
@@ -512,9 +492,9 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 }
 .mvc-footer-inst-hindi {
     color: #D4AF37;
-    font-size: 19.5px;
+    font-size: 18px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
     margin-bottom: 4px;
     font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     display: block;
@@ -526,21 +506,22 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     .mvc-footer-lockup {
         width: 100%;
     }
-    .mvc-footer-inst-name {
+    .mvc-footer-inst-name,
+    .mvc-footer-inst-hindi {
         white-space: normal;
     }
 }
 .mvc-footer-affil-sub {
     color: #94A3B8;
     font-size: 11.5px;
-    line-height: 1.3;
+    line-height: 1.35;
     display: block;
 }
 .mvc-footer-heritage-text {
     font-size: 13.5px;
-    line-height: 1.7;
+    line-height: 1.65;
     color: #94A3B8;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     text-align: justify;
 }
 .mvc-footer-motto-badge {
@@ -552,7 +533,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     border-left: 3px solid #D4AF37;
     padding: 10px 14px;
     border-radius: 6px;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
 }
 .mvc-motto-icon {
     font-size: 20px;
@@ -576,82 +557,139 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     gap: 8px;
 }
 .mvc-accred-tag {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #CBD5E1;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 600;
     padding: 4px 10px;
-    border-radius: 4px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
 }
 
 /* Section Headings */
 .mvc-footer-col-title {
     position: relative;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    margin: 0 0 24px;
-    padding-bottom: 12px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
     display: block;
 }
 .mvc-title-bar {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 38px;
+    width: 36px;
     height: 3px;
     background: #D4AF37;
     border-radius: 999px;
 }
 
-/* Nav Link Lists */
+/* Streamlined Nav Link Lists */
 .mvc-footer-nav-list {
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
-.mvc-footer-nav-list li {
-    margin-bottom: 11px !important;
+.mvc-footer-nav-item {
+    margin: 0 !important;
     padding: 0 !important;
+    list-style: none !important;
 }
-.mvc-footer-nav-list a {
-    color: #94A3B8 !important;
+.mvc-footer-nav-link {
+    color: #CBD5E1 !important;
     text-decoration: none !important;
-    font-size: 13.5px;
+    font-size: 13px;
+    font-weight: 500;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    line-height: 1.35;
+}
+.mvc-footer-nav-link-left {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+.mvc-nav-arrow-wrap {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: rgba(212, 175, 55, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
     transition: all 0.25s ease;
-    line-height: 1.4;
 }
 .mvc-nav-arrow {
     color: #D4AF37;
-    flex-shrink: 0;
     transition: transform 0.25s ease;
 }
-.mvc-footer-nav-list a:hover {
-    color: #ffffff !important;
-    padding-left: 5px;
+.mvc-nav-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.1px;
 }
-.mvc-footer-nav-list a:hover .mvc-nav-arrow {
-    transform: translateX(4px);
+.mvc-nav-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(212, 175, 55, 0.12);
     color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+.mvc-footer-nav-link:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.mvc-footer-nav-link:hover .mvc-nav-arrow-wrap {
+    background: #D4AF37;
+}
+.mvc-footer-nav-link:hover .mvc-nav-arrow {
+    color: #00142B;
+    transform: translateX(1px);
+}
+.mvc-footer-nav-link:hover .mvc-nav-badge {
+    background: #800000;
+    color: #FFFFFF;
+    border-color: #800000;
 }
 
 /* Contact List */
 .mvc-footer-contact-list {
     list-style: none !important;
     padding: 0 !important;
-    margin: 0 0 24px !important;
+    margin: 0 0 20px !important;
 }
 .mvc-footer-contact-list li {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    margin-bottom: 16px !important;
+    margin-bottom: 14px !important;
     padding: 0 !important;
 }
 .mvc-contact-icon {
@@ -668,13 +706,13 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 }
 .mvc-contact-text {
     flex: 1;
-    font-size: 13.5px;
+    font-size: 13px;
     color: #94A3B8;
 }
 .mvc-contact-label {
     display: block;
     color: #D4AF37;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -683,7 +721,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 .mvc-contact-text address {
     font-style: normal;
     color: #CBD5E1;
-    line-height: 1.45;
+    line-height: 1.4;
     margin: 0;
 }
 .mvc-contact-text a {
@@ -719,7 +757,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 .mvc-maps-btn {
     background: #002147;
     color: #ffffff !important;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.35);
 }
 .mvc-maps-btn:hover {
     background: #002c5f;
@@ -747,63 +785,52 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     animation: mvcPulseBeacon 1.8s infinite;
 }
 
-/* 3. Analytics & Footfall Counter Bar */
+/* Analytics & Footfall Counter Bar */
 .mvc-footer-analytics-bar {
     background: #000c1a;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 34px 0;
+    padding: 28px 0;
 }
 .mvc-analytics-header {
     text-align: center;
-    margin-bottom: 22px;
-}
-.mvc-analytics-badge {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.12);
-    color: #D4AF37;
-    font-size: 11.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 3px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    margin-bottom: 6px;
+    margin-bottom: 20px;
 }
 .mvc-analytics-title {
     color: #ffffff;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     margin: 0;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #D4AF37;
 }
 .mvc-analytics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 18px;
 }
 .mvc-metric-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 18px 20px;
+    padding: 16px 18px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     transition: all 0.3s ease;
 }
 .mvc-metric-card:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(212, 175, 55, 0.4);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 .mvc-metric-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(0, 33, 71, 0.8);
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(0, 33, 71, 0.85);
     border: 1px solid rgba(212, 175, 55, 0.25);
     color: #D4AF37;
     display: flex;
@@ -813,7 +840,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     position: relative;
 }
 .mvc-metric-val {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 900;
     color: #ffffff;
     line-height: 1.1;
@@ -821,7 +848,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     letter-spacing: -0.5px;
 }
 .mvc-metric-label {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 600;
     color: #94A3B8;
     margin-top: 3px;
@@ -846,10 +873,10 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
-/* 4. Bottom Legal Strip */
+/* Bottom Legal Strip */
 .mvc-footer-bottom {
     background: #000814;
-    padding: 16px 0;
+    padding: 18px 0;
 }
 .mvc-bottom-flex {
     display: flex;
@@ -860,7 +887,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 }
 .mvc-bottom-copyright .mvc-copy-text {
     margin: 0;
-    font-size: 12.5px;
+    font-size: 12px;
     color: #94A3B8;
     line-height: 1.5;
     display: inline-flex;
@@ -897,7 +924,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 }
 .mvc-bottom-legal-links a {
     color: #94A3B8 !important;
-    font-size: 12.5px;
+    font-size: 12px;
     text-decoration: none !important;
     transition: color 0.2s;
 }
@@ -924,8 +951,8 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     gap: 8px;
 }
 .mvc-social-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -946,7 +973,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 .mvc-social-icon.mvc-ig:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: transparent; }
 .mvc-social-icon.mvc-li:hover { background: #0A66C2; border-color: #0A66C2; box-shadow: 0 4px 14px rgba(10, 102, 194, 0.4); }
 
-/* Astra Native Scroll to Top Button - 10/10 Institutional Styling */
+/* Astra Native Scroll to Top Button */
 #ast-scroll-top,
 .ast-scroll-top-icon {
     position: fixed !important;
@@ -999,33 +1026,57 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     color: #ffffff !important;
 }
 
-/* ========================================================
-   RESPONSIVE MOBILE-FIRST BREAKPOINTS
-   ======================================================== */
+/* Responsive Mobile-First Breakpoints */
 @media (max-width: 1200px) {
     .mvc-footer-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 35px;
+        gap: 32px;
     }
     .mvc-analytics-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
     }
 }
 
 @media (max-width: 768px) {
     .mvc-footer-main {
-        padding: 50px 0 35px;
+        padding: 44px 0 32px;
     }
     .mvc-footer-grid {
         grid-template-columns: 1fr;
-        gap: 35px;
+        gap: 30px;
+    }
+    .mvc-footer-nav-link {
+        padding: 9px 12px;
+    }
+    .mvc-footer-nav-link-left {
+        gap: 10px;
+    }
+    .mvc-nav-text {
+        white-space: normal;
     }
     .mvc-analytics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
-    .mvc-portals-flex {
-        flex-direction: column;
-        align-items: flex-start;
+    .mvc-metric-card {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+    .mvc-metric-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+    }
+    .mvc-metric-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    .mvc-metric-val {
+        font-size: 18px;
+    }
+    .mvc-metric-label {
+        font-size: 11px;
     }
     .mvc-bottom-flex {
         flex-direction: column;
@@ -1040,7 +1091,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     }
     .mvc-bottom-social-bar {
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
     #ast-scroll-top,
     .ast-scroll-top-icon {
@@ -1050,6 +1101,12 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
         height: 42px !important;
         min-width: 42px !important;
         min-height: 42px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mvc-analytics-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
