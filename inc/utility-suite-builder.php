@@ -682,8 +682,8 @@ function mvc_render_library_page() {
                 <div class="mvc-util-hero-pills">
                     <span class="mvc-util-pill mvc-util-pill-gold">🏛 Established 11 June 1958</span>
                     <span class="mvc-util-pill">📖 15,000+ Print Volumes</span>
-                    <span class="mvc-util-pill">🌐 INFLIBNET N-LIST Member</span>
-                    <span class="mvc-util-pill">💻 AutoLib Integrated System</span>
+                    <!-- <span class="mvc-util-pill">🌐 INFLIBNET N-LIST Member</span>
+                    <span class="mvc-util-pill">💻 AutoLib Integrated System</span> -->
                 </div>
             </div>
         </header>
@@ -691,7 +691,7 @@ function mvc_render_library_page() {
         <main class="mvc-util-main">
             <div class="mvc-util-container">
                 <!-- Direct Access Action Hub -->
-                <div style="background: linear-gradient(135deg, #00152e 0%, var(--mvc-navy) 100%); border-radius: 14px; padding: 24px 28px; margin-bottom: 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; box-shadow: 0 8px 24px rgba(0, 33, 71, 0.12); border-left: 6px solid var(--mvc-gold);">
+                <!-- <div style="background: linear-gradient(135deg, #00152e 0%, var(--mvc-navy) 100%); border-radius: 14px; padding: 24px 28px; margin-bottom: 36px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; box-shadow: 0 8px 24px rgba(0, 33, 71, 0.12); border-left: 6px solid var(--mvc-gold);">
                     <div>
                         <h3 style="color:#FFFFFF; margin:0 0 6px; font-size:20px; font-weight:800;">Central Library Automation System (OPAC)</h3>
                         <p style="color:rgba(255,255,255,0.85); margin:0; font-size:14px;">Search online book catalogs, circulation records, and track holding availability remotely.</p>
@@ -705,7 +705,7 @@ function mvc_render_library_page() {
                             <span>N-LIST e-Consortium &rarr;</span>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Stats Grid -->
                 <div class="mvc-util-stats-grid">
@@ -732,7 +732,7 @@ function mvc_render_library_page() {
                 </div>
 
                 <!-- About & Infrastructure -->
-                <div class="mvc-util-card">
+                <!-- <div class="mvc-util-card">
                     <div class="mvc-util-section-header">
                         <h2 class="mvc-util-section-title">Institutional Overview & Reading Ecosystem</h2>
                         <span class="mvc-util-badge">Criterion 4.2 Mandate</span>
@@ -764,7 +764,7 @@ function mvc_render_library_page() {
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Operating Hours & Borrowing Entitlement Table -->
                 <div class="mvc-util-card">
@@ -876,16 +876,6 @@ function mvc_render_library_page() {
                         </table>
                     </div>
                 </div>
-
-                <!-- Campus Library Image -->
-                <?php if (file_exists(ABSPATH . 'wp-content/uploads/library/library2.jpg')): ?>
-                    <div style="background:#FFFFFF; border:1px solid var(--mvc-border); border-radius:14px; overflow:hidden; box-shadow:0 4px 18px rgba(0,33,71,0.05); margin-bottom:36px;">
-                        <img src="<?php echo esc_url(home_url('/wp-content/uploads/library/library2.jpg')); ?>" alt="M.V. College Central Library Reading Hall" style="width:100%; height:auto; max-height:480px; object-fit:cover; display:block;" />
-                        <div style="padding:14px 20px; font-size:13px; color:var(--mvc-slate-light); background:#FAF9F6; border-top:1px solid var(--mvc-border); text-align:center;">
-                            Photo: Central Library & Stacks Section, Maharshi Vishwamitra Mahavidyalaya, Buxar
-                        </div>
-                    </div>
-                <?php endif; ?>
             </div>
         </main>
     </div>
@@ -1598,31 +1588,22 @@ function mvc_render_tender_page() {
 
 /**
  * 5. HELP DESK PAGE RENDERER (/help-desk/)
+ * Redesigned Minimal & Modern Institutional Single-Window Support Suite
  */
 function mvc_render_help_desk_page($override_form_id = null) {
-    global $mvc_shortcode_context;
     mvc_render_utility_suite_styles();
     $post_id = get_the_ID() ?: 850;
-    $hero_title = mvc_get_page_meta($post_id, 'help_desk_hero_title', 'Centralized Institutional Help Desk & Student Support Center');
-    $hero_subtitle = mvc_get_page_meta($post_id, 'help_desk_hero_subtitle', 'केंद्रीय संस्थागत सहायता केंद्र एवं छात्र मार्गदर्शन प्रकोष्ठ');
-    $hero_desc = mvc_get_page_meta($post_id, 'help_desk_hero_desc', 'Comprehensive single-window guidance for academic inquiries, admissions, examination verification, scholarships, and campus services at Maharshi Vishwamitra Mahavidyalaya (M.V. College, Buxar).');
+    $hero_title = 'Central Institutional Help Desk';
     $hotline_phone = mvc_get_global_setting('contact_phone', '06183-796317');
     $secretariat_email = mvc_get_global_setting('principal_email', 'principalmvcbuxar@gmail.com');
 
-    $default_wings = [
+    $desks = [
         [
-            'wing'     => 'Office of the Principal & Central Secretariat',
-            'scope'    => 'Administrative governance, official character verification, bonafide certificates, and institutional clearances.',
-            'incharge' => 'Principal’s Secretariat Desk',
-            'phone'    => '06183-796317 / +91 6183 796317',
-            'email'    => 'principalmvcbuxar@gmail.com',
-            'chamber'  => 'Ground Floor, Administrative Block',
-            'link'     => '/our-administration/',
-            'icon'     => '🏛️'
-        ],
-        [
+            'id'       => 'admissions',
+            'cat'      => 'academic',
+            'cat_name' => 'Academic & Admissions',
             'wing'     => 'Central Admissions & Enrolment Cell',
-            'scope'    => 'Four-Year Undergraduate (FYUGP NEP) and Postgraduate (CBCS) admission counseling, subject choice verification, and quota allocations.',
+            'scope'    => 'Four-Year Undergraduate (FYUGP NEP) & PG admission counseling, subject combination verification, and quota allocations.',
             'incharge' => 'Convener, Admission Committee',
             'phone'    => '06183-222035',
             'email'    => mvc_get_global_setting('admission_email', 'mvcollegebuxar@gmail.com'),
@@ -1631,18 +1612,24 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '🎓'
         ],
         [
+            'id'       => 'examination',
+            'cat'      => 'academic',
+            'cat_name' => 'Academic & Admissions',
             'wing'     => 'University Examination & Tabulation Wing',
-            'scope'    => 'VKSU semester exams, Continuous Internal Assessment (CIA), admit card resolution, and marksheet tabulation.',
+            'scope'    => 'VKSU semester exams, Continuous Internal Assessment (CIA), admit card resolution, and provisional marksheet tabulation.',
             'incharge' => 'Controller of Examinations',
             'phone'    => '06183-796317',
             'email'    => mvc_get_global_setting('examination_email', 'mvcollegebuxar@gmail.com'),
-            'chamber'  => 'Room 105, Confidential Examination Wing',
+            'chamber'  => 'Room 105, Confidential Exam Wing',
             'link'     => '/result/',
             'icon'     => '📝'
         ],
         [
+            'id'       => 'library',
+            'cat'      => 'academic',
+            'cat_name' => 'Academic & Admissions',
             'wing'     => 'Central Library & e-Learning Help Desk',
-            'scope'    => 'AutoLib library card activation, book renewals, INFLIBNET N-LIST proxy credentials, and reading hall assistance.',
+            'scope'    => 'AutoLib library cards, digital catalog OPAC, book renewals, INFLIBNET N-LIST proxy access, and reading room support.',
             'incharge' => 'Dr. Yogershi Rajpoot (Convener)',
             'phone'    => '06183-222035',
             'email'    => mvc_get_global_setting('library_email', 'mvcollegebuxar@gmail.com'),
@@ -1651,6 +1638,9 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '📖'
         ],
         [
+            'id'       => 'scholarships',
+            'cat'      => 'welfare',
+            'cat_name' => 'Finance & Welfare',
             'wing'     => 'Scholarships & Accounts Counter',
             'scope'    => 'National Scholarship Portal (NSP), Bihar Post-Matric Scholarship (PMS), Medhasoft disbursement, fee receipts, and refunds.',
             'incharge' => 'Accounts Officer & Bursar',
@@ -1661,8 +1651,11 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '💳'
         ],
         [
+            'id'       => 'grievance',
+            'cat'      => 'welfare',
+            'cat_name' => 'Finance & Welfare',
             'wing'     => 'Statutory Student Grievance & Ombudsman',
-            'scope'    => 'UGC-compliant confidential grievance resolution relating to admissions, evaluations, amenities, and campus discipline.',
+            'scope'    => 'UGC-compliant confidential grievance resolution for admissions, continuous evaluations, student amenities, and campus discipline.',
             'incharge' => 'Dr. Saikat Debnath (Convener)',
             'phone'    => '06183-796317',
             'email'    => mvc_get_global_setting('grievance_email', 'mvcollegebuxar@gmail.com'),
@@ -1671,18 +1664,37 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '⚖️'
         ],
         [
+            'id'       => 'antiragging',
+            'cat'      => 'welfare',
+            'cat_name' => 'Finance & Welfare',
             'wing'     => 'Anti-Ragging Vigilance Cell',
-            'scope'    => 'Immediate response to ragging, student harassment, psychological intimidation, and mandatory affidavit guidance.',
+            'scope'    => 'Zero-tolerance student protection against ragging, harassment, or intimidation; mandatory anti-ragging affidavit submission.',
             'incharge' => 'Dr. Ras Bihari Sharma (Convener)',
-            'phone'    => '1800-180-5522 (24×7 Hotline)',
-            'email'    => mvc_get_global_setting('antiragging_email', 'mvcollegebuxar@gmail.com'),
+            'phone'    => '1800-180-5522',
+            'email'    => mvc_get_global_setting('antiragging_email', 'antiraggingmvcbuxar@gmail.com'),
             'chamber'  => 'Anti-Ragging Cell Room',
             'link'     => '/anti-ragging-cell/',
             'icon'     => '🚨'
         ],
         [
+            'id'       => 'principal',
+            'cat'      => 'governance',
+            'cat_name' => 'Governance & RTI',
+            'wing'     => 'Office of the Principal & Central Secretariat',
+            'scope'    => 'Executive collegiate governance, bonafide certificates, official character verification, institutional clearances, and VC liaison.',
+            'incharge' => 'Principal’s Secretariat Desk',
+            'phone'    => '06183-796317',
+            'email'    => $secretariat_email,
+            'chamber'  => 'Ground Floor, Administrative Block',
+            'link'     => '/principal-desk/',
+            'icon'     => '🏛️'
+        ],
+        [
+            'id'       => 'icc',
+            'cat'      => 'governance',
+            'cat_name' => 'Governance & RTI',
             'wing'     => 'Internal Complaints Committee (ICC & Women Desk)',
-            'scope'    => 'Prevention of sexual harassment, gender equity counseling, Girls Common Room support, and female scholar safety.',
+            'scope'    => 'Prevention of sexual harassment of women, gender equity assistance, Girls Common Room support, and female scholar safety.',
             'incharge' => 'Presiding Officer, ICC',
             'phone'    => '06183-796317',
             'email'    => mvc_get_global_setting('icc_email', 'mvcollegebuxar@gmail.com'),
@@ -1691,8 +1703,11 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '🛡️'
         ],
         [
+            'id'       => 'rti',
+            'cat'      => 'governance',
+            'cat_name' => 'Governance & RTI',
             'wing'     => 'Public Information Office (Right to Information)',
-            'scope'    => 'RTI Act 2005 documentation requests, statutory disclosures, and public institutional records.',
+            'scope'    => 'RTI Act 2005 statutory documentation requests, proactive disclosures, and public institutional records processing.',
             'incharge' => 'Public Information Officer (PIO)',
             'phone'    => '06183-222035',
             'email'    => mvc_get_global_setting('pio_email', 'mvcollegebuxar@gmail.com'),
@@ -1701,144 +1716,957 @@ function mvc_render_help_desk_page($override_form_id = null) {
             'icon'     => '📄'
         ]
     ];
-    $wings = mvc_get_page_array($post_id, 'help_desk_wings', $default_wings);
     ?>
-    <div class="mvc-util-root">
-        <!-- Hero Banner -->
-        <header class="mvc-util-hero">
-            <div class="mvc-util-hero-inner">
-                <nav class="mvc-util-breadcrumb" aria-label="Breadcrumb">
+    <style>
+        /* ========================================================
+           HELP DESK SUITE REDESIGN - SLEEK, MINIMAL & FUNCTIONAL
+           ======================================================== */
+        .mvc-hd-root {
+            background: #F8FAFC;
+            color: var(--mvc-navy);
+            width: 100%;
+            box-sizing: border-box;
+            padding-bottom: 70px;
+        }
+
+        /* 1. HERO HEADER */
+        .mvc-hd-hero {
+            background: linear-gradient(135deg, #00152e 0%, #002147 65%, #082d5a 100%);
+            color: #FFFFFF;
+            padding: clamp(32px, 4vw, 50px) 20px clamp(40px, 5vw, 60px);
+            border-bottom: 4px solid var(--mvc-gold);
+            position: relative;
+        }
+
+        .mvc-hd-hero-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .mvc-hd-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mvc-hd-breadcrumb a {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .mvc-hd-breadcrumb a:hover {
+            color: var(--mvc-gold);
+        }
+
+        .mvc-hd-hero h1 {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 800;
+            color: #FFFFFF;
+            margin: 0 0 24px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        /* 4 KPI Metric Badges */
+        .mvc-hd-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 1000px;
+        }
+
+        .mvc-hd-kpi-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .mvc-hd-kpi-val {
+            font-size: 15px;
+            font-weight: 800;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mvc-hd-kpi-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.75);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* 2. MAIN CONTAINER */
+        .mvc-hd-container {
+            max-width: 1360px;
+            margin: -24px auto 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* EMERGENCY HOTLINE STRIP */
+        .mvc-hd-hotline-bar {
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-left: 6px solid #DC2626;
+            border-radius: 14px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            box-shadow: 0 6px 20px rgba(0, 33, 71, 0.06);
+        }
+
+        .mvc-hd-hotline-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .mvc-hd-hotline-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: #FEE2E2;
+            color: #DC2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .mvc-hd-hotline-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0 0 2px;
+        }
+
+        .mvc-hd-hotline-sub {
+            font-size: 13px;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .mvc-hd-hotline-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mvc-hd-btn-hotline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #DC2626;
+            color: #FFFFFF !important;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 16px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-hd-btn-hotline:hover {
+            background: #B91C1C;
+            transform: translateY(-1px);
+        }
+
+        .mvc-hd-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--mvc-navy);
+            color: #FFFFFF !important;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 16px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-hd-btn-secondary:hover {
+            background: #00152e;
+            transform: translateY(-1px);
+        }
+
+        /* 3. TOOLBAR & FILTER CONTROLS */
+        .mvc-hd-toolbar {
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            flex-wrap: wrap;
+        }
+
+        .mvc-hd-search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .mvc-hd-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            pointer-events: none;
+        }
+
+        .mvc-hd-search-input {
+            width: 100% !important;
+            height: 44px !important;
+            padding: 0 14px 0 40px !important;
+            font-size: 14px !important;
+            border: 1.5px solid var(--mvc-border) !important;
+            border-radius: 10px !important;
+            outline: none !important;
+            box-sizing: border-box !important;
+            background: #F8FAFC !important;
+            color: var(--mvc-navy) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .mvc-hd-search-input:focus {
+            background: #FFFFFF !important;
+            border-color: var(--mvc-navy) !important;
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
+        }
+
+        /* Desktop Category Pills */
+        .mvc-hd-pills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mvc-hd-pill-btn {
+            background: #F8FAFC;
+            border: 1px solid var(--mvc-border);
+            color: #475569;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: normal;
+        }
+
+        .mvc-hd-pill-btn:hover {
+            border-color: var(--mvc-navy);
+            color: var(--mvc-navy);
+            background: #FFFFFF;
+        }
+
+        .mvc-hd-pill-btn.is-active {
+            background: var(--mvc-navy);
+            color: #FFFFFF !important;
+            border-color: var(--mvc-navy);
+        }
+
+        /* Mobile Dropdown (Hidden on Desktop) */
+        .mvc-hd-mobile-dropdown-wrap {
+            display: none;
+            width: 100%;
+        }
+
+        /* 4. 9 SERVICE CARDS GRID */
+        .mvc-hd-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 36px;
+        }
+
+        .mvc-hd-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 2px 10px rgba(0, 33, 71, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .mvc-hd-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0, 33, 71, 0.08);
+        }
+
+        .mvc-hd-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .mvc-hd-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #EFF6FF;
+            border: 1px solid #DBEAFE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .mvc-hd-card-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mvc-hd-badge-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: #F1F5F9;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .mvc-hd-card-title {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .mvc-hd-card-desc {
+            font-size: 13.5px;
+            color: #475569;
+            line-height: 1.55;
+            margin: 0 0 16px;
+        }
+
+        .mvc-hd-card-info-box {
+            background: #F8FAFC;
+            border: 1px solid #F1F5F9;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 12.5px;
+        }
+
+        .mvc-hd-info-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+
+        .mvc-hd-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .mvc-hd-info-label {
+            font-weight: 700;
+            color: var(--mvc-navy);
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .mvc-hd-card-footer {
+            border-top: 1px solid #F1F5F9;
+            padding-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .mvc-hd-btn-call {
+            flex: 1;
+            min-width: 100px;
+            background: #EFF6FF;
+            color: #1D4ED8 !important;
+            border: 1px solid #BFDBFE;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-hd-btn-call:hover {
+            background: #DBEAFE;
+            color: #1E40AF !important;
+        }
+
+        .mvc-hd-btn-email {
+            flex: 1;
+            min-width: 100px;
+            background: #FEF2F2;
+            color: #991B1B !important;
+            border: 1px solid #FECACA;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-hd-btn-email:hover {
+            background: #FEE2E2;
+            color: #7F1D1D !important;
+        }
+
+        .mvc-hd-btn-portal {
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            color: var(--mvc-navy) !important;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .mvc-hd-btn-portal:hover {
+            border-color: var(--mvc-navy);
+            background: #F8FAFC;
+        }
+
+        /* 5. RESOLUTION ESCALATION MATRIX */
+        .mvc-hd-matrix-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-radius: 14px;
+            padding: 24px 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 2px 10px rgba(0, 33, 71, 0.03);
+        }
+
+        .mvc-hd-matrix-header {
+            margin-bottom: 20px;
+        }
+
+        .mvc-hd-matrix-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0 0 4px;
+        }
+
+        .mvc-hd-matrix-sub {
+            font-size: 13.5px;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .mvc-hd-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .mvc-hd-step-item {
+            background: #F8FAFC;
+            border: 1px solid var(--mvc-border);
+            border-radius: 10px;
+            padding: 16px;
+            position: relative;
+        }
+
+        .mvc-hd-step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--mvc-navy);
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .mvc-hd-step-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0 0 4px;
+        }
+
+        .mvc-hd-step-desc {
+            font-size: 12.5px;
+            color: #64748B;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* 6. BOTTOM GATEWAYS STRIP */
+        .mvc-hd-gateways {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .mvc-hd-gw-card {
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mvc-hd-gw-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 33, 71, 0.06);
+        }
+
+        .mvc-hd-gw-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin-bottom: 3px;
+        }
+
+        .mvc-hd-gw-sub {
+            font-size: 12px;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .mvc-hd-gw-arrow {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--mvc-maroon);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 900px) {
+            .mvc-hd-kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mvc-hd-steps-grid {
+                grid-template-columns: 1fr;
+            }
+            .mvc-hd-gateways {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mvc-hd-pills {
+                display: none !important;
+            }
+            .mvc-hd-mobile-dropdown-wrap {
+                display: block !important;
+            }
+            .mvc-hd-grid {
+                grid-template-columns: 1fr;
+            }
+            .mvc-hd-hotline-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .mvc-hd-hotline-actions {
+                width: 100%;
+            }
+            .mvc-hd-btn-hotline, .mvc-hd-btn-secondary {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .mvc-hd-kpis {
+                grid-template-columns: 1fr;
+            }
+            .mvc-hd-gateways {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="mvc-hd-root">
+        <!-- 1. HERO HEADER -->
+        <header class="mvc-hd-hero">
+            <div class="mvc-hd-hero-inner">
+                <nav class="mvc-hd-breadcrumb" aria-label="Breadcrumb">
                     <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
                     <span>/</span>
-                    <span>Institutional Help Desk</span>
+                    <a href="<?php echo esc_url(home_url('/contact-us/')); ?>">Support</a>
+                    <span>/</span>
+                    <span style="color:var(--mvc-gold-light);">Help Desk</span>
                 </nav>
-                <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
 
-                <div class="mvc-util-hero-pills">
-                    <span class="mvc-util-pill mvc-util-pill-gold">⚡ Rapid Response Desks</span>
-                    <span class="mvc-util-pill">🕒 Mon–Sat: 10:00 AM – 5:30 PM</span>
-                    <span class="mvc-util-pill">📍 Charitravan, Buxar</span>
+                <h1><?php echo esc_html($hero_title); ?></h1>
+
+                <!-- 4 KPI Metrics -->
+                <div class="mvc-hd-kpis">
+                    <div class="mvc-hd-kpi-card">
+                        <div class="mvc-hd-kpi-val">🏛️ 09 Desks</div>
+                        <div class="mvc-hd-kpi-label">Support Divisions</div>
+                    </div>
+                    <div class="mvc-hd-kpi-card">
+                        <div class="mvc-hd-kpi-val">🕒 10 AM – 5 PM</div>
+                        <div class="mvc-hd-kpi-label">Official Timings (Mon–Sat)</div>
+                    </div>
+                    <div class="mvc-hd-kpi-card">
+                        <div class="mvc-hd-kpi-val">⚡ Single-Window</div>
+                        <div class="mvc-hd-kpi-label">Rapid Redressal System</div>
+                    </div>
+                    <div class="mvc-hd-kpi-card">
+                        <div class="mvc-hd-kpi-val">📞 <?php echo esc_html($hotline_phone); ?></div>
+                        <div class="mvc-hd-kpi-label">Central Secretariat</div>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <main class="mvc-util-main">
-            <div class="mvc-util-container">
-                <!-- Urgent Helpline Bar -->
-                <div style="background:linear-gradient(135deg, var(--mvc-navy-dark) 0%, var(--mvc-navy) 100%); border-radius:14px; padding:24px 28px; margin-bottom:36px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px; border-left:6px solid var(--mvc-gold); box-shadow:0 6px 20px rgba(0,33,71,0.12);">
+        <!-- 2. MAIN CONTAINER -->
+        <main class="mvc-hd-container">
+            <!-- EMERGENCY HOTLINE STRIP -->
+            <section class="mvc-hd-hotline-bar">
+                <div class="mvc-hd-hotline-info">
+                    <div class="mvc-hd-hotline-icon">🚨</div>
                     <div>
-                        <h3 style="color:#FFFFFF; margin:0 0 4px; font-size:20px; font-weight:800;">Emergency Central Campus Helpline</h3>
-                        <p style="color:rgba(255,255,255,0.85); margin:0; font-size:14px;">Direct access to the Principal's Secretariat & Central Administrative Control Room.</p>
-                    </div>
-                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9]/', '', $hotline_phone)); ?>" class="mvc-btn mvc-btn-gold">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            <span>Call: <?php echo esc_html($hotline_phone); ?></span>
-                        </a>
-                        <a href="mailto:<?php echo esc_attr($secretariat_email); ?>" class="mvc-btn mvc-btn-maroon">
-                            <span>Email Secretariat &rarr;</span>
-                        </a>
+                        <div class="mvc-hd-hotline-title">Urgent Campus Assistance &amp; Anti-Ragging Hotline</div>
+                        <p class="mvc-hd-hotline-sub">Immediate response from the Principal’s Secretariat &amp; 24×7 National Vigilance Council.</p>
                     </div>
                 </div>
+                <div class="mvc-hd-hotline-actions">
+                    <a href="tel:18001805522" class="mvc-hd-btn-hotline">
+                        <span>📞 1800-180-5522 (Toll-Free)</span>
+                    </a>
+                    <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9]/', '', $hotline_phone)); ?>" class="mvc-hd-btn-secondary">
+                        <span>Call Campus: <?php echo esc_html($hotline_phone); ?></span>
+                    </a>
+                    <a href="mailto:<?php echo esc_attr($secretariat_email); ?>" class="mvc-hd-btn-secondary" style="background:var(--mvc-maroon);">
+                        <span>Email Secretariat</span>
+                    </a>
+                </div>
+            </section>
 
-                <!-- 9-Division Helpdesk Directory -->
-                <div class="mvc-util-section-header">
-                    <h2 class="mvc-util-section-title">Departmental Help Desk Directory (9 Divisions)</h2>
-                    <span class="mvc-util-badge">Academic &amp; Administrative Services</span>
+            <!-- 3. TOOLBAR (SEARCH + FILTER) -->
+            <section class="mvc-hd-toolbar">
+                <div class="mvc-hd-search-wrap">
+                    <svg class="mvc-hd-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="mvcHdSearchInput" class="mvc-hd-search-input" placeholder="Search desks by title, in-charge, service, or room..." onkeyup="mvcFilterHelpDesk();">
                 </div>
 
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px; margin-bottom:48px;">
-                    <?php foreach ($wings as $w): ?>
-                        <div style="background:#FFFFFF; border:1px solid var(--mvc-border); border-radius:12px; padding:26px; box-shadow:0 4px 14px rgba(0,33,71,0.04); display:flex; flex-direction:column; justify-content:space-between; transition:all 0.25s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--mvc-navy)'; this.style.boxShadow='0 8px 24px rgba(0,33,71,0.08)';" onmouseout="this.style.transform='none'; this.style.borderColor='var(--mvc-border)'; this.style.boxShadow='0 4px 14px rgba(0,33,71,0.04)';">
-                            <div>
-                                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                                    <span style="font-size:28px;"><?php echo esc_html($w['icon']); ?></span>
-                                    <h3 style="font-size:17.5px; font-weight:800; color:var(--mvc-navy); margin:0;">
-                                        <?php echo esc_html($w['wing']); ?>
-                                    </h3>
+                <!-- Desktop Category Pills -->
+                <div class="mvc-hd-pills">
+                    <button type="button" class="mvc-hd-pill-btn is-active" data-cat="all" onclick="mvcSetHelpDeskCategory('all', this);">
+                        <span>All Desks (9)</span>
+                    </button>
+                    <button type="button" class="mvc-hd-pill-btn" data-cat="academic" onclick="mvcSetHelpDeskCategory('academic', this);">
+                        <span>🎓 Academic &amp; Admissions (3)</span>
+                    </button>
+                    <button type="button" class="mvc-hd-pill-btn" data-cat="welfare" onclick="mvcSetHelpDeskCategory('welfare', this);">
+                        <span>💳 Finance &amp; Welfare (3)</span>
+                    </button>
+                    <button type="button" class="mvc-hd-pill-btn" data-cat="governance" onclick="mvcSetHelpDeskCategory('governance', this);">
+                        <span>🏛️ Governance &amp; RTI (3)</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Custom Dropdown Selector -->
+                <div class="mvc-hd-mobile-dropdown-wrap">
+                    <div class="mvc-custom-dropdown" id="mvcHdMobileCatDropdown">
+                        <button type="button" class="mvc-dropdown-trigger" onclick="mvcToggleDropdown('mvcHdMobileCatDropdown');" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="mvc-dropdown-current">
+                                <span class="mvc-dropdown-icon">📂</span>
+                                <span class="mvc-dropdown-label">All Desks</span>
+                                <span class="mvc-dropdown-count">(9)</span>
+                            </span>
+                            <svg class="mvc-dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="mvc-dropdown-menu" role="listbox">
+                            <div class="mvc-dropdown-item is-active" data-value="all" onclick="mvcSelectHdCategory('all', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">📂</span>
+                                    <span class="mvc-dd-name">All Support Desks</span>
                                 </div>
-                                <p style="font-size:13.5px; color:var(--mvc-slate-light); line-height:1.6; margin:0 0 18px;">
-                                    <?php echo esc_html($w['scope']); ?>
-                                </p>
-                                <div style="background:var(--mvc-bg-alt); padding:14px; border-radius:8px; font-size:13px; margin-bottom:18px;">
-                                    <div style="margin-bottom:4px;"><strong>Officer In-Charge:</strong> <?php echo esc_html($w['incharge']); ?></div>
-                                    <div style="margin-bottom:4px;"><strong>Chamber / Desk:</strong> <?php echo esc_html($w['chamber']); ?></div>
-                                    <div style="margin-bottom:4px;"><strong>Phone / Ext.:</strong> <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9]/', '', $w['phone'])); ?>" style="color:var(--mvc-navy); text-decoration:none; font-weight:600;"><?php echo esc_html($w['phone']); ?></a></div>
-                                    <div><strong>Email:</strong> <a href="mailto:<?php echo esc_attr($w['email']); ?>" style="color:var(--mvc-maroon); text-decoration:none;"><?php echo esc_html($w['email']); ?></a></div>
+                                <span class="mvc-dd-pill">9</span>
+                            </div>
+                            <div class="mvc-dropdown-item" data-value="academic" onclick="mvcSelectHdCategory('academic', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">🎓</span>
+                                    <span class="mvc-dd-name">Academic &amp; Admissions</span>
+                                </div>
+                                <span class="mvc-dd-pill">3</span>
+                            </div>
+                            <div class="mvc-dropdown-item" data-value="welfare" onclick="mvcSelectHdCategory('welfare', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">💳</span>
+                                    <span class="mvc-dd-name">Finance &amp; Welfare</span>
+                                </div>
+                                <span class="mvc-dd-pill">3</span>
+                            </div>
+                            <div class="mvc-dropdown-item" data-value="governance" onclick="mvcSelectHdCategory('governance', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">🏛️</span>
+                                    <span class="mvc-dd-name">Governance &amp; RTI</span>
+                                </div>
+                                <span class="mvc-dd-pill">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. 9 SERVICE CARDS GRID -->
+            <section class="mvc-hd-grid" id="mvcHdCardsContainer">
+                <?php foreach ($desks as $d): ?>
+                    <article class="mvc-hd-card" data-cat="<?php echo esc_attr($d['cat']); ?>" data-keywords="<?php echo esc_attr(strtolower($d['wing'] . ' ' . $d['scope'] . ' ' . $d['incharge'] . ' ' . $d['chamber'] . ' ' . $d['cat_name'])); ?>">
+                        <div>
+                            <div class="mvc-hd-card-header">
+                                <div class="mvc-hd-card-icon"><?php echo esc_html($d['icon']); ?></div>
+                                <div class="mvc-hd-card-meta">
+                                    <span class="mvc-hd-badge-tag"><?php echo esc_html($d['cat_name']); ?></span>
+                                    <h2 class="mvc-hd-card-title"><?php echo esc_html($d['wing']); ?></h2>
                                 </div>
                             </div>
-                            <div style="border-top:1px solid var(--mvc-border); padding-top:14px;">
-                                <a href="<?php echo esc_url(home_url($w['link'])); ?>" class="mvc-btn mvc-btn-outline" style="width:100%; font-size:13px;">
-                                    <span>Visit Department Portal &rarr;</span>
-                                </a>
+
+                            <p class="mvc-hd-card-desc"><?php echo esc_html($d['scope']); ?></p>
+
+                            <div class="mvc-hd-card-info-box">
+                                <div class="mvc-hd-info-row">
+                                    <span class="mvc-hd-info-label">Officer In-Charge:</span>
+                                    <span style="font-weight: 700; color: var(--mvc-navy);"><?php echo esc_html($d['incharge']); ?></span>
+                                </div>
+                                <div class="mvc-hd-info-row">
+                                    <span class="mvc-hd-info-label">Desk / Chamber:</span>
+                                    <span><?php echo esc_html($d['chamber']); ?></span>
+                                </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+
+                        <div class="mvc-hd-card-footer">
+                            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9]/', '', $d['phone'])); ?>" class="mvc-hd-btn-call" title="Call <?php echo esc_attr($d['wing']); ?>">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                <span>Call Desk</span>
+                            </a>
+                            <a href="mailto:<?php echo esc_attr($d['email']); ?>" class="mvc-hd-btn-email" title="Email <?php echo esc_attr($d['wing']); ?>">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                <span>Email Officer</span>
+                            </a>
+                            <a href="<?php echo esc_url(home_url($d['link'])); ?>" class="mvc-hd-btn-portal">
+                                <span>Visit Division Portal &rarr;</span>
+                            </a>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </section>
+
+            <!-- 5. INSTITUTIONAL ESCALATION MATRIX -->
+            <section class="mvc-hd-matrix-card">
+                <div class="mvc-hd-matrix-header">
+                    <h2 class="mvc-hd-matrix-title">Institutional Inquiry Resolution Matrix</h2>
+                    <p class="mvc-hd-matrix-sub">If an inquiry or service request requires further review, follow the three-tiered redressal protocol:</p>
                 </div>
-
-                <!-- Online Inquiry Form Wrapper -->
-                <div class="mvc-util-card">
-                    <?php
-                    $form_title = mvc_get_page_meta($post_id, 'form_box_title', 'Submit Digital Helpdesk Inquiry');
-                    $form_sub = mvc_get_page_meta($post_id, 'form_box_subtitle', 'Have an academic, verification, or administrative inquiry? Fill in the details below and your ticket will be routed directly to the designated department officer:');
-                    $instructions = mvc_get_page_meta($post_id, 'form_instructions', '');
-                    $helpline_phone = mvc_get_page_meta($post_id, 'form_helpline_phone', '');
-                    $helpline_email = mvc_get_page_meta($post_id, 'form_helpline_email', '');
-
-                    $custom_shortcode = mvc_get_page_meta($post_id, 'form_custom_shortcode', '');
-                    $meta_wpforms_id = intval(mvc_get_page_meta($post_id, 'form_wpforms_id', 0));
-                    
-                    $resolved_form_id = 843;
-                    if (!empty($override_form_id)) {
-                        $resolved_form_id = intval($override_form_id);
-                    } elseif (!empty($mvc_shortcode_context['form_id'])) {
-                        $resolved_form_id = intval($mvc_shortcode_context['form_id']);
-                    }
-                    if ($meta_wpforms_id > 0) {
-                        $resolved_form_id = $meta_wpforms_id;
-                    }
-                    ?>
-                    <div class="mvc-util-section-header">
-                        <h2 class="mvc-util-section-title"><?php echo esc_html($form_title); ?></h2>
-                        <span class="mvc-util-badge">Single Window Portal</span>
+                <div class="mvc-hd-steps-grid">
+                    <div class="mvc-hd-step-item">
+                        <div class="mvc-hd-step-num">1</div>
+                        <h3 class="mvc-hd-step-title">Primary Desk In-Charge</h3>
+                        <p class="mvc-hd-step-desc">Direct contact with designated cell convener or counter clerk for instant resolution, certificate issuance, or routine guidance.</p>
                     </div>
-                    <p style="font-size:14.5px; color:var(--mvc-slate-light); line-height:1.6; margin-bottom:24px;">
-                        <?php echo esc_html($form_sub); ?>
-                    </p>
-
-                    <?php if (!empty($helpline_phone) || !empty($helpline_email)): ?>
-                        <div style="margin: -10px 0 20px; display: flex; gap: 12px; flex-wrap: wrap;">
-                            <?php if (!empty($helpline_phone)): ?>
-                                <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,33,71,0.06); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--mvc-navy);">
-                                    📞 Helpdesk Line: <?php echo esc_html($helpline_phone); ?>
-                                </span>
-                            <?php endif; ?>
-                            <?php if (!empty($helpline_email)): ?>
-                                <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(128,0,0,0.06); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--mvc-maroon);">
-                                    ✉️ Helpdesk Email: <?php echo esc_html($helpline_email); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($instructions)): ?>
-                        <div style="background: #FFFBEB; border-left: 4px solid #D4AF37; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; color: #92400E; line-height: 1.6;">
-                            <strong>📋 Helpdesk Notice:</strong><br>
-                            <?php echo nl2br(esc_html($instructions)); ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php
-                    if (!empty($custom_shortcode)) {
-                        echo do_shortcode($custom_shortcode);
-                    } else {
-                        echo do_shortcode('[wpforms id="' . $resolved_form_id . '"]');
-                    }
-                    ?>
+                    <div class="mvc-hd-step-item">
+                        <div class="mvc-hd-step-num">2</div>
+                        <h3 class="mvc-hd-step-title">Grievance Redressal Cell</h3>
+                        <p class="mvc-hd-step-desc">For unresolved administrative issues, formal submissions are reviewed by the Statutory Grievance Cell within 7 business days.</p>
+                    </div>
+                    <div class="mvc-hd-step-item">
+                        <div class="mvc-hd-step-num">3</div>
+                        <h3 class="mvc-hd-step-title">Principal &amp; University Liaison</h3>
+                        <p class="mvc-hd-step-desc">Final institutional appellate authority presided over by the Principal, with escalation to Veer Kunwar Singh University (VKSU) if statutory.</p>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- 6. BOTTOM GOVERNANCE GATEWAYS -->
+            <section class="mvc-hd-gateways">
+                <a href="<?php echo esc_url(home_url('/contact-us/')); ?>" class="mvc-hd-gw-card">
+                    <div>
+                        <div class="mvc-hd-gw-title">Campus Directory</div>
+                        <p class="mvc-hd-gw-sub">Postal address, campus map, and departmental telephone extensions.</p>
+                    </div>
+                    <span class="mvc-hd-gw-arrow">Contact Details &rarr;</span>
+                </a>
+                <a href="<?php echo esc_url(home_url('/our-administration/')); ?>" class="mvc-hd-gw-card">
+                    <div>
+                        <div class="mvc-hd-gw-title">Staff Directories</div>
+                        <p class="mvc-hd-gw-sub">Teaching faculty and non-teaching ministerial staff rosters.</p>
+                    </div>
+                    <span class="mvc-hd-gw-arrow">View Roster &rarr;</span>
+                </a>
+                <a href="<?php echo esc_url(home_url('/student-grievance/')); ?>" class="mvc-hd-gw-card">
+                    <div>
+                        <div class="mvc-hd-gw-title">Student Grievance</div>
+                        <p class="mvc-hd-gw-sub">Statutory portal for confidential academic and welfare complaints.</p>
+                    </div>
+                    <span class="mvc-hd-gw-arrow">File Grievance &rarr;</span>
+                </a>
+                <a href="<?php echo esc_url(home_url('/anti-ragging-cell/')); ?>" class="mvc-hd-gw-card">
+                    <div>
+                        <div class="mvc-hd-gw-title">Anti-Ragging Cell</div>
+                        <p class="mvc-hd-gw-sub">Zero-tolerance policy guidelines, committee, and UGC affidavits.</p>
+                    </div>
+                    <span class="mvc-hd-gw-arrow">Anti-Ragging &rarr;</span>
+                </a>
+            </section>
         </main>
     </div>
+
+    <!-- Client-side Fast Filter JavaScript -->
+    <script>
+    var mvcHdActiveCat = 'all';
+
+    function mvcSetHelpDeskCategory(cat, btn) {
+        mvcHdActiveCat = cat;
+        var pills = document.querySelectorAll('.mvc-hd-pill-btn');
+        pills.forEach(function(p) { p.classList.remove('is-active'); });
+        if (btn) btn.classList.add('is-active');
+
+        // Sync mobile dropdown
+        var ddItem = document.querySelector('#mvcHdMobileCatDropdown .mvc-dropdown-item[data-value="' + cat + '"]');
+        if (ddItem) {
+            var menu = ddItem.closest('.mvc-dropdown-menu');
+            if (menu) {
+                menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+                ddItem.classList.add('is-active');
+            }
+            var dd = document.getElementById('mvcHdMobileCatDropdown');
+            if (dd) {
+                var currentLabel = dd.querySelector('.mvc-dropdown-label');
+                var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+                var currentCount = dd.querySelector('.mvc-dropdown-count');
+                var itemIcon = ddItem.querySelector('.mvc-dd-icon');
+                var itemName = ddItem.querySelector('.mvc-dd-name');
+                var itemCount = ddItem.querySelector('.mvc-dd-pill');
+                if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+                if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+                if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            }
+        }
+        mvcFilterHelpDesk();
+    }
+
+    function mvcSelectHdCategory(cat, itemEl) {
+        mvcHdActiveCat = cat;
+        var menu = itemEl.closest('.mvc-dropdown-menu');
+        if (menu) {
+            menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+            itemEl.classList.add('is-active');
+        }
+        var dd = itemEl.closest('.mvc-custom-dropdown');
+        if (dd) {
+            var currentLabel = dd.querySelector('.mvc-dropdown-label');
+            var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+            var currentCount = dd.querySelector('.mvc-dropdown-count');
+            var itemIcon = itemEl.querySelector('.mvc-dd-icon');
+            var itemName = itemEl.querySelector('.mvc-dd-name');
+            var itemCount = itemEl.querySelector('.mvc-dd-pill');
+            if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+            if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+            if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            dd.classList.remove('is-open');
+            var btn = dd.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        // Sync desktop pills
+        var pills = document.querySelectorAll('.mvc-hd-pill-btn');
+        pills.forEach(function(p) {
+            p.classList.remove('is-active');
+            if (p.getAttribute('data-cat') === cat) p.classList.add('is-active');
+        });
+
+        mvcFilterHelpDesk();
+    }
+
+    function mvcFilterHelpDesk() {
+        var input = document.getElementById('mvcHdSearchInput');
+        var query = input ? input.value.toLowerCase().trim() : '';
+        var cards = document.querySelectorAll('.mvc-hd-card');
+
+        cards.forEach(function(card) {
+            var cat = card.getAttribute('data-cat') || '';
+            var kw = card.getAttribute('data-keywords') || '';
+            var matchesCat = (mvcHdActiveCat === 'all' || cat === mvcHdActiveCat);
+            var matchesQuery = (!query || kw.indexOf(query) !== -1);
+
+            if (matchesCat && matchesQuery) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    </script>
     <?php
 }
 

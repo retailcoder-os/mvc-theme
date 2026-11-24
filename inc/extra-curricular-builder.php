@@ -1360,94 +1360,696 @@ function mvc_render_ec_facility() {
     $facilities = mvc_get_ec_facilities_data();
     $total_facilities = count($facilities);
 
+    $cat_meta = [
+        'ICT & Digital Infrastructure' => [
+            'slug'  => 'ict',
+            'name'  => 'ICT & Digital Hub',
+            'icon'  => '💻',
+            'color' => '#1D4ED8',
+            'bg'    => '#EFF6FF'
+        ],
+        'Laboratories & Research' => [
+            'slug'  => 'labs',
+            'name'  => 'Scientific Laboratories',
+            'icon'  => '🧪',
+            'color' => '#047857',
+            'bg'    => '#ECFDF5'
+        ],
+        'Library & Learning Resources' => [
+            'slug'  => 'library',
+            'name'  => 'Library & E-Resources',
+            'icon'  => '📖',
+            'color' => '#B45309',
+            'bg'    => '#FFFBEB'
+        ],
+        'Sports & Physical Fitness' => [
+            'slug'  => 'sports',
+            'name'  => 'Sports & Athletics',
+            'icon'  => '🏆',
+            'color' => '#7C3AED',
+            'bg'    => '#F5F3FF'
+        ],
+        'Safety & Campus Amenities' => [
+            'slug'  => 'safety',
+            'name'  => 'Safety & Utilities',
+            'icon'  => '🛡️',
+            'color' => '#BE123C',
+            'bg'    => '#FFF1F2'
+        ],
+        'Institutional Infrastructure' => [
+            'slug'  => 'institutional',
+            'name'  => 'Campus Infrastructure',
+            'icon'  => '🏛️',
+            'color' => '#0F766E',
+            'bg'    => '#F0FDFA'
+        ]
+    ];
+
     $cat_counts = [];
     foreach ($facilities as $f) {
-        $c = $f['category'] ?? 'Other';
+        $c = $f['category'] ?? 'Institutional Infrastructure';
         $cat_counts[$c] = ($cat_counts[$c] ?? 0) + 1;
     }
     ?>
-    <!-- Overview Metric Cards -->
-    <div class="mvc-ec-stats-grid">
-        <div class="mvc-ec-stat-box">
-            <div class="mvc-ec-stat-num"><?php echo esc_html($total_facilities); ?></div>
-            <div class="mvc-ec-stat-label">Total Facilities</div>
-        </div>
-        <div class="mvc-ec-stat-box">
-            <div class="mvc-ec-stat-num">3.068</div>
-            <div class="mvc-ec-stat-label">Acres Green Campus</div>
-        </div>
-        <div class="mvc-ec-stat-box">
-            <div class="mvc-ec-stat-num"><?php echo sprintf('%02d', $cat_counts['ICT & Digital Infrastructure'] ?? 3); ?></div>
-            <div class="mvc-ec-stat-label">Interactive Smart Classrooms</div>
-        </div>
-        <div class="mvc-ec-stat-box">
-            <div class="mvc-ec-stat-num"><?php echo sprintf('%02d', $cat_counts['Laboratories & Research'] ?? 5); ?></div>
-            <div class="mvc-ec-stat-label">Scientific Laboratories</div>
-        </div>
-        <div class="mvc-ec-stat-box">
-            <div class="mvc-ec-stat-num">24×7</div>
-            <div class="mvc-ec-stat-label">IP CCTV Security</div>
-        </div>
-    </div>
+    <style>
+        /* ========================================================
+           CAMPUS FACILITY SUITE - SLEEK, MINIMAL & MOBILE-FIRST
+           ======================================================== */
+        .mvc-fac-wrapper {
+            width: 100%;
+            margin-bottom: 40px;
+        }
 
-    <div class="mvc-ec-card">
-        <div class="mvc-ec-section-title">
-            <h2>
-                <span>🏢 Campus Infrastructure & Learning Resources</span>
-            </h2>
-            <span class="mvc-ec-badge">Authentic Audit Inventory</span>
-        </div>
+        /* 1. TOP METRICS RIBBON */
+        .mvc-fac-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
 
-        <!-- Filter & Search Bar -->
-        <div class="mvc-ec-filter-bar">
-            <div class="mvc-ec-pills">
-                <button type="button" class="mvc-ec-pill active" onclick="mvcFilterGrid('all', this)">All (<?php echo esc_html($total_facilities); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('ICT & Digital Infrastructure', this)">ICT & Digital (<?php echo esc_html($cat_counts['ICT & Digital Infrastructure'] ?? 0); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('Library & Learning Resources', this)">Library (<?php echo esc_html($cat_counts['Library & Learning Resources'] ?? 0); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('Laboratories & Research', this)">Laboratories (<?php echo esc_html($cat_counts['Laboratories & Research'] ?? 0); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('Sports & Physical Fitness', this)">Sports & Fitness (<?php echo esc_html($cat_counts['Sports & Physical Fitness'] ?? 0); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('Safety & Campus Amenities', this)">Safety & Utilities (<?php echo esc_html($cat_counts['Safety & Campus Amenities'] ?? 0); ?>)</button>
-                <button type="button" class="mvc-ec-pill" onclick="mvcFilterGrid('Institutional Infrastructure', this)">Institutional (<?php echo esc_html($cat_counts['Institutional Infrastructure'] ?? 0); ?>)</button>
+        .mvc-fac-stat-card {
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .mvc-fac-stat-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 33, 71, 0.06);
+        }
+
+        .mvc-fac-stat-num {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .mvc-fac-stat-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 2. FOUR CORNERSTONE PILLARS */
+        .mvc-fac-pillars {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .mvc-fac-pillar-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 33, 71, 0.03);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mvc-fac-pillar-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0, 33, 71, 0.08);
+        }
+
+        .mvc-fac-pillar-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: #F1F5F9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .mvc-fac-pillar-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0 0 6px;
+            line-height: 1.3;
+        }
+
+        .mvc-fac-pillar-desc {
+            font-size: 12.5px;
+            color: #64748B;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* 3. TOOLBAR (SEARCH, PILLS, VIEW TOGGLE) */
+        .mvc-fac-toolbar {
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            flex-wrap: wrap;
+        }
+
+        .mvc-fac-search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .mvc-fac-search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94A3B8;
+            pointer-events: none;
+        }
+
+        .mvc-fac-search-input {
+            width: 100% !important;
+            height: 42px !important;
+            padding: 0 14px 0 40px !important;
+            font-size: 13.5px !important;
+            border: 1.5px solid var(--mvc-border) !important;
+            border-radius: 10px !important;
+            outline: none !important;
+            box-sizing: border-box !important;
+            background: #F8FAFC !important;
+            color: var(--mvc-navy) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .mvc-fac-search-input:focus {
+            background: #FFFFFF !important;
+            border-color: var(--mvc-navy) !important;
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
+        }
+
+        .mvc-fac-pills {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mvc-fac-pill-btn {
+            background: #F8FAFC;
+            border: 1px solid var(--mvc-border);
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            line-height: normal;
+        }
+
+        .mvc-fac-pill-btn:hover {
+            border-color: var(--mvc-navy);
+            color: var(--mvc-navy);
+            background: #FFFFFF;
+        }
+
+        .mvc-fac-pill-btn.is-active {
+            background: var(--mvc-navy);
+            color: #FFFFFF !important;
+            border-color: var(--mvc-navy);
+        }
+
+        /* Desktop View Toggle */
+        .mvc-fac-view-toggle {
+            display: inline-flex;
+            background: #F1F5F9;
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--mvc-border);
+        }
+
+        .mvc-fac-view-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748B;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .mvc-fac-view-btn.is-active {
+            background: #FFFFFF;
+            color: var(--mvc-navy);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Mobile Dropdown (Hidden on Desktop) */
+        .mvc-fac-mobile-dropdown-wrap {
+            display: none;
+            width: 100%;
+        }
+
+        /* 4. FACILITY CARDS GRID */
+        .mvc-fac-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .mvc-fac-item-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--mvc-border);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .mvc-fac-item-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 33, 71, 0.07);
+        }
+
+        .mvc-fac-item-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .mvc-fac-cat-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .mvc-fac-sr-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: #94A3B8;
+        }
+
+        .mvc-fac-item-name {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin: 0 0 14px;
+            line-height: 1.35;
+        }
+
+        .mvc-fac-item-footer {
+            border-top: 1px solid #F1F5F9;
+            padding-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .mvc-fac-qty-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--mvc-maroon);
+            background: #FFF1F2;
+            border: 1px solid #FFE4E6;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .mvc-fac-status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #166534;
+        }
+
+        /* 5. TABULAR AUDIT VIEW (Desktop Only) */
+        .mvc-fac-table-wrap {
+            display: none;
+            width: 100%;
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 12px;
+            overflow-x: auto;
+            margin-bottom: 32px;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+        }
+
+        .mvc-fac-audit-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+            text-align: left;
+        }
+
+        .mvc-fac-audit-table th {
+            background: var(--mvc-navy);
+            color: #FFFFFF;
+            padding: 12px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .mvc-fac-audit-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #F1F5F9;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .mvc-fac-audit-table tr:hover td {
+            background: #F8FAFC;
+        }
+
+        /* 6. BOTTOM GATEWAYS */
+        .mvc-fac-gateways {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .mvc-fac-gw-card {
+            background: #FFFFFF;
+            border: 1px solid var(--mvc-border);
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .mvc-fac-gw-card:hover {
+            border-color: var(--mvc-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 33, 71, 0.06);
+        }
+
+        .mvc-fac-gw-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--mvc-navy);
+            margin-bottom: 3px;
+        }
+
+        .mvc-fac-gw-sub {
+            font-size: 12px;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .mvc-fac-gw-arrow {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--mvc-maroon);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 992px) {
+            .mvc-fac-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mvc-fac-pillars {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .mvc-fac-gateways {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Force Card View ONLY on mobile */
+            .mvc-fac-view-toggle {
+                display: none !important;
+            }
+            .mvc-fac-table-wrap {
+                display: none !important;
+            }
+            .mvc-fac-grid {
+                display: grid !important;
+                grid-template-columns: 1fr;
+            }
+
+            /* Hide horizontal pills, show custom dropdown */
+            .mvc-fac-pills {
+                display: none !important;
+            }
+            .mvc-fac-mobile-dropdown-wrap {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .mvc-fac-stats {
+                grid-template-columns: 1fr;
+            }
+            .mvc-fac-pillars {
+                grid-template-columns: 1fr;
+            }
+            .mvc-fac-gateways {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="mvc-fac-wrapper">
+        <!-- 1. TOP METRICS RIBBON -->
+        <section class="mvc-fac-stats">
+            <div class="mvc-fac-stat-card">
+                <div class="mvc-fac-stat-num">3.068</div>
+                <div class="mvc-fac-stat-label">Acres Green Campus</div>
             </div>
-            <div class="mvc-ec-search-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" placeholder="Search facilities..." oninput="mvcSearchGrid(this.value)" aria-label="Search facilities" />
+            <div class="mvc-fac-stat-card">
+                <div class="mvc-fac-stat-num"><?php echo esc_html($total_facilities); ?></div>
+                <div class="mvc-fac-stat-label">Audited Infrastructure Assets</div>
             </div>
-        </div>
+            <div class="mvc-fac-stat-card">
+                <div class="mvc-fac-stat-num">05+</div>
+                <div class="mvc-fac-stat-label">Specialized Research Labs</div>
+            </div>
+            <div class="mvc-fac-stat-card">
+                <div class="mvc-fac-stat-num">100%</div>
+                <div class="mvc-fac-stat-label">CCTV &amp; ICT Enabled</div>
+            </div>
+        </section>
 
-        <!-- Responsive Facility Table -->
-        <div class="mvc-ec-table-wrap">
-            <table class="mvc-ec-table">
+        <!-- 2. FOUR CORNERSTONE PILLARS -->
+        <section class="mvc-fac-pillars">
+            <div class="mvc-fac-pillar-card">
+                <div>
+                    <div class="mvc-fac-pillar-icon">💻</div>
+                    <h3 class="mvc-fac-pillar-title">Smart ICT Classrooms</h3>
+                    <p class="mvc-fac-pillar-desc">Interactive smart rooms, 20+1 language lab console, Swayam e-learning portal, and campus-wide Wi-Fi.</p>
+                </div>
+            </div>
+            <div class="mvc-fac-pillar-card">
+                <div>
+                    <div class="mvc-fac-pillar-icon">🧪</div>
+                    <h3 class="mvc-fac-pillar-title">Scientific Laboratories</h3>
+                    <p class="mvc-fac-pillar-desc">State-of-the-art practical laboratories for Physics, Chemistry, Botany, Zoology, Psychology, and BCA.</p>
+                </div>
+            </div>
+            <div class="mvc-fac-pillar-card">
+                <div>
+                    <div class="mvc-fac-pillar-icon">📖</div>
+                    <h3 class="mvc-fac-pillar-title">Automated Library</h3>
+                    <p class="mvc-fac-pillar-desc">AutoLib computerized catalog, INFLIBNET N-LIST e-journal repository, and quiet student reading rooms.</p>
+                </div>
+            </div>
+            <div class="mvc-fac-pillar-card">
+                <div>
+                    <div class="mvc-fac-pillar-icon">🛡️</div>
+                    <h3 class="mvc-fac-pillar-title">Eco-Campus &amp; Safety</h3>
+                    <p class="mvc-fac-pillar-desc">55 kVA soundless generator, 4 RO water chiller plants, 24×7 IP CCTV security, and Divyangjan ramps.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TOOLBAR (SEARCH + FILTER + VIEW TOGGLE) -->
+        <section class="mvc-fac-toolbar">
+            <div class="mvc-fac-search-wrap">
+                <svg class="mvc-fac-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="mvcFacSearchInput" class="mvc-fac-search-input" placeholder="Search facilities by name, category, or remarks..." onkeyup="mvcFilterFacilities();">
+            </div>
+
+            <!-- Desktop Category Pills -->
+            <div class="mvc-fac-pills">
+                <button type="button" class="mvc-fac-pill-btn is-active" data-cat="all" onclick="mvcSetFacCategory('all', this);">
+                    <span>All (<?php echo esc_html($total_facilities); ?>)</span>
+                </button>
+                <?php foreach ($cat_meta as $cname => $cm): ?>
+                    <button type="button" class="mvc-fac-pill-btn" data-cat="<?php echo esc_attr($cname); ?>" onclick="mvcSetFacCategory('<?php echo esc_attr($cname); ?>', this);">
+                        <span><?php echo esc_html($cm['icon']); ?> <?php echo esc_html($cm['name']); ?></span>
+                        <span style="font-size:10.5px; opacity:0.8;">(<?php echo esc_html($cat_counts[$cname] ?? 0); ?>)</span>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Desktop View Switcher -->
+            <div class="mvc-fac-view-toggle">
+                <button type="button" class="mvc-fac-view-btn is-active" id="mvcFacBtnCards" onclick="mvcToggleFacView('cards');">
+                    📇 Cards
+                </button>
+                <button type="button" class="mvc-fac-view-btn" id="mvcFacBtnTable" onclick="mvcToggleFacView('table');">
+                    📋 Table
+                </button>
+            </div>
+
+            <!-- Mobile Custom Dropdown Selector -->
+            <div class="mvc-fac-mobile-dropdown-wrap">
+                <div class="mvc-custom-dropdown" id="mvcFacMobileCatDropdown">
+                    <button type="button" class="mvc-dropdown-trigger" onclick="mvcToggleDropdown('mvcFacMobileCatDropdown');" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="mvc-dropdown-current">
+                            <span class="mvc-dropdown-icon">🏢</span>
+                            <span class="mvc-dropdown-label">All Facilities</span>
+                            <span class="mvc-dropdown-count">(<?php echo esc_html($total_facilities); ?>)</span>
+                        </span>
+                        <svg class="mvc-dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="mvc-dropdown-menu" role="listbox">
+                        <div class="mvc-dropdown-item is-active" data-value="all" onclick="mvcSelectFacCategory('all', this);">
+                            <div class="mvc-dd-item-left">
+                                <span class="mvc-dd-icon">🏢</span>
+                                <span class="mvc-dd-name">All Facilities</span>
+                            </div>
+                            <span class="mvc-dd-pill"><?php echo esc_html($total_facilities); ?></span>
+                        </div>
+                        <?php foreach ($cat_meta as $cname => $cm): ?>
+                            <div class="mvc-dropdown-item" data-value="<?php echo esc_attr($cname); ?>" onclick="mvcSelectFacCategory('<?php echo esc_attr($cname); ?>', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon"><?php echo esc_html($cm['icon']); ?></span>
+                                    <span class="mvc-dd-name"><?php echo esc_html($cm['name']); ?></span>
+                                </div>
+                                <span class="mvc-dd-pill"><?php echo esc_html($cat_counts[$cname] ?? 0); ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. MODERN FACILITY CARDS GRID -->
+        <section class="mvc-fac-grid" id="mvcFacCardsView">
+            <?php foreach ($facilities as $fac): 
+                $c = $fac['category'] ?? 'Institutional Infrastructure';
+                $cm = $cat_meta[$c] ?? [
+                    'icon'  => '🏛️',
+                    'name'  => $c,
+                    'color' => '#0F766E',
+                    'bg'    => '#F0FDFA'
+                ];
+            ?>
+                <article class="mvc-fac-item-card" data-category="<?php echo esc_attr($c); ?>" data-keywords="<?php echo esc_attr(strtolower($fac['name'] . ' ' . $fac['category'] . ' ' . $fac['quantity'])); ?>">
+                    <div>
+                        <div class="mvc-fac-item-top">
+                            <span class="mvc-fac-cat-pill" style="color:<?php echo esc_attr($cm['color']); ?>; background:<?php echo esc_attr($cm['bg']); ?>;">
+                                <span><?php echo esc_html($cm['icon']); ?></span>
+                                <span><?php echo esc_html($cm['name']); ?></span>
+                            </span>
+                            <span class="mvc-fac-sr-badge">#<?php echo sprintf('%02d', $fac['sr_no']); ?></span>
+                        </div>
+                        <h3 class="mvc-fac-item-name"><?php echo esc_html($fac['name']); ?></h3>
+                    </div>
+
+                    <div class="mvc-fac-item-footer">
+                        <span class="mvc-fac-qty-pill">
+                            <span>Qty / Scope:</span>
+                            <strong><?php echo esc_html($fac['quantity']); ?></strong>
+                        </span>
+                        <span class="mvc-fac-status-tag">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Operational</span>
+                        </span>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </section>
+
+        <!-- 5. DETAILED AUDIT TABLE VIEW (Desktop Only) -->
+        <div class="mvc-fac-table-wrap" id="mvcFacTableView">
+            <table class="mvc-fac-audit-table">
                 <thead>
                     <tr>
-                        <th style="width: 70px; text-align: center;">Sr No</th>
-                        <th>Facility Name</th>
-                        <th style="width: 240px;">Category</th>
-                        <th style="width: 160px; text-align: center;">Quantity / Remarks</th>
-                        <th style="width: 140px; text-align: center;">Status</th>
+                        <th style="width: 60px; text-align: center;">Sr</th>
+                        <th>Facility Description</th>
+                        <th style="width: 260px;">Infrastructure Domain</th>
+                        <th style="width: 170px; text-align: center;">Quantity / Scope</th>
+                        <th style="width: 140px; text-align: center;">Audit Status</th>
                     </tr>
                 </thead>
-                <tbody class="mvc-ec-filterable-items">
-                    <?php foreach ($facilities as $fac): ?>
-                        <tr class="mvc-ec-filterable-item" data-category="<?php echo esc_attr($fac['category']); ?>">
-                            <td data-label="Sr No" style="text-align: center; font-weight: 700; color: var(--mvc-navy);">
+                <tbody id="mvcFacTableBody">
+                    <?php foreach ($facilities as $fac): 
+                        $c = $fac['category'] ?? 'Institutional Infrastructure';
+                        $cm = $cat_meta[$c] ?? ['icon' => '🏛️', 'name' => $c, 'color' => '#0F766E', 'bg' => '#F0FDFA'];
+                    ?>
+                        <tr class="mvc-fac-tr" data-category="<?php echo esc_attr($c); ?>" data-keywords="<?php echo esc_attr(strtolower($fac['name'] . ' ' . $fac['category'] . ' ' . $fac['quantity'])); ?>">
+                            <td style="text-align: center; font-weight: 700; color: #94A3B8;">
                                 <?php echo sprintf('%02d', $fac['sr_no']); ?>
                             </td>
-                            <td data-label="Facility Name" style="font-weight: 600; font-size: 14.5px;">
+                            <td style="font-weight: 700; color: var(--mvc-navy);">
                                 <?php echo esc_html($fac['name']); ?>
                             </td>
-                            <td data-label="Category">
-                                <span class="mvc-ec-badge" style="font-size: 11.5px; padding: 3px 8px;">
-                                    <?php echo esc_html($fac['category']); ?>
+                            <td>
+                                <span class="mvc-fac-cat-pill" style="color:<?php echo esc_attr($cm['color']); ?>; background:<?php echo esc_attr($cm['bg']); ?>;">
+                                    <span><?php echo esc_html($cm['icon']); ?></span>
+                                    <span><?php echo esc_html($cm['name']); ?></span>
                                 </span>
                             </td>
-                            <td data-label="Quantity / Remarks" style="text-align: center; font-weight: 700; color: var(--mvc-maroon);">
-                                <?php echo esc_html($fac['quantity']); ?>
+                            <td style="text-align: center;">
+                                <span class="mvc-fac-qty-pill">
+                                    <?php echo esc_html($fac['quantity']); ?>
+                                </span>
                             </td>
-                            <td data-label="Status" style="text-align: center;">
-                                <span style="display: inline-flex; align-items: center; gap: 4px; color: #166534; font-weight: 700; font-size: 13px;">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                                    Operational
+                            <td style="text-align: center;">
+                                <span class="mvc-fac-status-tag">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>Operational</span>
                                 </span>
                             </td>
                         </tr>
@@ -1455,7 +2057,153 @@ function mvc_render_ec_facility() {
                 </tbody>
             </table>
         </div>
+
+        <!-- 6. CAMPUS GATEWAYS STRIP -->
+        <section class="mvc-fac-gateways">
+            <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-fac-gw-card">
+                <div>
+                    <div class="mvc-fac-gw-title">Central Library</div>
+                    <p class="mvc-fac-gw-sub">AutoLib OPAC, reading hall, and INFLIBNET N-LIST digital subscriptions.</p>
+                </div>
+                <span class="mvc-fac-gw-arrow">Explore Library &rarr;</span>
+            </a>
+            <a href="<?php echo esc_url(home_url('/sports/')); ?>" class="mvc-fac-gw-card">
+                <div>
+                    <div class="mvc-fac-gw-title">Sports &amp; Athletics</div>
+                    <p class="mvc-fac-gw-sub">Modern gymnasium, volleyball courts, and annual sports events.</p>
+                </div>
+                <span class="mvc-fac-gw-arrow">Sports Complex &rarr;</span>
+            </a>
+            <a href="<?php echo esc_url(home_url('/our-administration/')); ?>" class="mvc-fac-gw-card">
+                <div>
+                    <div class="mvc-fac-gw-title">Staff Directories</div>
+                    <p class="mvc-fac-gw-sub">Faculty laboratory coordinators and ministerial maintenance wing.</p>
+                </div>
+                <span class="mvc-fac-gw-arrow">Staff Roster &rarr;</span>
+            </a>
+            <a href="<?php echo esc_url(home_url('/contact-us/')); ?>" class="mvc-fac-gw-card">
+                <div>
+                    <div class="mvc-fac-gw-title">Campus Map &amp; Desk</div>
+                    <p class="mvc-fac-gw-sub">Physical campus navigation, Charitravan Buxar location, and helpline.</p>
+                </div>
+                <span class="mvc-fac-gw-arrow">Visit Campus &rarr;</span>
+            </a>
+        </section>
     </div>
+
+    <!-- Client-side Interactive JavaScript -->
+    <script>
+    var mvcFacActiveCat = 'all';
+    var mvcFacActiveMode = 'cards';
+
+    function mvcToggleFacView(mode) {
+        mvcFacActiveMode = mode;
+        var btnCards = document.getElementById('mvcFacBtnCards');
+        var btnTable = document.getElementById('mvcFacBtnTable');
+        var grid = document.getElementById('mvcFacCardsView');
+        var table = document.getElementById('mvcFacTableView');
+
+        if (mode === 'table') {
+            if (btnCards) btnCards.classList.remove('is-active');
+            if (btnTable) btnTable.classList.add('is-active');
+            if (grid) grid.style.display = 'none';
+            if (table) table.style.display = 'block';
+        } else {
+            if (btnCards) btnCards.classList.add('is-active');
+            if (btnTable) btnTable.classList.remove('is-active');
+            if (grid) grid.style.display = 'grid';
+            if (table) table.style.display = 'none';
+        }
+        mvcFilterFacilities();
+    }
+
+    function mvcSetFacCategory(cat, btn) {
+        mvcFacActiveCat = cat;
+        var pills = document.querySelectorAll('.mvc-fac-pill-btn');
+        pills.forEach(function(p) { p.classList.remove('is-active'); });
+        if (btn) btn.classList.add('is-active');
+
+        // Sync mobile dropdown
+        var ddItem = document.querySelector('#mvcFacMobileCatDropdown .mvc-dropdown-item[data-value="' + cat + '"]');
+        if (ddItem) {
+            var menu = ddItem.closest('.mvc-dropdown-menu');
+            if (menu) {
+                menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+                ddItem.classList.add('is-active');
+            }
+            var dd = document.getElementById('mvcFacMobileCatDropdown');
+            if (dd) {
+                var currentLabel = dd.querySelector('.mvc-dropdown-label');
+                var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+                var currentCount = dd.querySelector('.mvc-dropdown-count');
+                var itemIcon = ddItem.querySelector('.mvc-dd-icon');
+                var itemName = ddItem.querySelector('.mvc-dd-name');
+                var itemCount = ddItem.querySelector('.mvc-dd-pill');
+                if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+                if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+                if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            }
+        }
+        mvcFilterFacilities();
+    }
+
+    function mvcSelectFacCategory(cat, itemEl) {
+        mvcFacActiveCat = cat;
+        var menu = itemEl.closest('.mvc-dropdown-menu');
+        if (menu) {
+            menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+            itemEl.classList.add('is-active');
+        }
+        var dd = itemEl.closest('.mvc-custom-dropdown');
+        if (dd) {
+            var currentLabel = dd.querySelector('.mvc-dropdown-label');
+            var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+            var currentCount = dd.querySelector('.mvc-dropdown-count');
+            var itemIcon = itemEl.querySelector('.mvc-dd-icon');
+            var itemName = itemEl.querySelector('.mvc-dd-name');
+            var itemCount = itemEl.querySelector('.mvc-dd-pill');
+            if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+            if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+            if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            dd.classList.remove('is-open');
+            var btn = dd.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        // Sync desktop pills
+        var pills = document.querySelectorAll('.mvc-fac-pill-btn');
+        pills.forEach(function(p) {
+            p.classList.remove('is-active');
+            if (p.getAttribute('data-cat') === cat) p.classList.add('is-active');
+        });
+
+        mvcFilterFacilities();
+    }
+
+    function mvcFilterFacilities() {
+        var input = document.getElementById('mvcFacSearchInput');
+        var query = input ? input.value.toLowerCase().trim() : '';
+
+        var cards = document.querySelectorAll('.mvc-fac-item-card');
+        var trs = document.querySelectorAll('.mvc-fac-tr');
+
+        cards.forEach(function(c) {
+            var cat = c.getAttribute('data-category') || '';
+            var kw = c.getAttribute('data-keywords') || '';
+            var matchesCat = (mvcFacActiveCat === 'all' || cat === mvcFacActiveCat);
+            var matchesQuery = (!query || kw.indexOf(query) !== -1);
+            c.style.display = (matchesCat && matchesQuery) ? 'flex' : 'none';
+        });
+
+        trs.forEach(function(tr) {
+            var cat = tr.getAttribute('data-category') || '';
+            var kw = tr.getAttribute('data-keywords') || '';
+            var matchesCat = (mvcFacActiveCat === 'all' || cat === mvcFacActiveCat);
+            var matchesQuery = (!query || kw.indexOf(query) !== -1);
+            tr.style.display = (matchesCat && matchesQuery) ? '' : 'none';
+        });
+    }
+    </script>
     <?php
 }
 
