@@ -355,52 +355,47 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     </div>
 
     <!-- ========================================================
-         BOTTOM LEGAL, COPYRIGHT & SOCIAL BAR
+         BOTTOM LEGAL, COPYRIGHT & SOCIAL BAR (1 LINE DESKTOP, BEAUTIFUL MOBILE)
          ======================================================== -->
     <div class="mvc-footer-bottom">
         <div class="mvc-container">
             <div class="mvc-bottom-flex">
                 <div class="mvc-bottom-copyright">
-                    <p class="mvc-copy-text">
-                        &copy; <?php echo date('Y'); ?> <strong>Maharshi Vishwamitra Mahavidyalaya, Buxar</strong>. All Rights Reserved.
-                        <span class="mvc-sep" aria-hidden="true">&bull;</span>
-                        <span class="mvc-dev-inline">Designed by <a href="https://retailcoder.com" target="_blank" rel="noopener" class="mvc-credit-link">RetailCoder</a></span>
-                        <span class="mvc-sep" aria-hidden="true">&bull;</span>
-                        <span class="mvc-dev-inline">Managed by <a href="https://swadeshihost.com" target="_blank" rel="noopener" class="mvc-credit-link">Swadeshi Store</a></span>
-                    </p>
+                    <span class="mvc-inst-copy">&copy; <?php echo date('Y'); ?> <strong>Maharshi Vishwamitra Mahavidyalaya, Buxar</strong></span>
+                    <span class="mvc-sep mvc-sep-credits" aria-hidden="true">&bull;</span>
+                    <span class="mvc-dev-inline">Designed by <a href="https://retailcoder.com" target="_blank" rel="noopener" class="mvc-credit-link">RetailCoder</a></span>
+                    <span class="mvc-sep" aria-hidden="true">&bull;</span>
+                    <span class="mvc-dev-inline">Managed by <a href="https://swadeshihost.com" target="_blank" rel="noopener" class="mvc-credit-link">Swadeshi Store</a></span>
                 </div>
 
                 <div class="mvc-bottom-legal-links">
                     <a href="/vision-mission/">Vision &amp; Mission</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/rules-regulations/">Rules &amp; Regulations</a>
+                    <a href="/rules-regulations/">Rules</a>
                     <span class="mvc-sep">&bull;</span>
                     <a href="/code-of-conduct/">Code of Conduct</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/student-grievance/">RTI Act Cell</a>
+                    <a href="/student-grievance/">RTI Cell</a>
                     <span class="mvc-sep">&bull;</span>
-                    <a href="/tender/">Procurement</a>
-                    <span class="mvc-sep">&bull;</span>
-                    <a href="/help-desk/">Help Desk</a>
+                    <a href="/tender/">Tenders</a>
                 </div>
 
                 <div class="mvc-bottom-social-bar">
-                    <span class="mvc-social-label">Official Handles:</span>
                     <div class="mvc-social-icons">
-                        <a href="<?php echo esc_url($yt_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-yt" aria-label="Official YouTube Channel">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        <a href="<?php echo esc_url($yt_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-yt" aria-label="Official YouTube Channel" title="YouTube">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </a>
-                        <a href="<?php echo esc_url($fb_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-fb" aria-label="Facebook Page">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <a href="<?php echo esc_url($fb_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-fb" aria-label="Facebook Page" title="Facebook">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
-                        <a href="<?php echo esc_url($tw_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-tw" aria-label="X / Twitter Handle">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        <a href="<?php echo esc_url($tw_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-tw" aria-label="X / Twitter Handle" title="X (Twitter)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </a>
-                        <a href="<?php echo esc_url($ig_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-ig" aria-label="Instagram Profile">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        <a href="<?php echo esc_url($ig_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-ig" aria-label="Instagram Profile" title="Instagram">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
-                        <a href="<?php echo esc_url($li_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-li" aria-label="LinkedIn Institution">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <a href="<?php echo esc_url($li_url); ?>" target="_blank" rel="noopener" class="mvc-social-icon mvc-li" aria-label="LinkedIn Institution" title="LinkedIn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
                     </div>
                 </div>
@@ -876,24 +871,31 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 /* Bottom Legal Strip */
 .mvc-footer-bottom {
     background: #000814;
-    padding: 18px 0;
+    padding: 14px 0;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 .mvc-bottom-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 12px;
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
 }
-.mvc-bottom-copyright .mvc-copy-text {
-    margin: 0;
-    font-size: 12px;
-    color: #94A3B8;
-    line-height: 1.5;
+.mvc-bottom-copyright {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11px;
+    color: #94A3B8;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.mvc-inst-copy {
+    display: inline;
 }
 .mvc-bottom-copyright strong {
     color: #ffffff;
@@ -910,7 +912,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     text-decoration: none !important;
     transition: all 0.2s ease;
     border-bottom: 1px dotted rgba(212, 175, 55, 0.4);
-    margin-left: 3px;
+    margin-left: 2px;
 }
 .mvc-dev-inline a.mvc-credit-link:hover {
     color: #FFFFFF !important;
@@ -919,12 +921,13 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 .mvc-bottom-legal-links {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 .mvc-bottom-legal-links a {
     color: #94A3B8 !important;
-    font-size: 12px;
+    font-size: 11px;
     text-decoration: none !important;
     transition: color 0.2s;
 }
@@ -933,26 +936,22 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
 }
 .mvc-sep {
     color: #475569;
-    font-size: 10px;
+    font-size: 9px;
 }
 .mvc-bottom-social-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
-}
-.mvc-social-label {
-    font-size: 12px;
-    color: #94A3B8;
-    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 .mvc-social-icons {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 .mvc-social-icon {
-    width: 34px;
-    height: 34px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -964,7 +963,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     transition: all 0.25s ease;
 }
 .mvc-social-icon:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     color: #ffffff !important;
 }
 .mvc-social-icon.mvc-yt:hover { background: #FF0000; border-color: #FF0000; box-shadow: 0 4px 14px rgba(255, 0, 0, 0.4); }
@@ -1038,6 +1037,71 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     }
 }
 
+@media (max-width: 992px) {
+    .mvc-footer-bottom {
+        padding: 24px 16px 36px;
+    }
+    .mvc-bottom-flex {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .mvc-bottom-copyright {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.6;
+        white-space: normal !important;
+    }
+    .mvc-inst-copy {
+        display: block;
+        margin-bottom: 3px;
+        color: #E2E8F0;
+    }
+    .mvc-sep-credits {
+        display: none !important;
+    }
+    .mvc-dev-inline {
+        display: inline-block !important;
+        font-size: 11.5px;
+        color: #94A3B8;
+    }
+    .mvc-bottom-legal-links {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center;
+        align-items: center;
+        gap: 6px 10px;
+        width: 100%;
+        white-space: normal !important;
+    }
+    .mvc-bottom-legal-links a {
+        font-size: 12px !important;
+        padding: 3px 6px;
+        display: inline-block;
+    }
+    .mvc-bottom-social-bar {
+        display: flex !important;
+        justify-content: center;
+        width: 100%;
+        margin-top: 4px;
+    }
+    .mvc-social-icons {
+        justify-content: center;
+        gap: 12px;
+    }
+    .mvc-social-icon {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    .mvc-social-icon svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+}
+
 @media (max-width: 768px) {
     .mvc-footer-main {
         padding: 44px 0 32px;
@@ -1077,21 +1141,6 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     }
     .mvc-metric-label {
         font-size: 11px;
-    }
-    .mvc-bottom-flex {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
-    }
-    .mvc-bottom-legal-links {
-        justify-content: center;
-    }
-    .mvc-bottom-copyright .mvc-copy-text {
-        justify-content: center;
-    }
-    .mvc-bottom-social-bar {
-        flex-direction: column;
-        gap: 10px;
     }
     #ast-scroll-top,
     .ast-scroll-top-icon {
