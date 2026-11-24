@@ -1,7 +1,7 @@
 <?php
 /**
  * Grand Institutional Footer for Maharshi Vishwamitra Mahavidyalaya, Buxar
- * RetailCoder StoreFront [RC:StoreFront] Theme - 10/10 Benchmark Standard
+ * RetailCoder StoreFront [RC:StoreFront] Theme
  * Universal Directives: Royal Navy (#002147), Institutional Maroon (#800000), Metallic Gold (#D4AF37)
  * Powered by RetailCoder (https://retailcoder.com)
  */
