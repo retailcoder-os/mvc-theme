@@ -758,11 +758,13 @@ function mvc_render_our_administration_page($override_form_id = null) {
             scrollbar-width: thin;
         }
 
-        /* MOBILE DROPDOWN STYLES */
+        /* ========================================================
+           CUSTOM SLEEK DROPDOWN COMPONENT (MOBILE & TABLET)
+           ======================================================== */
         .mvc-mobile-dept-dropdown-wrap,
         .mvc-mobile-cadre-dropdown-wrap {
             display: none;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .mvc-mobile-dept-label {
@@ -771,40 +773,188 @@ function mvc_render_our_administration_page($override_form_id = null) {
             font-weight: 800;
             color: var(--mvc-navy);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
         }
 
-        .mvc-select-wrapper {
+        .mvc-custom-dropdown {
             position: relative;
             width: 100%;
+            user-select: none;
         }
 
-        .mvc-mobile-dept-select {
-            width: 100%;
-            padding: 12px 42px 12px 14px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--mvc-navy);
-            background: #FFFFFF;
-            border: 1.5px solid var(--mvc-border);
-            border-radius: 10px;
-            outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.04);
-            box-sizing: border-box;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23002147' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-size: 16px;
-            transition: all 0.2s ease;
+        .mvc-dropdown-trigger {
+            width: 100% !important;
+            height: 52px !important;
+            min-height: 52px !important;
+            background: #FFFFFF !important;
+            border: 1.5px solid var(--mvc-border) !important;
+            border-radius: 12px !important;
+            padding: 0 16px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            cursor: pointer !important;
+            box-shadow: 0 2px 8px rgba(0, 33, 71, 0.04) !important;
+            transition: all 0.2s ease !important;
+            box-sizing: border-box !important;
+            text-align: left !important;
+            outline: none !important;
         }
 
-        .mvc-mobile-dept-select:focus {
-            border-color: var(--mvc-navy);
-            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+        .mvc-dropdown-trigger:hover,
+        .mvc-custom-dropdown.is-open .mvc-dropdown-trigger {
+            border-color: var(--mvc-navy) !important;
+            box-shadow: 0 4px 14px rgba(0, 33, 71, 0.08) !important;
+        }
+
+        .mvc-custom-dropdown.is-open .mvc-dropdown-trigger {
+            box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
+        }
+
+        .mvc-dropdown-current {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            font-size: 14.5px !important;
+            font-weight: 700 !important;
+            color: var(--mvc-navy) !important;
+            min-width: 0 !important;
+            line-height: normal !important;
+        }
+
+        .mvc-dropdown-icon {
+            font-size: 17px !important;
+            flex-shrink: 0 !important;
+            line-height: 1 !important;
+        }
+
+        .mvc-dropdown-label {
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            line-height: 1.3 !important;
+        }
+
+        .mvc-dropdown-count {
+            font-size: 12.5px !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+            flex-shrink: 0 !important;
+        }
+
+        .mvc-dropdown-arrow {
+            color: var(--mvc-navy) !important;
+            transition: transform 0.25s ease !important;
+            flex-shrink: 0 !important;
+            margin-left: 10px !important;
+        }
+
+        .mvc-custom-dropdown.is-open .mvc-dropdown-arrow {
+            transform: rotate(180deg) !important;
+        }
+
+        /* Dropdown Menu Popover */
+        .mvc-dropdown-menu {
+            position: absolute !important;
+            top: calc(100% + 6px) !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: #FFFFFF !important;
+            border: 1.5px solid var(--mvc-border) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 14px 34px rgba(0, 33, 71, 0.14), 0 2px 6px rgba(0, 33, 71, 0.04) !important;
+            max-height: 290px !important;
+            overflow-y: auto !important;
+            z-index: 999 !important;
+            padding: 6px !important;
+            display: none;
+            scrollbar-width: thin !important;
+        }
+
+        .mvc-custom-dropdown.is-open .mvc-dropdown-menu {
+            display: block !important;
+            animation: mvcDropdownSlide 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        @keyframes mvcDropdownSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mvc-dropdown-item {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 10px 14px !important;
+            border-radius: 8px !important;
+            cursor: pointer !important;
+            transition: all 0.15s ease !important;
+            color: #334155 !important;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+        }
+
+        .mvc-dropdown-item:hover {
+            background: #F1F5F9 !important;
+            color: var(--mvc-navy) !important;
+        }
+
+        .mvc-dropdown-item.is-active {
+            background: #EFF6FF !important;
+            color: var(--mvc-navy) !important;
+            font-weight: 800 !important;
+        }
+
+        .mvc-dd-item-left {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            min-width: 0 !important;
+        }
+
+        .mvc-dd-icon {
+            font-size: 16px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .mvc-dd-name {
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .mvc-dd-pill {
+            background: #F1F5F9 !important;
+            color: #475569 !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            padding: 2px 8px !important;
+            border-radius: 12px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .mvc-dropdown-item.is-active .mvc-dd-pill {
+            background: var(--mvc-navy);
+            color: #FFFFFF !important;
+        }
+
+        .mvc-sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
         }
 
         .mvc-dept-pill-btn {
@@ -1016,21 +1166,50 @@ function mvc_render_our_administration_page($override_form_id = null) {
                  TAB 1: TEACHING FACULTY (GROUPED BY DEPARTMENT)
                  ======================================================== -->
             <div id="mvcTeachingFacultyView">
-                <!-- Mobile Department Dropdown Filter -->
+                <!-- Mobile Department Dropdown Filter (Custom Sleek Component) -->
                 <div class="mvc-mobile-dept-dropdown-wrap">
-                    <label for="mvcMobileDeptSelect" class="mvc-mobile-dept-label">Select Academic Department:</label>
-                    <div class="mvc-select-wrapper">
-                        <select id="mvcMobileDeptSelect" class="mvc-mobile-dept-select" onchange="mvcFilterFacultyByDept(this.value, null);">
-                            <option value="all">All Departments (<?php echo count($faculty_by_dept); ?>)</option>
+                    <label class="mvc-mobile-dept-label">Select Academic Department:</label>
+                    <div class="mvc-custom-dropdown" id="mvcMobileDeptDropdown">
+                        <button type="button" class="mvc-dropdown-trigger" onclick="mvcToggleDropdown('mvcMobileDeptDropdown');" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="mvc-dropdown-current">
+                                <span class="mvc-dropdown-icon">📚</span>
+                                <span class="mvc-dropdown-label">All Departments</span>
+                                <span class="mvc-dropdown-count">(<?php echo count($faculty_by_dept); ?>)</span>
+                            </span>
+                            <svg class="mvc-dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="mvc-dropdown-menu" role="listbox">
+                            <div class="mvc-dropdown-item is-active" data-value="all" onclick="mvcSelectDept('all', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">📚</span>
+                                    <span class="mvc-dd-name">All Departments</span>
+                                </div>
+                                <span class="mvc-dd-pill"><?php echo count($faculty_by_dept); ?></span>
+                            </div>
                             <?php foreach ($faculty_by_dept as $dname => $fmembers): 
                                 $icon = $dept_meta_map[$dname]['icon'] ?? '📚';
                             ?>
-                                <option value="<?php echo esc_attr(sanitize_title($dname)); ?>">
-                                    <?php echo esc_html($icon . ' ' . $dname . ' (' . count($fmembers) . ')'); ?>
-                                </option>
+                                <div class="mvc-dropdown-item" data-value="<?php echo esc_attr(sanitize_title($dname)); ?>" onclick="mvcSelectDept('<?php echo esc_attr(sanitize_title($dname)); ?>', this);">
+                                    <div class="mvc-dd-item-left">
+                                        <span class="mvc-dd-icon"><?php echo esc_html($icon); ?></span>
+                                        <span class="mvc-dd-name"><?php echo esc_html($dname); ?></span>
+                                    </div>
+                                    <span class="mvc-dd-pill"><?php echo count($fmembers); ?></span>
+                                </div>
                             <?php endforeach; ?>
-                        </select>
+                        </div>
                     </div>
+                    <!-- Hidden select for form/state sync -->
+                    <select id="mvcMobileDeptSelect" class="mvc-sr-only" onchange="mvcFilterFacultyByDept(this.value, null);">
+                        <option value="all">All Departments (<?php echo count($faculty_by_dept); ?>)</option>
+                        <?php foreach ($faculty_by_dept as $dname => $fmembers): 
+                            $icon = $dept_meta_map[$dname]['icon'] ?? '📚';
+                        ?>
+                            <option value="<?php echo esc_attr(sanitize_title($dname)); ?>">
+                                <?php echo esc_html($icon . ' ' . $dname . ' (' . count($fmembers) . ')'); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <!-- Department Fast-Jump Pills -->
@@ -1148,19 +1327,46 @@ function mvc_render_our_administration_page($override_form_id = null) {
                  TAB 2: NON-TEACHING STAFF (GROUPED BY CADRE / WING)
                  ======================================================== -->
             <div id="mvcNonTeachingStaffView" style="display: none;">
-                <!-- Mobile Cadre Dropdown Filter -->
+                <!-- Mobile Cadre Dropdown Filter (Custom Sleek Component) -->
                 <div class="mvc-mobile-cadre-dropdown-wrap">
-                    <label for="mvcMobileCadreSelect" class="mvc-mobile-dept-label">Select Staff Cadre / Wing:</label>
-                    <div class="mvc-select-wrapper">
-                        <select id="mvcMobileCadreSelect" class="mvc-mobile-dept-select" onchange="mvcFilterStaffByCadre(this.value, null);">
-                            <option value="all">All Cadres (<?php echo count($staff_by_cadre); ?>)</option>
+                    <label class="mvc-mobile-dept-label">Select Staff Cadre / Wing:</label>
+                    <div class="mvc-custom-dropdown" id="mvcMobileCadreDropdown">
+                        <button type="button" class="mvc-dropdown-trigger" onclick="mvcToggleDropdown('mvcMobileCadreDropdown');" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="mvc-dropdown-current">
+                                <span class="mvc-dropdown-icon">👥</span>
+                                <span class="mvc-dropdown-label">All Cadres</span>
+                                <span class="mvc-dropdown-count">(<?php echo count($staff_by_cadre); ?>)</span>
+                            </span>
+                            <svg class="mvc-dropdown-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                        <div class="mvc-dropdown-menu" role="listbox">
+                            <div class="mvc-dropdown-item is-active" data-value="all" onclick="mvcSelectCadre('all', this);">
+                                <div class="mvc-dd-item-left">
+                                    <span class="mvc-dd-icon">👥</span>
+                                    <span class="mvc-dd-name">All Cadres</span>
+                                </div>
+                                <span class="mvc-dd-pill"><?php echo count($staff_by_cadre); ?></span>
+                            </div>
                             <?php foreach ($staff_by_cadre as $ckey => $cdata): ?>
-                                <option value="<?php echo esc_attr($ckey); ?>">
-                                    <?php echo esc_html($cdata['icon'] . ' ' . $cdata['badge'] . ' (' . count($cdata['members']) . ')'); ?>
-                                </option>
+                                <div class="mvc-dropdown-item" data-value="<?php echo esc_attr($ckey); ?>" onclick="mvcSelectCadre('<?php echo esc_attr($ckey); ?>', this);">
+                                    <div class="mvc-dd-item-left">
+                                        <span class="mvc-dd-icon"><?php echo esc_html($cdata['icon']); ?></span>
+                                        <span class="mvc-dd-name"><?php echo esc_html($cdata['badge']); ?></span>
+                                    </div>
+                                    <span class="mvc-dd-pill"><?php echo count($cdata['members']); ?></span>
+                                </div>
                             <?php endforeach; ?>
-                        </select>
+                        </div>
                     </div>
+                    <!-- Hidden select for form/state sync -->
+                    <select id="mvcMobileCadreSelect" class="mvc-sr-only" onchange="mvcFilterStaffByCadre(this.value, null);">
+                        <option value="all">All Cadres (<?php echo count($staff_by_cadre); ?>)</option>
+                        <?php foreach ($staff_by_cadre as $ckey => $cdata): ?>
+                            <option value="<?php echo esc_attr($ckey); ?>">
+                                <?php echo esc_html($cdata['icon'] . ' ' . $cdata['badge'] . ' (' . count($cdata['members']) . ')'); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
 
                 <!-- Cadre Fast-Jump Pills -->
@@ -1347,23 +1553,116 @@ function mvc_render_our_administration_page($override_form_id = null) {
         }
     }
 
+    function mvcToggleDropdown(id) {
+        var dd = document.getElementById(id);
+        if (!dd) return;
+        var isOpen = dd.classList.contains('is-open');
+        document.querySelectorAll('.mvc-custom-dropdown').forEach(function(d) {
+            d.classList.remove('is-open');
+            var btn = d.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            dd.classList.add('is-open');
+            var btn = dd.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.mvc-custom-dropdown')) {
+            document.querySelectorAll('.mvc-custom-dropdown').forEach(function(d) {
+                d.classList.remove('is-open');
+                var btn = d.querySelector('.mvc-dropdown-trigger');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    function mvcSelectDept(dept, itemEl) {
+        var menu = itemEl.closest('.mvc-dropdown-menu');
+        if (menu) {
+            menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+            itemEl.classList.add('is-active');
+        }
+        var dd = itemEl.closest('.mvc-custom-dropdown');
+        if (dd) {
+            var currentLabel = dd.querySelector('.mvc-dropdown-label');
+            var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+            var currentCount = dd.querySelector('.mvc-dropdown-count');
+            var itemIcon = itemEl.querySelector('.mvc-dd-icon');
+            var itemName = itemEl.querySelector('.mvc-dd-name');
+            var itemCount = itemEl.querySelector('.mvc-dd-pill');
+            if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+            if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+            if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            dd.classList.remove('is-open');
+            var btn = dd.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+        var select = document.getElementById('mvcMobileDeptSelect');
+        if (select) select.value = dept;
+
+        mvcFilterFacultyByDept(dept, null);
+    }
+
+    function mvcSelectCadre(cadre, itemEl) {
+        var menu = itemEl.closest('.mvc-dropdown-menu');
+        if (menu) {
+            menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+            itemEl.classList.add('is-active');
+        }
+        var dd = itemEl.closest('.mvc-custom-dropdown');
+        if (dd) {
+            var currentLabel = dd.querySelector('.mvc-dropdown-label');
+            var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+            var currentCount = dd.querySelector('.mvc-dropdown-count');
+            var itemIcon = itemEl.querySelector('.mvc-dd-icon');
+            var itemName = itemEl.querySelector('.mvc-dd-name');
+            var itemCount = itemEl.querySelector('.mvc-dd-pill');
+            if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+            if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+            if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+            dd.classList.remove('is-open');
+            var btn = dd.querySelector('.mvc-dropdown-trigger');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+        var select = document.getElementById('mvcMobileCadreSelect');
+        if (select) select.value = cadre;
+
+        mvcFilterStaffByCadre(cadre, null);
+    }
+
     function mvcFilterFacultyByDept(dept, btn) {
         mvcActiveDept = dept;
         var buttons = document.querySelectorAll('#mvcTeachingFacultyView .mvc-dept-pill-btn');
         buttons.forEach(function(b) { b.classList.remove('is-active'); });
-        var select = document.getElementById('mvcMobileDeptSelect');
         if (btn) {
             btn.classList.add('is-active');
-            if (select) select.value = dept;
-        } else if (select) {
-            dept = select.value;
-            buttons.forEach(function(b) {
-                if ((b.getAttribute('onclick') || '').indexOf("'" + dept + "'") !== -1) {
-                    b.classList.add('is-active');
+            var ddItem = document.querySelector('#mvcMobileDeptDropdown .mvc-dropdown-item[data-value="' + dept + '"]');
+            if (ddItem) {
+                var menu = ddItem.closest('.mvc-dropdown-menu');
+                if (menu) {
+                    menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+                    ddItem.classList.add('is-active');
                 }
-            });
+                var dd = document.getElementById('mvcMobileDeptDropdown');
+                if (dd) {
+                    var currentLabel = dd.querySelector('.mvc-dropdown-label');
+                    var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+                    var currentCount = dd.querySelector('.mvc-dropdown-count');
+                    var itemIcon = ddItem.querySelector('.mvc-dd-icon');
+                    var itemName = ddItem.querySelector('.mvc-dd-name');
+                    var itemCount = ddItem.querySelector('.mvc-dd-pill');
+                    if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+                    if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+                    if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+                }
+            }
         }
-        mvcActiveDept = dept;
+        var select = document.getElementById('mvcMobileDeptSelect');
+        if (select) select.value = dept;
+
         mvcFilterMasterDirectory();
     }
 
@@ -1371,19 +1670,32 @@ function mvc_render_our_administration_page($override_form_id = null) {
         mvcActiveCadre = cadre;
         var buttons = document.querySelectorAll('#mvcNonTeachingStaffView .mvc-dept-pill-btn');
         buttons.forEach(function(b) { b.classList.remove('is-active'); });
-        var select = document.getElementById('mvcMobileCadreSelect');
         if (btn) {
             btn.classList.add('is-active');
-            if (select) select.value = cadre;
-        } else if (select) {
-            cadre = select.value;
-            buttons.forEach(function(b) {
-                if ((b.getAttribute('onclick') || '').indexOf("'" + cadre + "'") !== -1) {
-                    b.classList.add('is-active');
+            var ddItem = document.querySelector('#mvcMobileCadreDropdown .mvc-dropdown-item[data-value="' + cadre + '"]');
+            if (ddItem) {
+                var menu = ddItem.closest('.mvc-dropdown-menu');
+                if (menu) {
+                    menu.querySelectorAll('.mvc-dropdown-item').forEach(function(el) { el.classList.remove('is-active'); });
+                    ddItem.classList.add('is-active');
                 }
-            });
+                var dd = document.getElementById('mvcMobileCadreDropdown');
+                if (dd) {
+                    var currentLabel = dd.querySelector('.mvc-dropdown-label');
+                    var currentIcon = dd.querySelector('.mvc-dropdown-icon');
+                    var currentCount = dd.querySelector('.mvc-dropdown-count');
+                    var itemIcon = ddItem.querySelector('.mvc-dd-icon');
+                    var itemName = ddItem.querySelector('.mvc-dd-name');
+                    var itemCount = ddItem.querySelector('.mvc-dd-pill');
+                    if (currentLabel && itemName) currentLabel.textContent = itemName.textContent;
+                    if (currentIcon && itemIcon) currentIcon.textContent = itemIcon.textContent;
+                    if (currentCount && itemCount) currentCount.textContent = '(' + itemCount.textContent + ')';
+                }
+            }
         }
-        mvcActiveCadre = cadre;
+        var select = document.getElementById('mvcMobileCadreSelect');
+        if (select) select.value = cadre;
+
         mvcFilterMasterDirectory();
     }
 
