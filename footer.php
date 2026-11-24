@@ -99,7 +99,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Undergraduate &amp; PG Programs</span>
                                 </span>
-                                <span class="mvc-nav-badge">NEP-2020</span>
+                                <!-- <span class="mvc-nav-badge">NEP-2020</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -110,7 +110,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Faculty &amp; Staff Directories</span>
                                 </span>
-                                <span class="mvc-nav-badge">Directory</span>
+                                <!-- <span class="mvc-nav-badge">Directory</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -121,7 +121,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Central Digital Library &amp; OPAC</span>
                                 </span>
-                                <span class="mvc-nav-badge">e-Library</span>
+                                <!-- <span class="mvc-nav-badge">e-Library</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -132,7 +132,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Academic Calendar &amp; Schedules</span>
                                 </span>
-                                <span class="mvc-nav-badge">2024–25</span>
+                                <!-- <span class="mvc-nav-badge">2024–25</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -143,7 +143,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Research, ONOS &amp; Publications</span>
                                 </span>
-                                <span class="mvc-nav-badge">Journals</span>
+                                <!-- <span class="mvc-nav-badge">Journals</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -154,7 +154,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Sanctioned Faculty Posts</span>
                                 </span>
-                                <span class="mvc-nav-badge">UGC Matrix</span>
+                                <!-- <span class="mvc-nav-badge">UGC Matrix</span> -->
                             </a>
                         </li>
                     </ul>
@@ -175,7 +175,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Internal Quality Assurance (IQAC)</span>
                                 </span>
-                                <span class="mvc-nav-badge">NAAC</span>
+                                <!-- <span class="mvc-nav-badge">NAAC</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -186,7 +186,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Statutory Anti-Ragging Cell</span>
                                 </span>
-                                <span class="mvc-nav-badge">24×7 Active</span>
+                                <!-- <span class="mvc-nav-badge">24×7 Active</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -197,7 +197,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Student Grievance Redressal</span>
                                 </span>
-                                <span class="mvc-nav-badge">Online Portal</span>
+                                <!-- <span class="mvc-nav-badge">Online Portal</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -208,7 +208,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Statutory Committees &amp; Cells</span>
                                 </span>
-                                <span class="mvc-nav-badge">Committees</span>
+                                <!-- <span class="mvc-nav-badge">Committees</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -219,7 +219,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Campus Facilities &amp; Amenities</span>
                                 </span>
-                                <span class="mvc-nav-badge">23+ Wings</span>
+                                <!-- <span class="mvc-nav-badge">23+ Wings</span> -->
                             </a>
                         </li>
                         <li class="mvc-footer-nav-item">
@@ -230,7 +230,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
                                     </span>
                                     <span class="mvc-nav-text">Press &amp; Media Coverage</span>
                                 </span>
-                                <span class="mvc-nav-badge">Press Archive</span>
+                                <!-- <span class="mvc-nav-badge">Press Archive</span> -->
                             </a>
                         </li>
                     </ul>
