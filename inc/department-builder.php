@@ -306,12 +306,72 @@ function mvc_render_department_page($post_or_slug = null) {
     ));
     $notices_count = $dept_notices->found_posts;
 
-    // Dynamic Tab Registry (Only Include Tabs with Real Content)
+    // 4. Query Real Departmental Events & Activities
+    $dept_events_query = new WP_Query(array(
+        'post_type'      => 'event',
+        'posts_per_page' => 6,
+        'post_status'    => 'publish',
+        'tax_query'      => array(
+            array(
+                'taxonomy' => $dept_tax,
+                'field'    => 'slug',
+                'terms'    => array_unique(array($dept_slug, $dept_term_slug))
+            )
+        )
+    ));
+
+    // 5. Query Real Departmental Photo Galleries (via dept_link or title keyword)
+    $dept_galleries_query = new WP_Query(array(
+        'post_type'      => 'gallery-cat',
+        'posts_per_page' => 6,
+        'post_status'    => 'publish',
+        'tax_query'      => array(
+            array(
+                'taxonomy' => $dept_tax,
+                'field'    => 'slug',
+                'terms'    => array_unique(array($dept_slug, $dept_term_slug))
+            )
+        )
+    ));
+    $dept_galleries = $dept_galleries_query->posts;
+
+    if (empty($dept_galleries)) {
+        $kw_clean = trim(str_ireplace(array('department of', 'p.g. department of', 'post graduate department of', 'p.g.', 'department'), '', $dept_title));
+        $keywords = array_filter(array_unique(array($kw_clean, $dept_slug)));
+        if ($dept_slug === 'hindi' || strtolower($kw_clean) === 'hindi') {
+            $keywords[] = 'हिंदी';
+            $keywords[] = 'राजभाषा';
+        }
+
+        global $wpdb;
+        $like_clauses = array();
+        foreach ($keywords as $kw) {
+            if (!empty($kw) && mb_strlen($kw) >= 3) {
+                $like_clauses[] = $wpdb->prepare("post_title LIKE %s", '%' . $wpdb->esc_like($kw) . '%');
+            }
+        }
+        if (!empty($like_clauses)) {
+            $sql = "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'gallery-cat' AND post_status = 'publish' AND (" . implode(' OR ', $like_clauses) . ") ORDER BY post_date DESC LIMIT 6";
+            $matched_ids = $wpdb->get_col($sql);
+            if (!empty($matched_ids)) {
+                $dept_galleries = get_posts(array(
+                    'post_type'   => 'gallery-cat',
+                    'post__in'    => $matched_ids,
+                    'orderby'     => 'post__in',
+                    'numberposts' => 6
+                ));
+            }
+        }
+    }
+    $activities_count = (is_array($dept_galleries) ? count($dept_galleries) : 0) + $dept_events_query->found_posts;
+    $has_activities = ($activities_count > 0);
+
+    // Dynamic Navigation Registry (Merged Section Anchor Bar)
     $tabs = array();
 
     $tabs['overview'] = array(
         'id'    => 'overview',
-        'label' => 'Overview & Heritage',
+        'label' => 'Overview',
         'icon'  => '🏛️',
         'count' => ''
     );
@@ -350,15 +410,13 @@ function mvc_render_department_page($post_or_slug = null) {
         );
     }
 
-    // 6. Department Activity (Item 13: Always Available)
     $tabs['activities'] = array(
         'id'    => 'activities',
         'label' => 'Department Activity',
-        'icon'  => '🎯',
-        'count' => ''
+        'icon'  => '📸',
+        'count' => $activities_count > 0 ? (string)$activities_count : ''
     );
 
-    // 7. Dept Notice Board (Item 13: Always Available)
     $tabs['notices'] = array(
         'id'    => 'notices',
         'label' => 'Dept Notice Board',
@@ -763,21 +821,14 @@ function mvc_render_department_page($post_or_slug = null) {
             color: #ffffff;
         }
 
-        /* 3. TAB CONTENT ENGINE */
+        /* 3. MERGED PORTAL BODY & SECTIONS */
         .mvc-portal-body {
             padding: 35px 0 65px;
             min-height: 480px;
         }
-        .mvc-portal-pane {
-            display: none;
-            animation: mvcPaneIn 0.3s ease-out forwards;
-        }
-        .mvc-portal-pane.active {
-            display: block;
-        }
-        @keyframes mvcPaneIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        .mvc-dept-section {
+            margin-bottom: 52px;
+            scroll-margin-top: 80px;
         }
 
         /* Pane Header */
@@ -861,49 +912,6 @@ function mvc_render_department_page($post_or_slug = null) {
             line-height: 1.8;
             color: #475569;
             margin-bottom: 16px;
-        }
-
-        /* 4 Academic Pillars Bento Grid */
-        .mvc-pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-top: 26px;
-            padding-top: 22px;
-            border-top: 1px solid var(--mvc-border-light);
-        }
-        .mvc-pillar-card {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: var(--mvc-radius-inner);
-            padding: 18px;
-            transition: all 0.25s var(--mvc-ease);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .mvc-pillar-card:hover {
-            background: #ffffff;
-            border-color: var(--mvc-gold-primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 33, 71, 0.08);
-        }
-        .mvc-pillar-icon-box {
-            font-size: 24px;
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-        .mvc-pillar-heading {
-            font-size: 14.5px;
-            font-weight: 800;
-            color: var(--mvc-navy-royal);
-            margin: 0;
-        }
-        .mvc-pillar-desc {
-            font-size: 12.5px;
-            color: #64748B;
-            line-height: 1.55;
-            margin: 0;
         }
 
         /* Right Column: Institutional Dossier Sidebar */
@@ -1293,6 +1301,107 @@ function mvc_render_department_page($post_or_slug = null) {
             flex-wrap: wrap;
         }
 
+        /* TAB 6: ACTIVITIES & GALLERIES GRID */
+        .mvc-activities-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 22px;
+        }
+        .mvc-activity-card {
+            background: #ffffff;
+            border: 1px solid var(--mvc-border-light);
+            border-radius: var(--mvc-radius-card);
+            overflow: hidden;
+            box-shadow: var(--mvc-shadow-card);
+            transition: all 0.25s var(--mvc-ease);
+            display: flex;
+            flex-direction: column;
+        }
+        .mvc-activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--mvc-shadow-hover);
+            border-color: #cbd5e1;
+        }
+        .mvc-activity-img-box {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #001733;
+            overflow: hidden;
+        }
+        .mvc-activity-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s var(--mvc-ease);
+        }
+        .mvc-activity-card:hover .mvc-activity-thumb {
+            transform: scale(1.05);
+        }
+        .mvc-activity-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 23, 51, 0.88);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .mvc-activity-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .mvc-activity-meta-tag {
+            font-size: 12px;
+            color: var(--mvc-maroon-crimson);
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .mvc-activity-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--mvc-navy-royal);
+            margin: 0 0 8px;
+            line-height: 1.4;
+        }
+        .mvc-activity-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .mvc-activity-title a:hover {
+            color: var(--mvc-maroon-crimson);
+        }
+        .mvc-activity-desc {
+            font-size: 13px;
+            color: var(--mvc-text-muted);
+            line-height: 1.6;
+            margin: 0 0 16px;
+            flex-grow: 1;
+        }
+        .mvc-activity-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--mvc-navy-royal);
+            text-decoration: none;
+            transition: color 0.2s;
+            margin-top: auto;
+        }
+        .mvc-activity-link:hover {
+            color: var(--mvc-maroon-crimson);
+            text-decoration: underline;
+        }
+
         /* TAB 7: CAMPUS DESK CARDS */
         .mvc-campus-desk-cards {
             display: grid;
@@ -1345,9 +1454,6 @@ function mvc_render_department_page($post_or_slug = null) {
             .mvc-overview-bento-grid {
                 grid-template-columns: 1fr;
             }
-            .mvc-pillars-grid {
-                grid-template-columns: 1fr;
-            }
             .mvc-campus-desk-cards {
                 grid-template-columns: 1fr;
             }
@@ -1382,6 +1488,9 @@ function mvc_render_department_page($post_or_slug = null) {
                 padding: 22px 18px;
             }
             .mvc-faculty-cards-flow {
+                grid-template-columns: 1fr;
+            }
+            .mvc-activities-cards-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -1493,24 +1602,23 @@ function mvc_render_department_page($post_or_slug = null) {
                     </svg>
                 </button>
 
-                <!-- Scrollable Tabs Track -->
+                <!-- Scrollable Navigation Track -->
                 <div class="mvc-single-nav-scroll" id="mvcNavScrollTrack" role="tablist">
                     <?php 
                     $first_btn = true;
                     foreach ($tabs as $tid => $tinfo) : 
                     ?>
-                        <button type="button" 
-                                class="mvc-nav-tab-btn <?php echo $first_btn ? 'active' : ''; ?>" 
-                                id="tab-btn-<?php echo esc_attr($tid); ?>"
-                                data-tab="<?php echo esc_attr($tid); ?>"
-                                role="tab"
-                                aria-selected="<?php echo $first_btn ? 'true' : 'false'; ?>"
-                                aria-controls="pane-<?php echo esc_attr($tid); ?>">
+                        <a href="#section-<?php echo esc_attr($tid); ?>" 
+                           class="mvc-nav-tab-btn <?php echo $first_btn ? 'active' : ''; ?>" 
+                           id="tab-btn-<?php echo esc_attr($tid); ?>"
+                           data-target="section-<?php echo esc_attr($tid); ?>"
+                           role="tab"
+                           aria-selected="<?php echo $first_btn ? 'true' : 'false'; ?>">
                             <span><?php echo esc_html($tinfo['icon']); ?> <?php echo esc_html($tinfo['label']); ?></span>
                             <?php if (!empty($tinfo['count'])) : ?>
                                 <span class="mvc-tab-count-bubble"><?php echo esc_html($tinfo['count']); ?></span>
                             <?php endif; ?>
-                        </button>
+                        </a>
                     <?php 
                         $first_btn = false;
                     endforeach; 
@@ -1536,15 +1644,15 @@ function mvc_render_department_page($post_or_slug = null) {
         <main class="mvc-portal-body" id="mvcPortalBody">
             <div class="mvc-portal-container">
 
-                <!-- PANE 1: OVERVIEW & HERITAGE (10/10 CREATIVE EDITORIAL REDESIGN) -->
-                <div class="mvc-portal-pane active" id="pane-overview" role="tabpanel" aria-labelledby="tab-btn-overview">
+                <!-- 1. OVERVIEW -->
+                <section class="mvc-dept-section" id="section-overview">
                     <div class="mvc-overview-bento-grid">
                         
-                        <!-- Left: Editorial Story & 4 Academic Pillars -->
+                        <!-- Left: Department Overview Story -->
                         <div class="mvc-about-prose-card">
                             <div class="mvc-editorial-header">
-                                <h3 class="mvc-editorial-title">🏛️ Foundations &amp; Scholarly Ethos</h3>
-                                <span class="mvc-editorial-badge"><?php echo esc_html($formatted_est_year); ?></span>
+                                <h3 class="mvc-editorial-title">🏛️ Department Overview</h3>
+                                <span class="mvc-editorial-badge">Est. <?php echo esc_html($formatted_est_year); ?></span>
                             </div>
 
                             <div class="mvc-prose-body">
@@ -1555,30 +1663,6 @@ function mvc_render_department_page($post_or_slug = null) {
                                 <?php foreach ($overview_data['paragraphs'] as $p_text) : ?>
                                     <p class="mvc-prose-paragraph"><?php echo esc_html($p_text); ?></p>
                                 <?php endforeach; ?>
-                            </div>
-
-                            <!-- 4 Interactive Academic Pillars Bento Grid -->
-                            <div class="mvc-pillars-grid">
-                                <div class="mvc-pillar-card">
-                                    <div class="mvc-pillar-icon-box">🏛️</div>
-                                    <h4 class="mvc-pillar-heading">Academic Heritage</h4>
-                                    <p class="mvc-pillar-desc">Constituent unit of VKSU Ara, cultivating scholastic depth and critical reasoning since <?php echo esc_html($formatted_est_year); ?>.</p>
-                                </div>
-                                <div class="mvc-pillar-card">
-                                    <div class="mvc-pillar-icon-box">📚</div>
-                                    <h4 class="mvc-pillar-heading">Curricular Scope</h4>
-                                    <p class="mvc-pillar-desc">Comprehensive framework under NEP 2020 &amp; CBCS, balancing classical foundational theory with modern analytical paradigms.</p>
-                                </div>
-                                <div class="mvc-pillar-card">
-                                    <div class="mvc-pillar-icon-box">💡</div>
-                                    <h4 class="mvc-pillar-heading">Dialogic Pedagogy</h4>
-                                    <p class="mvc-pillar-desc">Interactive tutorials, conceptual seminars, debate symposiums, and personalized academic faculty mentorship.</p>
-                                </div>
-                                <div class="mvc-pillar-card">
-                                    <div class="mvc-pillar-icon-box">🎯</div>
-                                    <h4 class="mvc-pillar-heading">Graduate Pathways</h4>
-                                    <p class="mvc-pillar-desc">Direct horizons towards civil services (UPSC/BPSC), advanced academic research, legal advocacy, and leadership.</p>
-                                </div>
                             </div>
                         </div>
 
@@ -1619,9 +1703,9 @@ function mvc_render_department_page($post_or_slug = null) {
                                                     ✉️ Contact Department Head
                                                 </a>
                                             <?php endif; ?>
-                                            <button type="button" class="mvc-hod-roster-link-btn" id="mvcHodToRosterBtn">
-                                                👨‍🏫 View Full Faculty Roster &rarr;
-                                            </button>
+                                            <a href="#section-faculty" class="mvc-hod-roster-link-btn" id="mvcHodToRosterBtn">
+                                                👨‍🏫 View Full Faculty Roster &darr;
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -1661,17 +1745,17 @@ function mvc_render_department_page($post_or_slug = null) {
                         </aside>
 
                     </div>
-                </div>
+                </section>
 
-                <!-- PANE 2: FACULTY ROSTER (ALWAYS PRESENT, QUERIES REAL DB) -->
-                <div class="mvc-portal-pane" id="pane-faculty" role="tabpanel" aria-labelledby="tab-btn-faculty">
+                <!-- 2. FACULTY ROSTER -->
+                <section class="mvc-dept-section" id="section-faculty">
                     <div class="mvc-pane-head-box">
                         <div>
-                            <h2 class="mvc-pane-title-txt">👨‍🏫 Department Faculty Members</h2>
+                            <h2 class="mvc-pane-title-txt">👨‍🏫 Faculty Members</h2>
                             <p class="mvc-pane-sub-txt">Distinguished professors, scholars, and academic mentors of <?php echo esc_html($dept_title); ?></p>
                         </div>
-                        <span class="mvc-hero-badge-pill" style="color: var(--mvc-navy-royal); border-color: #cbd5e1;">
-                            <?php echo esc_html($faculty_count); ?> Total Faculty
+                        <span class="mvc-hero-badge-pill" style="color: var(--mvc-navy-royal); border-color: #cbd5e1; background: #ffffff;">
+                            <?php echo esc_html($faculty_count); ?> Active Educators
                         </span>
                     </div>
 
@@ -1732,11 +1816,11 @@ function mvc_render_department_page($post_or_slug = null) {
                             <div>Faculty details for <?php echo esc_html($dept_title); ?> are currently being updated by the Academic Administration.</div>
                         </div>
                     <?php endif; ?>
-                </div>
+                </section>
 
-                <!-- PANE 3: SYLLABUS & CURRICULUM (DYNAMIC: REAL DATA ONLY) -->
+                <!-- 3. SYLLABUS & CURRICULUM -->
                 <?php if (isset($tabs['syllabus'])) : ?>
-                    <div class="mvc-portal-pane" id="pane-syllabus" role="tabpanel" aria-labelledby="tab-btn-syllabus">
+                    <section class="mvc-dept-section" id="section-syllabus">
                         <div class="mvc-pane-head-box">
                             <div>
                                 <h2 class="mvc-pane-title-txt">📚 Syllabus &amp; Academic Regulations</h2>
@@ -1756,12 +1840,12 @@ function mvc_render_department_page($post_or_slug = null) {
                                 <?php echo wp_kses_post($syllabus_content); ?>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 <?php endif; ?>
 
-                <!-- PANE 4: STUDY MATERIAL (DYNAMIC: REAL DATA ONLY) -->
+                <!-- 4. STUDY MATERIAL -->
                 <?php if (isset($tabs['study-material'])) : ?>
-                    <div class="mvc-portal-pane" id="pane-study-material" role="tabpanel" aria-labelledby="tab-btn-study-material">
+                    <section class="mvc-dept-section" id="section-study-material">
                         <div class="mvc-pane-head-box">
                             <div>
                                 <h2 class="mvc-pane-title-txt">🎓 Study Material &amp; E-Resources</h2>
@@ -1781,12 +1865,12 @@ function mvc_render_department_page($post_or_slug = null) {
                                 <?php echo wp_kses_post($study_material_content); ?>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 <?php endif; ?>
 
-                <!-- PANE 5: LEARNING OUTCOMES (DYNAMIC: REAL DATA ONLY) -->
+                <!-- 5. LEARNING OUTCOMES -->
                 <?php if (isset($tabs['outcomes'])) : ?>
-                    <div class="mvc-portal-pane" id="pane-outcomes" role="tabpanel" aria-labelledby="tab-btn-outcomes">
+                    <section class="mvc-dept-section" id="section-outcomes">
                         <div class="mvc-pane-head-box">
                             <div>
                                 <h2 class="mvc-pane-title-txt">🎯 Course &amp; Program Outcomes (CO / PO)</h2>
@@ -1806,73 +1890,188 @@ function mvc_render_department_page($post_or_slug = null) {
                                 <?php echo wp_kses_post($outcomes_content); ?>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 <?php endif; ?>
 
-                <!-- PANE 6: DEPARTMENT ACTIVITY (ITEM 13) -->
-                <?php if (isset($tabs['activities'])) : ?>
-                    <div class="mvc-portal-pane" id="pane-activities" role="tabpanel" aria-labelledby="tab-btn-activities">
-                        <div class="mvc-pane-head-box">
-                            <div>
-                                <h2 class="mvc-pane-title-txt">🎯 Department Activities &amp; Academic Initiatives</h2>
-                                <p class="mvc-pane-sub-txt">Academic seminars, workshops, guest lectures, student colloquiums, and curriculum enrichment programs</p>
-                            </div>
+                <!-- 6. DEPARTMENT ACTIVITIES & GALLERY -->
+                <section class="mvc-dept-section" id="section-activities">
+                    <div class="mvc-pane-head-box">
+                        <div>
+                            <h2 class="mvc-pane-title-txt">📸 Department Activities &amp; Gallery</h2>
+                            <p class="mvc-pane-sub-txt">Academic workshops, student seminars, guest lectures, and photographic documentation for <?php echo esc_html($dept_title); ?></p>
                         </div>
-
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
-                            <div style="background: #ffffff; border: 1px solid var(--mvc-border-light); border-radius: var(--mvc-radius-card); padding: 22px; box-shadow: var(--mvc-shadow-card);">
-                                <div style="font-size: 26px; margin-bottom: 10px;">🎙️</div>
-                                <h3 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy-royal); margin: 0 0 8px;">Academic Seminars &amp; Guest Lectures</h3>
-                                <p style="font-size: 13.5px; color: #475569; line-height: 1.6; margin: 0 0 14px;">
-                                    Periodic lectures by eminent scholars, university professors, and subject specialists to broaden intellectual horizons beyond standard coursework.
-                                </p>
-                                <span style="font-size: 12px; font-weight: 700; color: var(--mvc-navy-royal); background: #F1F5F9; padding: 4px 10px; border-radius: 4px;">Curricular Enrichment</span>
-                            </div>
-
-                            <div style="background: #ffffff; border: 1px solid var(--mvc-border-light); border-radius: var(--mvc-radius-card); padding: 22px; box-shadow: var(--mvc-shadow-card);">
-                                <div style="font-size: 26px; margin-bottom: 10px;">👥</div>
-                                <h3 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy-royal); margin: 0 0 8px;">Student Colloquiums &amp; Presentations</h3>
-                                <p style="font-size: 13.5px; color: #475569; line-height: 1.6; margin: 0 0 14px;">
-                                    Weekly interactive sessions where undergraduate and postgraduate students present seminar papers, engage in peer discussions, and develop public speaking acumen.
-                                </p>
-                                <span style="font-size: 12px; font-weight: 700; color: #0284C7; background: #E0F2FE; padding: 4px 10px; border-radius: 4px;">Student Led</span>
-                            </div>
-
-                            <div style="background: #ffffff; border: 1px solid var(--mvc-border-light); border-radius: var(--mvc-radius-card); padding: 22px; box-shadow: var(--mvc-shadow-card);">
-                                <div style="font-size: 26px; margin-bottom: 10px;">🔬</div>
-                                <h3 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy-royal); margin: 0 0 8px;">Workshops &amp; Practical Training</h3>
-                                <p style="font-size: 13.5px; color: #475569; line-height: 1.6; margin: 0 0 14px;">
-                                    Hands-on sessions focused on research methodology, laboratory experiments, data analysis, and preparation for competitive national examinations.
-                                </p>
-                                <span style="font-size: 12px; font-weight: 700; color: #16A34A; background: #DCFCE7; padding: 4px 10px; border-radius: 4px;">Skill Building</span>
-                            </div>
-
-                            <div style="background: #ffffff; border: 1px solid var(--mvc-border-light); border-radius: var(--mvc-radius-card); padding: 22px; box-shadow: var(--mvc-shadow-card);">
-                                <div style="font-size: 26px; margin-bottom: 10px;">📜</div>
-                                <h3 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy-royal); margin: 0 0 8px;">Departmental Observance &amp; Special Days</h3>
-                                <p style="font-size: 13.5px; color: #475569; line-height: 1.6; margin: 0 0 14px;">
-                                    Commemoration of discipline-specific national milestones, literary forums, science exhibitions, and awareness campaigns organized in coordination with college cells.
-                                </p>
-                                <span style="font-size: 12px; font-weight: 700; color: #9333EA; background: #F3E8FF; padding: 4px 10px; border-radius: 4px;">Institutional Ethos</span>
-                            </div>
-                        </div>
+                        <?php if ($has_activities) : ?>
+                            <span class="mvc-hero-badge-pill" style="color: var(--mvc-navy-royal); border-color: #cbd5e1; background: #ffffff;">
+                                <?php echo esc_html($activities_count); ?> Records
+                            </span>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
 
-                <!-- PANE 7: DEPT NOTICE BOARD (ITEM 13) -->
-                <?php if (isset($tabs['notices'])) : ?>
-                    <div class="mvc-portal-pane" id="pane-notices" role="tabpanel" aria-labelledby="tab-btn-notices">
-                        <div class="mvc-pane-head-box">
-                            <div>
-                                <h2 class="mvc-pane-title-txt">📢 Department Notice Board</h2>
-                                <p class="mvc-pane-sub-txt">Official departmental notifications, class circulars, and test schedules for <?php echo esc_html($dept_title); ?></p>
-                            </div>
+                    <?php if ($has_activities) : ?>
+                        <div class="mvc-activities-cards-grid">
+                            <?php 
+                            // 1. Render Department Photo Galleries
+                            if (!empty($dept_galleries)) :
+                                foreach ($dept_galleries as $gal) :
+                                    $gid = $gal->ID;
+                                    $g_title = $gal->post_title;
+                                    $g_year = get_post_meta($gid, 'gallery_year', true) ?: date('Y', strtotime($gal->post_date));
+                                    $g_count = intval(get_post_meta($gid, 'gallery_photo_count', true)) ?: 1;
+                                    $g_cover = get_post_meta($gid, 'gallery_cover_url', true);
+                                    if (!$g_cover && has_post_thumbnail($gid)) {
+                                        $g_cover = get_the_post_thumbnail_url($gid, 'large');
+                                    }
+                                    if (!$g_cover) {
+                                        $g_cover = home_url('/wp-content/themes/astra-child/screenshot.png');
+                                    }
+                                    $g_desc = get_post_meta($gid, 'gallery_description', true) ?: wp_trim_words($gal->post_content, 22);
+                            ?>
+                                    <article class="mvc-activity-card">
+                                        <div class="mvc-activity-img-box">
+                                            <img src="<?php echo esc_url($g_cover); ?>" alt="<?php echo esc_attr($g_title); ?>" class="mvc-activity-thumb" loading="lazy">
+                                            <span class="mvc-activity-badge">📸 <?php echo esc_html($g_count); ?> Photos &bull; <?php echo esc_html($g_year); ?></span>
+                                        </div>
+                                        <div class="mvc-activity-body">
+                                            <span class="mvc-activity-meta-tag">🏛️ Photo Archive</span>
+                                            <h3 class="mvc-activity-title"><?php echo esc_html($g_title); ?></h3>
+                                            <?php if (!empty($g_desc)) : ?>
+                                                <p class="mvc-activity-desc"><?php echo esc_html($g_desc); ?></p>
+                                            <?php endif; ?>
+                                            <a href="<?php echo esc_url(home_url('/photo-gallery/')); ?>" class="mvc-activity-link">
+                                                Explore Full Album &rarr;
+                                            </a>
+                                        </div>
+                                    </article>
+                            <?php 
+                                endforeach;
+                            endif;
+
+                            // 2. Render Department Events
+                            if ($dept_events_query->have_posts()) :
+                                while ($dept_events_query->have_posts()) : $dept_events_query->the_post();
+                                    $eid = get_the_ID();
+                                    $e_title = get_the_title();
+                                    $e_venue = get_post_meta($eid, 'event_venue', true) ?: 'M.V. College Campus';
+                                    $e_date = get_post_meta($eid, 'from_date', true) ?: get_the_date('d M Y');
+                                    $e_cat = get_post_meta($eid, 'event_category_label', true) ?: 'Academic Seminar';
+                                    $e_img = get_the_post_thumbnail_url($eid, 'medium_large') ?: get_post_meta($eid, 'event_image_url', true);
+                            ?>
+                                    <article class="mvc-activity-card">
+                                        <?php if (!empty($e_img)) : ?>
+                                            <div class="mvc-activity-img-box">
+                                                <img src="<?php echo esc_url($e_img); ?>" alt="<?php echo esc_attr($e_title); ?>" class="mvc-activity-thumb" loading="lazy">
+                                                <span class="mvc-activity-badge">🎙️ <?php echo esc_html($e_cat); ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="mvc-activity-body">
+                                            <span class="mvc-activity-meta-tag">📅 <?php echo esc_html($e_date); ?> &bull; 📍 <?php echo esc_html($e_venue); ?></span>
+                                            <h3 class="mvc-activity-title"><a href="<?php the_permalink(); ?>"><?php echo esc_html($e_title); ?></a></h3>
+                                            <a href="<?php the_permalink(); ?>" class="mvc-activity-link">
+                                                View Event Details &rarr;
+                                            </a>
+                                        </div>
+                                    </article>
+                            <?php 
+                                endwhile;
+                                wp_reset_postdata();
+                            endif; 
+                            ?>
                         </div>
+                    <?php else : ?>
+                        <div class="mvc-advisory-note-bar" style="background:#F8FAFC; border-color:#CBD5E1; color:#334155; margin-bottom: 20px;">
+                            <span>📸</span>
+                            <div style="flex-grow:1;">
+                                Departmental photo galleries and activity records for <?php echo esc_html($dept_title); ?> are documented regularly. You can also view all college-wide photo albums in the central media gallery.
+                            </div>
+                            <a href="<?php echo esc_url(home_url('/photo-gallery/')); ?>" class="mvc-btn-direct-dl" style="white-space:nowrap; background:var(--mvc-navy-royal); margin-left:12px;">
+                                Visit Photo Gallery &rarr;
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </section>
 
-                        <?php if ($dept_notices->have_posts()) : ?>
+                <!-- 7. DEPT NOTICE BOARD -->
+                <section class="mvc-dept-section" id="section-notices">
+                    <div class="mvc-pane-head-box">
+                        <div>
+                            <h2 class="mvc-pane-title-txt">📢 Department Notice Board</h2>
+                            <p class="mvc-pane-sub-txt">Official departmental notifications, class circulars, and test schedules for <?php echo esc_html($dept_title); ?></p>
+                        </div>
+                        <?php if ($notices_count > 0) : ?>
+                            <span class="mvc-hero-badge-pill" style="color: var(--mvc-navy-royal); border-color: #cbd5e1; background: #ffffff;">
+                                <?php echo esc_html($notices_count); ?> Active Circulars
+                            </span>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if ($dept_notices->have_posts()) : ?>
+                        <div class="mvc-notices-feed-stack">
+                            <?php
+                            while ($dept_notices->have_posts()) : $dept_notices->the_post();
+                                $raw_d = get_field('date_picker');
+                                $disp_d = $format_acf_date($raw_d, get_the_ID());
+                                $pdf = get_field('pdf_file');
+                                $pdf_url = '';
+                                if (is_array($pdf) && !empty($pdf['url'])) $pdf_url = $pdf['url'];
+                                elseif (is_numeric($pdf) && (int)$pdf > 0) $pdf_url = wp_get_attachment_url((int)$pdf);
+                                elseif (is_string($pdf) && !empty($pdf) && $pdf !== '0') $pdf_url = $pdf;
+                                if (empty($pdf_url)) {
+                                    $att_id = get_post_meta(get_the_ID(), '_pdf_attachment_id', true);
+                                    if ($att_id) $pdf_url = wp_get_attachment_url((int)$att_id);
+                                }
+                                if (empty($pdf_url)) {
+                                    $pdf_url = get_post_meta(get_the_ID(), '_pdf_url', true);
+                                }
+                                ?>
+                                <div class="mvc-notice-feed-row">
+                                    <div>
+                                        <h3 style="font-size: 15.5px; font-weight: 700; color: var(--mvc-navy-royal); margin: 0 0 6px;">
+                                            <?php if ($pdf_url) : ?>
+                                                <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
+                                                    <?php the_title(); ?>
+                                                </a>
+                                            <?php else : ?>
+                                                <a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;">
+                                                    <?php the_title(); ?>
+                                                </a>
+                                            <?php endif; ?>
+                                        </h3>
+                                        <span style="font-size: 12px; color: #64748B;">📅 <?php echo esc_html($disp_d); ?></span>
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <?php if ($pdf_url) : ?>
+                                            <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" class="mvc-btn-direct-dl">
+                                                📄 Download PDF &rarr;
+                                            </a>
+                                        <?php endif; ?>
+                                        <a href="<?php the_permalink(); ?>" class="mvc-btn-direct-dl" style="background: var(--mvc-navy-royal);">
+                                            Details &rarr;
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php
+                            endwhile;
+                            wp_reset_postdata();
+                            ?>
+                        </div>
+                    <?php else : ?>
+                        <div class="mvc-advisory-note-bar" style="background:#F8FAFC; border-color:#CBD5E1; color:#334155; margin-bottom:20px;">
+                            <span>ℹ️</span>
+                            <div>No exclusive departmental circulars active at present for <?php echo esc_html($dept_title); ?>. Recent institutional notices from the Central Notice Board are displayed below.</div>
+                        </div>
+                        <?php
+                        $college_notices = new WP_Query(array(
+                            'post_type'      => array('notice', 'notices'),
+                            'posts_per_page' => 4,
+                            'post_status'    => 'publish',
+                            'orderby'        => 'date',
+                            'order'          => 'DESC'
+                        ));
+                        if ($college_notices->have_posts()) :
+                        ?>
                             <div class="mvc-notices-feed-stack">
                                 <?php
-                                while ($dept_notices->have_posts()) : $dept_notices->the_post();
+                                while ($college_notices->have_posts()) : $college_notices->the_post();
                                     $raw_d = get_field('date_picker');
                                     $disp_d = $format_acf_date($raw_d, get_the_ID());
                                     $pdf = get_field('pdf_file');
@@ -1880,17 +2079,11 @@ function mvc_render_department_page($post_or_slug = null) {
                                     if (is_array($pdf) && !empty($pdf['url'])) $pdf_url = $pdf['url'];
                                     elseif (is_numeric($pdf) && (int)$pdf > 0) $pdf_url = wp_get_attachment_url((int)$pdf);
                                     elseif (is_string($pdf) && !empty($pdf) && $pdf !== '0') $pdf_url = $pdf;
-                                    if (empty($pdf_url)) {
-                                        $att_id = get_post_meta(get_the_ID(), '_pdf_attachment_id', true);
-                                        if ($att_id) $pdf_url = wp_get_attachment_url((int)$att_id);
-                                    }
-                                    if (empty($pdf_url)) {
-                                        $pdf_url = get_post_meta(get_the_ID(), '_pdf_url', true);
-                                    }
+                                    if (empty($pdf_url)) $pdf_url = get_post_meta(get_the_ID(), '_pdf_url', true);
                                     ?>
                                     <div class="mvc-notice-feed-row">
                                         <div>
-                                            <h3 style="font-size: 15.5px; font-weight: 700; color: var(--mvc-navy-royal); margin: 0 0 6px;">
+                                            <h3 style="font-size: 15px; font-weight: 700; color: var(--mvc-navy-royal); margin: 0 0 6px;">
                                                 <?php if ($pdf_url) : ?>
                                                     <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
                                                         <?php the_title(); ?>
@@ -1914,78 +2107,19 @@ function mvc_render_department_page($post_or_slug = null) {
                                             </a>
                                         </div>
                                     </div>
-                                    <?php
-                                endwhile;
-                                wp_reset_postdata();
-                                ?>
-                            </div>
-                        <?php else : ?>
-                            <div class="mvc-advisory-note-bar" style="background:#F8FAFC; border-color:#CBD5E1; color:#334155; margin-bottom:20px;">
-                                <span>ℹ️</span>
-                                <div>No exclusive departmental circulars active at present for <?php echo esc_html($dept_title); ?>. Recent institutional notices from the Central Notice Board are displayed below.</div>
-                            </div>
-                            <?php
-                            $college_notices = new WP_Query(array(
-                                'post_type'      => array('notice', 'notices'),
-                                'posts_per_page' => 4,
-                                'post_status'    => 'publish',
-                                'orderby'        => 'date',
-                                'order'          => 'DESC'
-                            ));
-                            if ($college_notices->have_posts()) :
-                            ?>
-                                <div class="mvc-notices-feed-stack">
-                                    <?php
-                                    while ($college_notices->have_posts()) : $college_notices->the_post();
-                                        $raw_d = get_field('date_picker');
-                                        $disp_d = $format_acf_date($raw_d, get_the_ID());
-                                        $pdf = get_field('pdf_file');
-                                        $pdf_url = '';
-                                        if (is_array($pdf) && !empty($pdf['url'])) $pdf_url = $pdf['url'];
-                                        elseif (is_numeric($pdf) && (int)$pdf > 0) $pdf_url = wp_get_attachment_url((int)$pdf);
-                                        elseif (is_string($pdf) && !empty($pdf) && $pdf !== '0') $pdf_url = $pdf;
-                                        if (empty($pdf_url)) $pdf_url = get_post_meta(get_the_ID(), '_pdf_url', true);
-                                        ?>
-                                        <div class="mvc-notice-feed-row">
-                                            <div>
-                                                <h3 style="font-size: 15px; font-weight: 700; color: var(--mvc-navy-royal); margin: 0 0 6px;">
-                                                    <?php if ($pdf_url) : ?>
-                                                        <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">
-                                                            <?php the_title(); ?>
-                                                        </a>
-                                                    <?php else : ?>
-                                                        <a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;">
-                                                            <?php the_title(); ?>
-                                                        </a>
-                                                    <?php endif; ?>
-                                                </h3>
-                                                <span style="font-size: 12px; color: #64748B;">📅 <?php echo esc_html($disp_d); ?></span>
-                                            </div>
-                                            <div style="display: flex; gap: 8px;">
-                                                <?php if ($pdf_url) : ?>
-                                                    <a href="<?php echo esc_url($pdf_url); ?>" target="_blank" rel="noopener" class="mvc-btn-direct-dl">
-                                                        📄 Download PDF &rarr;
-                                                    </a>
-                                                <?php endif; ?>
-                                                <a href="<?php the_permalink(); ?>" class="mvc-btn-direct-dl" style="background: var(--mvc-navy-royal);">
-                                                    Details &rarr;
-                                                </a>
-                                            </div>
-                                        </div>
-                                    <?php endwhile; wp_reset_postdata(); ?>
-                                </div>
-                            <?php endif; ?>
-                            <div style="margin-top: 20px; text-align: center;">
-                                <a href="<?php echo esc_url(home_url('/notices/')); ?>" class="mvc-btn-direct-dl" style="background: var(--mvc-navy-royal); padding: 10px 22px; font-size: 14px;">
-                                    📢 View All Central Circulars &amp; Notices &rarr;
-                                </a>
+                                <?php endwhile; wp_reset_postdata(); ?>
                             </div>
                         <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+                        <div style="margin-top: 20px; text-align: center;">
+                            <a href="<?php echo esc_url(home_url('/notices/')); ?>" class="mvc-btn-direct-dl" style="background: var(--mvc-navy-royal); padding: 10px 22px; font-size: 14px;">
+                                📢 View All Central Circulars &amp; Notices &rarr;
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </section>
 
-                <!-- PANE 7: CAMPUS DESK -->
-                <div class="mvc-portal-pane" id="pane-desk" role="tabpanel" aria-labelledby="tab-btn-desk">
+                <!-- 8. CAMPUS DESK -->
+                <section class="mvc-dept-section" id="section-desk">
                     <div class="mvc-pane-head-box">
                         <div>
                             <h2 class="mvc-pane-title-txt">📍 Department Desk &amp; Campus Helpdesk</h2>
@@ -2028,20 +2162,20 @@ function mvc_render_department_page($post_or_slug = null) {
                             </ul>
                         </div>
                     </div>
-                </div>
+                </section>
 
             </div>
         </main>
 
-        <!-- 4. PURE VANILLA JS TAB CONTROLLER & HORIZONTAL SCROLL ARROWS -->
+        <!-- 4. PURE VANILLA JS ANCHOR NAVIGATION & SCROLLSPY CONTROLLER -->
         <script>
         (function() {
-            function initSingleDeptTabs() {
+            function initUnifiedDeptNav() {
                 var navBar = document.getElementById('mvcUnifiedNavBar');
                 if (!navBar) return;
 
-                var tabBtns = navBar.querySelectorAll('.mvc-nav-tab-btn');
-                var tabPanes = document.querySelectorAll('#mvcPortalBody .mvc-portal-pane');
+                var navLinks = navBar.querySelectorAll('.mvc-nav-tab-btn');
+                var sections = document.querySelectorAll('.mvc-dept-section');
                 var scrollTrack = document.getElementById('mvcNavScrollTrack');
                 var prevBtn = document.getElementById('mvcNavArrowPrev');
                 var nextBtn = document.getElementById('mvcNavArrowNext');
@@ -2081,88 +2215,102 @@ function mvc_render_department_page($post_or_slug = null) {
                     setTimeout(updateNavArrowStates, 120);
                 }
 
-                function activateTab(tabId) {
-                    var targetBtn = navBar.querySelector('.mvc-nav-tab-btn[data-tab="' + tabId + '"]');
-                    var targetPane = document.getElementById('pane-' + tabId);
-
-                    if (!targetBtn || !targetPane) {
-                        if (tabBtns.length > 0) {
-                            tabId = tabBtns[0].getAttribute('data-tab');
-                            targetBtn = tabBtns[0];
-                            targetPane = document.getElementById('pane-' + tabId);
-                        }
-                    }
-
-                    if (!targetBtn || !targetPane) return;
-
-                    // Button active states
-                    tabBtns.forEach(function(btn) {
-                        btn.classList.remove('active');
-                        btn.setAttribute('aria-selected', 'false');
-                    });
-                    targetBtn.classList.add('active');
-                    targetBtn.setAttribute('aria-selected', 'true');
-
-                    // Center active button on mobile touch scroll
-                    if (targetBtn.scrollIntoView) {
-                        targetBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    }
-
-                    // Pane active states
-                    tabPanes.forEach(function(pane) {
-                        pane.classList.remove('active');
-                    });
-                    targetPane.classList.add('active');
-
-                    // Update URL hash cleanly without page jump
-                    if (window.history && window.history.replaceState) {
-                        window.history.replaceState(null, null, '#' + tabId);
-                    }
-
-                    setTimeout(updateNavArrowStates, 250);
-                }
-
-                // Click listener
-                tabBtns.forEach(function(btn) {
-                    btn.addEventListener('click', function(e) {
+                // Smooth scroll to section on navigation click
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function(e) {
+                        var targetId = this.getAttribute('data-target');
+                        var targetEl = document.getElementById(targetId);
+                        if (!targetEl) return;
                         e.preventDefault();
-                        var tabId = this.getAttribute('data-tab');
-                        activateTab(tabId);
+
+                        var navHeight = navBar.offsetHeight || 60;
+                        var targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
+                        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+                        navLinks.forEach(function(btn) { 
+                            btn.classList.remove('active'); 
+                            btn.setAttribute('aria-selected', 'false'); 
+                        });
+                        this.classList.add('active');
+                        this.setAttribute('aria-selected', 'true');
+
+                        var cleanId = targetId.replace('section-', '');
+                        if (window.history && window.history.replaceState) {
+                            window.history.replaceState(null, null, '#' + cleanId);
+                        }
                     });
                 });
 
-                // HOD Card Quick Link to Roster Tab
+                // HOD Card Quick Link to Roster Section
                 var hodRosterBtn = document.getElementById('mvcHodToRosterBtn');
                 if (hodRosterBtn) {
                     hodRosterBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        activateTab('faculty');
-                        var targetPane = document.getElementById('pane-faculty');
-                        if (targetPane) {
-                            targetPane.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        var facultySec = document.getElementById('section-faculty');
+                        if (facultySec) {
+                            e.preventDefault();
+                            var navHeight = navBar.offsetHeight || 60;
+                            var targetTop = facultySec.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
+                            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                            var facBtn = document.getElementById('tab-btn-faculty');
+                            if (facBtn) {
+                                navLinks.forEach(function(btn) { btn.classList.remove('active'); });
+                                facBtn.classList.add('active');
+                            }
                         }
                     });
                 }
 
-                // Initial hash support (e.g. #faculty, #syllabus)
-                var currentHash = window.location.hash.replace('#', '');
-                if (currentHash) {
-                    activateTab(currentHash);
+                // ScrollSpy via IntersectionObserver
+                if ('IntersectionObserver' in window && sections.length > 0) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                var secId = entry.target.id;
+                                var tid = secId.replace('section-', '');
+                                var activeBtn = document.getElementById('tab-btn-' + tid);
+                                if (activeBtn) {
+                                    navLinks.forEach(function(btn) { 
+                                        btn.classList.remove('active'); 
+                                        btn.setAttribute('aria-selected', 'false'); 
+                                    });
+                                    activeBtn.classList.add('active');
+                                    activeBtn.setAttribute('aria-selected', 'true');
+                                    if (activeBtn.scrollIntoView) {
+                                        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                                    }
+                                }
+                            }
+                        });
+                    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+                    sections.forEach(function(sec) {
+                        observer.observe(sec);
+                    });
                 }
 
-                // Back / Forward browser navigation
-                window.addEventListener('hashchange', function() {
-                    var newHash = window.location.hash.replace('#', '');
-                    if (newHash) {
-                        activateTab(newHash);
+                // Initial hash support (e.g. #faculty, #notices)
+                var currentHash = window.location.hash.replace('#', '');
+                if (currentHash) {
+                    var targetSection = document.getElementById('section-' + currentHash);
+                    if (targetSection) {
+                        setTimeout(function() {
+                            var navHeight = navBar.offsetHeight || 60;
+                            var targetTop = targetSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 15;
+                            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+                            var hashBtn = document.getElementById('tab-btn-' + currentHash);
+                            if (hashBtn) {
+                                navLinks.forEach(function(btn) { btn.classList.remove('active'); });
+                                hashBtn.classList.add('active');
+                            }
+                        }, 300);
                     }
-                });
+                }
             }
 
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initSingleDeptTabs);
+                document.addEventListener('DOMContentLoaded', initUnifiedDeptNav);
             } else {
-                initSingleDeptTabs();
+                initUnifiedDeptNav();
             }
         })();
         </script>
