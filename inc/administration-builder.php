@@ -268,12 +268,13 @@ function mvc_render_our_administration_page($override_form_id = null) {
         }
 
         .mvc-admin-breadcrumb {
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            flex-wrap: wrap;
             gap: 8px;
             font-size: 13px;
             color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .mvc-admin-breadcrumb a {
@@ -889,10 +890,6 @@ function mvc_render_our_administration_page($override_form_id = null) {
                     <span>/</span>
                     <span style="color:var(--mvc-gold-light);">Staff Directories</span>
                 </nav>
-
-                <div class="mvc-admin-badge-pill">
-                    🏛️ Maharshi Vishwamitra Mahavidyalaya, Buxar
-                </div>
 
                 <h1>College Staff &amp; Faculty Directories</h1>
 

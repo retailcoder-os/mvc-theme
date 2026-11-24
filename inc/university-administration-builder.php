@@ -1025,65 +1025,7 @@ function mvc_render_university_administration_page($override_form_id = null) {
                 </a>
             </div>
 
-            <!-- SECTION: VKSU LIAISON & VERIFICATION PORTAL (FORM 831) -->
-            <section id="vksu-liaison-portal" style="margin-top: 40px;">
-                <div class="mvc-inquiry-portal-card" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:32px; box-shadow:0 4px 16px rgba(0,33,71,0.04);">
-                    <?php
-                    $post_id = get_the_ID();
-                    $form_title = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_box_title', 'VKSU University Liaison & Academic Verification Portal') : 'VKSU University Liaison & Academic Verification Portal';
-                    $form_sub = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_box_subtitle', 'Official collegiate liaison gateway for university registration verification, mark-sheet corrections, migration certificates, and examination inquiries.') : 'Official collegiate liaison gateway for university registration verification, mark-sheet corrections, migration certificates, and examination inquiries.';
-                    $instructions = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_instructions', '') : '';
-                    $helpline_phone = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_helpline_phone', '') : '';
-                    $helpline_email = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_helpline_email', '') : '';
-
-                    $custom_shortcode = function_exists('mvc_get_page_meta') ? mvc_get_page_meta($post_id, 'form_custom_shortcode', '') : '';
-                    $meta_wpforms_id = function_exists('mvc_get_page_meta') ? intval(mvc_get_page_meta($post_id, 'form_wpforms_id', 0)) : 0;
-                    
-                    $resolved_form_id = 831;
-                    if (!empty($override_form_id)) {
-                        $resolved_form_id = intval($override_form_id);
-                    } elseif (!empty($mvc_shortcode_context['form_id'])) {
-                        $resolved_form_id = intval($mvc_shortcode_context['form_id']);
-                    }
-                    if ($meta_wpforms_id > 0) {
-                        $resolved_form_id = $meta_wpforms_id;
-                    }
-                    ?>
-                    <div class="mvc-portal-head" style="margin-bottom: 24px;">
-                        <h3 class="mvc-portal-title" style="margin:0 0 8px; color:var(--mvc-navy); font-size:20px; font-weight:800;"><?php echo esc_html($form_title); ?></h3>
-                        <p class="mvc-portal-sub" style="margin:0; color:#64748b; font-size:14.5px; line-height:1.6;"><?php echo esc_html($form_sub); ?></p>
-                        <?php if (!empty($helpline_phone) || !empty($helpline_email)): ?>
-                            <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap;">
-                                <?php if (!empty($helpline_phone)): ?>
-                                    <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,33,71,0.06); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--mvc-navy);">
-                                        📞 University Liaison Desk: <?php echo esc_html($helpline_phone); ?>
-                                    </span>
-                                <?php endif; ?>
-                                <?php if (!empty($helpline_email)): ?>
-                                    <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(128,0,0,0.06); padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--mvc-maroon);">
-                                        ✉️ Academic Cell: <?php echo esc_html($helpline_email); ?>
-                                    </span>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (!empty($instructions)): ?>
-                        <div style="background: #FFFBEB; border-left: 4px solid #D4AF37; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; color: #92400E; line-height: 1.6;">
-                            <strong>📋 Important Verification Guidelines:</strong><br>
-                            <?php echo nl2br(esc_html($instructions)); ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="mvc-portal-body">
-                        <?php
-                        if (!empty($custom_shortcode)) {
-                            echo do_shortcode($custom_shortcode);
-                        } else {
-                            echo do_shortcode('[wpforms id="' . $resolved_form_id . '"]');
-                        }
-                        ?>
-                    </div>
-                </div>
-            </section>
+            
 
         </main>
     </div>
