@@ -847,55 +847,7 @@ function mvc_render_department_page($post_or_slug = null) {
             margin: 0;
         }
 
-        /* ========================================================
-           EXECUTIVE LEADERSHIP & DOSSIER GRID
-           ======================================================== */
-        .mvc-leadership-banner-grid {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 22px;
-            align-items: stretch;
-            margin-bottom: 28px;
-        }
-
-        /* Executive HOD Spotlight Card */
-        .mvc-hod-spotlight-card {
-            background: #ffffff;
-            border: 1px solid var(--mvc-border-light);
-            border-top: 5px solid var(--mvc-maroon-crimson);
-            border-radius: var(--mvc-radius-card);
-            padding: 24px 26px;
-            box-shadow: var(--mvc-shadow-card);
-            display: flex;
-            align-items: center;
-            transition: all 0.25s var(--mvc-ease);
-        }
-        .mvc-hod-spotlight-card:hover {
-            border-top-color: var(--mvc-gold-primary);
-            box-shadow: var(--mvc-shadow-hover);
-        }
-        .mvc-hod-spotlight-inner {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            width: 100%;
-        }
-        .mvc-hod-info-col {
-            flex-grow: 1;
-            min-width: 0;
-        }
-        .mvc-hod-lead-quote {
-            font-size: 13.5px;
-            color: #475569;
-            line-height: 1.6;
-            margin: 6px 0 14px;
-        }
-        .mvc-hod-cta-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        /* HOD Tag for Faculty Card */
         .mvc-hod-ribbon-tag {
             display: inline-flex;
             align-items: center;
@@ -908,163 +860,8 @@ function mvc_render_department_page($post_or_slug = null) {
             border-radius: var(--mvc-radius-pill);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
-        }
-        .mvc-hod-avatar-frame {
-            width: 112px;
-            height: 112px;
-            min-width: 112px;
-            border-radius: 50%;
-            margin: 0;
-            padding: 3.5px;
-            background: linear-gradient(135deg, var(--mvc-gold-primary) 0%, var(--mvc-navy-royal) 100%);
-            box-shadow: 0 6px 18px rgba(0, 33, 71, 0.15);
-            flex-shrink: 0;
-        }
-        .mvc-hod-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-        }
-        .mvc-hod-monogram-circle {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #002d62 0%, #001733 100%);
-            color: var(--mvc-gold-primary);
-            font-size: 30px;
-            font-weight: 800;
-            font-family: Georgia, serif;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(212, 175, 55, 0.4);
-        }
-        .mvc-hod-name-txt {
-            font-size: 18.5px;
-            font-weight: 800;
-            color: var(--mvc-navy-royal);
-            margin: 0 0 4px;
-        }
-        .mvc-hod-desig-txt {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: var(--mvc-maroon-crimson);
-            margin: 0 0 6px;
-        }
-        .mvc-hod-qual-badge {
-            display: inline-block;
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            color: #475569;
-            font-size: 11.5px;
-            font-weight: 600;
-            padding: 3px 12px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-        .mvc-hod-actions-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 4px;
-        }
-        .mvc-hod-email-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 7px;
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            background: var(--mvc-navy-royal);
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .mvc-hod-email-btn:hover {
-            background: var(--mvc-maroon-crimson);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-        .mvc-hod-roster-link-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background: #F1F5F9;
-            border: 1px solid #CBD5E1;
-            color: var(--mvc-navy-royal);
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        .mvc-hod-roster-link-btn:hover {
-            background: #E2E8F0;
-            color: var(--mvc-maroon-crimson);
-        }
-
-        /* Department Factsheet Card */
-        .mvc-factsheet-card {
-            background: #ffffff;
-            border: 1px solid var(--mvc-border-light);
-            border-radius: var(--mvc-radius-card);
-            padding: 22px;
-            box-shadow: var(--mvc-shadow-card);
-        }
-        .mvc-factsheet-head {
-            font-size: 14.5px;
-            font-weight: 800;
-            color: var(--mvc-navy-royal);
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            margin: 0 0 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .mvc-factsheet-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .mvc-factsheet-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 8px 10px;
-            border-radius: 6px;
-            background: #F8FAFC;
-            border: 1px solid #EDF2F7;
-            font-size: 12.5px;
-        }
-        .mvc-factsheet-key {
-            color: #64748B;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .mvc-factsheet-val {
-            color: #0F172A;
-            font-weight: 700;
-            text-align: right;
         }
 
         /* TAB 2: FACULTY ROSTER */
@@ -1410,9 +1207,6 @@ function mvc_render_department_page($post_or_slug = null) {
             .mvc-metrics-ribbon {
                 grid-template-columns: repeat(2, 1fr);
             }
-            .mvc-leadership-banner-grid {
-                grid-template-columns: 1fr;
-            }
             .mvc-campus-desk-cards {
                 grid-template-columns: 1fr;
             }
@@ -1442,17 +1236,6 @@ function mvc_render_department_page($post_or_slug = null) {
             .mvc-nav-tab-btn {
                 padding: 8px 14px;
                 font-size: 13px;
-            }
-            .mvc-hod-spotlight-inner {
-                flex-direction: column;
-                text-align: center;
-                gap: 14px;
-            }
-            .mvc-hod-avatar-frame {
-                margin: 0 auto;
-            }
-            .mvc-hod-cta-row {
-                justify-content: center;
             }
             .mvc-faculty-cards-flow {
                 grid-template-columns: 1fr;
