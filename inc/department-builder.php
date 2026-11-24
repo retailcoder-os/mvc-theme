@@ -251,8 +251,6 @@ function mvc_render_department_page($post_or_slug = null) {
     $establishment_year_raw = $dept_id ? get_field('establishment_year', $dept_id) : '';
     $sanctioned_seats_raw = $dept_id ? get_field('sanctioned_seats', $dept_id) : '';
     $syllabus_content = $dept_id ? get_field('syllabus', $dept_id) : '';
-    $study_material_content = $dept_id ? get_field('study_material', $dept_id) : '';
-    $outcomes_content = $dept_id ? get_field('outcomes', $dept_id) : '';
 
     $formatted_est_year = mvc_clean_academic_year($establishment_year_raw);
     $formatted_seats = mvc_clean_sanctioned_seats($sanctioned_seats_raw);
@@ -381,24 +379,6 @@ function mvc_render_department_page($post_or_slug = null) {
             'id'    => 'syllabus',
             'label' => 'Syllabus & Regulations',
             'icon'  => '📚',
-            'count' => ''
-        );
-    }
-
-    if (!empty($study_material_content) && trim(strip_tags($study_material_content)) !== '') {
-        $tabs['study-material'] = array(
-            'id'    => 'study-material',
-            'label' => 'Study Material',
-            'icon'  => '🎓',
-            'count' => ''
-        );
-    }
-
-    if (!empty($outcomes_content) && trim(strip_tags($outcomes_content)) !== '') {
-        $tabs['outcomes'] = array(
-            'id'    => 'outcomes',
-            'label' => 'Learning Outcomes',
-            'icon'  => '🎯',
             'count' => ''
         );
     }
@@ -646,17 +626,9 @@ function mvc_render_department_page($post_or_slug = null) {
             font-size: clamp(26px, 3.8vw, 42px);
             font-weight: 800;
             color: #ffffff;
-            margin: 0 0 10px;
+            margin: 0 0 18px;
             line-height: 1.2;
             letter-spacing: -0.5px;
-        }
-
-        .mvc-hero-lead-text {
-            font-size: clamp(14px, 1.6vw, 16px);
-            color: rgba(255, 255, 255, 0.88);
-            max-width: 860px;
-            margin: 0 0 20px;
-            line-height: 1.65;
         }
 
         /* Streamlined Metrics Ribbon (Minimal Height, Mobile First) */
@@ -1016,26 +988,32 @@ function mvc_render_department_page($post_or_slug = null) {
         .mvc-table-touch-container tr:hover td {
             background: #FFFDF5 !important;
         }
-        .mvc-btn-direct-dl {
+        .mvc-btn-direct-dl,
+        .mvc-table-touch-container .mvc-btn-download,
+        .mvc-table-touch-container td a {
             display: inline-flex !important;
             align-items: center !important;
+            justify-content: center !important;
             gap: 6px !important;
-            padding: 6px 14px !important;
+            padding: 7px 16px !important;
             border-radius: 6px !important;
-            font-size: 12.5px !important;
+            font-size: 13px !important;
             font-weight: 700 !important;
             background: var(--mvc-maroon-crimson) !important;
             color: #ffffff !important;
             text-decoration: none !important;
             box-shadow: 0 2px 6px rgba(128, 0, 0, 0.2) !important;
-            transition: all 0.2s !important;
+            transition: all 0.2s ease !important;
             white-space: nowrap !important;
             border: none !important;
         }
-        .mvc-btn-direct-dl:hover {
+        .mvc-btn-direct-dl:hover,
+        .mvc-table-touch-container .mvc-btn-download:hover,
+        .mvc-table-touch-container td a:hover {
             background: var(--mvc-navy-royal) !important;
             color: #ffffff !important;
             transform: translateY(-1px) !important;
+            box-shadow: 0 4px 10px rgba(0, 33, 71, 0.25) !important;
         }
 
         /* TAB 6: NOTICES FEED */
@@ -1243,6 +1221,71 @@ function mvc_render_department_page($post_or_slug = null) {
             .mvc-activities-cards-grid {
                 grid-template-columns: 1fr;
             }
+
+            /* Responsive Mobile Syllabus Table Cards */
+            .mvc-table-touch-container {
+                border: none !important;
+                background: transparent !important;
+                overflow: visible !important;
+            }
+            .mvc-table-touch-container table,
+            .mvc-table-touch-container tbody,
+            .mvc-table-touch-container tr,
+            .mvc-table-touch-container td {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            .mvc-table-touch-container thead {
+                display: none !important;
+            }
+            .mvc-table-touch-container tr {
+                background: #ffffff !important;
+                border: 1px solid #E2E8F0 !important;
+                border-radius: 12px !important;
+                padding: 16px !important;
+                margin-bottom: 14px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+            }
+            .mvc-table-touch-container td {
+                padding: 4px 0 !important;
+                border: none !important;
+                background: transparent !important;
+            }
+            .mvc-table-touch-container td:first-child {
+                display: inline-block !important;
+                width: auto !important;
+                background: #EFF6FF !important;
+                color: var(--mvc-navy-royal) !important;
+                font-weight: 800 !important;
+                font-size: 13px !important;
+                padding: 4px 12px !important;
+                border-radius: 6px !important;
+                border: 1px solid #BFDBFE !important;
+                margin-bottom: 8px !important;
+                letter-spacing: 0.5px;
+            }
+            .mvc-table-touch-container td:nth-child(2) {
+                font-size: 14.5px !important;
+                color: #1E293B !important;
+                font-weight: 600 !important;
+                line-height: 1.45 !important;
+                margin-bottom: 12px !important;
+            }
+            .mvc-table-touch-container td:last-child {
+                padding-top: 6px !important;
+            }
+            .mvc-table-touch-container td .mvc-btn-download,
+            .mvc-table-touch-container td .mvc-btn-direct-dl,
+            .mvc-table-touch-container td a {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                padding: 11px 16px !important;
+                font-size: 14px !important;
+                box-sizing: border-box !important;
+            }
         }
         </style>
 
@@ -1293,10 +1336,6 @@ function mvc_render_department_page($post_or_slug = null) {
 
                 <!-- Single H1 Headline for 10/10 SEO -->
                 <h1 class="mvc-hero-headline"><?php echo esc_html($dept_title); ?></h1>
-
-                <p class="mvc-hero-lead-text">
-                    Dedicated to academic rigor, intellectual inquiry, and holistic student mentorship under the National Education Policy (NEP 2020) and CBCS curriculum of Veer Kunwar Singh University (VKSU), Ara.
-                </p>
 
                 <!-- Streamlined Metrics Ribbon (Minimal Height, Zero Extra Buttons) -->
                 <div class="mvc-metrics-ribbon">
@@ -1491,57 +1530,7 @@ function mvc_render_department_page($post_or_slug = null) {
                     </section>
                 <?php endif; ?>
 
-                <!-- 4. STUDY MATERIAL -->
-                <?php if (isset($tabs['study-material'])) : ?>
-                    <section class="mvc-dept-section" id="section-study-material">
-                        <div class="mvc-pane-head-box">
-                            <div>
-                                <h2 class="mvc-pane-title-txt">🎓 Study Material &amp; E-Resources</h2>
-                                <p class="mvc-pane-sub-txt">Faculty-curated reading modules, lecture references, and course materials for students</p>
-                            </div>
-                        </div>
-
-                        <div class="mvc-doc-vault-box">
-                            <div class="mvc-advisory-note-bar">
-                                <span>💡</span>
-                                <div>
-                                    <strong>E-Learning Notice:</strong> Academic notes provided below are curated by departmental educators for reference study and exam preparation.
-                                </div>
-                            </div>
-
-                            <div class="mvc-table-touch-container">
-                                <?php echo wp_kses_post($study_material_content); ?>
-                            </div>
-                        </div>
-                    </section>
-                <?php endif; ?>
-
-                <!-- 5. LEARNING OUTCOMES -->
-                <?php if (isset($tabs['outcomes'])) : ?>
-                    <section class="mvc-dept-section" id="section-outcomes">
-                        <div class="mvc-pane-head-box">
-                            <div>
-                                <h2 class="mvc-pane-title-txt">🎯 Course &amp; Program Outcomes (CO / PO)</h2>
-                                <p class="mvc-pane-sub-txt">Outcome-Based Education (OBE) Framework defining learning benchmarks and graduate attributes</p>
-                            </div>
-                        </div>
-
-                        <div class="mvc-doc-vault-box">
-                            <div class="mvc-advisory-note-bar">
-                                <span>📊</span>
-                                <div>
-                                    <strong>Outcome-Based Education (OBE):</strong> Program Outcomes (PO), Program Specific Outcomes (PSO), and Course Outcomes (CO) aligned with NAAC &amp; UGC standards.
-                                </div>
-                            </div>
-
-                            <div class="mvc-table-touch-container">
-                                <?php echo wp_kses_post($outcomes_content); ?>
-                            </div>
-                        </div>
-                    </section>
-                <?php endif; ?>
-
-                <!-- 6. DEPARTMENT ACTIVITIES & GALLERY -->
+                <!-- 4. DEPARTMENT ACTIVITIES & GALLERY -->
                 <section class="mvc-dept-section" id="section-activities">
                     <div class="mvc-pane-head-box">
                         <div>
