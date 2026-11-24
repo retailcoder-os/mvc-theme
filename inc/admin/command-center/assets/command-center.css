@@ -1,0 +1,2238 @@
+/**
+ * MV College Staff Command Center Stylesheet (v2.0 Complete Modern CMS)
+ * Royal Navy (#002147), Institutional Maroon (#800000), Metallic Gold (#D4AF37)
+ * 100% Fullscreen Immersive Application Surface • Mobile-First Responsive
+ */
+
+/* ==========================================================================
+   1. TOTAL FULLSCREEN APPLICATION TAKEOVER
+   Completely replaces 2008 legacy WP Admin chrome on Command Center
+   ========================================================================== */
+html:has(body.toplevel_page_mvc-command-center),
+body.toplevel_page_mvc-command-center {
+    height: 100% !important;
+    overflow: hidden !important;
+    background: #00152e !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.toplevel_page_mvc-command-center #wpadminbar,
+body.toplevel_page_mvc-command-center #adminmenumain,
+body.toplevel_page_mvc-command-center #adminmenuback,
+body.toplevel_page_mvc-command-center #adminmenuwrap,
+body.toplevel_page_mvc-command-center #wpfooter,
+body.toplevel_page_mvc-command-center .notice:not(.mvc-notice),
+body.toplevel_page_mvc-command-center .update-nag,
+body.toplevel_page_mvc-command-center #screen-meta,
+body.toplevel_page_mvc-command-center #screen-meta-links {
+    display: none !important;
+}
+
+body.toplevel_page_mvc-command-center #wpwrap {
+    background: transparent !important;
+}
+
+body.toplevel_page_mvc-command-center #wpcontent {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh !important;
+}
+
+body.toplevel_page_mvc-command-center #wpbody-content {
+    padding-bottom: 0 !important;
+    float: none !important;
+}
+
+html.wp-toolbar {
+    padding-top: 0 !important;
+}
+
+/* ==========================================================================
+   2. DESIGN SYSTEM TOKENS & THEMING
+   ========================================================================== */
+:root {
+    --mvc-navy: #002147;
+    --mvc-navy-dark: #00152e;
+    --mvc-navy-light: #0a3366;
+    --mvc-maroon: #800000;
+    --mvc-maroon-dark: #5c0000;
+    --mvc-gold: #D4AF37;
+    --mvc-gold-light: #FDFBF0;
+    --mvc-gold-dark: #B48200;
+    --mvc-bg: #F8FAFC;
+    --mvc-card-bg: #FFFFFF;
+    --mvc-sidebar-bg: #FFFFFF;
+    --mvc-border: #E2E8F0;
+    --mvc-text: #0F172A;
+    --mvc-text-muted: #64748B;
+    --mvc-success: #10B981;
+    --mvc-danger: #EF4444;
+    --mvc-warning: #F59E0B;
+    --mvc-info: #3B82F6;
+    --mvc-radius: 10px;
+    --mvc-radius-lg: 14px;
+    --mvc-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    --mvc-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --mvc-sidebar-width: 270px;
+    --mvc-topbar-height: 64px;
+    --mvc-font-main: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mvc-font-heading: "Outfit", "Plus Jakarta Sans", sans-serif;
+}
+
+[data-theme="dark"] {
+    --mvc-bg: #0B1120;
+    --mvc-card-bg: #1E293B;
+    --mvc-sidebar-bg: #111827;
+    --mvc-border: #334155;
+    --mvc-text: #F8FAFC;
+    --mvc-text-muted: #94A3B8;
+    --mvc-gold-light: #1E293B;
+    --mvc-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --mvc-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   3. MASTER APPLICATION WRAPPER
+   ========================================================================== */
+.mvc-cc-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--mvc-bg);
+    color: var(--mvc-text);
+    font-family: var(--mvc-font-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile Backdrop */
+.mvc-mobile-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 15, 35, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 99998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.mvc-drawer-open .mvc-mobile-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ==========================================================================
+   4. MASTER MODERN TOPBAR
+   ========================================================================== */
+.mvc-cc-topbar {
+    height: var(--mvc-topbar-height);
+    background: linear-gradient(135deg, var(--mvc-navy-dark) 0%, var(--mvc-navy) 100%);
+    border-bottom: 2px solid var(--mvc-gold);
+    color: #FFFFFF;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.mvc-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.mvc-topbar-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mvc-topbar-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--mvc-gold);
+    color: var(--mvc-gold);
+}
+
+.mvc-hamburger-btn {
+    display: none;
+}
+
+.mvc-cc-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mvc-cc-crest {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.mvc-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.mvc-cc-title {
+    font-family: var(--mvc-font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mvc-brand-pill {
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark);
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.mvc-cc-subtitle {
+    font-size: 11px;
+    color: #94A3B8;
+}
+
+.mvc-live-status-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34D399;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.mvc-pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10B981;
+    animation: mvcPulse 2s infinite;
+}
+
+@keyframes mvcPulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Center Spotlight Search */
+.mvc-topbar-center {
+    flex: 1;
+    max-width: 480px;
+    margin: 0 20px;
+}
+
+.mvc-spotlight-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #CBD5E1;
+    padding: 8px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.mvc-spotlight-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: var(--mvc-gold);
+    color: #FFFFFF;
+}
+
+.mvc-spotlight-text {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mvc-kbd {
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    font-weight: 600;
+}
+
+/* Right Actions */
+.mvc-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mvc-topbar-action-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF !important;
+    padding: 7px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mvc-topbar-action-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: var(--mvc-gold);
+    color: var(--mvc-gold) !important;
+}
+
+.mvc-icon-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    justify-content: center;
+    position: relative;
+}
+
+.mvc-badge-counter {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--mvc-danger);
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 10px;
+    border: 2px solid var(--mvc-navy-dark);
+}
+
+.mvc-btn-classic {
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark) !important;
+    border: 1px solid var(--mvc-gold-dark);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.mvc-btn-classic:hover {
+    background: #E5C158;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* User Profile Pill */
+.mvc-user-pill-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 10px 4px 4px;
+    border-radius: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mvc-user-pill-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: var(--mvc-gold);
+}
+
+.mvc-avatar-ring {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark);
+    font-weight: 800;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #FFFFFF;
+}
+
+.mvc-user-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.mvc-user-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.2;
+}
+
+.mvc-user-role-tag {
+    font-size: 9.5px;
+    color: var(--mvc-gold);
+    font-weight: 600;
+}
+
+/* Popovers (Notifications & Profile) */
+.mvc-popover-wrapper {
+    position: relative;
+}
+
+/* Popovers (Notifications & Profile) */
+.mvc-popover-wrapper {
+    position: relative;
+}
+
+@keyframes mvcPulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    70% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+@keyframes mvcBellSwing {
+    0% { transform: rotate(0); }
+    15% { transform: rotate(14deg); }
+    30% { transform: rotate(-14deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-8deg); }
+    75% { transform: rotate(4deg); }
+    100% { transform: rotate(0); }
+}
+
+.mvc-icon-btn.mvc-bell-has-unread .dashicons-bell {
+    animation: mvcBellSwing 1.2s ease-in-out 1;
+    color: #FFE082;
+}
+
+.mvc-badge-counter.mvc-badge-pulse {
+    animation: mvcPulseGlow 2s infinite;
+    background: linear-gradient(135deg, #DC2626, #991B1B);
+}
+
+.mvc-popover-tray {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 320px;
+    background: var(--mvc-card-bg);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius);
+    box-shadow: var(--mvc-shadow-lg);
+    z-index: 1000;
+    animation: mvcSlideDown 0.2s ease;
+    overflow: hidden;
+}
+
+.mvc-notification-tray-pro {
+    width: 380px;
+    max-width: calc(100vw - 24px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 12px;
+    box-shadow: 0 16px 45px rgba(0, 21, 46, 0.28), 0 0 0 1px rgba(212, 175, 55, 0.15);
+}
+
+.mvc-profile-tray {
+    width: 250px;
+}
+
+@keyframes mvcSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mvc-tray-header {
+    background: var(--mvc-navy);
+    color: #FFFFFF;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mvc-notification-tray-pro .mvc-tray-header {
+    background: linear-gradient(135deg, #00152e 0%, #002147 100%);
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.mvc-tray-header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mvc-tray-crest-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.mvc-tray-header-title h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 800;
+    color: #FFFFFF;
+    font-family: var(--mvc-font-heading);
+}
+
+.mvc-tray-subtitle {
+    font-size: 11px;
+    color: #CBD5E1;
+    margin-top: 2px;
+}
+
+.mvc-tray-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mvc-tray-mark-read-btn {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #FFE082;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mvc-tray-mark-read-btn:hover {
+    background: #D4AF37;
+    color: #00152e;
+}
+
+.mvc-tray-filter-bar {
+    display: flex;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--mvc-bg-subtle, #F8FAFC);
+    border-bottom: 1px solid var(--mvc-border, #E2E8F0);
+}
+
+.mvc-filter-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--mvc-text-muted, #64748B);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mvc-filter-pill:hover {
+    color: var(--mvc-navy, #002147);
+    background: rgba(0, 33, 71, 0.05);
+}
+
+.mvc-filter-pill.active {
+    background: var(--mvc-navy, #002147);
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.mvc-tray-count {
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+
+.mvc-tray-body {
+    max-height: 340px;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.mvc-tray-empty {
+    text-align: center;
+    padding: 28px 16px;
+    color: var(--mvc-text-muted);
+    font-size: 13px;
+}
+
+.mvc-tray-item-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--mvc-card-bg, #FFFFFF);
+    border: 1px solid var(--mvc-border, #E2E8F0);
+    margin-bottom: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.mvc-tray-item-notice:hover {
+    background: var(--mvc-bg-subtle, #F8FAFC);
+    border-color: #D4AF37;
+    transform: translateX(3px);
+}
+
+.mvc-tray-item-notice.unread {
+    background: rgba(0, 33, 71, 0.025);
+    border-left: 3px solid #D4AF37;
+}
+
+.mvc-tray-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.mvc-tray-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.mvc-tray-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.mvc-tray-badge {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.mvc-tray-time {
+    font-size: 10.5px;
+    color: var(--mvc-text-muted, #64748B);
+    white-space: nowrap;
+}
+
+.mvc-tray-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mvc-text, #1E293B);
+    line-height: 1.35;
+    margin-bottom: 2px;
+}
+
+.mvc-tray-desc {
+    font-size: 11.5px;
+    color: var(--mvc-text-muted, #64748B);
+    line-height: 1.4;
+}
+
+.mvc-tray-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #DC2626;
+    display: inline-block;
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+.mvc-tray-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--mvc-bg-subtle, #F8FAFC);
+    border-top: 1px solid var(--mvc-border, #E2E8F0);
+    font-size: 11.5px;
+}
+
+.mvc-tray-refresh-btn {
+    background: none;
+    border: none;
+    color: var(--mvc-text-muted, #64748B);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    transition: color 0.15s ease;
+}
+
+.mvc-tray-refresh-btn:hover {
+    color: var(--mvc-navy, #002147);
+}
+
+.mvc-tray-dest-link {
+    color: var(--mvc-navy, #002147);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s ease;
+}
+
+.mvc-tray-dest-link:hover {
+    color: #B48200;
+}
+
+.mvc-profile-tray-header {
+    padding: 14px 16px;
+    background: var(--mvc-navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mvc-tray-menu {
+    padding: 6px 0;
+}
+
+.mvc-tray-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: var(--mvc-text);
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+.mvc-tray-item:hover {
+    background: rgba(0, 33, 71, 0.05);
+    color: var(--mvc-navy);
+}
+
+.mvc-tray-divider {
+    height: 1px;
+    background: var(--mvc-border);
+    margin: 6px 0;
+}
+
+.mvc-tray-danger {
+    color: var(--mvc-danger) !important;
+}
+
+.mvc-tray-danger:hover {
+    background: rgba(239, 68, 68, 0.08) !important;
+}
+
+/* ==========================================================================
+   5. MASTER BODY LAYOUT & MODERN SIDEBAR
+   ========================================================================= */
+.mvc-cc-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.mvc-cc-sidebar {
+    width: var(--mvc-sidebar-width);
+    background: var(--mvc-sidebar-bg);
+    border-right: 1px solid var(--mvc-border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 90;
+    transition: width 0.25s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed Desktop Sidebar Mode */
+.mvc-sidebar-collapsed .mvc-cc-sidebar {
+    width: 68px;
+}
+
+.mvc-sidebar-collapsed .mvc-nav-text,
+.mvc-sidebar-collapsed .mvc-nav-group-title,
+.mvc-sidebar-collapsed .mvc-nav-count,
+.mvc-sidebar-collapsed .mvc-nav-badge,
+.mvc-sidebar-collapsed .mvc-nav-quick-actions,
+.mvc-sidebar-collapsed .mvc-sidebar-search-box,
+.mvc-sidebar-collapsed .mvc-footer-info {
+    display: none !important;
+}
+
+.mvc-sidebar-collapsed .mvc-cc-nav-item {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.mvc-drawer-header {
+    display: none;
+    padding: 14px 16px;
+    background: var(--mvc-navy-dark);
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mvc-drawer-close-btn {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mvc-sidebar-search-box {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--mvc-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mvc-sidebar-search-box input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 12.5px;
+    color: var(--mvc-text);
+    outline: none;
+}
+
+.mvc-sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mvc-nav-group-title {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: var(--mvc-text-muted);
+    padding: 4px 12px 6px;
+    text-transform: uppercase;
+}
+
+.mvc-cc-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    color: var(--mvc-text);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.mvc-cc-nav-item:hover {
+    background: rgba(0, 33, 71, 0.05);
+    color: var(--mvc-navy);
+}
+
+[data-theme="dark"] .mvc-cc-nav-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--mvc-gold);
+}
+
+.mvc-cc-nav-item.active {
+    background: var(--mvc-navy);
+    color: #FFFFFF !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 33, 71, 0.2);
+}
+
+[data-theme="dark"] .mvc-cc-nav-item.active {
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark) !important;
+}
+
+.mvc-nav-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.mvc-nav-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mvc-nav-count {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--mvc-text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 10px;
+}
+
+[data-theme="dark"] .mvc-nav-count {
+    background: rgba(255, 255, 255, 0.1);
+    color: #94A3B8;
+}
+
+.mvc-cc-nav-item.active .mvc-nav-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+.mvc-nav-badge {
+    background: var(--mvc-danger);
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 10px;
+}
+
+.mvc-badge-gold {
+    background: var(--mvc-gold) !important;
+    color: var(--mvc-navy-dark) !important;
+}
+
+.mvc-badge-accent {
+    background: #0EA5E9 !important;
+    color: #FFFFFF !important;
+}
+
+.mvc-nav-item-has-submenu {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.mvc-nav-item-has-submenu .mvc-cc-nav-item {
+    flex: 1;
+}
+
+.mvc-nav-quick-actions {
+    position: absolute;
+    right: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.mvc-nav-item-has-submenu:hover .mvc-nav-quick-actions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mvc-nav-add-btn {
+    background: var(--mvc-gold);
+    color: var(--mvc-navy-dark) !important;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-decoration: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.mvc-sidebar-footer {
+    padding: 12px 14px;
+    border-top: 1px solid var(--mvc-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mvc-sidebar-logout-btn {
+    color: var(--mvc-text-muted);
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.mvc-sidebar-logout-btn:hover {
+    color: var(--mvc-danger);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* ==========================================================================
+   6. MASTER CONTENT SURFACE
+   ========================================================================== */
+.mvc-cc-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 28px;
+    background: var(--mvc-bg);
+}
+
+.mvc-cc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.mvc-cc-heading {
+    font-family: var(--mvc-font-heading);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--mvc-text);
+    margin: 0;
+}
+
+.mvc-cc-desc {
+    color: var(--mvc-text-muted);
+    font-size: 13.5px;
+    margin-top: 3px;
+}
+
+/* Welcome Banner */
+.mvc-hero-welcome-card {
+    background: linear-gradient(135deg, var(--mvc-navy-dark) 0%, var(--mvc-navy) 60%, var(--mvc-maroon-dark) 100%);
+    border-radius: var(--mvc-radius-lg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 24px 28px;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+    box-shadow: var(--mvc-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.mvc-welcome-badge {
+    color: var(--mvc-gold);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+}
+
+.mvc-welcome-title {
+    font-family: var(--mvc-font-heading);
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: #FFFFFF;
+}
+
+.mvc-welcome-desc {
+    font-size: 13.5px;
+    color: #CBD5E1;
+    margin: 0;
+    max-width: 640px;
+    line-height: 1.5;
+}
+
+.mvc-welcome-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mvc-meta-pill {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 4 Metric Cards Grid */
+.mvc-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.mvc-metric-card {
+    background: var(--mvc-card-bg);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius);
+    padding: 20px;
+    box-shadow: var(--mvc-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mvc-metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--mvc-shadow-lg);
+}
+
+.mvc-metric-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mvc-metric-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--mvc-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mvc-metric-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mvc-icon-amber { background: #FEF3C7; }
+.mvc-icon-red { background: #FEE2E2; }
+.mvc-icon-blue { background: #DBEAFE; }
+.mvc-icon-green { background: #D1FAE5; }
+.mvc-icon-purple { background: #EDE9FE; }
+.mvc-icon-gold { background: #FEF9C3; }
+
+.mvc-metric-val {
+    font-family: var(--mvc-font-heading);
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--mvc-navy);
+    line-height: 1.1;
+}
+
+[data-theme="dark"] .mvc-metric-val {
+    color: var(--mvc-gold);
+}
+
+.mvc-metric-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--mvc-border);
+}
+
+.mvc-foot-pill {
+    font-size: 11.5px;
+    color: var(--mvc-text-muted);
+}
+
+.mvc-metric-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--mvc-navy);
+    text-decoration: none;
+}
+
+[data-theme="dark"] .mvc-metric-link {
+    color: var(--mvc-gold);
+}
+
+/* Quick Action Shortcuts Grid */
+.mvc-quick-actions-bar {
+    margin-bottom: 24px;
+}
+
+.mvc-shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+    padding: 16px 20px;
+}
+
+.mvc-shortcut-card {
+    background: rgba(0, 33, 71, 0.02);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--mvc-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.mvc-shortcut-card:hover {
+    background: var(--mvc-card-bg);
+    border-color: var(--mvc-gold);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+    transform: translateY(-2px);
+}
+
+.mvc-shortcut-icon {
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 33, 71, 0.06);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.mvc-shortcut-text strong {
+    display: block;
+    font-size: 13.5px;
+    color: var(--mvc-navy);
+}
+
+[data-theme="dark"] .mvc-shortcut-text strong {
+    color: var(--mvc-gold);
+}
+
+.mvc-shortcut-text span {
+    display: block;
+    font-size: 11.5px;
+    color: var(--mvc-text-muted);
+    margin-top: 2px;
+}
+
+/* Snapshot Grid */
+.mvc-snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    padding: 18px 20px;
+}
+
+.mvc-snapshot-item {
+    background: rgba(0, 33, 71, 0.02);
+    border: 1px solid var(--mvc-border);
+    border-radius: 8px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--mvc-text);
+    transition: all 0.15s ease;
+}
+
+.mvc-snapshot-item:hover {
+    background: var(--mvc-card-bg);
+    border-color: var(--mvc-gold);
+    transform: translateY(-2px);
+}
+
+.mvc-snapshot-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+}
+
+.mvc-snapshot-count {
+    font-family: var(--mvc-font-heading);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--mvc-navy);
+}
+
+[data-theme="dark"] .mvc-snapshot-count {
+    color: var(--mvc-gold);
+}
+
+.mvc-snapshot-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mvc-text-muted);
+    text-align: center;
+}
+
+/* ==========================================================================
+   7. CMS CONTENT HUB (The Master Grid for all 14 Post Types)
+   ========================================================================== */
+.mvc-cms-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.mvc-cms-card {
+    background: var(--mvc-card-bg);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius);
+    padding: 22px;
+    box-shadow: var(--mvc-shadow);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+}
+
+.mvc-cms-card:hover {
+    border-color: var(--mvc-gold);
+    box-shadow: var(--mvc-shadow-lg);
+    transform: translateY(-2px);
+}
+
+.mvc-cms-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.mvc-cms-card-icon {
+    font-size: 22px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mvc-cms-card-title {
+    font-family: var(--mvc-font-heading);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--mvc-text);
+    margin: 0 0 6px;
+}
+
+.mvc-cms-card-desc {
+    font-size: 13px;
+    color: var(--mvc-text-muted);
+    margin: 0 0 16px;
+    line-height: 1.45;
+    flex: 1;
+}
+
+.mvc-cms-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.mvc-cms-card-actions .mvc-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 12px;
+    padding: 7px 12px;
+}
+
+/* ==========================================================================
+   8. COMMON CARD, TABLE, AND FORM CONTROLS
+   ========================================================================== */
+.mvc-card {
+    background: var(--mvc-card-bg);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius);
+    box-shadow: var(--mvc-shadow);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.mvc-card-header {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--mvc-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mvc-card-title {
+    font-family: var(--mvc-font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--mvc-text);
+    margin: 0;
+}
+
+.mvc-table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mvc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.mvc-table th {
+    background: rgba(0, 0, 0, 0.02);
+    padding: 12px 18px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--mvc-text-muted);
+    border-bottom: 1px solid var(--mvc-border);
+    white-space: nowrap;
+}
+
+.mvc-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--mvc-border);
+    vertical-align: middle;
+}
+
+.mvc-table tr:hover td {
+    background: rgba(0, 33, 71, 0.02);
+}
+
+.mvc-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--mvc-border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    color: var(--mvc-text);
+    background: var(--mvc-card-bg);
+    box-sizing: border-box;
+    transition: border-color 0.15s ease;
+    font-family: var(--mvc-font-main);
+}
+
+.mvc-input:focus {
+    border-color: var(--mvc-gold);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Badges */
+.mvc-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.mvc-badge-pending, .mvc-badge-in-review {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.mvc-badge-publish, .mvc-badge-active, .mvc-badge-resolved {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.mvc-badge-draft, .mvc-badge-suspended, .mvc-badge-closed {
+    background: #E2E8F0;
+    color: #475569;
+}
+
+.mvc-badge-overdue, .mvc-badge-rejected {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+/* Buttons */
+.mvc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    font-family: var(--mvc-font-main);
+}
+
+.mvc-btn-primary {
+    background: var(--mvc-navy);
+    color: #FFFFFF !important;
+    border-color: var(--mvc-gold);
+}
+
+.mvc-btn-primary:hover {
+    background: var(--mvc-navy-light);
+    border-color: #FFFFFF;
+}
+
+.mvc-btn-outline {
+    background: transparent;
+    color: var(--mvc-text) !important;
+    border-color: var(--mvc-border);
+}
+
+.mvc-btn-outline:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: var(--mvc-navy);
+}
+
+.mvc-btn-danger {
+    background: #DC2626;
+    color: #FFFFFF !important;
+}
+
+.mvc-btn-danger:hover {
+    background: #B91C1C;
+}
+
+/* Department Tags Grid */
+.mvc-dept-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.mvc-dept-pill {
+    background: rgba(0, 33, 71, 0.05);
+    border: 1px solid var(--mvc-border);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--mvc-navy);
+}
+
+[data-theme="dark"] .mvc-dept-pill {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--mvc-gold);
+}
+
+/* ==========================================================================
+   9. COMMAND PALETTE MODAL (Ctrl + K)
+   ========================================================================== */
+.mvc-palette-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 15, 35, 0.7);
+    backdrop-filter: blur(6px);
+    z-index: 100000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 12vh;
+}
+
+.mvc-palette-modal {
+    background: var(--mvc-card-bg);
+    border: 1px solid var(--mvc-border);
+    border-radius: var(--mvc-radius-lg);
+    width: 90%;
+    max-width: 620px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    animation: mvcPaletteIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes mvcPaletteIn {
+    from { opacity: 0; transform: scale(0.96) translateY(-10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.mvc-palette-search-bar {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--mvc-border);
+}
+
+.mvc-palette-search-icon {
+    font-size: 20px;
+}
+
+.mvc-palette-search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--mvc-text);
+    outline: none;
+    font-family: var(--mvc-font-main);
+}
+
+.mvc-palette-results {
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 8px 12px;
+}
+
+.mvc-palette-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--mvc-text);
+    transition: all 0.1s ease;
+}
+
+.mvc-palette-item:hover,
+.mvc-palette-item.active {
+    background: rgba(0, 33, 71, 0.08);
+    color: var(--mvc-navy);
+}
+
+[data-theme="dark"] .mvc-palette-item:hover,
+[data-theme="dark"] .mvc-palette-item.active {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--mvc-gold);
+}
+
+.mvc-palette-item-icon {
+    font-size: 18px;
+}
+
+.mvc-palette-item-text {
+    flex: 1;
+}
+
+.mvc-palette-item-text strong {
+    display: block;
+    font-size: 13.5px;
+}
+
+.mvc-palette-item-text span {
+    font-size: 11.5px;
+    color: var(--mvc-text-muted);
+}
+
+.mvc-palette-footer {
+    padding: 10px 18px;
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid var(--mvc-border);
+    font-size: 11.5px;
+    color: var(--mvc-text-muted);
+    text-align: center;
+}
+
+/* ==========================================================================
+   10. MOBILE-FIRST RESPONSIVE BREAKPOINTS (10/10 Standard)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .mvc-hamburger-btn {
+        display: inline-flex !important;
+    }
+    .mvc-desktop-collapse-btn {
+        display: none !important;
+    }
+    
+    /* Sidebar transforms into Slide-in Mobile Drawer */
+    .mvc-cc-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        z-index: 100000;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+        transform: translateX(-100%);
+    }
+
+    .mvc-drawer-open .mvc-cc-sidebar {
+        transform: translateX(0);
+    }
+
+    .mvc-drawer-header {
+        display: flex !important;
+    }
+
+    .mvc-topbar-center {
+        max-width: 280px;
+        margin: 0 10px;
+    }
+
+    .mvc-cc-content {
+        padding: 18px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Topbar Mobile Polish */
+    .mvc-cc-topbar {
+        padding: 0 10px;
+        height: 58px;
+    }
+    .d-none-mobile {
+        display: none !important;
+    }
+    .d-flex-mobile {
+        display: flex !important;
+    }
+    .mvc-topbar-left {
+        gap: 8px;
+    }
+    .mvc-hamburger-btn {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+    .mvc-cc-crest {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+    .mvc-cc-title {
+        font-size: 12.5px;
+        gap: 4px;
+    }
+    .mvc-brand-pill {
+        font-size: 8.5px;
+        padding: 1px 5px;
+    }
+    .mvc-cc-subtitle {
+        display: none;
+    }
+    .mvc-topbar-center {
+        display: none;
+    }
+    .mvc-topbar-right {
+        gap: 6px;
+    }
+    .mvc-topbar-action-btn {
+        padding: 6px 8px;
+        min-width: 36px;
+        height: 36px;
+    }
+    .mvc-btn-classic {
+        padding: 6px 10px;
+        font-size: 11.5px;
+    }
+    .mvc-avatar-ring {
+        width: 34px;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    /* Popover Viewport Shield (Notifications & Profile) */
+    .mvc-notification-tray-pro {
+        position: fixed !important;
+        top: 62px !important;
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important;
+        max-width: calc(100vw - 20px) !important;
+        max-height: calc(100vh - 75px) !important;
+        border-radius: 14px !important;
+        z-index: 999999 !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35) !important;
+    }
+    .mvc-profile-tray {
+        position: fixed !important;
+        top: 62px !important;
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important;
+        max-width: calc(100vw - 20px) !important;
+        border-radius: 14px !important;
+        z-index: 999999 !important;
+    }
+
+    /* Content Area & General Spacing */
+    .mvc-cc-content {
+        padding: 14px 12px;
+    }
+    .mvc-welcome-title {
+        font-size: 19px;
+    }
+    .mvc-welcome-card {
+        padding: 16px;
+    }
+    .mvc-metric-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .mvc-cms-hub-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .mvc-shortcuts-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Quick Dispatch Notice Desk Form */
+    .mvc-form-grid-2col {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+    #mvcQuickNoticeForm button[type="submit"] {
+        width: 100% !important;
+        min-height: 44px !important;
+        justify-content: center !important;
+    }
+
+    /* Audit Log Toolbar Stack */
+    .mvc-audit-toolbar-box {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    .mvc-audit-toolbar-box > div {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+    }
+    .mvc-audit-toolbar-box input,
+    .mvc-audit-toolbar-box select,
+    .mvc-audit-toolbar-box button,
+    .mvc-audit-toolbar-box a {
+        max-width: 100% !important;
+        width: 100% !important;
+        min-height: 40px !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+
+    /* Content Desk Header & Controls */
+    .mvc-content-desk-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    #mvcDeskAddBtn {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 42px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+    }
+    .mvc-content-desk-toolbar {
+        padding: 14px 12px !important;
+    }
+    .mvc-content-desk-toolbar .d-flex.flex-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    .mvc-content-desk-toolbar .d-flex.align-items-center.gap-8 {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    #mvcDeskStatusFilters {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 6px !important;
+        gap: 8px !important;
+        scrollbar-width: none !important;
+        width: 100% !important;
+    }
+    #mvcDeskStatusFilters::-webkit-scrollbar {
+        display: none !important;
+    }
+    #mvcDeskStatusFilters .mvc-filter-pill {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        font-size: 12.5px !important;
+        padding: 7px 14px !important;
+    }
+    #mvcDeskRefreshBtn {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 38px !important;
+    }
+    .mvc-content-desk-pagination {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 14px 16px !important;
+    }
+
+    /* HOD Operations Command Deck */
+    .mvc-hod-hero-dossier {
+        padding: 20px 16px !important;
+        border-radius: 14px !important;
+    }
+    .mvc-hod-hero-header {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 16px !important;
+    }
+    .mvc-hod-hero-title-block {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+    .mvc-hod-hero-title {
+        font-size: 20px !important;
+    }
+    .mvc-hod-hero-badges {
+        gap: 6px !important;
+    }
+    .mvc-hod-hero-cta-group {
+        width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+    .mvc-hod-hero-cta-group .mvc-btn {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 42px !important;
+        font-size: 13.5px !important;
+    }
+    .mvc-hod-split-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+    .mvc-hod-roster-row,
+    .mvc-hod-notice-row {
+        gap: 10px !important;
+    }
+    .mvc-hod-naac-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    /* ==========================================================================
+       TABLE-TO-CARD RESPONSIVE SYSTEM (Eliminates Horizontal Scrolling 10/10)
+       ========================================================================== */
+    .mvc-table-responsive {
+        border: none !important;
+        background: transparent !important;
+        overflow-x: visible !important;
+        padding: 0 !important;
+    }
+
+    .mvc-table {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+    }
+
+    .mvc-table thead {
+        display: none !important;
+    }
+
+    .mvc-table tbody {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+    }
+
+    .mvc-table tr {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        background: var(--mvc-card-bg) !important;
+        border: 1px solid var(--mvc-border) !important;
+        border-radius: 12px !important;
+        padding: 14px 16px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        position: relative !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+    }
+
+    .mvc-table tr:hover {
+        border-color: rgba(212, 175, 55, 0.45) !important;
+        box-shadow: 0 4px 14px rgba(0, 33, 71, 0.08) !important;
+    }
+
+    .mvc-table td {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 3px 0 !important;
+        border: none !important;
+        font-size: 13.5px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        background: transparent !important;
+    }
+
+    /* Column Key Labels */
+    .mvc-table td[data-col]::before {
+        content: attr(data-col);
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--mvc-text-muted);
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    /* First Cell: Card Header / Headline */
+    .mvc-table td:first-child[data-col] {
+        font-size: 14.5px !important;
+        font-weight: 700 !important;
+        border-bottom: 1px solid var(--mvc-border) !important;
+        padding-bottom: 10px !important;
+        margin-bottom: 2px !important;
+        justify-content: flex-start !important;
+    }
+
+    .mvc-table td:first-child[data-col]::before {
+        display: none !important;
+    }
+
+    /* Last Cell: Action Footer */
+    .mvc-table td:last-child[data-col] {
+        border-top: 1px dashed var(--mvc-border) !important;
+        padding-top: 10px !important;
+        margin-top: 4px !important;
+        justify-content: stretch !important;
+    }
+
+    .mvc-table td:last-child[data-col]::before {
+        display: none !important;
+    }
+
+    /* Actions Layout Inside Cards */
+    .mvc-desk-actions,
+    .mvc-table-actions-row {
+        width: 100% !important;
+        display: flex !important;
+        gap: 8px !important;
+        justify-content: stretch !important;
+    }
+
+    .mvc-desk-btn-sm,
+    .mvc-table-actions-row .mvc-btn,
+    .mvc-action-view-grv {
+        flex: 1 !important;
+        justify-content: center !important;
+        min-height: 38px !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        padding: 8px 12px !important;
+        text-align: center !important;
+    }
+
+    /* Audit Log Details Box on Mobile */
+    .mvc-table td[data-col="Details"] {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+        background: var(--mvc-bg-subtle, #F8FAFC) !important;
+        padding: 8px 10px !important;
+        border-radius: 6px !important;
+        max-width: 100% !important;
+    }
+
+    /* Loading / Empty States Centered Without Label */
+    .mvc-table td[colspan] {
+        display: block !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 28px 14px !important;
+        border: none !important;
+    }
+
+    .mvc-table td[colspan]::before {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mvc-metric-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .mvc-metric-val {
+        font-size: 26px !important;
+    }
+    .mvc-btn-classic .btn-label {
+        display: none !important;
+    }
+    .mvc-hod-roster-row,
+    .mvc-hod-notice-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+    }
+    .mvc-hod-roster-row .mvc-btn,
+    .mvc-hod-notice-row .mvc-btn {
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+        min-height: 36px !important;
+    }
+}
+
+/* ==========================================================================
+   UNIVERSAL CONTENT DESK & FILTER PILLS
+   ========================================================================== */
+.mvc-filter-pill {
+    background: var(--mvc-surface);
+    color: var(--mvc-text-muted);
+    border: 1px solid var(--mvc-border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    outline: none;
+}
+
+.mvc-filter-pill:hover {
+    background: var(--mvc-border);
+    color: var(--mvc-text);
+}
+
+.mvc-filter-pill.active {
+    background: var(--mvc-navy);
+    color: #FFFFFF;
+    border-color: var(--mvc-navy);
+    box-shadow: 0 2px 6px rgba(0, 33, 71, 0.25);
+}
+
+[data-theme="dark"] .mvc-filter-pill.active {
+    background: var(--mvc-gold);
+    color: #0F172A;
+    border-color: var(--mvc-gold);
+}
+
+.mvc-desk-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.mvc-desk-btn-sm {
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+}
+
+.mvc-desk-btn-view {
+    background: rgba(0, 33, 71, 0.08);
+    color: var(--mvc-navy);
+    border: 1px solid rgba(0, 33, 71, 0.15);
+}
+.mvc-desk-btn-view:hover {
+    background: var(--mvc-navy);
+    color: #FFFFFF;
+}
+
+.mvc-desk-btn-edit {
+    background: rgba(212, 175, 55, 0.12);
+    color: #8C6B00;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.mvc-desk-btn-edit:hover {
+    background: var(--mvc-gold);
+    color: #002147;
+}
+
+.mvc-memo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(100, 116, 139, 0.1);
+    color: var(--mvc-text-muted);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.mvc-pdf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(220, 38, 38, 0.1);
+    color: #DC2626;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+.mvc-spin {
+    animation: mvc-spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes mvc-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,3514 @@
+/*
+ Theme Name:   RetailCoder StoreFront [RC:StoreFront]
+ Theme URI:    https://retailcoder.com
+ Author:       RetailCoder
+ Author URI:   https://retailcoder.com
+ Template:     astra
+ Version:      1.0.0
+ Text Domain:  retailcoder-storefront
+ Description:  RetailCoder StoreFront [RC:StoreFront] - Enterprise Institutional Portal and Content Management Framework for Higher Education. Engineered by RetailCoder (https://retailcoder.com).
+*/
+
+/* ========================================================
+   UNIVERSAL SMOOTH SCROLLING & #TAG ANCHOR TARGET OFFSET
+   ======================================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Universal Sticky Header Anchor Offset for all targetable elements */
+:target,
+[id] {
+    scroll-margin-top: clamp(75px, 8vw, 95px);
+}
+
+body.admin-bar :target,
+body.admin-bar [id] {
+    scroll-margin-top: clamp(105px, 10vw, 130px);
+}
+
+@media (max-width: 768px) {
+    :target,
+    [id] {
+        scroll-margin-top: clamp(65px, 7vw, 85px);
+    }
+    body.admin-bar :target,
+    body.admin-bar [id] {
+        scroll-margin-top: clamp(100px, 9vw, 120px);
+    }
+}
+
+/* Elegant Institutional Pulse Effect for Navigated #tag Targets */
+@keyframes mvcHashPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+        outline: 2px solid rgba(212, 175, 55, 0.85);
+        outline-offset: 4px;
+    }
+    45% {
+        box-shadow: 0 0 25px 6px rgba(212, 175, 55, 0.4);
+        outline: 2px solid rgba(212, 175, 55, 0.95);
+        outline-offset: 6px;
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+        outline: 2px solid transparent;
+        outline-offset: 0px;
+    }
+}
+
+.mvc-hash-highlight {
+    animation: mvcHashPulse 1.9s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    position: relative;
+    z-index: 5;
+    border-radius: 8px;
+    transition: outline 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ========================================================
+   M.V. COLLEGE - 10/10 UNIVERSAL REDESIGN HEADER STYLES
+   Royal Navy (#002147) | Institutional Maroon (#7A0000) | Metallic Gold (#D4AF37)
+   100% Repository Self-Contained | Responsive Mobile-First
+   ======================================================== */
+.mvc-custom-header {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+.mvc-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: clamp(16px, 2.5vw, 40px);
+    padding-right: clamp(16px, 2.5vw, 40px);
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------
+   TIER 1: TOP UTILITY & CONTACT STRIP (.mvc-top-bar)
+   Deep Royal Navy (#001A38) with Gold Accents
+   -------------------------------------------------------- */
+.mvc-top-bar {
+    background: linear-gradient(90deg, #001633 0%, #0B2547 50%, #001633 100%);
+    color: #ffffff;
+    font-size: 11.5px;
+    min-height: 38px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 1002;
+}
+.mvc-top-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 38px;
+}
+
+/* Left: Official Institutional Contacts */
+.mvc-top-contacts {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.mvc-top-svg-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+.mvc-top-contact-link {
+    color: #E2E8F0;
+    text-decoration: none;
+    font-size: 11.5px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s ease;
+}
+.mvc-top-contact-link:hover {
+    color: #FFD54F;
+}
+.mvc-utility-call-btn,
+.mvc-utility-email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #FFFFFF !important;
+    font-size: 11.5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.mvc-utility-call-btn:hover,
+.mvc-utility-email-btn:hover {
+    color: #FFD54F !important;
+}
+.mvc-contact-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 10px;
+}
+.mvc-top-location {
+    color: #94A3B8;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+}
+
+/* Right: Direct Access Utilities Suite */
+.mvc-utility {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.mvc-utility-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.mvc-utility-links li {
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+}
+.mvc-utility-links a {
+    color: #CBD5E1;
+    text-decoration: none;
+    padding: 0 10px;
+    font-size: 11.5px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.mvc-u-icon {
+    font-size: 11px;
+    opacity: 0.85;
+}
+.mvc-utility-links a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFD54F;
+}
+.mvc-utility-links a:hover .mvc-u-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* High-Prestige Golden Portal Login Button */
+.mvc-utility-login-item {
+    border-left: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+.mvc-utility-login-btn {
+    background: linear-gradient(135deg, #FFE082 0%, #D4AF37 50%, #B8860B 100%) !important;
+    border: 1px solid #FFE082 !important;
+    border-radius: 4px !important;
+    margin: 4px 0 4px 8px;
+    padding: 4px 12px !important;
+    color: #001A38 !important;
+    font-weight: 800 !important;
+    font-size: 11.5px !important;
+    gap: 5px !important;
+    height: auto !important;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    letter-spacing: 0.3px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+.mvc-utility-login-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.35);
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+}
+.mvc-utility-login-btn:hover {
+    background: linear-gradient(135deg, #FFF1B8 0%, #E5C158 100%) !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.6);
+    transform: translateY(-1px);
+}
+.mvc-utility-login-btn:hover::after {
+    left: 130%;
+}
+.mvc-login-arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+.mvc-utility-login-btn:hover .mvc-login-arrow {
+    transform: translateX(3px);
+}
+
+/* Hide mobile actions on desktop */
+.mvc-mobile-top-actions {
+    display: none;
+}
+
+/* --------------------------------------------------------
+   TIER 3: DEDICATED FULL-WIDTH NOTICE & CIRCULAR MARQUEE RIBBON
+   (Over 85-90% of Screen Width Dedicated Exclusively to Circulars)
+   -------------------------------------------------------- */
+.mvc-notice-ribbon {
+    background: linear-gradient(90deg, #3D0000 0%, #5E0000 50%, #3D0000 100%);
+    color: #ffffff;
+    font-size: 12px;
+    min-height: 40px;
+    border-top: 2px solid #D4AF37;
+    border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 999;
+}
+.mvc-ribbon-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 40px;
+}
+
+/* Chamfered Ticker Badge */
+.mvc-ticker-badge {
+    background: linear-gradient(135deg, #7A0000 0%, #9E0000 100%);
+    border-right: 2px solid #D4AF37;
+    padding: 0 18px 0 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    height: 100%;
+    z-index: 3;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 0 100%);
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25);
+}
+.mvc-ticker-icon {
+    font-size: 13px;
+    display: inline-block;
+}
+.mvc-pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    animation: mvcPulseGreen 1.8s infinite;
+}
+@keyframes mvcPulseGreen {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+.mvc-ticker-label {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* 100% Full-Width Notice Ticker Track */
+.mvc-ticker {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    position: relative;
+    cursor: pointer;
+    mask-image: linear-gradient(to right, transparent 0%, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 16px, #000 calc(100% - 16px), transparent 100%);
+}
+.mvc-ticker:hover .mvc-ticker-track {
+    animation-play-state: paused !important;
+}
+.mvc-ticker-track {
+    display: inline-flex;
+    align-items: center;
+    animation: mvcScrollTrack 36s linear infinite;
+    padding-left: 100%;
+}
+.mvc-ticker-track.mvc-ticker-paused {
+    animation-play-state: paused !important;
+}
+@keyframes mvcScrollTrack {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+.mvc-ticker-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.mvc-ticker-link:hover {
+    color: #FFD54F !important;
+    text-decoration: none;
+    text-shadow: 0 0 8px rgba(255, 213, 79, 0.4);
+}
+.mvc-ticker-date {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    color: #FFE082;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+}
+.mvc-ticker-text {
+    color: #F8FAFC;
+}
+.mvc-ticker-tag {
+    background: linear-gradient(135deg, #D4AF37 0%, #F59E0B 100%);
+    color: #360000;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.mvc-ticker-priority {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.18) 0%, rgba(255, 215, 0, 0.08) 100%);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.mvc-ticker-pill {
+    background: #FFD54F;
+    color: #360000;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+}
+.mvc-ticker-sep {
+    color: #D4AF37;
+    opacity: 0.6;
+    margin: 0 16px;
+    font-size: 11px;
+}
+
+/* Ribbon Actions & Interactive Controls */
+.mvc-ribbon-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: auto 0 auto 10px;
+    flex-shrink: 0;
+}
+.mvc-ticker-ctrl-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFD54F;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 10.5px;
+    margin: 0;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    outline: none;
+}
+.mvc-ticker-ctrl-btn:hover {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: #D4AF37;
+    color: #FFFFFF;
+    transform: scale(1.08);
+}
+.mvc-ribbon-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: #FFE082;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mvc-ribbon-all-btn:hover {
+    background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B8860B 100%);
+    color: #001A38 !important;
+    border-color: #FFE082;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.45);
+    transform: translateY(-1px);
+}
+.mvc-all-arrow {
+    font-size: 11px;
+    transition: transform 0.2s ease;
+}
+.mvc-ribbon-all-btn:hover .mvc-all-arrow {
+    transform: translateX(3px);
+}
+
+/* --------------------------------------------------------
+   LAYER 2: MIDDLE IDENTITY BAR (Official Crest, Bilingual & Badges)
+   -------------------------------------------------------- */
+.mvc-middle-bar {
+    background: #FFFFFF;
+    padding: 16px 0 14px 0;
+    border-bottom: 3px solid #D4AF37;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    position: relative;
+}
+.mvc-middle-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.mvc-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.mvc-logo-link {
+    display: block;
+    flex-shrink: 0;
+    line-height: 0;
+}
+.mvc-college-logo {
+    max-width: 90px;
+    width: 90px;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.12));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    padding: 3px;
+    background: #FFFFFF;
+    border: 2px solid rgba(212, 175, 55, 0.35);
+}
+.mvc-logo-link:hover .mvc-college-logo {
+    transform: scale(1.05);
+    border-color: #D4AF37;
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+}
+.mvc-title-lockup {
+    display: table;
+    width: auto;
+    max-width: 100%;
+}
+.mvc-college-names h1,
+.mvc-college-names .mvc-site-title {
+    font-size: 22.5px;
+    margin: 0;
+    color: #002147;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    line-height: 1.15;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    white-space: nowrap;
+    width: 100%;
+}
+.mvc-hindi-title {
+    font-size: 22.5px;
+    margin: 3px 0 4px 0;
+    color: #7A1C1C;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+.mvc-address-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+}
+.mvc-address {
+    font-size: 12.5px;
+    color: #475569;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+.mvc-pin-icon {
+    color: #DC2626;
+}
+.mvc-badge-pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+.mvc-est-pill {
+    background: #F1F5F9;
+    color: #334155;
+    border: 1px solid #CBD5E1;
+}
+.mvc-aishe-pill {
+    background: #FEF9C3;
+    color: #854D0E;
+    border: 1px solid #FDE047;
+}
+
+/* Authority, Accreditation & Quick Actions */
+.mvc-affiliation-section {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+.mvc-affil-text {
+    font-size: 13.5px;
+    color: #1E293B;
+    font-weight: 500;
+    margin: 0;
+}
+.mvc-affil-text strong {
+    color: #002147;
+    font-weight: 700;
+}
+.mvc-accreditation-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2px 0;
+}
+.mvc-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.mvc-badge-ugc {
+    background: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FECACA;
+}
+.mvc-badge-naac {
+    background: #FEFCE8;
+    color: #854D0E;
+    border: 1px solid #FEF08A;
+}
+.mvc-badge-aicte {
+    background: #EFF6FF;
+    color: #1E40AF;
+    border: 1px solid #BFDBFE;
+}
+.mvc-header-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 3px;
+}
+.mvc-helpline-pill {
+    font-size: 12px;
+    color: #0F172A;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #F8FAFC;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #E2E8F0;
+    transition: all 0.2s ease;
+}
+.mvc-helpline-pill:hover {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+    color: #7A0000;
+}
+.mvc-apply-pill {
+    font-size: 12px;
+    color: #FFFFFF !important;
+    background: linear-gradient(135deg, #7A0000 0%, #A30000 100%);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(122,0,0,0.25);
+    transition: all 0.2s ease;
+}
+.mvc-apply-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(122,0,0,0.35);
+    color: #FFFFFF !important;
+}
+.mvc-pulse-beacon {
+    width: 7px;
+    height: 7px;
+    background: #FFD54F;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 0 rgba(255, 213, 79, 0.7);
+    animation: mvcPulseBeacon 1.6s infinite;
+}
+@keyframes mvcPulseBeacon {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 213, 79, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 213, 79, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 213, 79, 0); }
+}
+
+/* --------------------------------------------------------
+   LAYER 3: BOTTOM NAVIGATION BAR (Sticky Navbar & Mega-Menu)
+   -------------------------------------------------------- */
+.mvc-nav-bar {
+    background: linear-gradient(180deg, #7A0000 0%, #5E0000 100%);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+.mvc-nav-bar.mvc-nav-scrolled {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    background: linear-gradient(180deg, rgba(122,0,0,0.98) 0%, rgba(94,0,0,0.98) 100%);
+    backdrop-filter: blur(8px);
+}
+.mvc-nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 52px;
+}
+.mvc-main-navigation {
+    flex-grow: 1;
+}
+
+/* Desktop Menu Layout */
+.mvc-mega-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mvc-mega-menu > li {
+    position: relative;
+}
+.mvc-mega-menu > li > a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 16px 14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: background 0.25s ease, color 0.25s ease;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+.mvc-mega-menu > li:hover > a {
+    background: #4A0000;
+    color: #FFD54F;
+}
+.mvc-mega-menu > li.current-menu-item > a,
+.mvc-mega-menu > li.current-page-ancestor > a {
+    border-bottom: 3px solid #D4AF37;
+    color: #FFD54F;
+    background: rgba(0,0,0,0.15);
+}
+
+/* Hide default Astra dropdown icons */
+.mvc-mega-menu ul.sub-menu .dropdown-menu-toggle,
+.mvc-mega-menu ul.sub-menu .ast-icon,
+.mvc-mega-menu ul.sub-menu svg {
+    display: none !important;
+}
+
+/* Standard Dropdown (Single Column: NAAC, Administration, Extra Curricular) */
+.mvc-mega-menu ul.sub-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/* --------------------------------------------------------
+   DESKTOP NAVIGATION DROPDOWNS & MEGA-MENUS (min-width: 1101px)
+   -------------------------------------------------------- */
+@media (min-width: 1101px) {
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 270px;
+        max-width: 330px;
+        max-height: calc(85vh - 65px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        background: #FFFFFF;
+        padding: 8px 0;
+        box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+        border-top: 3px solid #D4AF37;
+        border-radius: 0 0 10px 10px;
+        z-index: 99999;
+    }
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu):hover > ul.sub-menu {
+        display: block;
+    }
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu > li > a {
+        color: #1E293B;
+        padding: 11px 20px;
+        display: block;
+        border-bottom: 1px solid #F1F5F9;
+        font-size: 13.5px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+    }
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu > li:last-child > a {
+        border-bottom: none;
+    }
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu > li > a:hover {
+        color: #7A0000;
+        padding-left: 26px;
+        background: #FFFDF7;
+        border-left: 3px solid #7A0000;
+    }
+
+    /* Multi-Column Mega-Menu Architecture (About Us, Administration, NAAC, Academics, Student Zone, Extra Curricular) */
+    .mvc-mega-menu > li.mvc-has-mega-menu {
+        position: static;
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 32px);
+        max-width: 1240px;
+        background: #FFFFFF;
+        padding: 28px 32px 32px 32px;
+        box-shadow: 0 24px 55px rgba(0, 26, 56, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08);
+        border-top: 4px solid #D4AF37;
+        border-bottom: 3px solid #7A0000;
+        border-radius: 0 0 12px 12px;
+        z-index: 99999;
+        display: none;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu:hover > ul.sub-menu {
+        display: grid;
+        animation: mvcMegaFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes mvcMegaFadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, 8px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li:not(:last-child) {
+        border-right: 1px solid #F1F5F9;
+        padding-right: 18px;
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li > a {
+        color: #002147;
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        padding: 0 0 8px 0;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        pointer-events: none;
+        border-bottom: 2px solid #D4AF37;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        gap: 2px;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a {
+        color: #334155;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 7px 10px;
+        margin-bottom: 1px;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        background: transparent;
+        border-left: 2px solid transparent;
+        text-decoration: none;
+        line-height: 1.35;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a::before {
+        content: "›";
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1;
+        color: #94A3B8;
+        margin-right: 8px;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a:hover {
+        color: #7A0000;
+        background: #F8FAFC;
+        padding-left: 14px;
+        border-left: 3px solid #D4AF37;
+        transform: translateX(2px);
+        font-weight: 600;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a:hover::before {
+        color: #7A0000;
+        transform: translateX(2px);
+    }
+}
+
+/* Desktop Expandable Search Form */
+.mvc-nav-search {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-left: 12px;
+}
+.mvc-search-form {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.mvc-search-form:hover,
+.mvc-search-form:focus-within {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+.mvc-search-input {
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    padding: 7px 0 7px 14px;
+    width: 0;
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    font-size: 13px;
+    line-height: 1;
+}
+.mvc-search-form:hover .mvc-search-input,
+.mvc-search-input:focus {
+    width: 175px;
+    opacity: 1;
+}
+.mvc-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+.mvc-search-btn {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.mvc-search-btn:hover {
+    color: #FFD54F;
+    transform: scale(1.1);
+}
+
+/* ========================================================
+   DESKTOP DEFAULT: STRICTLY HIDE ALL MOBILE-ONLY ELEMENTS (Desktop Viewport)
+   ======================================================== */
+@media (min-width: 1101px) {
+    .mvc-mob-call-text,
+    .mvc-mob-email-text,
+    .mvc-mob-ticker-label,
+    .mvc-mob-all-text,
+    .mvc-mobile-nav-admission,
+    .mvc-mobile-top-actions,
+    .mvc-mobile-toggle,
+    .mvc-side-pane-overlay,
+    .mvc-pane-header,
+    .mvc-drawer-search,
+    .mvc-drawer-footer,
+    .mvc-mobile-ticker-banner,
+    .mvc-mobile-search-toggle,
+    .mvc-mobile-search-bar,
+    .mvc-mobile-arrow,
+    .mvc-drawer-bottom-close-wrap {
+        display: none !important;
+    }
+}
+
+/* --------------------------------------------------------
+   MOBILE-FIRST RESPONSIVE ARCHITECTURE (<= 1100px)
+   -------------------------------------------------------- */
+@media (max-width: 1100px) {
+    /* 1. Hide Desktop-Only Elements on Mobile/Tablet */
+    .mvc-desk-call-text,
+    .mvc-desk-email-text,
+    .mvc-desk-ticker-label,
+    .mvc-desk-all-text,
+    .mvc-hide-mobile,
+    .mvc-utility,
+    .mvc-affiliation-section,
+    .mvc-nav-search {
+        display: none !important;
+    }
+
+    /* 2. Show Mobile-Only Elements on Mobile/Tablet */
+    .mvc-mob-call-text,
+    .mvc-mob-email-text {
+        display: inline !important;
+    }
+    .mvc-mob-ticker-label {
+        display: inline !important;
+    }
+    .mvc-mob-all-text {
+        display: inline !important;
+    }
+    .mvc-mobile-nav-admission {
+        display: inline-flex !important;
+    }
+    .mvc-mobile-toggle {
+        display: inline-flex !important;
+    }
+    .mvc-mobile-search-toggle {
+        display: inline-flex !important;
+    }
+    .mvc-mobile-top-actions {
+        display: flex !important;
+    }
+
+    /* 3. Top Bar Mobile Optimization */
+    .mvc-top-bar {
+        min-height: 32px;
+        background: #001A38;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+    .mvc-top-flex {
+        min-height: 32px;
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mvc-top-contacts {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        flex: 1;
+    }
+    .mvc-utility-call-btn,
+    .mvc-utility-email-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #FFFFFF !important;
+        font-size: 11px;
+        text-decoration: none;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2.5px 8px;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+    .mvc-utility-call-btn:hover,
+    .mvc-utility-email-btn:hover {
+        background: rgba(212, 175, 55, 0.25);
+        border-color: #D4AF37;
+        color: #FFE082 !important;
+    }
+    .mvc-top-svg-icon {
+        width: 13px !important;
+        height: 13px !important;
+        flex-shrink: 0;
+        stroke: #FFD54F;
+    }
+    .mvc-top-bar .mvc-contact-icon {
+        display: none !important;
+    }
+    .mvc-mob-call-text,
+    .mvc-mob-email-text {
+        font-size: 10px;
+        letter-spacing: 0.1px;
+    }
+    .mvc-utility-email-btn {
+        max-width: none !important;
+        overflow: visible !important;
+    }
+    .mvc-mob-email-text {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+
+    /* Mobile Quick Actions in Top Bar (Login) */
+    .mvc-mobile-top-actions {
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+    .mvc-mob-top-login {
+        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+        border: 1px solid #FFE082;
+        color: #001A38 !important;
+        font-weight: 800;
+        font-size: 10.5px;
+        padding: 2.5px 9px;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        letter-spacing: 0.3px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+    .mvc-mob-top-login:hover {
+        background: linear-gradient(135deg, #FFE082 0%, #D4AF37 100%);
+        color: #000E20 !important;
+        transform: translateY(-1px);
+    }
+    .mvc-mob-top-login .mvc-top-svg-icon {
+        width: 11px !important;
+        height: 11px !important;
+        fill: #001A38 !important;
+        stroke: none !important;
+    }
+
+    /* 3. Middle Identity Bar Mobile Optimization */
+    .mvc-middle-bar {
+        padding: 8px 0;
+        background: #FFFFFF;
+        border-bottom: 2px solid #D4AF37;
+    }
+    .mvc-middle-flex {
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .mvc-logo-section {
+        width: 100%;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .mvc-college-logo {
+        max-width: 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        padding: 2px;
+        border: 1.5px solid #D4AF37;
+        flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .mvc-college-names {
+        flex: 1;
+        min-width: 0;
+    }
+    .mvc-title-lockup {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+    }
+    .mvc-college-names h1,
+    .mvc-college-names .mvc-site-title {
+        font-size: 13.5px;
+        line-height: 1.15;
+        margin: 0;
+        font-weight: 800;
+        color: #002147;
+        letter-spacing: 0.2px;
+        white-space: normal;
+        width: 100%;
+    }
+    .mvc-hindi-title {
+        font-size: 13.5px;
+        line-height: 1.15;
+        margin: 1.5px 0 0 0;
+        color: #800000;
+        font-weight: 700;
+        font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        display: block;
+        letter-spacing: normal !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .mvc-address-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+        white-space: normal;
+        overflow: visible;
+    }
+    .mvc-address {
+        font-size: 10px;
+        color: #64748B;
+        line-height: 1.2;
+        white-space: normal;
+        overflow: visible;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+    }
+    .mvc-pin-icon {
+        width: 10px;
+        height: 10px;
+        color: #800000;
+        flex-shrink: 0;
+    }
+    .mvc-est-pill,
+    .mvc-aishe-pill {
+        font-size: 9px;
+        font-weight: 700;
+        padding: 1px 5px;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+    .mvc-est-pill {
+        background: #F1F5F9;
+        color: #475569;
+        border: 1px solid #CBD5E1;
+    }
+    .mvc-aishe-pill {
+        background: #FEF9C3;
+        color: #854D0E;
+        border: 1px solid #FDE047;
+    }
+
+    /* 4. Tier 3: Notice & Circular Ribbon Mobile Optimization */
+    .mvc-notice-ribbon {
+        background: linear-gradient(90deg, #4A0000 0%, #660000 50%, #4A0000 100%);
+        min-height: 32px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+    }
+    .mvc-ribbon-flex {
+        min-height: 32px;
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+    }
+    .mvc-ticker-badge {
+        padding: 0 8px;
+        height: 22px;
+        clip-path: none;
+        border-radius: 3px;
+        background: #800000;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin: 0;
+    }
+    .mvc-ticker-icon {
+        font-size: 10px;
+    }
+    .mvc-pulse-dot {
+        width: 6px;
+        height: 6px;
+    }
+    .mvc-desk-ticker-label {
+        display: none !important;
+    }
+    .mvc-mob-ticker-label {
+        display: inline !important;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        color: #FFFFFF;
+    }
+    .mvc-ticker {
+        flex: 1;
+        min-width: 0;
+        padding-left: 6px;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent 0%, #000 8px, #000 calc(100% - 8px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8px, #000 calc(100% - 8px), transparent 100%);
+    }
+    .mvc-ticker-link {
+        font-size: 11px;
+        gap: 5px;
+    }
+    .mvc-ticker-date {
+        font-size: 9px;
+        padding: 0 4px;
+    }
+    .mvc-ticker-text {
+        font-size: 11px;
+    }
+    .mvc-ticker-sep {
+        margin: 0 8px;
+        font-size: 9px;
+    }
+    .mvc-ribbon-actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin: 0;
+        flex-shrink: 0;
+    }
+    .mvc-ticker-ctrl-btn {
+        display: none !important; /* Hide pause button on mobile to grant full width to circular text */
+    }
+    .mvc-ribbon-all-btn {
+        padding: 2px 7px;
+        height: 22px;
+        font-size: 10px;
+        border-radius: 3px;
+    }
+    .mvc-desk-all-text {
+        display: none !important;
+    }
+    .mvc-mob-all-text {
+        display: inline !important;
+        font-size: 10px;
+        font-weight: 700;
+    }
+    .mvc-all-arrow {
+        font-size: 9.5px;
+    }
+
+    /* 5. Tier 4: Bottom Navigation Bar Mobile Setup */
+    .mvc-nav-bar {
+        background: #7A0000;
+        min-height: 42px;
+        height: 42px;
+        position: sticky;
+        top: 0;
+        z-index: 99990;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+    .mvc-nav-flex {
+        padding: 0 8px;
+        min-height: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .mvc-mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        color: #FFFFFF;
+        padding: 5px 9px;
+        cursor: pointer;
+        outline: none;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+    .mvc-mobile-toggle:hover,
+    .mvc-mobile-toggle:focus {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: #D4AF37;
+    }
+    .mvc-hamburger-lines {
+        display: flex;
+        flex-direction: column;
+        gap: 3.5px;
+        width: 16px;
+    }
+    .mvc-hamburger-lines .mvc-line {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: #FFFFFF;
+        border-radius: 2px;
+    }
+    .mvc-toggle-text {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: #FFFFFF;
+    }
+
+    /* Mobile Direct Admission Center CTA */
+    .mvc-mobile-nav-admission {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+        border: 1px solid #FFE082;
+        color: #001A38 !important;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 4px 11px;
+        border-radius: 20px;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        transition: all 0.2s ease;
+    }
+    .mvc-mobile-nav-admission:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(212, 175, 55, 0.4);
+    }
+    .mvc-mobile-nav-admission .mvc-pulse-beacon {
+        width: 6px;
+        height: 6px;
+        background: #001A38;
+        border-radius: 50%;
+        animation: mvcBeaconPulse 1.6s infinite;
+    }
+
+    .mvc-mobile-search-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 30px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        color: #FFFFFF;
+        cursor: pointer;
+        padding: 0;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+    .mvc-mobile-search-toggle:hover {
+        background: rgba(0, 0, 0, 0.4);
+        border-color: #D4AF37;
+        color: #FFE082;
+    }
+    .mvc-mobile-search-toggle svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    /* Mobile Search Inline Dropdown */
+    .mvc-mobile-search-bar {
+        display: none;
+        background: #500000;
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid #D4AF37;
+    }
+    .mvc-mobile-search-bar.active {
+        display: block;
+    }
+    .mvc-mobile-search-inline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .mvc-mobile-search-field {
+        flex: 1;
+        background: #FFFFFF;
+        border: 1px solid #CBD5E1;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 13px;
+        color: #1E293B;
+        outline: none;
+    }
+    .mvc-mobile-search-submit {
+        background: #D4AF37;
+        color: #420000;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 14px;
+        font-weight: 700;
+        font-size: 12.5px;
+        cursor: pointer;
+    }
+    .mvc-mobile-search-close {
+        background: transparent;
+        border: none;
+        color: #FFFFFF;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0 4px;
+    }
+
+    /* 5. OFF-CANVAS MOBILE DRAWER & BACKDROP OVERLAY */
+    .mvc-side-pane-overlay {
+        display: block !important;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: 99998;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .mvc-side-pane-overlay.pane-open {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    .mvc-main-navigation {
+        position: fixed !important;
+        top: 0 !important;
+        left: -350px !important;
+        width: 320px !important;
+        max-width: 86vw !important;
+        height: 100vh !important;
+        background: #0A1628 !important;
+        z-index: 99999 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        box-shadow: 12px 0 35px rgba(0,0,0,0.65) !important;
+        transition: left 0.38s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .mvc-main-navigation.pane-open {
+        left: 0 !important;
+    }
+
+    /* Sticky Drawer Header with Visible, Accessible Close Button */
+    .mvc-pane-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 14px 18px !important;
+        background: linear-gradient(135deg, #00152e 0%, #002147 100%) !important;
+        border-bottom: 2px solid #D4AF37 !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100000 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    }
+    .mvc-pane-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .mvc-pane-logo {
+        max-width: 38px;
+        height: auto;
+    }
+    .mvc-pane-title {
+        font-size: 15px;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 0.5px;
+    }
+    .mvc-pane-subtitle {
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #D4AF37;
+    }
+
+    /* Highly Prominent Close Button */
+    .mvc-close-pane {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 42px !important;
+        height: 42px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.16) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+        color: #FFFFFF !important;
+        font-size: 26px !important;
+        font-weight: 300 !important;
+        line-height: 1 !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    }
+    .mvc-close-pane:hover,
+    .mvc-close-pane:focus,
+    .mvc-close-pane:active {
+        background: #800000 !important;
+        border-color: #D4AF37 !important;
+        color: #FFD54F !important;
+        transform: scale(1.08) rotate(90deg) !important;
+    }
+
+    /* Drawer Embedded Search */
+    .mvc-drawer-search {
+        display: block;
+        padding: 12px 16px;
+        background: #07101C;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .mvc-drawer-search-form {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .mvc-drawer-search-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #FFFFFF;
+        padding: 8px 12px;
+        font-size: 13px;
+        outline: none;
+    }
+    .mvc-drawer-search-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    .mvc-drawer-search-btn {
+        background: #7A0000;
+        border: none;
+        color: #FFFFFF;
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    /* Drawer Menu Items */
+    .mvc-mega-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .mvc-mega-menu > li {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
+    }
+    .mvc-mega-menu > li > a {
+        padding: 14px 18px;
+        font-size: 14px;
+        color: #FFFFFF;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        white-space: normal;
+        border-bottom: none !important;
+    }
+    .mvc-mobile-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: #CBD5E1;
+        padding: 14px 18px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .mvc-mobile-arrow.arrow-rotated {
+        transform: rotate(180deg);
+        color: #FFD54F;
+    }
+
+    /* Drawer Menu Item Active States */
+    .mvc-mega-menu > li.mobile-expanded {
+        background: #091322;
+    }
+    .mvc-mega-menu > li.mobile-expanded > a {
+        background: #5E0000;
+        color: #FFD54F;
+        font-weight: 700;
+    }
+    .mvc-mega-menu > li.mobile-expanded > .mvc-mobile-arrow {
+        background: #5E0000;
+        color: #FFD54F;
+    }
+
+    /* Mobile Drawer Sub-menus (Strictly Single Column Vertical Stack) */
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu,
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu {
+        position: static !important;
+        display: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #091322 !important;
+        border-radius: 0 !important;
+        transform: none !important;
+        animation: none !important;
+        left: auto !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+    }
+    .mvc-mega-menu > li.mobile-expanded > ul.sub-menu {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Level 2: Section / Category Container Block */
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        border-right: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: transparent !important;
+    }
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li:last-child {
+        border-bottom: none !important;
+    }
+
+    /* Level 2: Category Heading (e.g. Executive Leadership, Statutory Bodies) */
+    .mvc-mega-menu > li.mvc-has-mega-menu > ul.sub-menu > li > a {
+        color: #FFD54F !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+        border-left: 3px solid #D4AF37 !important;
+        border-right: none !important;
+        border-top: none !important;
+        padding: 10px 16px 10px 18px !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.8px !important;
+        text-transform: uppercase !important;
+        margin: 0 !important;
+        background: rgba(0, 33, 71, 0.6) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        pointer-events: none !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Level 3: Sub-items Container */
+    .mvc-mega-menu ul.sub-menu ul.sub-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 4px 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        background: transparent !important;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li {
+        width: 100% !important;
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+
+    /* Level 3: Individual Link */
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a {
+        color: #CBD5E1 !important;
+        padding: 10px 16px 10px 24px !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-top: none !important;
+        background: transparent !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        line-height: 1.35 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        transition: background 0.15s ease, color 0.15s ease, padding 0.15s ease !important;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a::before {
+        content: "›" !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        color: #D4AF37 !important;
+        margin-right: 8px !important;
+        flex-shrink: 0 !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a:hover,
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li a:active {
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: #FFFFFF !important;
+        padding-left: 28px !important;
+    }
+    .mvc-mega-menu ul.sub-menu ul.sub-menu li:last-child a {
+        border-bottom: none !important;
+    }
+
+    /* Non-mega sub-menus fallback */
+    .mvc-mega-menu > li:not(.mvc-has-mega-menu) > ul.sub-menu > li > a {
+        color: #CBD5E1 !important;
+        padding: 11px 18px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+        background: #091322 !important;
+        display: flex !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Drawer Footer (Direct Access Utilities Suite) */
+    .mvc-drawer-footer {
+        display: block;
+        margin-top: auto;
+        padding: 18px 16px;
+        background: #07101C;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .mvc-drawer-section-heading {
+        font-size: 10.5px;
+        font-weight: 800;
+        color: #D4AF37;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 10px;
+    }
+    .mvc-drawer-utilities-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+    .mvc-drawer-util-link {
+        background: rgba(255, 255, 255, 0.06);
+        color: #CBD5E1;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 4px;
+        text-align: center;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.2s ease;
+    }
+    .mvc-drawer-util-link:hover {
+        background: rgba(212, 175, 55, 0.2);
+        color: #FFD54F;
+    }
+    .mvc-drawer-login-wrap {
+        margin-bottom: 12px;
+    }
+    .mvc-drawer-portal-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #7A0000 0%, #A30000 100%);
+        color: #FFFFFF !important;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 13px;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(122,0,0,0.3);
+    }
+    .mvc-drawer-contact-block {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 11.5px;
+    }
+    .mvc-drawer-contact-item {
+        color: #94A3B8;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Drawer Bottom Close Button for extra mobile convenience */
+    .mvc-drawer-bottom-close-wrap {
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.12);
+        display: block !important;
+    }
+    .mvc-drawer-bottom-close-btn {
+        width: 100%;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: rgba(128, 0, 0, 0.45);
+        border: 1.5px solid rgba(212, 175, 55, 0.5);
+        border-radius: 8px;
+        color: #FFD54F !important;
+        font-size: 13.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .mvc-drawer-bottom-close-btn:hover,
+    .mvc-drawer-bottom-close-btn:active {
+        background: #800000;
+        color: #FFFFFF !important;
+        border-color: #D4AF37;
+    }
+}
+
+/* ========================================================
+   SUB-BREAKPOINTS: PHONES & COMPACT SCREENS (<= 600px & <= 400px)
+   ======================================================== */
+@media (max-width: 600px) {
+    .mvc-top-contacts {
+        gap: 5px !important;
+    }
+    .mvc-utility-call-btn,
+    .mvc-utility-email-btn {
+        padding: 2px 6px !important;
+        font-size: 9.5px !important;
+        gap: 4px !important;
+    }
+    .mvc-utility-email-btn {
+        max-width: none !important;
+        overflow: visible !important;
+    }
+    .mvc-mob-call-text,
+    .mvc-mob-email-text {
+        font-size: 9.5px !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+    .mvc-mob-top-login {
+        font-size: 9.5px !important;
+        padding: 2px 7px !important;
+    }
+    .mvc-college-names h1,
+    .mvc-college-names .mvc-site-title {
+        font-size: 13px !important;
+        letter-spacing: 0.1px !important;
+        width: 100% !important;
+    }
+    .mvc-hindi-title {
+        font-size: 13px !important;
+        display: block !important;
+        letter-spacing: normal !important;
+        width: 100% !important;
+    }
+    .mvc-address {
+        font-size: 9.5px !important;
+    }
+    .mvc-mobile-nav-admission {
+        font-size: 10.5px !important;
+        padding: 3.5px 9px !important;
+    }
+    .mvc-toggle-text {
+        font-size: 11.5px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .mvc-top-contacts {
+        gap: 4px !important;
+    }
+    .mvc-utility-call-btn,
+    .mvc-utility-email-btn {
+        padding: 2px 4px !important;
+        font-size: 8.5px !important;
+        gap: 3px !important;
+    }
+    .mvc-utility-email-btn {
+        max-width: none !important;
+        overflow: visible !important;
+    }
+    .mvc-mob-call-text {
+        font-size: 8.5px !important;
+    }
+    .mvc-mob-email-text {
+        font-size: 8px !important;
+        letter-spacing: -0.15px !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+    .mvc-college-logo {
+        max-width: 42px !important;
+        width: 42px !important;
+        height: 42px !important;
+    }
+    .mvc-college-names h1,
+    .mvc-college-names .mvc-site-title {
+        font-size: 11.5px !important;
+        width: 100% !important;
+    }
+    .mvc-hindi-title {
+        font-size: 11.5px !important;
+        display: block !important;
+        letter-spacing: normal !important;
+        width: 100% !important;
+    }
+    .mvc-est-pill {
+        display: none !important;
+    }
+    .mvc-mobile-nav-admission {
+        font-size: 9.5px !important;
+        padding: 3px 8px !important;
+    }
+    .mvc-mobile-toggle {
+        padding: 4px 7px !important;
+    }
+    .mvc-toggle-text {
+        font-size: 11px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .mvc-top-contacts {
+        gap: 3px !important;
+    }
+    .mvc-utility-call-btn,
+    .mvc-utility-email-btn {
+        padding: 1.5px 3.5px !important;
+        gap: 2.5px !important;
+    }
+    .mvc-mob-call-text {
+        font-size: 7.5px !important;
+    }
+    .mvc-mob-email-text {
+        font-size: 7.5px !important;
+        letter-spacing: -0.2px !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+    .mvc-mob-top-login {
+        font-size: 8.5px !important;
+        padding: 1.5px 5px !important;
+    }
+}
+
+/* ========================================================
+   UNIVERSAL FULL-WIDTH BREAKOUT (ALL PAGES & TEMPLATES)
+   ======================================================== */
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Zero out any header bottom spacing */
+#masthead,
+.mvc-custom-header,
+.mvc-nav-bar,
+#mvcStickyNavBar {
+    margin-bottom: 0 !important;
+}
+
+body.page #content.site-content,
+body.single #content.site-content,
+body.archive #content.site-content,
+body.tax-faculty-group #content.site-content,
+body #content.site-content,
+#content.site-content,
+#content,
+.site-content,
+.ast-container,
+.site-content .ast-container,
+.site-content > .ast-container,
+#primary,
+.site-main,
+#main,
+.mvc-full-width-content,
+.entry-content,
+.ast-article-single,
+.ast-article-post {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.ast-separate-container .ast-article-single,
+.ast-separate-container .ast-article-post {
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Universal Table Rule: No Horizontal Scroll on PC or Mobile, Fluid Width */
+table {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.entry-content table {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-sizing: border-box !important;
+}
+
+/* ========================================================
+   UNIVERSAL 100% FULL-WIDTH EXPANSIVE FLUID CONTAINERS
+   (APPLIES TO ALL PAGES, TEMPLATES, SUITES & ARCHIVES)
+   Stretches content fluidly across the screen with balanced,
+   comfortable responsive margins (clamp 16px - 40px)
+   ======================================================== */
+.mvc-container,
+.mvc-portal-container,
+.mvc-portal-hero-container,
+.mvc-ab-hero-inner,
+.mvc-ab-main,
+.mvc-gl-container,
+.mvc-vm-container,
+.mvc-rr-container,
+.mvc-cc-container,
+.mvc-cv-container,
+.mvc-mp-container,
+.mvc-admin-container,
+.mvc-univ-container,
+.mvc-comm-container,
+.mvc-desk-container,
+.mvc-sc-container,
+.mvc-sc-main,
+.mvc-sc-hero-inner,
+.mvc-staff-container,
+.mvc-sp-container,
+.mvc-dept-container,
+.mvc-dept-hub-container,
+.mvc-dept-hero-container,
+.mvc-hub-container,
+.mvc-calendar-container,
+.mvc-naac-container,
+.mvc-naac-hero-container,
+.mvc-sz-container,
+.mvc-sz-hero-container,
+.mvc-nt-container,
+.mvc-notices-container,
+.mvc-notices-hero-inner,
+.mvc-ev-container,
+.mvc-events-container,
+.mvc-events-hero-inner,
+.mvc-contact-container,
+.mvc-gallery-container,
+.mvc-media-hero-container,
+.mvc-media-nav-inner,
+.mvc-media-body-container,
+.mvc-util-container,
+.mvc-util-hero-inner,
+.mvc-footer-container,
+.mvc-web-slider-wrapper,
+.mvc-press-single-container,
+.mvc-notice-container,
+.mvc-event-single-container,
+.mvc-single-container,
+.mvc-press-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: clamp(16px, 2.5vw, 40px) !important;
+    padding-right: clamp(16px, 2.5vw, 40px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Prevent double horizontal padding on nested structural children */
+.mvc-ab-main .mvc-gl-container,
+.mvc-ab-main .mvc-vm-container,
+.mvc-ab-main .mvc-rr-container,
+.mvc-ab-main .mvc-cc-container,
+.mvc-ab-main .mvc-cv-container,
+.mvc-ab-main .mvc-mp-container,
+.mvc-portal-container .mvc-portal-layout-unified,
+.mvc-notices-container .mvc-nt-body-layout,
+.mvc-events-container .mvc-ev-body-layout,
+.mvc-hub-container .mvc-hub-main-layout {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* Full breakout of Astra layout shells across all page templates */
+body.page #page,
+body.page #content,
+body.page .site-content,
+body.page .ast-container,
+body.page #primary,
+body.page #main,
+body.page .site-main,
+body.page .entry-content,
+body.single #page,
+body.single #content,
+body.single .site-content,
+body.single .ast-container,
+body.single #primary,
+body.single #main,
+body.single .site-main,
+body.single .entry-content,
+body.archive #page,
+body.archive #content,
+body.archive .site-content,
+body.archive .ast-container,
+body.archive #primary,
+body.archive #main,
+body.archive .site-main,
+body.archive .entry-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ========================================================
+   UNIVERSAL INSTITUTIONAL STYLING FOR WPFORMS & PORTAL FORMS
+   ======================================================== */
+div.wpforms-container-full,
+.wpforms-container {
+    margin: 0 !important;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+    max-width: 100% !important;
+}
+
+.wpforms-form {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.wpforms-field {
+    margin-bottom: 22px !important;
+    padding: 0 !important;
+    clear: both;
+}
+
+.wpforms-field-label {
+    display: block !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #002147 !important;
+    margin-bottom: 8px !important;
+    line-height: 1.4 !important;
+}
+
+.wpforms-required-label {
+    color: #800000 !important;
+    font-weight: 800 !important;
+    margin-left: 3px !important;
+}
+
+.wpforms-field-sublabel {
+    font-size: 12px !important;
+    color: #64748B !important;
+    margin-top: 5px !important;
+    display: block !important;
+}
+
+.wpforms-field input[type="text"],
+.wpforms-field input[type="email"],
+.wpforms-field input[type="tel"],
+.wpforms-field input[type="url"],
+.wpforms-field input[type="number"],
+.wpforms-field select,
+.wpforms-field textarea {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    border: 1.5px solid #CBD5E1 !important;
+    font-size: 14.5px !important;
+    font-family: inherit !important;
+    color: #1E293B !important;
+    background: #FFFFFF !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    outline: none !important;
+    line-height: 1.5 !important;
+}
+
+.wpforms-field input:focus,
+.wpforms-field select:focus,
+.wpforms-field textarea:focus {
+    border-color: #002147 !important;
+    box-shadow: 0 0 0 3.5px rgba(0, 33, 71, 0.12) !important;
+    background: #FFFFFF !important;
+}
+
+.wpforms-field textarea {
+    min-height: 120px !important;
+    resize: vertical !important;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-submit-container,
+.wpforms-submit-container {
+    margin-top: 24px !important;
+    padding: 0 !important;
+    text-align: left;
+}
+
+div.wpforms-container-full .wpforms-form button.wpforms-submit,
+div.wpforms-container-full .wpforms-form input.wpforms-submit,
+.wpforms-submit {
+    background: linear-gradient(135deg, #002147 0%, #00152e 100%) !important;
+    color: #FFFFFF !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    padding: 13px 32px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 4px 14px rgba(0, 33, 71, 0.18) !important;
+    letter-spacing: 0.3px !important;
+    min-height: 48px !important;
+}
+
+div.wpforms-container-full .wpforms-form button.wpforms-submit:hover,
+div.wpforms-container-full .wpforms-form input.wpforms-submit:hover,
+.wpforms-submit:hover {
+    background: #800000 !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(128, 0, 0, 0.25) !important;
+}
+
+div.wpforms-confirmation-container-full,
+.wpforms-confirmation-container {
+    background: #F0FDF4 !important;
+    border: 1.5px solid #BBF7D0 !important;
+    border-radius: 10px !important;
+    padding: 22px 28px !important;
+    color: #166534 !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.06) !important;
+    margin: 20px 0 !important;
+}
+
+/* ========================================================
+   INSTITUTIONAL PORTAL AUTHENTICATION & REGISTRATION SUITE (10/10 STANDARD)
+   ======================================================== */
+.mvc-portal-wrapper {
+    background: #F8FAFC;
+    color: #0F172A;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    min-height: 80vh;
+}
+
+/* 1. Hero Header */
+.mvc-portal-hero {
+    background: linear-gradient(135deg, #001733 0%, #002147 55%, #500000 100%);
+    color: #FFFFFF;
+    position: relative;
+    border-bottom: 4px solid #D4AF37;
+    box-shadow: 0 10px 30px rgba(0, 26, 56, 0.25);
+}
+.mvc-portal-hero-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 36px clamp(16px, 2.5vw, 40px) 44px;
+    box-sizing: border-box;
+}
+.mvc-portal-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #94A3B8;
+    margin-bottom: 16px;
+}
+.mvc-portal-breadcrumbs a {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.mvc-portal-breadcrumbs a:hover {
+    color: #FFD54F;
+}
+.mvc-bread-sep {
+    color: #64748B;
+}
+.mvc-bread-current {
+    color: #FFD54F;
+    font-weight: 600;
+}
+.mvc-portal-hero-badge-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+.mvc-hero-pill {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #E2E8F0;
+    backdrop-filter: blur(4px);
+}
+.mvc-pill-gold {
+    border-color: rgba(212, 175, 55, 0.5);
+    color: #FFD54F;
+}
+.mvc-portal-title-cluster {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.mvc-portal-crest-box {
+    flex-shrink: 0;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 3.5px solid #D4AF37;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}
+.mvc-portal-hero-logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.mvc-portal-main-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.25;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+}
+.mvc-portal-sub-heading {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFD54F;
+    margin: 0 0 8px 0;
+}
+.mvc-portal-tagline {
+    font-size: 13.5px;
+    color: #CBD5E1;
+    margin: 0;
+    max-width: 800px;
+    line-height: 1.5;
+}
+
+/* 2. Main Body & Unified Master Gateway */
+.mvc-portal-body-section {
+    padding: 36px 0 70px 0;
+}
+.mvc-portal-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 2.5vw, 40px);
+    box-sizing: border-box;
+}
+.mvc-portal-layout-unified {
+    width: 100%;
+}
+
+/* 3. Alerts & Validation Notices */
+.mvc-portal-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.mvc-alert-error {
+    background: #FEF2F2;
+    border: 1.5px solid #FCA5A5;
+    color: #991B1B;
+}
+.mvc-alert-success {
+    background: #F0FDF4;
+    border: 1.5px solid #86EFAC;
+    color: #166534;
+}
+.mvc-alert-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* 4. Master Dual-Wing Institutional Gateway Card */
+.mvc-portal-master-gateway {
+    display: grid;
+    grid-template-columns: minmax(360px, 420px) 1fr;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto 48px auto;
+    background: #FFFFFF;
+    border-radius: 16px;
+    border: 1px solid #CBD5E1;
+    border-top: 5px solid #D4AF37;
+    box-shadow: 0 16px 45px rgba(0, 33, 71, 0.1);
+    overflow: hidden;
+    align-items: stretch;
+}
+@media (max-width: 900px) {
+    .mvc-portal-master-gateway {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Left Wing: Institutional Brand, Security & IT Help Desk --- */
+.mvc-portal-brand-wing {
+    background: linear-gradient(160deg, #001A38 0%, #002147 60%, #072A57 100%);
+    color: #FFFFFF;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #CBD5E1;
+    position: relative;
+}
+.mvc-brand-wing-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.mvc-brand-wing-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.mvc-brand-wing-crest-box {
+    width: 68px;
+    height: 72px;
+    border-radius: 12px;
+    background: #FFFFFF;
+    padding: 3px;
+    border: 2px solid #D4AF37;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.mvc-brand-wing-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.mvc-wing-kicker {
+    font-size: 10px;
+    font-weight: 800;
+    color: #D4AF37;
+    letter-spacing: 0.9px;
+    display: block;
+    margin-bottom: 2px;
+}
+.mvc-wing-lockup {
+    display: table;
+    width: auto;
+    max-width: 100%;
+}
+.mvc-wing-college-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.25;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    width: 100%;
+}
+.mvc-wing-college-hindi {
+    font-size: 15px;
+    color: #E2E8F0;
+    opacity: 0.95;
+    margin: 0;
+    font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+@media (max-width: 768px) {
+    .mvc-wing-lockup {
+        width: 100%;
+    }
+    .mvc-wing-college-name {
+        white-space: normal;
+    }
+}
+
+/* SSO Badge */
+.mvc-wing-sso-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #FDE047;
+    margin: 16px 0;
+    align-self: flex-start;
+}
+.mvc-sso-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22C55E;
+    box-shadow: 0 0 8px #22C55E;
+}
+
+/* Roles Matrix Card */
+.mvc-wing-roles-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+}
+.mvc-wing-sec-title {
+    font-size: 10px;
+    font-weight: 800;
+    color: #D4AF37;
+    letter-spacing: 0.8px;
+    display: block;
+    margin-bottom: 8px;
+}
+.mvc-wing-roles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+.mvc-wing-role-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #F8FAFC;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Statutory Advisory Box */
+.mvc-wing-advisory-box {
+    background: rgba(128, 0, 0, 0.28);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+}
+.mvc-wing-advisory-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.mvc-advisory-title {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #FCA5A5;
+    letter-spacing: 0.5px;
+}
+.mvc-wing-advisory-text {
+    font-size: 11px;
+    color: #E2E8F0;
+    line-height: 1.45;
+    margin: 6px 0 0 0;
+}
+
+/* Help Desk Box */
+.mvc-wing-helpdesk-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: auto;
+}
+.mvc-wing-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
+}
+.mvc-wing-contact-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: all 0.2s ease;
+}
+.mvc-wing-contact-chip:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #D4AF37;
+    transform: translateX(3px);
+}
+.mvc-w-icon {
+    font-size: 15px;
+}
+.mvc-w-chip-info {
+    display: flex;
+    flex-direction: column;
+}
+.mvc-w-chip-sub {
+    font-size: 9.5px;
+    color: #94A3B8;
+}
+.mvc-w-chip-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+/* --- Right Wing: Interactive Authentication Suite --- */
+.mvc-portal-auth-wing {
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+}
+.mvc-portal-card {
+    background: #FFFFFF;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.mvc-portal-nav-tabs {
+    display: flex;
+    background: #F1F5F9;
+    border-bottom: 1px solid #CBD5E1;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.mvc-portal-nav-tabs::-webkit-scrollbar {
+    display: none;
+}
+.mvc-tab-btn {
+    flex: 1;
+    min-height: 52px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #475569;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.mvc-tab-btn:hover {
+    color: #800000;
+    background: rgba(255, 255, 255, 0.6);
+}
+.mvc-tab-btn.active {
+    background: #FFFFFF;
+    color: #800000;
+    border-bottom: 3px solid #800000;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.02);
+}
+.mvc-tab-text-mob {
+    display: none;
+}
+.mvc-tab-text-full {
+    display: inline;
+}
+
+.mvc-portal-tab-content {
+    padding: 34px 32px;
+    flex: 1;
+}
+.mvc-tab-panel {
+    display: none;
+}
+.mvc-tab-panel.active {
+    display: block;
+    animation: mvcTabFadeIn 0.22s ease-in-out;
+}
+@keyframes mvcTabFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mvc-tab-header {
+    margin-bottom: 20px;
+}
+.mvc-tab-title {
+    font-size: 21px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0 0 6px 0;
+}
+.mvc-tab-desc {
+    font-size: 13.5px;
+    color: #64748B;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Multi-Role Guide Chip Row */
+.mvc-portal-roles-guide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    background: #F8FAFC;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 22px;
+}
+.mvc-guide-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-right: 4px;
+}
+.mvc-role-chip {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #0F172A;
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 16px;
+    padding: 3px 9px;
+}
+
+/* Forms & Inputs */
+.mvc-auth-form {
+    width: 100%;
+}
+.mvc-form-group {
+    margin-bottom: 20px;
+}
+.mvc-form-row {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.mvc-grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+.mvc-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1E293B;
+    margin-bottom: 7px;
+}
+.mvc-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+}
+.mvc-label-row .mvc-label {
+    margin-bottom: 0;
+}
+.mvc-req {
+    color: #800000;
+    font-weight: 800;
+}
+.mvc-inline-link {
+    font-size: 12.5px;
+    color: #800000;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+.mvc-inline-link:hover {
+    color: #002147;
+    text-decoration: underline;
+}
+
+.mvc-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.mvc-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748B;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 4;
+    width: 20px;
+    height: 20px;
+    line-height: 1;
+}
+.mvc-input-icon svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+.mvc-input,
+.mvc-select,
+.mvc-portal-container input.mvc-input,
+.mvc-auth-form input.mvc-input,
+.mvc-auth-form select.mvc-select {
+    width: 100%;
+    height: 48px !important;
+    padding: 10px 16px !important;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0F172A;
+    background: #F8FAFC !important;
+    border: 1.5px solid #CBD5E1 !important;
+    border-radius: 9px !important;
+    transition: all 0.2s ease;
+    box-sizing: border-box !important;
+}
+
+/* Force adequate left padding when wrapped with icon to prevent ANY placeholder/text overlap */
+.mvc-input-wrap .mvc-input,
+.mvc-input-wrap input.mvc-input,
+.mvc-input-wrap input[type="text"].mvc-input,
+.mvc-input-wrap input[type="password"].mvc-input,
+.mvc-input-wrap input[type="email"].mvc-input,
+.mvc-input-wrap input[type="tel"].mvc-input {
+    padding-left: 48px !important;
+    padding-right: 16px !important;
+}
+
+/* Password inputs have visibility toggle button on the right */
+.mvc-input-wrap .mvc-pwd-input,
+.mvc-input-wrap input.mvc-pwd-input,
+.mvc-input-wrap input[type="password"].mvc-pwd-input {
+    padding-left: 48px !important;
+    padding-right: 50px !important;
+}
+
+.mvc-select {
+    padding-left: 14px !important;
+    cursor: pointer;
+}
+.mvc-input:focus,
+.mvc-select:focus,
+.mvc-auth-form input.mvc-input:focus,
+.mvc-auth-form select.mvc-select:focus {
+    background: #FFFFFF !important;
+    border-color: #D4AF37 !important;
+    box-shadow: 0 0 0 3.5px rgba(212, 175, 55, 0.22) !important;
+    outline: none !important;
+}
+.mvc-pwd-toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    z-index: 5;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    transition: background 0.15s ease;
+}
+.mvc-pwd-toggle:hover {
+    background: rgba(0, 33, 71, 0.06) !important;
+}
+.mvc-eye-svg {
+    transition: stroke 0.15s ease;
+}
+.mvc-field-help {
+    font-size: 12px;
+    color: #64748B;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Password Strength Indicator */
+.mvc-pwd-strength-container {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.mvc-strength-bars {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+.mvc-str-bar {
+    height: 4px;
+    flex: 1;
+    background: #E2E8F0;
+    border-radius: 2px;
+    transition: background-color 0.25s ease;
+}
+.mvc-strength-text {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #94A3B8;
+    white-space: nowrap;
+}
+
+/* Form Checkbox & Utilities */
+.mvc-form-utility-row {
+    margin-bottom: 22px;
+}
+.mvc-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #334155;
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.4;
+}
+.mvc-checkbox {
+    width: 17px;
+    height: 17px;
+    accent-color: #800000;
+    cursor: pointer;
+}
+
+/* Buttons */
+.mvc-form-submit-row {
+    margin-bottom: 20px;
+}
+.mvc-submit-btn {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 9px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+}
+.mvc-submit-btn.mvc-btn-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+    color: #002147;
+    font-weight: 800;
+    font-size: 14.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+    border: 1px solid #B48200;
+    transition: all 0.22s ease;
+}
+.mvc-submit-btn.mvc-btn-gold:hover {
+    background: linear-gradient(135deg, #DFBD46 0%, #C4920F 100%);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
+    color: #001A38;
+}
+.mvc-submit-btn.mvc-btn-maroon {
+    background: linear-gradient(135deg, #800000 0%, #5E0000 100%);
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 14.5px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(128, 0, 0, 0.35);
+    transition: all 0.22s ease;
+}
+.mvc-submit-btn.mvc-btn-maroon:hover {
+    background: linear-gradient(135deg, #990000 0%, #700000 100%);
+    box-shadow: 0 8px 24px rgba(128, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.mvc-tab-footer-callout {
+    padding-top: 18px;
+    border-top: 1px solid #E2E8F0;
+    font-size: 13px;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.mvc-callout-link {
+    font-weight: 700;
+    color: #800000;
+    text-decoration: none;
+}
+.mvc-callout-link:hover {
+    color: #002147;
+    text-decoration: underline;
+}
+
+/* 5. Grounding Shelf: 5 Public Direct Access Services */
+.mvc-portal-services-shelf {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid #E2E8F0;
+}
+.mvc-services-shelf-header {
+    margin-bottom: 22px;
+    text-align: left;
+}
+.mvc-shelf-kicker {
+    font-size: 11px;
+    font-weight: 800;
+    color: #800000;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 4px;
+}
+.mvc-shelf-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0 0 6px 0;
+}
+.mvc-shelf-desc {
+    font-size: 13.5px;
+    color: #64748B;
+    margin: 0;
+}
+.mvc-services-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+.mvc-service-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 33, 71, 0.04);
+    transition: all 0.22s ease;
+    position: relative;
+}
+.mvc-service-card:hover {
+    border-color: #D4AF37;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 33, 71, 0.1);
+}
+.mvc-service-icon-box {
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+.mvc-service-badge {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #800000;
+    background: #FEE2E2;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+.mvc-service-name {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+.mvc-service-info {
+    font-size: 12px;
+    color: #64748B;
+    margin: 0;
+    line-height: 1.45;
+}
+.mvc-service-arrow {
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #D4AF37;
+    align-self: flex-end;
+    transition: transform 0.2s ease;
+}
+.mvc-service-card:hover .mvc-service-arrow {
+    transform: translateX(3px);
+    color: #800000;
+}
+
+/* 6. Logged In VIP Scholar Card */
+.mvc-portal-loggedin-card {
+    background: #FFFFFF;
+    border-radius: 14px;
+    border: 1px solid #E2E8F0;
+    border-top: 4px solid #D4AF37;
+    box-shadow: 0 12px 35px rgba(0, 33, 71, 0.08);
+    padding: 36px 32px;
+    max-width: 820px;
+    margin: 0 auto;
+}
+.mvc-loggedin-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #E2E8F0;
+    margin-bottom: 26px;
+}
+.mvc-loggedin-avatar {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #D4AF37;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+.mvc-loggedin-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mvc-avatar-status-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    color: #22C55E;
+    font-size: 16px;
+    line-height: 1;
+}
+.mvc-session-tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #22C55E;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+.mvc-loggedin-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: #002147;
+    margin: 0 0 6px 0;
+}
+.mvc-loggedin-meta {
+    font-size: 13.5px;
+    color: #64748B;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.mvc-role-pill {
+    background: #F1F5F9;
+    border: 1px solid #CBD5E1;
+    color: #002147;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+.mvc-loggedin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.mvc-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+.mvc-btn-outline {
+    background: transparent;
+    border: 1.5px solid #CBD5E1;
+    color: #334155;
+}
+.mvc-btn-outline:hover {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+}
+.mvc-btn-logout {
+    background: #FEE2E2;
+    border: 1px solid #FCA5A5;
+    color: #991B1B;
+}
+.mvc-btn-logout:hover {
+    background: #DC2626;
+    color: #FFFFFF;
+}
+
+/* 7. Responsive Layout & Mobile Optimization */
+@media (max-width: 992px) {
+    .mvc-portal-master-gateway {
+        display: flex;
+        flex-direction: column;
+    }
+    .mvc-portal-auth-wing {
+        order: 1;
+    }
+    .mvc-portal-brand-wing {
+        order: 2;
+        border-right: none;
+        border-top: 1px solid #CBD5E1;
+        padding: 28px 20px;
+    }
+    .mvc-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 650px) {
+    .mvc-grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .mvc-services-grid {
+        grid-template-columns: 1fr;
+    }
+    .mvc-wing-roles-grid {
+        grid-template-columns: 1fr;
+    }
+    .mvc-portal-title-cluster {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .mvc-portal-crest-box {
+        width: 72px;
+        height: 72px;
+        padding: 4px;
+        border-width: 2.5px;
+    }
+    .mvc-portal-hero-container {
+        padding: 24px 16px 28px 16px;
+    }
+    .mvc-portal-main-heading {
+        font-size: 22px;
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+    .mvc-portal-sub-heading {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+    .mvc-portal-tagline {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+    .mvc-portal-hero-text {
+        text-align: center;
+    }
+    .mvc-portal-breadcrumbs {
+        justify-content: center;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+    .mvc-portal-hero-badge-strip {
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+    .mvc-hero-pill {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+    .mvc-portal-body-section {
+        padding: 20px 0 50px 0;
+    }
+    .mvc-portal-container {
+        padding: 0 12px;
+    }
+    .mvc-portal-master-gateway {
+        border-radius: 12px;
+    }
+    /* Mobile Segmented 4-Column Tab Bar */
+    .mvc-portal-nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        gap: 0;
+        background: #E2E8F0;
+    }
+    .mvc-tab-text-full {
+        display: none !important;
+    }
+    .mvc-tab-text-mob {
+        display: inline !important;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: -0.2px;
+    }
+    .mvc-tab-btn {
+        min-height: 52px;
+        padding: 8px 2px;
+        flex-direction: column;
+        gap: 3px;
+        text-align: center;
+        font-size: 11px;
+    }
+    .mvc-tab-btn svg {
+        width: 15px;
+        height: 15px;
+    }
+    .mvc-portal-tab-content {
+        padding: 20px 14px;
+    }
+    /* Anti-Zoom on iOS Safari & Android */
+    .mvc-input,
+    .mvc-select,
+    .mvc-pwd-input {
+        font-size: 16px !important;
+        height: 48px !important;
+    }
+    .mvc-pwd-toggle {
+        width: 44px;
+        height: 44px;
+        right: 2px;
+    }
+    .mvc-submit-btn {
+        height: 48px;
+        font-size: 14px;
+    }
+    .mvc-loggedin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .mvc-loggedin-meta {
+        justify-content: center;
+    }
+    .mvc-loggedin-actions {
+        flex-direction: column;
+    }
+    .mvc-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Zero horizontal scrolling safety lock */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    box-sizing: border-box;
+}
