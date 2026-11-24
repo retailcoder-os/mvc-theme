@@ -34,10 +34,10 @@ function mvc_render_contact_us_page($override_form_id = null) {
 
     echo '<main class="mvc-contact-container" id="contact-main-content">';
     mvc_render_contact_primary_cards();
-    mvc_render_contact_departments_grid();
+    // mvc_render_contact_departments_grid();
     mvc_render_contact_form_and_helpdesk();
     mvc_render_contact_transit_and_map();
-    mvc_render_contact_protocol_notice();
+    // mvc_render_contact_protocol_notice();
     echo '</main>';
 
     echo '</div>'; // .mvc-contact-root
@@ -833,109 +833,6 @@ function mvc_render_contact_primary_cards() {
 /**
  * Departmental & Administrative Helpdesk Directory
  */
-function mvc_render_contact_departments_grid() {
-    $post_id = get_the_ID() ?: 292;
-    $default_departments = [
-        [
-            'title'     => 'Office of the Principal',
-            'incharge'  => 'Prof. (Dr.) Krishna Kant Singh, Principal',
-            'location'  => 'Administrative Block, First Floor (Chamber 101)',
-            'phone'     => '06183-796317'
-        ],
-        [
-            'title'     => 'Internal Quality Assurance Cell (IQAC / NAAC)',
-            'incharge'  => 'Dr. Arvind Verma, Coordinator IQAC',
-            'location'  => 'IQAC Cum NAAC Chamber, Main Academic Block',
-            'phone'     => '06183-796317'
-        ],
-        [
-            'title'     => 'Admission & Student Welfare Section',
-            'incharge'  => 'Admission Committee & Counseling Desk',
-            'location'  => 'Student Facilitation Center (Counters 1 - 4)',
-            'phone'     => '06183-796317'
-        ],
-        [
-            'title'     => 'Examination & Degree Verification Wing',
-            'incharge'  => 'Controller of Examinations / Tabulation Cell',
-            'location'  => 'Central Examination Control Room',
-            'phone'     => '06183-796317'
-        ],
-        [
-            'title'     => 'Statutory Grievance Redressal & Anti-Ragging',
-            'incharge'  => 'Institutional Ombudsman & Disciplinary Board',
-            'location'  => 'Grievance Cell / Proctorial Board Office',
-            'phone'     => 'National Toll-Free: 1800-180-5522',
-            'link'      => home_url('/student-grievance/')
-        ],
-        [
-            'title'     => 'National Service Scheme (NSS Unit)',
-            'incharge'  => 'Dr. Birendra Prasad, Programme Officer',
-            'location'  => 'NSS Resource Room & Community Center',
-            'phone'     => '06183-796317',
-            'link'      => home_url('/nss/')
-        ],
-        [
-            'title'     => 'National Cadet Corps (NCC Army Wing)',
-            'incharge'  => 'Dr. Yogershi Rajpoot, Associate NCC Officer (ANO)',
-            'location'  => 'NCC Armory & Parade Ground Office',
-            'phone'     => '06183-796317',
-            'link'      => home_url('/ncc/')
-        ],
-        [
-            'title'     => 'Sports & Physical Education Council',
-            'incharge'  => 'Dr. Awanish Kumar Pandey, Sports Coordinator',
-            'location'  => 'Gymnasium & Athletic Department Complex',
-            'phone'     => '06183-796317',
-            'link'      => home_url('/sports/')
-        ],
-        [
-            'title'     => 'Media, Public Relations & Press Cell',
-            'incharge'  => 'Dr. Arvind Verma, Media Coordinator',
-            'location'  => 'Media Cell & Publications Archive',
-            'phone'     => '06183-796317',
-            'link'      => home_url('/media/')
-        ]
-    ];
-    $departments = mvc_get_page_array($post_id, 'contact_departments', $default_departments);
-    ?>
-    <section class="mvc-contact-card" aria-label="Departmental Directory">
-        <div class="mvc-contact-section-header">
-            <h2>
-                <span>🏢 Administrative & Academic Helpdesk Directory</span>
-            </h2>
-            <!-- <span class="mvc-contact-badge">Direct Division Access</span> -->
-        </div>
-
-        <div class="mvc-dept-grid">
-            <?php foreach ($departments as $dept): ?>
-                <div class="mvc-dept-box">
-                    <h3 class="mvc-dept-title"><?php echo esc_html($dept['title']); ?></h3>
-                    <div class="mvc-dept-officer"><?php echo esc_html($dept['incharge']); ?></div>
-                    <div class="mvc-dept-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        <span><?php echo esc_html($dept['location']); ?></span>
-                    </div>
-                    <div class="mvc-dept-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        <span><?php echo esc_html($dept['phone']); ?></span>
-                    </div>
-                    <!-- <div class="mvc-dept-meta-row">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <a href="mailto:<?php echo esc_attr($dept['email']); ?>"><?php echo esc_html($dept['email']); ?></a>
-                    </div> -->
-                    <?php if (!empty($dept['link'])): ?>
-                        <div style="margin-top: 10px;">
-                            <a href="<?php echo esc_url($dept['link']); ?>" class="mvc-btn mvc-btn-navy" style="padding: 4px 10px; font-size: 12px;">
-                                <span>Wing Portal →</span>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </section>
-    <?php
-}
 
 /**
  * Public Inquiry Form & Quick Support Sidebar
