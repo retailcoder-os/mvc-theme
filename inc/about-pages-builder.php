@@ -233,7 +233,7 @@ function mvc_get_about_shared_css() {
     .mvc-ab-hero {
         background: linear-gradient(135deg, var(--mvc-navy-deep) 0%, var(--mvc-navy) 60%, var(--mvc-maroon-dark) 100%);
         color: #FFFFFF;
-        padding: clamp(40px, 6vw, 70px) clamp(16px, 4vw, 36px) clamp(50px, 7vw, 85px);
+        padding: clamp(30px, 4vw, 48px) clamp(16px, 3.5vw, 36px) clamp(34px, 4.5vw, 52px);
         position: relative;
         overflow: hidden;
         border-bottom: 4px solid var(--mvc-gold);
@@ -316,7 +316,7 @@ function mvc_get_about_shared_css() {
         font-size: clamp(28px, 4.2vw, 46px);
         font-weight: 900;
         line-height: 1.15;
-        margin: 0 0 10px;
+        margin: 0 0 16px;
         color: #FFFFFF;
         letter-spacing: -0.5px;
     }
@@ -960,8 +960,6 @@ function mvc_render_glance_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
             </div>
         </header>
 
@@ -988,19 +986,10 @@ function mvc_render_glance_page() {
                         
                         <div class="mvc-gl-prose">
                             <p>
-                                Buxar owns its importance as a historical place almost exclusively to its colossal Vishvamitra Ashram, which still stands majestically. The traditional account of the holy antiquity as an important center of Vishnu and Shiva worship embedded in Valmiki’s Ramayana, Ramcharitmanas, and Puranas has been described. This town, known as Siddhashram, witnessed a remarkable outburst of intellectual activities during the time of Maharshi Vishwamitra in the Vedic period.
+                                Maharshi Vishwamitra Mahavidyalaya (M.V. College), Buxar was founded on <strong>11th June 1958</strong> by Sri Khakhi Baba on ten bighas of prime riverfront land generously donated by the Raja of Dumraon on the bank of the Holy Ganga at Charitravan. Through the lifelong dedication of Sri Basistha Narayan Mishra, the college was elevated to a <strong>Constituent Unit under Magadh University in 1975</strong> and subsequently of <strong>Veer Kunwar Singh University (VKSU), Ara in 1992</strong>.
                             </p>
                             <p>
-                                The new spirit of the modern age was remarkably illustrated by the life and thought of <strong>Sri Khakhi Baba (The Saketbasi)</strong> and <strong>Sri Mauni Baba (Janakpurbasi)</strong>. Undoubtedly, Khakhi Baba was a great social reformer, a great religious teacher, and a tower of philosophical wisdom in this area. He himself worked tirelessly for reform in the educational field. Deeply religious but not theologically rigid, he laid great emphasis on modern education, including co-education. For this noble purpose, he laid the foundation of <strong>Maharshi Vishwamitra Mahavidyalaya, Buxar on 11th June, 1958</strong>.
-                            </p>
-                            <p>
-                                The honourable <strong>Raja of Dumraon State</strong> had deep love and affection for Khakhi Baba. He donated <strong>ten bighas of prime land on the bank of the Holy Ganga</strong> for the college. Along with the Raja of Dumraon, other devoted disciples of Khakhi Baba gave monetary help for the construction of the building of the college. <strong>Sri Basistha Narayan Mishra</strong>, the elder son of Khakhi Baba, devoted his entire life for the institution until it became a <strong>Constituent Unit under Magadh University in the year 1975</strong> (and subsequently under Veer Kunwar Singh University, Ara).
-                            </p>
-                            <p>
-                                The college has been designed skillfully. The classrooms are many in number, varying in size from classic lecture rooms to palatial halls. Harmoniously integrated with the collegiate campus stand the sacred <strong>Ram Lakshman Janki Temple</strong> and the revered <strong>Kaldhatri (Gaiya Maiya) Mandir</strong>, reflecting ancient architectural and spiritual traditions.
-                            </p>
-                            <p>
-                                In the first stage of the opening of the college in 1958, teachings of the <strong>Social Sciences &amp; Humanities</strong> were started. The opening of the <strong>Science Faculty in 1967</strong> fulfilled a critical academic need for the region, with credit largely attributed to then Principal <strong>Dr. Jitram Pathak</strong>. The college actively promotes student development through <strong>N.S.S.</strong> camping, <strong>N.C.C.</strong> training, debating societies, annual sports, well-equipped laboratories, and an automated central library.
+                                Starting with Humanities and Social Sciences in 1958 and expanding to the Science Faculty in 1967 under then Principal Dr. Jitram Pathak, the institution offers comprehensive undergraduate programs and vocational courses (BCA). The campus harmoniously integrates modern lecture rooms, science laboratories, an automated central library, and active N.C.C. and N.S.S. units alongside the historic Ram Lakshman Janki and Kaldhatri shrines.
                             </p>
                         </div>
                     </article>
@@ -1363,8 +1352,6 @@ function mvc_render_vision_mission_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-ab-kpi-ribbon">
@@ -1408,40 +1395,28 @@ function mvc_render_vision_mission_page() {
                 </div>
             </div>
 
-            <!-- DUAL VISION & ETHOS GRID (Verbatim from live site) -->
+            <!-- DUAL VISION & ETHOS GRID -->
             <div class="mvc-vm-duo-grid">
                 <div class="mvc-vm-vision-card">
-                    <div style="text-align: center; margin-bottom: 18px;">
-                        <img src="<?php echo esc_url(content_url('/uploads/live_vision-mission_VISION_1763962087_VISION_1759424043_VISION_1747135437_VISION_1745845979_VISION_1745782058_VISION3.png')); ?>" alt="Vision - Maharshi Vishwamitra Mahavidyalaya" style="max-width: 100%; height: auto; max-height: 220px; object-fit: contain; border-radius: 12px;" />
-                    </div>
                     <h2 class="mvc-vm-card-title">
-                        <span>🎯 Vision</span>
+                        <span>🎯 Institutional Vision</span>
                     </h2>
                     <p class="mvc-vm-card-p">
-                        Maharshi Vishwamitra Mahavidyalaya envisions being one of the best academic centres of Buxar with a holistic model of education for the betterment and empowerment of society.
-                    </p>
-                    <p class="mvc-vm-card-p">
-                        To enliven this vision, Maharshi Vishwamitra Mahavidyalaya emphasizes a constant process of learning that imbibes the preservation of traditional and cultural heritage along with new and innovative practices of research, teaching and learning, skill development and professional leadership.
+                        Maharshi Vishwamitra Mahavidyalaya envisions being one of the premier academic centres of Buxar with a holistic model of education for the betterment and empowerment of society, combining traditional and cultural heritage with innovative practices of research, teaching, skill development, and professional leadership.
                     </p>
                 </div>
 
                 <div class="mvc-vm-commitment-card">
-                    <div style="text-align: center; margin-bottom: 18px;">
-                        <img src="<?php echo esc_url(content_url('/uploads/live_vision-mission_MISSION_1763962097_MISSION_1759424032_MISSION_1747135451_MISSION_1745846007_MISSION_1745782246_MISSION3.png')); ?>" alt="Mission - Maharshi Vishwamitra Mahavidyalaya" style="max-width: 100%; height: auto; max-height: 220px; object-fit: contain; border-radius: 12px;" />
-                    </div>
                     <h2 class="mvc-vm-card-title">
                         <span>🤝 Social Commitment &amp; Ethics</span>
                     </h2>
                     <p class="mvc-vm-card-p">
                         The institution is devoted to the enrichment of sensitivity towards gender, caste, colour and creed, inculcation of ethics, morality and human values to produce citizens who can contribute significantly in developing an egalitarian society and a prosperous nation.
                     </p>
-                    <p class="mvc-vm-card-p">
-                        Rooted in the ancient soil of Siddhashram and the reformist spirit of Sri Khakhi Baba, the college balances timeless heritage with modern scientific inquiry.
-                    </p>
                 </div>
             </div>
 
-            <!-- 7 STATED MISSION POINTS (Verbatim from live site) -->
+            <!-- 7 STATED MISSION POINTS -->
             <section class="mvc-ab-section">
                 <div class="mvc-ab-sec-header">
                     <h2 class="mvc-ab-sec-title">
@@ -1462,25 +1437,6 @@ function mvc_render_vision_mission_page() {
                     <?php endforeach; ?>
                 </div>
             </section>
-
-            <!-- 5. GOVERNANCE GATEWAY STRIP -->
-            <div class="mvc-ab-gateway-strip">
-                <div>
-                    <h4 style="margin:0 0 4px; font-size:16px; font-weight:800; color:var(--mvc-navy);">Explore Related Institutional Charters</h4>
-                    <p style="margin:0; font-size:13px; color:#64748B;">Discover our foundational core values, rules, and code of conduct.</p>
-                </div>
-                <div class="mvc-ab-gw-links">
-                    <a href="<?php echo esc_url($site_url . '/core-values/'); ?>" class="mvc-ab-gw-btn">
-                        💎 Core Values &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/code-of-conduct/'); ?>" class="mvc-ab-gw-btn">
-                        📜 Code of Conduct &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/rules-regulations/'); ?>" class="mvc-ab-gw-btn">
-                        ⚖️ Rules &amp; Regulations &rarr;
-                    </a>
-                </div>
-            </div>
         </main>
     </div>
     <?php
@@ -1762,8 +1718,6 @@ function mvc_render_rules_regulations_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-ab-kpi-ribbon">
@@ -1832,25 +1786,6 @@ function mvc_render_rules_regulations_page() {
                     <?php endforeach; ?>
                 </div>
             </section>
-
-            <!-- 5. GOVERNANCE GATEWAY STRIP -->
-            <div class="mvc-ab-gateway-strip">
-                <div>
-                    <h4 style="margin:0 0 4px; font-size:16px; font-weight:800; color:var(--mvc-navy);">Related Statutory Documents</h4>
-                    <p style="margin:0; font-size:13px; color:#64748B;">Examine the comprehensive institutional Code of Conduct handbook.</p>
-                </div>
-                <div class="mvc-ab-gw-links">
-                    <a href="<?php echo esc_url($site_url . '/code-of-conduct/'); ?>" class="mvc-ab-gw-btn">
-                        📜 Code of Conduct &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/core-values/'); ?>" class="mvc-ab-gw-btn">
-                        💎 Core Values &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/glance/'); ?>" class="mvc-ab-gw-btn">
-                        🏛️ College at a Glance &rarr;
-                    </a>
-                </div>
-            </div>
         </main>
     </div>
 
@@ -2134,8 +2069,6 @@ function mvc_render_code_of_conduct_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-ab-kpi-ribbon">
@@ -2249,25 +2182,6 @@ function mvc_render_code_of_conduct_page() {
                         <?php endforeach; ?>
                     </div>
                 </section>
-            </div>
-
-            <!-- 5. GOVERNANCE GATEWAY STRIP -->
-            <div class="mvc-ab-gateway-strip">
-                <div>
-                    <h4 style="margin:0 0 4px; font-size:16px; font-weight:800; color:var(--mvc-navy);">Explore Institutional Governance</h4>
-                    <p style="margin:0; font-size:13px; color:#64748B;">Learn more about college rules, core values, and institutional vision.</p>
-                </div>
-                <div class="mvc-ab-gw-links">
-                    <a href="<?php echo esc_url($site_url . '/rules-regulations/'); ?>" class="mvc-ab-gw-btn">
-                        ⚖️ Rules &amp; Regulations &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/core-values/'); ?>" class="mvc-ab-gw-btn">
-                        💎 Core Values &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/vision-mission/'); ?>" class="mvc-ab-gw-btn">
-                        🎯 Vision &amp; Mission &rarr;
-                    </a>
-                </div>
             </div>
         </main>
     </div>
@@ -2486,8 +2400,6 @@ function mvc_render_core_values_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-ab-kpi-ribbon">
@@ -2540,25 +2452,6 @@ function mvc_render_core_values_page() {
                     <?php endforeach; ?>
                 </div>
             </section>
-
-            <!-- 5. GOVERNANCE GATEWAY STRIP -->
-            <div class="mvc-ab-gateway-strip">
-                <div>
-                    <h4 style="margin:0 0 4px; font-size:16px; font-weight:800; color:var(--mvc-navy);">Explore Related Chapters</h4>
-                    <p style="margin:0; font-size:13px; color:#64748B;">Explore Vision &amp; Mission, Rules &amp; Regulations, and Code of Conduct.</p>
-                </div>
-                <div class="mvc-ab-gw-links">
-                    <a href="<?php echo esc_url($site_url . '/vision-mission/'); ?>" class="mvc-ab-gw-btn">
-                        🎯 Vision &amp; Mission &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/rules-regulations/'); ?>" class="mvc-ab-gw-btn">
-                        ⚖️ Rules &amp; Regulations &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/code-of-conduct/'); ?>" class="mvc-ab-gw-btn">
-                        📜 Code of Conduct &rarr;
-                    </a>
-                </div>
-            </div>
         </main>
     </div>
     <?php
@@ -2935,8 +2828,6 @@ function mvc_render_master_plan_page() {
                 </div>
 
                 <h1 class="mvc-ab-title"><?php echo esc_html($hero_title); ?></h1>
-                <div class="mvc-ab-subtitle-hi"><?php echo esc_html($heading_hi); ?></div>
-                <p class="mvc-ab-desc"><?php echo esc_html($hero_desc); ?></p>
 
                 <!-- 4 KPI Metrics -->
                 <div class="mvc-ab-kpi-ribbon">
@@ -2966,10 +2857,9 @@ function mvc_render_master_plan_page() {
             <?php echo mvc_render_about_suite_nav('master-plan'); ?>
 
             <!-- MASTER PLAN STATUS -->
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-left:4px solid var(--mvc-navy); border-radius:12px; padding:24px 28px; margin-bottom:35px;">
-                <h3 style="margin:0 0 8px; color:var(--mvc-navy); font-size:18px; font-weight:800;">Master Plan Information</h3>
-                <p style="margin:0; font-size:14.5px; color:#475569; line-height:1.6;">
-                    The official architectural master plan for the collegiate campus across 10 bighas at Charitravan, Buxar is currently under preparation and will be published here upon finalization. Detailed physical facilities and campus infrastructure are listed below.
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-left:4px solid var(--mvc-navy); border-radius:10px; padding:14px 18px; margin-bottom:24px;">
+                <p style="margin:0; font-size:14px; color:#475569; line-height:1.5;">
+                    ℹ️ <strong>Campus Master Plan:</strong> The physical facilities and collegiate spatial layout across 10 bighas on the Ganga riverfront at Charitravan, Buxar are detailed below.
                 </p>
             </div>
 
@@ -2988,7 +2878,7 @@ function mvc_render_master_plan_page() {
                             <div class="mvc-mp-fac-icon-box"><?php echo esc_html($fac['icon']); ?></div>
                             <div class="mvc-mp-fac-body">
                                 <div class="mvc-mp-fac-top">
-                                    <span class="mvc-mp-fac-badge"><?php echo esc_html($fac['badge']); ?></span>
+                                     <span class="mvc-mp-fac-badge"><?php echo esc_html($fac['badge']); ?></span>
                                 </div>
                                 <h3 class="mvc-mp-fac-title"><?php echo esc_html($fac['title']); ?></h3>
                                 <div class="mvc-mp-fac-subtitle"><?php echo esc_html($fac['subtitle']); ?></div>
@@ -2998,25 +2888,6 @@ function mvc_render_master_plan_page() {
                     <?php endforeach; ?>
                 </div>
             </section>
-
-            <!-- 5. GOVERNANCE GATEWAY STRIP -->
-            <div class="mvc-ab-gateway-strip">
-                <div>
-                    <h4 style="margin:0 0 4px; font-size:16px; font-weight:800; color:var(--mvc-navy);">Explore Institutional Genesis &amp; Leadership</h4>
-                    <p style="margin:0; font-size:13px; color:#64748B;">Learn more about our 1958 foundation, leadership succession, and college administration.</p>
-                </div>
-                <div class="mvc-ab-gw-links">
-                    <a href="<?php echo esc_url($site_url . '/glance/'); ?>" class="mvc-ab-gw-btn">
-                        🏛️ College at a Glance &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/principal-desk/'); ?>" class="mvc-ab-gw-btn">
-                        📜 Principal's Desk &rarr;
-                    </a>
-                    <a href="<?php echo esc_url($site_url . '/succession-list/'); ?>" class="mvc-ab-gw-btn">
-                        👑 Succession Roll &rarr;
-                    </a>
-                </div>
-            </div>
         </main>
     </div>
 
