@@ -1640,6 +1640,31 @@ function mvc_render_homepage() {
             text-align: center;
             line-height: 1.1;
         }
+        .mvc-event-cal-tile.mvc-cal-upcoming {
+            background: rgba(212, 175, 55, 0.24);
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+        }
+        .mvc-badge-status-upcoming {
+            background: rgba(212, 175, 55, 0.2);
+            color: #F6E05E;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 3px;
+            letter-spacing: 0.4px;
+        }
+        .mvc-badge-status-concluded {
+            background: rgba(148, 163, 184, 0.15);
+            color: #94A3B8;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 3px;
+            letter-spacing: 0.3px;
+        }
         .mvc-cal-month {
             font-size: 10px;
             font-weight: 800;
@@ -3501,26 +3526,56 @@ function mvc_render_homepage() {
                             <span class="mvc-board-badge-count">Activities</span>
                         </div>
 
+                        <?php
+                        // Fetch all published events
+                        $all_events = get_posts(array(
+                            'post_type'      => 'event',
+                            'posts_per_page' => -1,
+                            'post_status'    => 'publish',
+                            'orderby'        => 'date',
+                            'order'          => 'DESC'
+                        ));
+
+                        $count_upcoming = 0;
+                        $count_completed = 0;
+                        $upcoming_events = array();
+                        $completed_events = array();
+
+                        if (!empty($all_events)) {
+                            foreach ($all_events as $ev) {
+                                $terms = wp_get_object_terms($ev->ID, 'event-status');
+                                $st = (!empty($terms) && !is_wp_error($terms)) ? strtolower($terms[0]->slug) : 'completed';
+                                if ($st === 'upcoming') {
+                                    $count_upcoming++;
+                                    $upcoming_events[] = $ev;
+                                } else {
+                                    $count_completed++;
+                                    $completed_events[] = $ev;
+                                }
+                            }
+                        }
+
+                        // Order: Upcoming milestones first, followed by concluded chronologically
+                        $sorted_events = array_merge($upcoming_events, $completed_events);
+                        ?>
+
                         <!-- Switcher Tabs -->
-                        <div class="mvc-events-nav-tabs">
-                            <button type="button" class="mvc-event-tab-btn active" onclick="mvcSwitchEventTab('completed', this)">Concluded Events</button>
-                            <button type="button" class="mvc-event-tab-btn" onclick="mvcSwitchEventTab('upcoming', this)">Upcoming</button>
+                        <div class="mvc-events-nav-tabs" role="tablist" aria-label="Filter events by status">
+                            <button type="button" class="mvc-event-tab-btn active" data-filter="all" onclick="mvcFilterEvents('all', this)">All Events</button>
+                            <button type="button" class="mvc-event-tab-btn" data-filter="upcoming" onclick="mvcFilterEvents('upcoming', this)">Upcoming (<?php echo (int) $count_upcoming; ?>)</button>
+                            <button type="button" class="mvc-event-tab-btn" data-filter="completed" onclick="mvcFilterEvents('completed', this)">Concluded (<?php echo (int) $count_completed; ?>)</button>
                         </div>
 
-                        <!-- Concluded Events List -->
-                        <div id="mvcEventsCompleted" class="mvc-board-list">
+                        <!-- Events List -->
+                        <div id="mvcEventsContainer" class="mvc-board-list">
                             <?php
-                            $ev_q = new WP_Query(array(
-                                'post_type'      => 'event',
-                                'posts_per_page' => 8,
-                                'post_status'    => 'publish',
-                                'orderby'        => 'date',
-                                'order'          => 'DESC'
-                            ));
+                            if (!empty($sorted_events)) :
+                                foreach ($sorted_events as $ev) :
+                                    $e_id = $ev->ID;
+                                    $terms = wp_get_object_terms($e_id, 'event-status');
+                                    $ev_status = (!empty($terms) && !is_wp_error($terms)) ? strtolower($terms[0]->slug) : 'completed';
+                                    $is_upcoming = ($ev_status === 'upcoming');
 
-                            if ($ev_q->have_posts()) :
-                                while ($ev_q->have_posts()) : $ev_q->the_post();
-                                    $e_id = get_the_ID();
                                     $raw_dates = get_field('event_dates', $e_id) ?: get_post_meta($e_id, 'event_dates', true);
                                     if (empty($raw_dates)) {
                                         $raw_dates = get_the_date('d M Y', $e_id);
@@ -3540,93 +3595,39 @@ function mvc_render_homepage() {
                                         $cal_month = strtoupper(get_the_date('M', $e_id));
                                     }
                                     ?>
-                                    <div class="mvc-event-card-item">
-                                        <div class="mvc-event-cal-tile">
+                                    <div class="mvc-event-card-item" data-status="<?php echo esc_attr($ev_status); ?>">
+                                        <div class="mvc-event-cal-tile <?php echo $is_upcoming ? 'mvc-cal-upcoming' : ''; ?>">
                                             <span class="mvc-cal-month"><?php echo esc_html($cal_month); ?></span>
                                             <span class="mvc-cal-day"><?php echo esc_html($cal_day); ?></span>
                                         </div>
                                         <div class="mvc-event-details">
-                                            <div class="mvc-event-date-stamp">📅 <?php echo esc_html($raw_dates); ?></div>
+                                            <div class="mvc-event-date-stamp">
+                                                📅 <?php echo esc_html($raw_dates); ?>
+                                                <?php if ($is_upcoming) : ?>
+                                                    &bull; <span class="mvc-badge-status-upcoming">UPCOMING</span>
+                                                <?php else : ?>
+                                                    &bull; <span class="mvc-badge-status-concluded">CONCLUDED</span>
+                                                <?php endif; ?>
+                                            </div>
                                             <h4 class="mvc-event-title-text">
-                                                <a href="<?php the_permalink(); ?>" style="color:#ffffff; text-decoration:none;">
-                                                    <?php the_title(); ?>
+                                                <a href="<?php echo esc_url(get_permalink($e_id)); ?>" style="color:#ffffff; text-decoration:none;">
+                                                    <?php echo esc_html(get_the_title($e_id)); ?>
                                                 </a>
                                             </h4>
-                                            <a href="<?php the_permalink(); ?>" class="mvc-event-report-link">
-                                                View Event &rarr;
+                                            <a href="<?php echo esc_url(get_permalink($e_id)); ?>" class="mvc-event-report-link">
+                                                <?php echo $is_upcoming ? 'View Schedule &amp; Details &rarr;' : 'View Event &rarr;'; ?>
                                             </a>
                                         </div>
                                     </div>
                                     <?php
-                                endwhile;
-                                wp_reset_postdata();
-                            else:
+                                endforeach;
+                            else :
                                 echo '<p style="color:#94A3B8; font-size:13px; padding:20px; text-align:center;">No event records found.</p>';
                             endif;
                             ?>
-                        </div>
-
-                        <!-- Upcoming Events List -->
-                        <div id="mvcEventsUpcoming" class="mvc-board-list" style="display: none;">
-                            <?php
-                            $up_q = new WP_Query(array(
-                                'post_type'      => 'event',
-                                'posts_per_page' => 4,
-                                'post_status'    => 'publish',
-                                's'              => '2026'
-                            ));
-
-                            if ($up_q->have_posts()) :
-                                while ($up_q->have_posts()) : $up_q->the_post();
-                                    $e_id = get_the_ID();
-                                    $raw_dates = get_field('event_dates', $e_id) ?: get_post_meta($e_id, 'event_dates', true);
-                                    if (empty($raw_dates)) {
-                                        $raw_dates = get_the_date('d M Y', $e_id);
-                                    }
-
-                                    $cal_day = '01';
-                                    $cal_month = 'EVT';
-                                    if (preg_match('/(\d{1,2})(?:-\d{1,2})?\s+([A-Za-z]+)/', $raw_dates, $m)) {
-                                        $cal_day = str_pad($m[1], 2, '0', STR_PAD_LEFT);
-                                        $cal_month = strtoupper(substr($m[2], 0, 3));
-                                    } else {
-                                        $cal_day = get_the_date('d', $e_id);
-                                        $cal_month = strtoupper(get_the_date('M', $e_id));
-                                    }
-                                    ?>
-                                    <div class="mvc-event-card-item">
-                                        <div class="mvc-event-cal-tile">
-                                            <span class="mvc-cal-month"><?php echo esc_html($cal_month); ?></span>
-                                            <span class="mvc-cal-day"><?php echo esc_html($cal_day); ?></span>
-                                        </div>
-                                        <div class="mvc-event-details">
-                                            <div class="mvc-event-date-stamp">📅 <?php echo esc_html($raw_dates); ?> &bull; <span style="color:var(--mvc-gold-light);">UPCOMING</span></div>
-                                            <h4 class="mvc-event-title-text">
-                                                <a href="<?php the_permalink(); ?>" style="color:#ffffff; text-decoration:none;">
-                                                    <?php the_title(); ?>
-                                                </a>
-                                            </h4>
-                                            <a href="<?php the_permalink(); ?>" class="mvc-event-report-link">
-                                                View Schedule &amp; Details &rarr;
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <?php
-                                endwhile;
-                                wp_reset_postdata();
-                            else:
-                            ?>
-                                <div class="mvc-notice-item">
-                                    <div class="mvc-notice-meta-line">
-                                        <span class="mvc-notice-date-pill">DEC 2026</span>
-                                        <span class="mvc-badge-pinned-gold">SCHEDULED</span>
-                                    </div>
-                                    <p class="mvc-notice-headline" style="color:#ffffff;">
-                                        Annual College Cultural &amp; Literary Fest "TARANG 2026"
-                                    </p>
-                                    <span style="font-size:12px; color:var(--mvc-gold);">Venue: Main Auditorium, Maharshi Vishwamitra Mahavidyalaya</span>
-                                </div>
-                            <?php endif; ?>
+                            <div id="mvcNoEventsNotice" style="display: none; color:#94A3B8; font-size:13px; padding:30px 20px; text-align:center;">
+                                No events found in this category.
+                            </div>
                         </div>
 
                         <a href="<?php echo esc_url(home_url('/events/')); ?>" class="mvc-board-view-all-cta">
@@ -4403,22 +4404,42 @@ function mvc_render_homepage() {
             });
         };
 
-        // Events Tab Switcher
-        window.mvcSwitchEventTab = function(type, btn) {
+        // Events Tab Switcher & Dynamic Filter
+        window.mvcFilterEvents = function(type, btn) {
             var btns = document.querySelectorAll('.mvc-event-tab-btn');
             btns.forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-
-            var comp = document.getElementById('mvcEventsCompleted');
-            var up = document.getElementById('mvcEventsUpcoming');
-
-            if (type === 'completed') {
-                if (comp) comp.style.display = 'flex';
-                if (up) up.style.display = 'none';
+            if (btn) {
+                btn.classList.add('active');
             } else {
-                if (comp) comp.style.display = 'none';
-                if (up) up.style.display = 'flex';
+                var targetBtn = document.querySelector('.mvc-event-tab-btn[data-filter="' + type + '"]');
+                if (targetBtn) targetBtn.classList.add('active');
             }
+
+            var container = document.getElementById('mvcEventsContainer');
+            if (!container) return;
+
+            var cards = container.querySelectorAll('.mvc-event-card-item');
+            var visibleCount = 0;
+
+            cards.forEach(function(card) {
+                var status = card.getAttribute('data-status');
+                if (type === 'all' || status === type) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            var emptyNotice = document.getElementById('mvcNoEventsNotice');
+            if (emptyNotice) {
+                emptyNotice.style.display = (visibleCount === 0) ? 'block' : 'none';
+            }
+        };
+
+        // Backwards compatibility for callers
+        window.mvcSwitchEventTab = function(type, btn) {
+            window.mvcFilterEvents(type, btn);
         };
 
         // YouTube Cinema Theater Controller (100% Dynamic)
