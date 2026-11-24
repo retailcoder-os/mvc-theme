@@ -43,7 +43,7 @@ function mvc_shield_filter_theme_updates($transient) {
         return $transient;
     }
 
-    $protected_slugs = array('astra', 'astra-child', 'retailcoder-storefront', 'retailcoder-edu');
+    $protected_slugs = array('astra', 'astra-child', 'mvc-theme', 'retailcoder-storefront', 'retailcoder-edu');
 
     foreach ($protected_slugs as $slug) {
         if (isset($transient->response[$slug])) {
@@ -108,7 +108,7 @@ function mvc_shield_pre_install_guard($return, $hook_extra) {
 
     if (isset($hook_extra['theme'])) {
         $theme_slug = $hook_extra['theme'];
-        if (in_array($theme_slug, array('astra', 'astra-child', 'retailcoder-storefront', 'retailcoder-edu'), true)) {
+        if (in_array($theme_slug, array('astra', 'astra-child', 'mvc-theme', 'retailcoder-storefront', 'retailcoder-edu'), true)) {
             return new WP_Error(
                 'rc_storefront_theme_locked',
                 __('RetailCoder StoreFront [RC:StoreFront] Shield: Theme updates are locked to protect customized institutional templates. Toggle OFF the update lock in Command Center Settings if you wish to perform maintenance.', 'retailcoder-storefront')
@@ -129,7 +129,7 @@ add_filter('upgrader_pre_install', 'mvc_shield_pre_install_guard', 10, 2);
  * @return string
  */
 function mvc_shield_theme_auto_update_html($html, $stylesheet, $theme) {
-    if (in_array($stylesheet, array('astra', 'astra-child'), true) && mvc_is_update_locked()) {
+    if (in_array($stylesheet, array('astra', 'astra-child', 'mvc-theme'), true) && mvc_is_update_locked()) {
         $icon_url = get_stylesheet_directory_uri() . '/assets/images/retailcoder-logo.png';
         return sprintf(
             '<span style="display:inline-flex; align-items:center; gap:5px; color:#002147; font-weight:600;"><img src="%s" width="16" height="16" style="vertical-align:middle;"> %s <span style="font-size:11px; background:#D4AF37; color:#001A38; padding:1px 5px; border-radius:3px; font-weight:800;">RC:StoreFront</span></span>',

@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  * 1. Remove Query Strings from Static CSS/JS Resources for Cacheability
  */
 function mvc_remove_script_version($src) {
-    if (strpos($src, 'astra-child') !== false) {
+    if (strpos($src, 'astra-child') !== false || strpos($src, 'mvc-theme') !== false) {
         return $src;
     }
     if (strpos($src, '?ver=')) {
