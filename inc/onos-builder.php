@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 /**
  * Main ONOS Portal Page Renderer
  */
+if (!function_exists('mvc_render_onos_page')) {
 function mvc_render_onos_page() {
     $current_user = wp_get_current_user();
     $is_logged_in = is_user_logged_in();
@@ -2108,4 +2109,5 @@ function mvc_render_onos_page() {
         </script>
     </div>
     <?php
+}
 }

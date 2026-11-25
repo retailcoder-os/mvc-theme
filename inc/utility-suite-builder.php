@@ -2652,14 +2652,6 @@ function mvc_render_help_desk_page($override_form_id = null) {
  * 6. ONE NATION ONE SUBSCRIPTION (ONOS) PAGE RENDERER (/onos/)
  * Handled comprehensively by inc/onos-builder.php
  */
-if (!function_exists('mvc_render_onos_page')) {
-    function mvc_render_onos_page() {
-        if (file_exists(get_stylesheet_directory() . '/inc/onos-builder.php')) {
-            require_once get_stylesheet_directory() . '/inc/onos-builder.php';
-            mvc_render_onos_page();
-        }
-    }
-}
 
 /**
  * 7. RESEARCH & PUBLICATIONS PAGE RENDERER (/research/)
