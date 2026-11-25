@@ -56,7 +56,7 @@ function mvc_register_all_rest_routes() {
         'methods'             => WP_REST_Server::READABLE,
         'callback'            => 'mvc_rest_search',
         'permission_callback' => function() {
-            return current_user_can('mvc_access_admin');
+            return current_user_can('mvc_access_admin') || current_user_can('manage_options');
         },
         'args' => array(
             'q' => array(
@@ -72,7 +72,7 @@ function mvc_register_all_rest_routes() {
         'methods'             => WP_REST_Server::READABLE,
         'callback'            => 'mvc_rest_get_review_queue',
         'permission_callback' => function() {
-            return current_user_can('mvc_review_content');
+            return current_user_can('mvc_review_content') || current_user_can('manage_options');
         },
     ));
 
@@ -286,14 +286,14 @@ function mvc_register_all_rest_routes() {
             'methods'             => WP_REST_Server::READABLE,
             'callback'            => 'mvc_rest_get_accounts',
             'permission_callback' => function() {
-                return current_user_can('mvc_manage_accounts');
+                return current_user_can('mvc_manage_accounts') || current_user_can('manage_options');
             },
         ),
         array(
             'methods'             => WP_REST_Server::CREATABLE,
             'callback'            => 'mvc_rest_create_student',
             'permission_callback' => function() {
-                return current_user_can('mvc_manage_accounts');
+                return current_user_can('mvc_manage_accounts') || current_user_can('manage_options');
             },
         ),
     ));
@@ -306,7 +306,7 @@ function mvc_register_all_rest_routes() {
             'callback'            => 'mvc_rest_account_action',
             'permission_callback' => function($request) {
                 $id = (int) $request['id'];
-                return current_user_can('mvc_manage_accounts') && mvc_can_manage_user(get_current_user_id(), $id);
+                return (current_user_can('mvc_manage_accounts') || current_user_can('manage_options')) && mvc_can_manage_user(get_current_user_id(), $id);
             },
         ));
     }
@@ -379,7 +379,7 @@ function mvc_register_all_rest_routes() {
         'methods'             => WP_REST_Server::READABLE,
         'callback'            => 'mvc_rest_get_audit',
         'permission_callback' => function() {
-            return current_user_can('mvc_view_audit');
+            return current_user_can('mvc_view_audit') || current_user_can('manage_options');
         },
     ));
 
@@ -398,14 +398,14 @@ function mvc_register_all_rest_routes() {
             'methods'             => WP_REST_Server::READABLE,
             'callback'            => 'mvc_rest_get_settings',
             'permission_callback' => function() {
-                return current_user_can('mvc_manage_settings');
+                return current_user_can('mvc_manage_settings') || current_user_can('manage_options');
             },
         ),
         array(
             'methods'             => WP_REST_Server::CREATABLE,
             'callback'            => 'mvc_rest_update_settings',
             'permission_callback' => function() {
-                return current_user_can('mvc_manage_settings');
+                return current_user_can('mvc_manage_settings') || current_user_can('manage_options');
             },
         ),
     ));
@@ -433,7 +433,7 @@ function mvc_register_all_rest_routes() {
         'methods'             => WP_REST_Server::READABLE,
         'callback'            => 'mvc_rest_get_content_list',
         'permission_callback' => function() {
-            return current_user_can('mvc_access_admin') || current_user_can('edit_posts');
+            return current_user_can('mvc_access_admin') || current_user_can('edit_posts') || current_user_can('manage_options');
         },
         'args'                => array(
             'type'   => array('type' => 'string', 'default' => 'notice'),
@@ -448,7 +448,56 @@ function mvc_register_all_rest_routes() {
         'methods'             => WP_REST_Server::READABLE,
         'callback'            => 'mvc_rest_get_notifications',
         'permission_callback' => function() {
-            return current_user_can('mvc_access_admin');
+            return current_user_can('mvc_access_admin') || current_user_can('manage_options');
+        },
+    ));
+
+    // 24. Command Center Universal Aliases
+    register_rest_route($namespace, '/review-action', array(
+        'methods'             => WP_REST_Server::CREATABLE,
+        'callback'            => 'mvc_rest_handle_review_action',
+        'permission_callback' => function() {
+            return current_user_can('mvc_review_content') || current_user_can('manage_options');
+        },
+    ));
+
+    register_rest_route($namespace, '/quick-notice', array(
+        'methods'             => WP_REST_Server::CREATABLE,
+        'callback'            => 'mvc_rest_quick_notice',
+        'permission_callback' => function() {
+            return current_user_can('edit_notices') || current_user_can('manage_options');
+        },
+    ));
+
+    register_rest_route($namespace, '/account-action', array(
+        'methods'             => WP_REST_Server::CREATABLE,
+        'callback'            => 'mvc_rest_handle_account_action',
+        'permission_callback' => function() {
+            return current_user_can('mvc_manage_accounts') || current_user_can('manage_options');
+        },
+    ));
+
+    register_rest_route($namespace, '/audit-logs', array(
+        'methods'             => WP_REST_Server::READABLE,
+        'callback'            => 'mvc_rest_get_audit',
+        'permission_callback' => function() {
+            return current_user_can('mvc_view_audit') || current_user_can('manage_options');
+        },
+    ));
+
+    register_rest_route($namespace, '/settings/update-lock', array(
+        'methods'             => WP_REST_Server::CREATABLE,
+        'callback'            => 'mvc_rest_toggle_update_lock',
+        'permission_callback' => function() {
+            return current_user_can('mvc_manage_settings') || current_user_can('manage_options');
+        },
+    ));
+
+    register_rest_route($namespace, '/settings/maintenance-mode', array(
+        'methods'             => WP_REST_Server::CREATABLE,
+        'callback'            => 'mvc_rest_toggle_maintenance_mode',
+        'permission_callback' => function() {
+            return current_user_can('mvc_manage_settings') || current_user_can('manage_options');
         },
     ));
 }
@@ -633,6 +682,30 @@ function mvc_rest_content_request_change($request) {
         return new WP_Error($result->get_error_code(), $result->get_error_message(), array('status' => 422));
     }
     return rest_ensure_response(array('success' => true, 'id' => $id));
+}
+
+// 7b. Universal Review Action Dispatcher
+function mvc_rest_handle_review_action($request) {
+    $post_id = (int) ($request['post_id'] ?? 0);
+    $action  = sanitize_key($request['review_action'] ?? '');
+    $reason  = sanitize_textarea_field($request['reason'] ?? '');
+
+    if (!$post_id || !get_post($post_id)) {
+        return new WP_Error('mvc_invalid_post', __('Target post not found.', 'mvc-college'), array('status' => 404));
+    }
+
+    if ($action === 'approve') {
+        $sub_req = new WP_REST_Request('POST', "/mvc/v1/content/{$post_id}/approve");
+        $sub_req->set_url_params(array('id' => $post_id));
+        return mvc_rest_content_approve($sub_req);
+    } elseif ($action === 'reject') {
+        $sub_req = new WP_REST_Request('POST', "/mvc/v1/content/{$post_id}/reject");
+        $sub_req->set_url_params(array('id' => $post_id));
+        $sub_req->set_param('reason', $reason ?: __('Revisions required before publication.', 'mvc-college'));
+        return mvc_rest_content_reject($sub_req);
+    }
+
+    return new WP_Error('mvc_invalid_action', __('Invalid review action requested.', 'mvc-college'), array('status' => 400));
 }
 
 // 8. /content/{id}/status
@@ -1290,6 +1363,43 @@ function mvc_rest_account_action($request) {
     }
 
     return rest_ensure_response(array('success' => true, 'id' => $id));
+}
+
+// 15b. Universal Account Action Dispatcher
+function mvc_rest_handle_account_action($request) {
+    $user_id = (int) ($request['user_id'] ?? 0);
+    $action  = sanitize_key($request['account_action'] ?? '');
+
+    if (!$user_id || !get_userdata($user_id)) {
+        return new WP_Error('mvc_invalid_user', __('Target user not found.', 'mvc-college'), array('status' => 404));
+    }
+
+    if ($action === 'delete') {
+        if (!current_user_can('delete_users') && !current_user_can('manage_options')) {
+            return new WP_Error('mvc_forbidden', __('You do not have permission to delete users.', 'mvc-college'), array('status' => 403));
+        }
+        require_once(ABSPATH . 'wp-admin/includes/user.php');
+        $deleted = wp_delete_user($user_id);
+        if ($deleted) {
+            return rest_ensure_response(array('success' => true, 'message' => __('User deleted successfully.', 'mvc-college')));
+        }
+        return new WP_Error('mvc_delete_failed', __('Failed to delete user.', 'mvc-college'), array('status' => 500));
+    }
+
+    $sub_req = new WP_REST_Request('POST', "/mvc/v1/accounts/{$user_id}/{$action}");
+    $sub_req->set_url_params(array('id' => $user_id));
+    $route_map = array(
+        'approve'    => "/mvc/v1/accounts/{$user_id}/approve",
+        'reject'     => "/mvc/v1/accounts/{$user_id}/reject",
+        'suspend'    => "/mvc/v1/accounts/{$user_id}/suspend",
+        'reactivate' => "/mvc/v1/accounts/{$user_id}/reactivate",
+    );
+    if (isset($route_map[$action])) {
+        $sub_req->set_route($route_map[$action]);
+        return mvc_rest_account_action($sub_req);
+    }
+
+    return new WP_Error('mvc_invalid_action', __('Invalid account action requested.', 'mvc-college'), array('status' => 400));
 }
 
 // 16. /users/{id}/role - Administrator only

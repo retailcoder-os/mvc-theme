@@ -7,15 +7,77 @@
 (function () {
     'use strict';
 
-    const apiFetch = window.wp ? window.wp.apiFetch : null;
-    if (!apiFetch) {
-        console.error('[MVC Command Center] wp.apiFetch is not available.');
-        return;
+    // Attach apiFetch middleware if wp.apiFetch is available
+    if (window.wp && window.wp.apiFetch && window.MVC_DATA) {
+        try {
+            if (window.MVC_DATA.root && window.wp.apiFetch.createRootURLMiddleware) {
+                window.wp.apiFetch.use(window.wp.apiFetch.createRootURLMiddleware(window.MVC_DATA.root));
+            }
+            if (window.MVC_DATA.nonce && window.wp.apiFetch.createNonceMiddleware) {
+                window.wp.apiFetch.use(window.wp.apiFetch.createNonceMiddleware(window.MVC_DATA.nonce));
+            }
+        } catch (e) {
+            console.warn('[MVC Command Center] Could not attach apiFetch middleware:', e);
+        }
     }
 
-    // Configure apiFetch middleware with localized nonce
-    if (window.MVC_DATA && window.MVC_DATA.nonce) {
-        apiFetch.use(apiFetch.createNonceMiddleware(window.MVC_DATA.nonce));
+    // Universal Robust REST API Client for Modern CMS (Handles root URLs, nonces, JSON serialization, and fallback)
+    async function mvcApi(endpoint, options = {}) {
+        const root = (window.MVC_DATA && window.MVC_DATA.root) ? window.MVC_DATA.root.replace(/\/+$/, '') : (window.location.origin + '/wp-json');
+        let cleanEndpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
+        if (!cleanEndpoint.startsWith('/mvc/v1')) {
+            cleanEndpoint = '/mvc/v1' + cleanEndpoint;
+        }
+        const url = root + cleanEndpoint;
+        const nonce = (window.MVC_DATA && window.MVC_DATA.nonce) ? window.MVC_DATA.nonce : '';
+
+        const headers = {
+            'Accept': 'application/json',
+            'X-WP-Nonce': nonce,
+            ...(options.headers || {})
+        };
+
+        let body = options.body !== undefined ? options.body : options.data;
+        if (body !== undefined && typeof body === 'object' && !(body instanceof FormData)) {
+            headers['Content-Type'] = 'application/json';
+            body = JSON.stringify(body);
+        }
+
+        const method = options.method || 'GET';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: headers,
+                body: body,
+                credentials: 'same-origin'
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const errorMsg = data.message || `Request failed with HTTP status ${response.status}`;
+                const err = new Error(errorMsg);
+                err.data = data;
+                err.status = response.status;
+                throw err;
+            }
+
+            return data;
+        } catch (fetchErr) {
+            if (window.wp && window.wp.apiFetch) {
+                try {
+                    return await window.wp.apiFetch({
+                        url: url,
+                        method: method,
+                        data: options.data || options.body
+                    });
+                } catch (apiErr) {
+                    throw apiErr;
+                }
+            }
+            throw fetchErr;
+        }
     }
 
     const state = {
@@ -75,6 +137,11 @@
         initUpdateLockToggle();
         initMaintenanceModeToggle();
         initGrievanceDeskEvents();
+        initQuickNoticeForm();
+
+        // Expose global navigation helpers for robust DOM calls
+        window.mvcSwitchSection = switchSection;
+        window.mvcOpenContentDesk = openContentDesk;
 
         // Initial metric badge render from localized data
         renderInitialMetrics();
@@ -288,7 +355,7 @@
                 refreshBtn.disabled = true;
                 refreshBtn.innerHTML = '<span class="dashicons dashicons-update mvc-spin"></span> Syncing...';
                 try {
-                    const freshNotifs = await apiFetch({ path: '/mvc/v1/notifications' });
+                    const freshNotifs = await mvcApi('/notifications');
                     if (Array.isArray(freshNotifs)) {
                         state.notifications = freshNotifs;
                     }
@@ -662,9 +729,9 @@
     // 1. Overview Metrics Load
     async function loadOverviewMetrics() {
         try {
-            const rq = await apiFetch({ path: '/mvc/v1/review-queue?per_page=5' }).catch(() => []);
-            const grvs = await apiFetch({ path: '/mvc/v1/grievances?per_page=10' }).catch(() => []);
-            const accs = await apiFetch({ path: '/mvc/v1/accounts?status=pending&per_page=10' }).catch(() => []);
+            const rq = await mvcApi('/review-queue?per_page=5').catch(() => []);
+            const grvs = await mvcApi('/grievances?per_page=10').catch(() => []);
+            const accs = await mvcApi('/accounts?status=pending&per_page=10').catch(() => []);
 
             updateMetricDisplay(
                 Array.isArray(rq) ? rq.length : 0,
@@ -684,7 +751,7 @@
         container.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">Loading review queue...</td></tr>';
 
         try {
-            const items = await apiFetch({ path: '/mvc/v1/review-queue' });
+            const items = await mvcApi('/review-queue');
             if (!items || items.length === 0) {
                 container.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:40px; color:#64748B;">🎉 All submissions have been reviewed! Review queue is empty.</td></tr>';
                 updateMetricDisplay(0, state.metrics.active_grievances || 0, state.metrics.pending_accounts || 0);
@@ -727,8 +794,7 @@
         }
 
         try {
-            await apiFetch({
-                path: `/mvc/v1/content/${id}/approve`,
+            await mvcApi(`/content/${id}/approve`, {
                 method: 'POST'
             });
             showToast('Item approved and certified for publication!');
@@ -747,10 +813,9 @@
             return;
         }
 
-        apiFetch({
-            path: `/mvc/v1/content/${id}/reject`,
+        mvcApi(`/content/${id}/reject`, {
             method: 'POST',
-            data: { reason: reason.trim() }
+            body: { reason: reason.trim() }
         }).then(() => {
             showToast('Submission returned to author draft with feedback.');
             loadReviewQueue();
@@ -759,9 +824,11 @@
         });
     }
 
-    // 3. Quick Notice Publish
-    const quickNoticeForm = document.getElementById('mvcQuickNoticeForm');
-    if (quickNoticeForm) {
+        // 3. Quick Notice Publish
+    function initQuickNoticeForm() {
+        const quickNoticeForm = document.getElementById('mvcQuickNoticeForm');
+        if (!quickNoticeForm) return;
+
         quickNoticeForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('mvcNoticeTitle').value;
@@ -770,93 +837,22 @@
             const content = document.getElementById('mvcNoticeContent').value;
 
             try {
-                const res = await apiFetch({
-                    path: '/mvc/v1/notices',
+                const res = await mvcApi('/notices', {
                     method: 'POST',
-                    data: {
+                    body: {
                         title: title,
                         memo_no: memoNo,
                         audience: audience,
                         content: content
                     }
                 });
-                showToast(`Notice published successfully (Status: ${res.status.toUpperCase()})`);
+                showToast(`Notice published successfully (Status: ${(res.status || 'published').toUpperCase()})`);
                 quickNoticeForm.reset();
             } catch (err) {
                 showToast('Failed to create notice: ' + (err.message || 'Validation error'), 'danger');
             }
         });
     }
-
-    // 4. Grievance & Enquiries Desk
-    let currentGrvStatus = 'all';
-    let currentGrvDept   = '';
-    let currentGrvSearch = '';
-    let grvSearchTimer   = null;
-    let activeGrvModalId = 0;
-
-    async function loadGrievancesList() {
-        const container = document.getElementById('mvcGrievancesList');
-        if (!container) return;
-
-        container.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Loading grievances &amp; enquiries...</td></tr>';
-
-        try {
-            let query = `?status=${encodeURIComponent(currentGrvStatus)}`;
-            if (currentGrvDept) query += `&dept_id=${encodeURIComponent(currentGrvDept)}`;
-            if (currentGrvSearch) query += `&search=${encodeURIComponent(currentGrvSearch)}`;
-
-            const items = await apiFetch({ path: `/mvc/v1/grievances${query}` });
-            if (!items || items.length === 0) {
-                container.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px; color:#64748B;">No grievances or enquiries found matching criteria.</td></tr>';
-                return;
-            }
-
-            let html = '';
-            items.forEach(g => {
-                const badgeClass = g.is_overdue ? 'mvc-badge-overdue' : 'mvc-badge-' + g.status;
-                const statusLabel = g.status.replace(/[-_]/g, ' ').toUpperCase();
-                html += `
-                    <tr>
-                        <td data-col="Reference">
-                            <code style="font-weight:700; color:#002147; background:#EFF6FF; padding:3px 8px; border-radius:4px; border:1px solid #BFDBFE;">${escapeHtml(g.ref)}</code>
-                        </td>
-                        <td data-col="Submitter">
-                            <strong>${escapeHtml(g.submitter_name)}</strong>
-                            ${g.submitter_email ? `<br><small style="color:#64748B;">✉ ${escapeHtml(g.submitter_email)}</small>` : ''}
-                        </td>
-                        <td data-col="Subject">
-                            <strong>${escapeHtml(g.subject)}</strong>
-                            <br><small style="color:#64748B;">${escapeHtml(g.form_title || g.category)}</small>
-                        </td>
-                        <td data-col="Department">
-                            <span style="display:inline-block; background:#F8FAFC; color:#1E40AF; font-weight:700; font-size:11.5px; padding:2px 8px; border-radius:999px; border:1px solid #E2E8F0;">
-                                🏛 ${escapeHtml(g.dept_name)}
-                            </span>
-                        </td>
-                        <td data-col="Status">
-                            <span class="mvc-badge ${badgeClass}">${escapeHtml(statusLabel)}</span>
-                        </td>
-                        <td data-col="SLA Target">
-                            <small style="color:#1E293B; font-weight:600;">${escapeHtml(g.due_date)}</small>
-                            ${g.is_overdue ? '<br><span style="color:#DC2626; font-size:11px; font-weight:800;">⚠️ Overdue</span>' : ''}
-                        </td>
-                        <td data-col="Actions" style="text-align:right;">
-                            <button class="mvc-btn mvc-btn-primary mvc-action-view-grv" data-id="${g.id}" style="padding:5px 12px; font-size:12px; font-weight:700;">Manage Dossier &rarr;</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            container.innerHTML = html;
-
-            container.querySelectorAll('.mvc-action-view-grv').forEach(btn => {
-                btn.addEventListener('click', () => openGrievanceModal(btn.getAttribute('data-id')));
-            });
-        } catch (e) {
-            container.innerHTML = `<tr><td colspan="7" style="color:#EF4444; text-align:center;">Failed to load grievances: ${escapeHtml(e.message || 'Error')}</td></tr>`;
-        }
-    }
-
     // Modern Grievance Investigation & Resolution Modal
     async function openGrievanceModal(id) {
         const backdrop = document.getElementById('mvcGrievanceBackdrop');
@@ -877,7 +873,7 @@
         switchGrvModalTab('dossier');
 
         try {
-            const g = await apiFetch({ path: `/mvc/v1/grievances/${id}` });
+            const g = await mvcApi(`/grievances/${id}`);
 
             document.getElementById('mvcModalRef').textContent = g.ref;
             const badge = document.getElementById('mvcModalStatusBadge');
@@ -1005,10 +1001,9 @@
         }
 
         try {
-            const res = await apiFetch({
-                path: `/mvc/v1/grievances/${activeGrvModalId}/action`,
+            const res = await mvcApi(`/grievances/${activeGrvModalId}/action`, {
                 method: 'POST',
-                data: {
+                body: {
                     status: status,
                     dept_id: deptId,
                     note: note,
@@ -1097,7 +1092,7 @@
         container.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">Loading accounts...</td></tr>';
 
         try {
-            const users = await apiFetch({ path: '/mvc/v1/accounts' });
+            const users = await mvcApi('/accounts');
             if (!users || users.length === 0) {
                 container.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:#64748B;">No accounts found.</td></tr>';
                 return;
@@ -1142,8 +1137,7 @@
         if (!confirm(`Are you sure you want to ${action} this account?`)) return;
 
         try {
-            await apiFetch({
-                path: `/mvc/v1/accounts/${id}/${action}`,
+            await mvcApi(`/accounts/${id}/${action}`, {
                 method: 'POST'
             });
             showToast(`Account successfully ${action}d.`);
@@ -1191,8 +1185,7 @@
                     purgeBtn.disabled = true;
                     purgeBtn.innerText = 'Purging...';
                     try {
-                        const res = await apiFetch({
-                            path: '/mvc/v1/audit/purge',
+                        const res = await mvcApi('/audit/purge', {
                             method: 'POST'
                         });
                         showToast(`Purge complete: ${res.deleted_records || 0} records older than 30 days purged.`);
@@ -1214,7 +1207,7 @@
             if (searchVal) path += `&search=${encodeURIComponent(searchVal)}`;
             if (groupVal) path += `&action_group=${encodeURIComponent(groupVal)}`;
 
-            const logs = await apiFetch({ path });
+            const logs = await mvcApi(path);
             if (!logs || logs.length === 0) {
                 container.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:var(--mvc-text-muted);">No audit events match current criteria.</td></tr>';
                 return;
@@ -1290,7 +1283,7 @@
 
         container.innerHTML = '<p>Loading departmental statistics...</p>';
         try {
-            const me = await apiFetch({ path: '/mvc/v1/me' });
+            const me = await mvcApi('/me');
             container.innerHTML = `
                 <div style="background:var(--mvc-card-bg); border:1px solid var(--mvc-border); border-radius:8px; padding:24px;">
                     <h3 style="margin-top:0; color:var(--mvc-navy);">Department: ${escapeHtml(me.department || 'Not Assigned')}</h3>
@@ -1333,7 +1326,24 @@
             { title: 'Switch to Classic WP Admin', type: 'System', icon: '🏛️', url: state.urls.legacy },
         ];
 
+        let activeIdx = 0;
+        let currentPaletteItems = staticActions;
+
+        function updateActivePaletteItem() {
+            const domItems = results.querySelectorAll('.mvc-palette-item');
+            domItems.forEach((el, idx) => {
+                if (idx === activeIdx) {
+                    el.classList.add('active');
+                    el.scrollIntoView({ block: 'nearest' });
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        }
+
         function renderPaletteItems(items) {
+            currentPaletteItems = items || [];
+            activeIdx = 0;
             if (!items || items.length === 0) {
                 results.innerHTML = '<div style="padding:16px; text-align:center; color:var(--mvc-text-muted); font-size:13px;">No matching results found.</div>';
                 return;
@@ -1357,6 +1367,10 @@
                 el.addEventListener('click', () => {
                     const idx = parseInt(el.getAttribute('data-idx'), 10);
                     executePaletteItem(items[idx]);
+                });
+                el.addEventListener('mouseenter', () => {
+                    activeIdx = parseInt(el.getAttribute('data-idx'), 10);
+                    updateActivePaletteItem();
                 });
             });
         }
@@ -1399,8 +1413,27 @@
                 } else {
                     openPalette();
                 }
-            } else if (e.key === 'Escape' && backdrop.style.display === 'flex') {
-                closePalette();
+            } else if (backdrop.style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    closePalette();
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (currentPaletteItems.length > 0) {
+                        activeIdx = (activeIdx + 1) % currentPaletteItems.length;
+                        updateActivePaletteItem();
+                    }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (currentPaletteItems.length > 0) {
+                        activeIdx = (activeIdx - 1 + currentPaletteItems.length) % currentPaletteItems.length;
+                        updateActivePaletteItem();
+                    }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (currentPaletteItems[activeIdx]) {
+                        executePaletteItem(currentPaletteItems[activeIdx]);
+                    }
+                }
             }
         });
 
@@ -1421,7 +1454,7 @@
             if (q.length >= 2) {
                 searchTimer = setTimeout(async () => {
                     try {
-                        const backendResults = await apiFetch({ path: `/mvc/v1/search?q=${encodeURIComponent(q)}` }).catch(() => []);
+                        const backendResults = await mvcApi(`/search?q=${encodeURIComponent(q)}`).catch(() => []);
                         const combined = [...matchedStatic];
                         if (Array.isArray(backendResults)) {
                             backendResults.forEach(r => {
@@ -1517,7 +1550,7 @@
                 status: deskState.status
             });
 
-            const res = await apiFetch({ path: `/mvc/v1/content-list?${queryParams.toString()}` });
+            const res = await mvcApi(`/content-list?${queryParams.toString()}`);
 
             // Update Counts on Filter Pills
             if (res.counts) {
@@ -1711,10 +1744,9 @@
             }
 
             try {
-                const res = await apiFetch({
-                    path: '/mvc/v1/settings/toggle-update-lock',
+                const res = await mvcApi('/settings/toggle-update-lock', {
                     method: 'POST',
-                    data: { locked: isLocked }
+                    body: { locked: isLocked }
                 });
 
                 if (res && res.success) {
@@ -1757,10 +1789,9 @@
             }
 
             try {
-                const res = await apiFetch({
-                    path: '/mvc/v1/settings/toggle-maintenance-mode',
+                const res = await mvcApi('/settings/toggle-maintenance-mode', {
                     method: 'POST',
-                    data: { enabled: isEnabled }
+                    body: { enabled: isEnabled }
                 });
 
                 if (res && res.success) {

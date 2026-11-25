@@ -304,7 +304,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                             <span class="mvc-nav-count"><?php echo esc_html($counts['notice']); ?></span>
                         </div>
                         <div class="mvc-nav-quick-actions">
-                            <button type="button" class="mvc-nav-add-btn" onclick="document.querySelector('[data-section=quick-publish]').click();" title="Quick Publish Notice">+ Add</button>
+                            <button type="button" class="mvc-nav-add-btn" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('quick-publish');} return false;" title="Quick Publish Notice">+ Add</button>
                         </div>
                     </div>
 
@@ -619,7 +619,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <div class="mvc-metric-val" id="mvcMetricReviewCount">0</div>
                         <div class="mvc-metric-foot">
                             <span class="mvc-foot-pill">Department Submissions</span>
-                            <a href="#review-queue" onclick="document.querySelector('[data-section=review-queue]').click();" class="mvc-metric-link">Review &rarr;</a>
+                            <a href="#review-queue" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('review-queue');} return false;" class="mvc-metric-link">Review &rarr;</a>
                         </div>
                     </div>
 
@@ -631,7 +631,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <div class="mvc-metric-val" id="mvcMetricGrievanceCount">0</div>
                         <div class="mvc-metric-foot">
                             <span class="mvc-foot-pill">Redressal Desk</span>
-                            <a href="#grievances" onclick="document.querySelector('[data-section=grievances]').click();" class="mvc-metric-link">Inspect &rarr;</a>
+                            <a href="#grievances" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('grievances');} return false;" class="mvc-metric-link">Inspect &rarr;</a>
                         </div>
                     </div>
 
@@ -643,7 +643,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <div class="mvc-metric-val" id="mvcMetricPendingAccounts">0</div>
                         <div class="mvc-metric-foot">
                             <span class="mvc-foot-pill">Scholar &amp; Alumni</span>
-                            <a href="#accounts" onclick="document.querySelector('[data-section=accounts]').click();" class="mvc-metric-link">Verify &rarr;</a>
+                            <a href="#accounts" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('accounts');} return false;" class="mvc-metric-link">Verify &rarr;</a>
                         </div>
                     </div>
 
@@ -667,7 +667,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <span class="text-muted" style="font-size:13px;">Instant administrative operations</span>
                     </div>
                     <div class="mvc-shortcuts-grid">
-                        <button type="button" class="mvc-shortcut-card" onclick="document.querySelector('[data-section=quick-publish]').click();">
+                        <button type="button" class="mvc-shortcut-card" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('quick-publish');} return false;">
                             <span class="mvc-shortcut-icon">📢</span>
                             <div class="mvc-shortcut-text">
                                 <strong>Quick Dispatch Notice</strong>
@@ -675,7 +675,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                             </div>
                         </button>
 
-                        <button type="button" class="mvc-shortcut-card" onclick="document.querySelector('[data-section=cms-hub]').click();">
+                        <button type="button" class="mvc-shortcut-card" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('cms-hub');} return false;">
                             <span class="mvc-shortcut-icon">🎨</span>
                             <div class="mvc-shortcut-text">
                                 <strong>CMS Content Hub</strong>
@@ -708,7 +708,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                             <h3 class="mvc-card-title">📊 Published Collegiate Content Snapshot</h3>
                             <span class="mvc-badge mvc-badge-publish" style="font-size:11px;">LIVE</span>
                         </div>
-                        <button type="button" class="mvc-btn mvc-btn-outline" style="font-size:12px; padding:4px 10px;" onclick="document.querySelector('[data-section=cms-hub]').click();">
+                        <button type="button" class="mvc-btn mvc-btn-outline" style="font-size:12px; padding:4px 10px;" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('cms-hub');} return false;">
                             View All CMS Modules &rarr;
                         </button>
                     </div>
@@ -752,6 +752,11 @@ if (function_exists('mvc_render_command_center_preloader')) {
                             <span class="mvc-snapshot-icon">📄</span>
                             <span class="mvc-snapshot-count"><?php echo esc_html($counts['page']); ?></span>
                             <span class="mvc-snapshot-name">Pages</span>
+                        </div>
+                        <div class="mvc-snapshot-item mvc-open-desk-btn" data-cpt="research" role="button" tabindex="0">
+                            <span class="mvc-snapshot-icon">🔬</span>
+                            <span class="mvc-snapshot-count"><?php echo esc_html($counts['research'] ?? 0); ?></span>
+                            <span class="mvc-snapshot-name">Research</span>
                         </div>
                     </div>
                 </div>
@@ -864,7 +869,7 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <p class="mvc-cms-card-desc">All 15 undergraduate &amp; postgraduate departments with dedicated 1-to-1 HOD locks.</p>
                         <div class="mvc-cms-card-actions">
                             <button type="button" class="mvc-btn mvc-btn-outline mvc-open-desk-btn" data-cpt="department">Browse All</button>
-                            <button type="button" class="mvc-btn mvc-btn-primary" onclick="document.querySelector('[data-section=departments]').click();">Manage HODs</button>
+                            <button type="button" class="mvc-btn mvc-btn-primary" onclick="if(window.mvcSwitchSection){window.mvcSwitchSection('departments');} return false;">Manage HODs</button>
                         </div>
                     </div>
 
@@ -1158,42 +1163,108 @@ if (function_exists('mvc_render_command_center_preloader')) {
                 <div class="mvc-cc-header">
                     <div>
                         <h2 class="mvc-cc-heading">🏛️ Departments &amp; Heads of Department (C1 Concurrency Lock)</h2>
-                        <div class="mvc-cc-desc">Strict 1-to-1 Head of Department assignments enforced across all 15 institutional branches.</div>
+                        <div class="mvc-cc-desc">Strict 1-to-1 Head of Department assignments enforced across all institutional academic departments.</div>
                     </div>
-                    <a href="<?php echo esc_url(admin_url('edit.php?post_type=department')); ?>" class="mvc-btn mvc-btn-primary">
-                        + Manage Department Pages
-                    </a>
+                    <div style="display:flex; gap:10px;">
+                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=department')); ?>" class="mvc-btn mvc-btn-primary">
+                            + Manage Department Pages
+                        </a>
+                        <a href="<?php echo esc_url(admin_url('edit-tags.php?taxonomy=dept_link')); ?>" class="mvc-btn mvc-btn-outline">
+                            Manage Dept Taxonomies
+                        </a>
+                    </div>
                 </div>
 
                 <div class="mvc-card">
                     <div style="padding:24px;">
-                        <div class="d-flex align-items-center gap-12" style="margin-bottom:16px;">
+                        <div class="d-flex align-items-center gap-12" style="margin-bottom:20px;">
                             <span style="font-size:32px;">🔒</span>
                             <div>
                                 <h4 style="margin:0 0 4px; font-size:16px;">One-to-One Atomic Concurrency Lock Active</h4>
-                                <!-- <p style="margin:0; font-size:13.5px; color:var(--mvc-text-muted);">
-                                    All 15 academic departments have unique <code>dept_link</code> taxonomy term IDs. 
-                                    Department head changes use atomic MySQL named locks (<code>GET_LOCK</code>) to eliminate multiple head assignments.
-                                </p> -->
+                                <p style="margin:0; font-size:13.5px; color:var(--mvc-text-muted);">
+                                    All academic departments are linked with unique <code>dept_link</code> taxonomy terms. Department head changes use atomic MySQL concurrency locks to guarantee strict single-head authority.
+                                </p>
                             </div>
                         </div>
 
-                        <div class="mvc-dept-tags-grid">
-                            <span class="mvc-dept-pill">Physics</span>
-                            <span class="mvc-dept-pill">Chemistry</span>
-                            <span class="mvc-dept-pill">Mathematics</span>
-                            <span class="mvc-dept-pill">Botany</span>
-                            <span class="mvc-dept-pill">Zoology</span>
-                            <span class="mvc-dept-pill">History</span>
-                            <span class="mvc-dept-pill">Political Science</span>
-                            <span class="mvc-dept-pill">Economics</span>
-                            <span class="mvc-dept-pill">Philosophy</span>
-                            <span class="mvc-dept-pill">Psychology</span>
-                            <span class="mvc-dept-pill">Hindi</span>
-                            <span class="mvc-dept-pill">English</span>
-                            <span class="mvc-dept-pill">Sanskrit</span>
-                            <span class="mvc-dept-pill">Computer Applications (BCA)</span>
-                            <span class="mvc-dept-pill">Business Administration (BBA)</span>
+                        <div class="mvc-table-responsive">
+                            <table class="mvc-table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Academic Department</th>
+                                        <th>Department Head (HOD)</th>
+                                        <th>Slug / Code</th>
+                                        <th>Faculty Count</th>
+                                        <th style="text-align:right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $dept_terms = get_terms(array(
+                                        'taxonomy'   => 'dept_link',
+                                        'hide_empty' => false,
+                                        'orderby'    => 'name',
+                                        'order'      => 'ASC'
+                                    ));
+
+                                    if (!empty($dept_terms) && !is_wp_error($dept_terms)):
+                                        foreach ($dept_terms as $dterm):
+                                            $hod_users = get_users(array(
+                                                'meta_key'   => 'mvc_department_term_id',
+                                                'meta_value' => $dterm->term_id,
+                                                'number'     => 1,
+                                            ));
+                                            $hod_name = (!empty($hod_users) && is_array($hod_users)) ? esc_html($hod_users[0]->display_name) : '<span style="color:var(--mvc-text-muted); font-style:italic;">Unassigned</span>';
+                                            $hod_email = (!empty($hod_users) && is_array($hod_users)) ? esc_html($hod_users[0]->user_email) : '';
+
+                                            $fac_count = $dterm->count;
+                                            $dept_url = home_url('/department/' . $dterm->slug . '/');
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <strong><?php echo esc_html($dterm->name); ?></strong>
+                                                    <?php 
+                                                    $hi_name = get_term_meta($dterm->term_id, 'hindi_name', true);
+                                                    if ($hi_name): 
+                                                    ?>
+                                                        <span style="color:var(--mvc-text-muted); font-size:12px; margin-left:6px;">(<?php echo esc_html($hi_name); ?>)</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <div style="font-weight:600;"><?php echo $hod_name; ?></div>
+                                                    <?php if ($hod_email): ?>
+                                                        <div style="font-size:12px; color:var(--mvc-text-muted);"><?php echo $hod_email; ?></div>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td>
+                                                    <code style="background:var(--mvc-input-bg); padding:2px 6px; border-radius:4px; font-size:12px;"><?php echo esc_html($dterm->slug); ?></code>
+                                                </td>
+                                                <td>
+                                                    <span class="mvc-badge mvc-badge-publish"><?php echo (int) $fac_count; ?> Records</span>
+                                                </td>
+                                                <td style="text-align:right;">
+                                                    <div style="display:inline-flex; gap:6px;">
+                                                        <button type="button" class="mvc-btn mvc-btn-outline" style="font-size:12px; padding:4px 8px;" onclick="if(window.mvcOpenContentDesk){window.mvcOpenContentDesk('faculty', 1, '<?php echo esc_js($dterm->slug); ?>');}">
+                                                            👨‍🏫 Faculty Desk
+                                                        </button>
+                                                        <a href="<?php echo esc_url($dept_url); ?>" target="_blank" class="mvc-btn mvc-btn-outline" style="font-size:12px; padding:4px 8px;" title="View public department portal">
+                                                            🌐 View Page ↗
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php 
+                                        endforeach;
+                                    else:
+                                    ?>
+                                        <tr>
+                                            <td colspan="5" style="text-align:center; padding:30px; color:var(--mvc-text-muted);">
+                                                No academic department terms found in taxonomy <code>dept_link</code>.
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

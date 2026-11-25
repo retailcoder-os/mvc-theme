@@ -8,7 +8,11 @@
    1. TOTAL FULLSCREEN APPLICATION TAKEOVER
    Completely replaces 2008 legacy WP Admin chrome on Command Center
    ========================================================================== */
+html:has(body.mvc-command-center-active),
+html:has(body.admin_page_mvc-command-center),
 html:has(body.toplevel_page_mvc-command-center),
+body.mvc-command-center-active,
+body.admin_page_mvc-command-center,
 body.toplevel_page_mvc-command-center {
     height: 100% !important;
     overflow: hidden !important;
@@ -17,6 +21,24 @@ body.toplevel_page_mvc-command-center {
     padding: 0 !important;
 }
 
+body.mvc-command-center-active #wpadminbar,
+body.mvc-command-center-active #adminmenumain,
+body.mvc-command-center-active #adminmenuback,
+body.mvc-command-center-active #adminmenuwrap,
+body.mvc-command-center-active #wpfooter,
+body.mvc-command-center-active .notice:not(.mvc-notice),
+body.mvc-command-center-active .update-nag,
+body.mvc-command-center-active #screen-meta,
+body.mvc-command-center-active #screen-meta-links,
+body.admin_page_mvc-command-center #wpadminbar,
+body.admin_page_mvc-command-center #adminmenumain,
+body.admin_page_mvc-command-center #adminmenuback,
+body.admin_page_mvc-command-center #adminmenuwrap,
+body.admin_page_mvc-command-center #wpfooter,
+body.admin_page_mvc-command-center .notice:not(.mvc-notice),
+body.admin_page_mvc-command-center .update-nag,
+body.admin_page_mvc-command-center #screen-meta,
+body.admin_page_mvc-command-center #screen-meta-links,
 body.toplevel_page_mvc-command-center #wpadminbar,
 body.toplevel_page_mvc-command-center #adminmenumain,
 body.toplevel_page_mvc-command-center #adminmenuback,
@@ -29,16 +51,24 @@ body.toplevel_page_mvc-command-center #screen-meta-links {
     display: none !important;
 }
 
+body.mvc-command-center-active #wpwrap,
+body.admin_page_mvc-command-center #wpwrap,
 body.toplevel_page_mvc-command-center #wpwrap {
     background: transparent !important;
 }
 
+body.mvc-command-center-active #wpcontent,
+body.admin_page_mvc-command-center #wpcontent,
 body.toplevel_page_mvc-command-center #wpcontent {
     margin-left: 0 !important;
     padding: 0 !important;
     min-height: 100vh !important;
+    width: 100% !important;
+    float: none !important;
 }
 
+body.mvc-command-center-active #wpbody-content,
+body.admin_page_mvc-command-center #wpbody-content,
 body.toplevel_page_mvc-command-center #wpbody-content {
     padding-bottom: 0 !important;
     float: none !important;

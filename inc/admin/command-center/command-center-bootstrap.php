@@ -34,6 +34,17 @@ function mvc_register_command_center_menu() {
     );
 }
 
+/**
+ * Enforce clean application body class for fullscreen takeover.
+ */
+add_filter('admin_body_class', 'mvc_command_center_admin_body_class');
+function mvc_command_center_admin_body_class($classes) {
+    if (isset($_GET['page']) && in_array($_GET['page'], array('mvc-command-center', 'mvcollege-command-center'), true)) {
+        $classes .= ' mvc-command-center-active toplevel_page_mvc-command-center admin_page_mvc-command-center';
+    }
+    return $classes;
+}
+
 add_action('admin_enqueue_scripts', 'mvc_enqueue_command_center_assets');
 function mvc_enqueue_command_center_assets($hook) {
     if (strpos($hook, 'mvc-command-center') === false && strpos($hook, 'mvcollege-command-center') === false) {

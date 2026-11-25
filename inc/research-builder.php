@@ -2112,9 +2112,12 @@ function mvc_render_research_page() {
 
             // Filter Engine
             function mvcFilterResearch() {
-                var searchVal = (document.getElementById('mvcResSearchInput').value || '').toLowerCase().trim();
-                var deptVal   = document.getElementById('mvcResDeptSelect').value;
-                var yearVal   = document.getElementById('mvcResYearSelect').value;
+                var searchInput = document.getElementById('mvcResSearchInput');
+                var searchVal   = (searchInput && searchInput.value ? searchInput.value : '').toLowerCase().trim();
+                var deptSelect  = document.getElementById('mvcResDeptSelect');
+                var deptVal     = deptSelect ? deptSelect.value : 'all';
+                var yearSelect  = document.getElementById('mvcResYearSelect');
+                var yearVal     = yearSelect ? yearSelect.value : 'all';
 
                 var cards = document.querySelectorAll('.mvc-res-card');
                 var bibItems = document.querySelectorAll('.mvc-res-bib-item');
