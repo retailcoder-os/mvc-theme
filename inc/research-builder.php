@@ -322,6 +322,8 @@ function mvc_render_research_page() {
         }
     }
 
+    $active_depts_count = count($depts_active_map) ?: 16;
+    $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) : 88;
     $active_depts_count = count($depts_active_map);
     $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) . '%' : 'UGC CARE';
 
@@ -589,10 +591,10 @@ function mvc_render_research_page() {
             /* 3. KPI METRICS COUNTERS */
             .mvc-res-kpi-container {
                 max-width: 1240px;
-                margin: -28px auto 35px;
+                margin: 24px auto 30px;
                 padding: 0 24px;
                 position: relative;
-                z-index: 10;
+                z-index: 5;
             }
 
             .mvc-res-kpi-grid {
@@ -675,12 +677,15 @@ function mvc_render_research_page() {
                 gap: 14px;
                 margin-bottom: 18px;
                 flex-wrap: wrap;
+                align-items: stretch;
             }
 
             .mvc-res-search-box {
                 flex: 1;
                 min-width: 280px;
                 position: relative;
+                display: flex;
+                align-items: center;
             }
 
             .mvc-res-search-icon {
@@ -688,52 +693,67 @@ function mvc_render_research_page() {
                 left: 14px;
                 top: 50%;
                 transform: translateY(-50%);
-                color: #94a3b8;
+                color: #64748b;
                 font-size: 16px;
                 pointer-events: none;
+                z-index: 2;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
             }
 
             .mvc-res-search-input {
-                width: 100%;
-                padding: 11px 14px 11px 40px;
-                border: 1.5px solid var(--mvc-res-slate-300);
-                border-radius: 8px;
-                font-size: 14px;
-                color: var(--mvc-res-slate-800);
-                background: #ffffff;
-                outline: none;
+                width: 100% !important;
+                height: 46px !important;
+                min-height: 46px !important;
+                line-height: 46px !important;
+                padding: 0 14px 0 42px !important;
+                border: 1.5px solid var(--mvc-res-slate-300) !important;
+                border-radius: 8px !important;
+                font-size: 14px !important;
+                color: var(--mvc-res-slate-800) !important;
+                background: #ffffff !important;
+                outline: none !important;
+                box-sizing: border-box !important;
+                margin: 0 !important;
                 transition: border-color 0.2s, box-shadow 0.2s;
             }
 
             .mvc-res-search-input:focus {
-                border-color: var(--mvc-res-navy);
-                box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+                border-color: var(--mvc-res-navy) !important;
+                box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
             }
 
             .mvc-res-filter-dropdowns {
                 display: flex;
                 gap: 12px;
                 flex-wrap: wrap;
+                align-items: center;
             }
 
             .mvc-res-select {
-                padding: 10px 32px 10px 14px;
-                border: 1.5px solid var(--mvc-res-slate-300);
-                border-radius: 8px;
-                font-size: 13.5px;
-                font-weight: 600;
-                color: var(--mvc-res-slate-700);
-                background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 10px center;
-                background-size: 14px;
-                appearance: none;
-                -webkit-appearance: none;
-                outline: none;
-                cursor: pointer;
+                height: 46px !important;
+                min-height: 46px !important;
+                padding: 0 34px 0 14px !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+                border: 1.5px solid var(--mvc-res-slate-300) !important;
+                border-radius: 8px !important;
+                font-size: 13.5px !important;
+                font-weight: 600 !important;
+                color: var(--mvc-res-slate-700) !important;
+                background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 10px center !important;
+                background-size: 14px !important;
+                appearance: none !important;
+                -webkit-appearance: none !important;
+                outline: none !important;
+                cursor: pointer !important;
             }
 
             .mvc-res-select:focus {
-                border-color: var(--mvc-res-navy);
-                box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1);
+                border-color: var(--mvc-res-navy) !important;
+                box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
             }
 
             /* Category Filter Tabs */
@@ -1429,9 +1449,9 @@ function mvc_render_research_page() {
                 <div class="mvc-res-hero-title-cluster">
                     <div class="mvc-res-hindi-kicker">शोध, नवाचार एवं संकाय प्रकाशन प्रकोष्ठ</div>
                     <h1 class="mvc-res-main-title">Research, Innovation &amp; Scholarly Publications</h1>
-                    <p class="mvc-res-hero-desc">
+                    <!-- <p class="mvc-res-hero-desc">
                         Advancing collegiate academic distinction, empirical research inquiry, and peer-reviewed scholarly publications across Humanities, Social Sciences, Pure Sciences, and Vocational Disciplines at Maharshi Vishwamitra Mahavidyalaya, Buxar (Veer Kunwar Singh University).
-                    </p>
+                    </p> -->
                 </div>
             </div>
         </header>
@@ -1482,8 +1502,8 @@ function mvc_render_research_page() {
                 <div class="mvc-res-kpi-card">
                     <div class="mvc-res-kpi-icon-box mvc-res-kpi-gold">🏆</div>
                     <div class="mvc-res-kpi-content">
-                        <span class="mvc-res-kpi-number"><?php echo esc_html($scopus_pct); ?></span>
-                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'UGC-CARE / Scopus Indexed' : 'Peer-Review Benchmark'; ?></span>
+                        <span class="mvc-res-kpi-number"><?php echo $total_researches > 0 ? esc_html($scopus_pct) : 'UGC CARE'; ?></span>
+                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'Scopus / CARE Indexed' : 'Quality Benchmark'; ?></span>
                     </div>
                 </div>
 
@@ -1491,7 +1511,7 @@ function mvc_render_research_page() {
                     <div class="mvc-res-kpi-icon-box mvc-res-kpi-purple">🏛</div>
                     <div class="mvc-res-kpi-content">
                         <span class="mvc-res-kpi-number"><?php echo $total_researches > 0 ? (int) $active_depts_count : '16'; ?></span>
-                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'Contributing Faculties' : 'Academic Faculties'; ?></span>
+                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'Contributing Departments' : 'Academic Faculties'; ?></span>
                     </div>
                 </div>
 
@@ -1510,7 +1530,9 @@ function mvc_render_research_page() {
             <div class="mvc-res-controls-panel">
                 <div class="mvc-res-search-row">
                     <div class="mvc-res-search-box">
-                        <span class="mvc-res-search-icon">🔍</span>
+                        <span class="mvc-res-search-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </span>
                         <input type="text" id="mvcResSearchInput" class="mvc-res-search-input" placeholder="Search by paper title, author name, journal, ISSN, or keywords..." oninput="mvcFilterResearch();" aria-label="Search research publications">
                     </div>
 
@@ -1577,8 +1599,12 @@ function mvc_render_research_page() {
             </div>
 
             <!-- Empty State -->
+            <div class="mvc-res-empty-state" id="mvcResEmptyState">
             <div class="mvc-res-empty-state" id="mvcResEmptyState" style="<?php echo $total_researches === 0 ? 'display: block;' : 'display: none;'; ?>">
                 <div class="mvc-res-empty-icon">🔬</div>
+                <h3 class="mvc-res-empty-title">No Research Publications Found</h3>
+                <p class="mvc-res-empty-desc">No publications match your selected department, category, or search keywords.</p>
+                <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">Reset Filters</button>
                 <h3 class="mvc-res-empty-title">
                     <?php echo $total_researches === 0 ? 'Institutional Research Repository Ready' : 'No Research Publications Found'; ?>
                 </h3>
@@ -1605,6 +1631,7 @@ function mvc_render_research_page() {
             </div>
 
             <!-- 5. PUBLICATION CARDS GRID -->
+            <div class="mvc-res-cards-grid" id="mvcResCardsGrid">
             <div class="mvc-res-cards-grid" id="mvcResCardsGrid" style="<?php echo $total_researches === 0 ? 'display: none;' : 'display: grid;'; ?>">
                 <?php
                 if (!empty($researches)):
@@ -1924,7 +1951,7 @@ function mvc_render_research_page() {
                                 <!-- Full-text PDF Link -->
                                 <div class="mvc-res-form-group mvc-res-form-full">
                                     <label class="mvc-res-label" for="res_pdf">Full-Text PDF URL (Media Library or Direct Link)</label>
-                                    <input type="url" id="res_pdf" name="research_pdf_url" class="mvc-res-input" placeholder="https://demo.retailcoder.com/wp-content/uploads/research-paper.pdf">
+                                    <input type="url" id="res_pdf" name="research_pdf_url" class="mvc-res-input" placeholder="https://mvc.content/uploads/research-paper.pdf">
                                 </div>
 
                                 <!-- Abstract -->
@@ -2177,3 +2204,184 @@ function mvc_render_research_page() {
     <?php
 }
 }
+
+/**
+ * 6. WP ADMIN INTEGRATION: Custom Meta Box for Research CPT
+ */
+function mvc_add_research_meta_boxes() {
+    add_meta_box(
+        'mvc_research_details_meta',
+        __('📖 Scholarly Publication & Dossier Details', 'mvc-college'),
+        'mvc_render_research_admin_meta_box',
+        'research',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'mvc_add_research_meta_boxes');
+
+function mvc_render_research_admin_meta_box($post) {
+    wp_nonce_field('mvc_save_research_meta_action', 'mvc_research_meta_nonce');
+
+    $authors       = get_post_meta($post->ID, 'research_authors', true);
+    $journal       = get_post_meta($post->ID, 'research_journal', true);
+    $volume        = get_post_meta($post->ID, 'research_volume_issue', true);
+    $year          = get_post_meta($post->ID, 'research_year', true) ?: date('Y');
+    $issn          = get_post_meta($post->ID, 'research_issn_isbn', true);
+    $doi           = get_post_meta($post->ID, 'research_doi', true);
+    $pdf_url       = get_post_meta($post->ID, 'research_pdf_url', true);
+    $indexing      = get_post_meta($post->ID, 'research_indexing', true) ?: 'UGC CARE List I &bull; Scopus';
+    $impact_factor = get_post_meta($post->ID, 'research_impact_factor', true);
+
+    $current_user = wp_get_current_user();
+    ?>
+    <style>
+        .mvc-admin-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 12px 6px; }
+        .mvc-admin-meta-full { grid-column: 1 / -1; }
+        .mvc-admin-meta-group label { display: block; font-weight: 700; margin-bottom: 6px; color: #1e293b; font-size: 13px; }
+        .mvc-admin-meta-group input[type="text"],
+        .mvc-admin-meta-group input[type="url"] { width: 100%; padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 6px; font-size: 13.5px; }
+        .mvc-admin-meta-group input:focus { border-color: #002147; box-shadow: 0 0 0 2px rgba(0,33,71,0.1); outline: none; }
+        .mvc-admin-meta-hint { font-size: 11.5px; color: #64748b; margin-top: 4px; }
+    </style>
+    <div class="mvc-admin-meta-grid">
+        <div class="mvc-admin-meta-group">
+            <label for="research_authors">Author(s) / Lead Investigator <span style="color:#dc2626;">*</span></label>
+            <input type="text" id="research_authors" name="research_authors" value="<?php echo esc_attr($authors ?: $current_user->display_name); ?>" placeholder="e.g. Dr. Ravi Thakur, Dr. Rakesh Tiwari" required>
+            <div class="mvc-admin-meta-hint">Primary and contributing scholarly authors</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_year">Publication / Award Year <span style="color:#dc2626;">*</span></label>
+            <input type="text" id="research_year" name="research_year" value="<?php echo esc_attr($year); ?>" placeholder="e.g. 2026" required>
+            <div class="mvc-admin-meta-hint">Calendar year of official publication</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_journal">Journal / Publisher / Funding Agency</label>
+            <input type="text" id="research_journal" name="research_journal" value="<?php echo esc_attr($journal); ?>" placeholder="e.g. Journal of Chemical Sciences (Springer Nature)">
+            <div class="mvc-admin-meta-hint">Name of academic journal, university press, or funding body</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_volume_issue">Volume, Issue &amp; Page Numbers</label>
+            <input type="text" id="research_volume_issue" name="research_volume_issue" value="<?php echo esc_attr($volume); ?>" placeholder="e.g. Vol. 138, Issue 3, pp. 240–258">
+            <div class="mvc-admin-meta-hint">Bibliographic issue citation</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_issn_isbn">ISSN / ISBN / Grant Sanction Ref</label>
+            <input type="text" id="research_issn_isbn" name="research_issn_isbn" value="<?php echo esc_attr($issn); ?>" placeholder="e.g. 0974-3626 / ISBN 978-0-19-948123-4">
+            <div class="mvc-admin-meta-hint">Standard serial number or grant sanction memo number</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_indexing">Indexing Recognition Status</label>
+            <input type="text" id="research_indexing" name="research_indexing" value="<?php echo esc_attr($indexing); ?>" placeholder="e.g. UGC CARE Group I, Scopus Indexed, Web of Science">
+            <div class="mvc-admin-meta-hint">Accreditation index or database listing</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_impact_factor">Impact Factor (IF) or Grant Amount</label>
+            <input type="text" id="research_impact_factor" name="research_impact_factor" value="<?php echo esc_attr($impact_factor); ?>" placeholder="e.g. 3.42 or ₹7,20,000 (UGC MRP)">
+            <div class="mvc-admin-meta-hint">Thomson Reuters/Clarivate IF, or total sanction amount</div>
+        </div>
+        <div class="mvc-admin-meta-group">
+            <label for="research_doi">DOI / External Publisher URL</label>
+            <input type="url" id="research_doi" name="research_doi" value="<?php echo esc_url($doi); ?>" placeholder="https://doi.org/10.1007/s12039-026-02100-x">
+            <div class="mvc-admin-meta-hint">Permanent Digital Object Identifier link</div>
+        </div>
+        <div class="mvc-admin-meta-group mvc-admin-meta-full">
+            <label for="research_pdf_url">Full-Text PDF Document URL</label>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <input type="url" id="research_pdf_url" name="research_pdf_url" value="<?php echo esc_url($pdf_url); ?>" placeholder="https://demo.retailcoder.com/wp-content/uploads/research-paper.pdf" style="flex:1;">
+                <button type="button" class="button button-secondary" id="mvcBtnUploadPdf" style="height:36px;">📁 Choose from Media</button>
+            </div>
+            <div class="mvc-admin-meta-hint">Upload or link full-text research manuscript PDF</div>
+        </div>
+    </div>
+    <script>
+    jQuery(document).ready(function($){
+        $('#mvcBtnUploadPdf').on('click', function(e){
+            e.preventDefault();
+            var frame = wp.media({
+                title: 'Select or Upload Research PDF',
+                button: { text: 'Attach PDF' },
+                multiple: false
+            });
+            frame.on('select', function(){
+                var attachment = frame.state().get('selection').first().toJSON();
+                $('#research_pdf_url').val(attachment.url);
+            });
+            frame.open();
+        });
+    });
+    </script>
+    <?php
+}
+
+function mvc_save_research_meta_box_data($post_id) {
+    if (!isset($_POST['mvc_research_meta_nonce']) || !wp_verify_nonce($_POST['mvc_research_meta_nonce'], 'mvc_save_research_meta_action')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_researches', $post_id)) {
+        return;
+    }
+
+    $fields = array(
+        'research_authors'       => 'sanitize_text_field',
+        'research_journal'       => 'sanitize_text_field',
+        'research_volume_issue'  => 'sanitize_text_field',
+        'research_year'          => 'sanitize_text_field',
+        'research_issn_isbn'     => 'sanitize_text_field',
+        'research_indexing'      => 'sanitize_text_field',
+        'research_impact_factor' => 'sanitize_text_field',
+        'research_doi'           => 'esc_url_raw',
+        'research_pdf_url'       => 'esc_url_raw',
+    );
+
+    foreach ($fields as $key => $sanitizer) {
+        if (isset($_POST[$key])) {
+            $val = call_user_func($sanitizer, wp_unslash($_POST[$key]));
+            update_post_meta($post_id, $key, $val);
+        }
+    }
+
+    // Flush performance caches
+    if (function_exists('mvc_flush_all_performance_caches')) {
+        mvc_flush_all_performance_caches($post_id);
+    }
+    delete_transient('mvc_cached_research_page_html');
+}
+add_action('save_post_research', 'mvc_save_research_meta_box_data');
+
+/**
+ * 7. WP ADMIN COLUMNS: Custom columns on edit.php?post_type=research
+ */
+function mvc_research_admin_columns($columns) {
+    $new_cols = array();
+    $new_cols['cb']          = $columns['cb'];
+    $new_cols['title']       = __('Paper / Project Title', 'mvc-college');
+    $new_cols['authors']     = __('Author(s)', 'mvc-college');
+    $new_cols['dept']        = __('Academic Department', 'mvc-college');
+    $new_cols['category']    = __('Category', 'mvc-college');
+    $new_cols['journal']     = __('Journal / Publisher', 'mvc-college');
+    $new_cols['year']        = __('Year', 'mvc-college');
+    $new_cols['date']        = __('Published Date', 'mvc-college');
+    return $new_cols;
+}
+add_filter('manage_research_posts_columns', 'mvc_research_admin_columns');
+
+function mvc_research_admin_custom_column($column, $post_id) {
+    if ($column === 'authors') {
+        echo esc_html(get_post_meta($post_id, 'research_authors', true) ?: '—');
+    } elseif ($column === 'dept') {
+        $terms = wp_get_object_terms($post_id, 'dept_link');
+        echo !empty($terms) && !is_wp_error($terms) ? esc_html($terms[0]->name) : '—';
+    } elseif ($column === 'category') {
+        $terms = wp_get_object_terms($post_id, 'research_type');
+        echo !empty($terms) && !is_wp_error($terms) ? esc_html($terms[0]->name) : '—';
+    } elseif ($column === 'journal') {
+        echo esc_html(get_post_meta($post_id, 'research_journal', true) ?: '—');
+    } elseif ($column === 'year') {
+        echo esc_html(get_post_meta($post_id, 'research_year', true) ?: '—');
+    }
+}
+add_action('manage_research_posts_custom_column', 'mvc_research_admin_custom_column', 10, 2);
