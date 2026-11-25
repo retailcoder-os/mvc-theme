@@ -348,7 +348,7 @@ function mvc_get_registered_shortcodes() {
             'title'       => 'One Nation One Subscription (ONOS)',
             'desc'        => 'Centrally funded international e-journal and database access with Nodal Officer profile.',
             'function'    => 'mvc_render_onos_page',
-            'file'        => 'inc/utility-suite-builder.php',
+            'file'        => 'inc/onos-builder.php',
             'template'    => 'template-onos.php',
             'has_form'    => false,
             'atts'        => array()

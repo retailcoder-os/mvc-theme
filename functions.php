@@ -305,6 +305,13 @@ if (file_exists(get_stylesheet_directory() . '/inc/research-builder.php')) {
 }
 
 /* ==========================================
+   18E-3. ONE NATION ONE SUBSCRIPTION (ONOS) NATIONAL GATEWAY BUILDER
+   ========================================== */
+if (file_exists(get_stylesheet_directory() . '/inc/onos-builder.php')) {
+    require_once get_stylesheet_directory() . '/inc/onos-builder.php';
+}
+
+/* ==========================================
    18F. NOTICES & OFFICIAL CIRCULARS MASTER REPOSITORY BUILDER
    ========================================== */
 if (file_exists(get_stylesheet_directory() . '/inc/notices-page-builder.php')) {

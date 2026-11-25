@@ -2650,131 +2650,15 @@ function mvc_render_help_desk_page($override_form_id = null) {
 
 /**
  * 6. ONE NATION ONE SUBSCRIPTION (ONOS) PAGE RENDERER (/onos/)
+ * Handled comprehensively by inc/onos-builder.php
  */
-function mvc_render_onos_page() {
-    mvc_render_utility_suite_styles();
-    $post_id = get_the_ID() ?: 1343;
-    $hero_title = "One Nation One Subscription (ONOS)";
-    $hero_subtitle = "एक राष्ट्र, एक सदस्यता — राष्ट्रीय उच्च शिक्षा डिजिटल ज्ञान नेटवर्क";
-    $hero_desc = "Maharshi Vishwamitra Mahavidyalaya has official access to One Nation One Subscription (ONOS), a landmark initiative by the Ministry of Education, Government of India, providing unified access to top global research journals and digital scholarly databases.";
-
-    ?>
-    <div class="mvc-util-page">
-        <!-- Hero Header -->
-        <header class="mvc-util-hero">
-            <div class="mvc-util-hero-inner">
-                <nav class="mvc-util-breadcrumb" aria-label="Breadcrumbs">
-                    <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
-                    <span class="mvc-util-bc-sep">/</span>
-                    <a href="<?php echo esc_url(home_url('/library/')); ?>">Central Library</a>
-                    <span class="mvc-util-bc-sep">/</span>
-                    <span class="mvc-util-bc-curr">ONOS Portal</span>
-                </nav>
-                <div class="mvc-util-hero-icon-box">
-                    <span>🌐</span>
-                </div>
-                <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-
-                <div class="mvc-util-hero-pills">
-                    <span class="mvc-util-pill mvc-util-pill-gold">🏛 Ministry of Education (MoE) Initiative</span>
-                    <span class="mvc-util-pill">📚 Global Peer-Reviewed Journals</span>
-                    <span class="mvc-util-pill">🔬 Nodal Officer: Dr. Ravi Thakur</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="mvc-util-main">
-            <div class="mvc-util-content-card">
-                <!-- Nodal Officer Spotlight Card -->
-                <div style="background: linear-gradient(135deg, #002147 0%, #00152e 100%); color: #FFFFFF; border-radius: 14px; padding: 26px 30px; margin-bottom: 35px; border: 2px solid var(--mvc-gold); box-shadow: 0 10px 25px rgba(0,33,71,0.15); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
-                    <div style="display: flex; align-items: center; gap: 20px; flex: 1; min-width: 280px;">
-                        <div style="width: 72px; height: 72px; min-width: 72px; border-radius: 50%; background: rgba(212,175,55,0.2); border: 2.5px solid var(--mvc-gold); display: flex; align-items: center; justify-content: center; font-size: 32px;">
-                            👨‍🔬
-                        </div>
-                        <div>
-                            <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(212,175,55,0.25); color: #FEF08A; padding: 2px 10px; border-radius: 999px; border: 1px solid rgba(212,175,55,0.4); display: inline-block; margin-bottom: 6px;">
-                                Designated Institutional Nodal Officer
-                            </span>
-                            <h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 800; color: #FFFFFF;">Dr. Ravi Thakur</h3>
-                            <div style="font-size: 14px; color: #E2E8F0; font-weight: 600;">
-                                Assistant Professor, Department of Chemistry
-                            </div>
-                            <div style="font-size: 12.5px; color: #CBD5E1; margin-top: 4px;">
-                                Maharshi Vishwamitra Mahavidyalaya, Buxar (Bihar)
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: right; min-width: 200px;">
-                        <div style="font-size: 12px; color: #CBD5E1; margin-bottom: 8px;">For scholar access, registration &amp; queries:</div>
-                        <a href="mailto:mvcollegebuxar@gmail.com?subject=ONOS%20Access%20Request%20-%20Attn%20Dr.%20Ravi%20Thakur" class="mvc-btn-download" style="background: var(--mvc-gold); color: #002147; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; text-decoration: none;">
-                            <span>✉️ Contact Nodal Officer</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- About ONOS Section -->
-                <div style="margin-bottom: 35px;">
-                    <h2 style="font-size: 22px; font-weight: 800; color: var(--mvc-navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-                        <span>📖 About One Nation One Subscription (ONOS)</span>
-                    </h2>
-                    <p style="font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 16px;">
-                        <strong>One Nation One Subscription (ONOS)</strong> is a national digital research initiative spearheaded by the Ministry of Education, Government of India. Under ONOS, the central government procures national site licenses from premier global academic publishers, granting all faculty, researchers, and students in government higher education institutions seamless, direct access to international peer-reviewed journals and digital databases.
-                    </p>
-                    <p style="font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 16px;">
-                        As a constituent college of Veer Kunwar Singh University (VKSU), Maharshi Vishwamitra Mahavidyalaya is fully integrated into the ONOS network, enabling undergraduate scholars, postgraduate students, and faculty members to access high-impact research materials across all disciplines free of charge.
-                    </p>
-                </div>
-
-                <!-- 4 Feature Highlights Grid -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 40px;">
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px;">
-                        <div style="font-size: 28px; margin-bottom: 10px;">🌐</div>
-                        <h4 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy); margin: 0 0 6px;">Global Publisher Access</h4>
-                        <p style="font-size: 13.5px; color: #64748B; margin: 0; line-height: 1.5;">Access scholarly publications from Elsevier (ScienceDirect), Springer Nature, Wiley, Taylor &amp; Francis, IEEE, and more.</p>
-                    </div>
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px;">
-                        <div style="font-size: 28px; margin-bottom: 10px;">🎓</div>
-                        <h4 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy); margin: 0 0 6px;">Free for All Scholars</h4>
-                        <p style="font-size: 13.5px; color: #64748B; margin: 0; line-height: 1.5;">No paywalls or subscription charges for enrolled students, research scholars, and teaching faculty of the college.</p>
-                    </div>
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px;">
-                        <div style="font-size: 28px; margin-bottom: 10px;">💻</div>
-                        <h4 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy); margin: 0 0 6px;">Campus &amp; Remote Access</h4>
-                        <p style="font-size: 13.5px; color: #64748B; margin: 0; line-height: 1.5;">Seamless access via campus high-speed Wi-Fi, computer labs, central library terminals, and authorized remote logins.</p>
-                    </div>
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px;">
-                        <div style="font-size: 28px; margin-bottom: 10px;">🔬</div>
-                        <h4 style="font-size: 16px; font-weight: 800; color: var(--mvc-navy); margin: 0 0 6px;">Multidisciplinary Coverage</h4>
-                        <p style="font-size: 13.5px; color: #64748B; margin: 0; line-height: 1.5;">Extensive literature across Chemistry, Physics, Botany, Zoology, Mathematics, History, Economics, Literature, and Social Sciences.</p>
-                    </div>
-                </div>
-
-                <!-- Access Guidelines & Steps -->
-                <div style="background: #FEF9C3; border: 1px solid #FDE047; border-radius: 12px; padding: 22px 26px; margin-bottom: 30px;">
-                    <h3 style="font-size: 17px; font-weight: 800; color: #854D0E; margin: 0 0 8px;">
-                        📋 Guidelines for Accessing ONOS at Maharshi Vishwamitra Mahavidyalaya
-                    </h3>
-                    <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #713F12; line-height: 1.7;">
-                        <li><strong>On-Campus Access:</strong> Connect to the college Wi-Fi or visit the Automated Central Library digital terminal section to access participating journals directly.</li>
-                        <li><strong>User Orientation:</strong> Regular orientation sessions are conducted by Nodal Officer Dr. Ravi Thakur to assist students in literature reviews and citation indexing.</li>
-                        <li><strong>Research Inquiries:</strong> Contact the Department of Chemistry or email the college administration for credential issuance and scholarly guidance.</li>
-                    </ul>
-                </div>
-
-                <!-- Related Links Bar -->
-                <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-                    <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-btn-download" style="background: var(--mvc-navy); color: #fff;">
-                        📚 Automated Central Library &rarr;
-                    </a>
-                    <a href="<?php echo esc_url(home_url('/research/')); ?>" class="mvc-btn-download" style="background: #F1F5F9; color: var(--mvc-navy); border: 1px solid #CBD5E1;">
-                        🔬 Research &amp; Publications &rarr;
-                    </a>
-                </div>
-            </div>
-        </main>
-    </div>
-    <?php
+if (!function_exists('mvc_render_onos_page')) {
+    function mvc_render_onos_page() {
+        if (file_exists(get_stylesheet_directory() . '/inc/onos-builder.php')) {
+            require_once get_stylesheet_directory() . '/inc/onos-builder.php';
+            mvc_render_onos_page();
+        }
+    }
 }
 
 /**
