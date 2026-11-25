@@ -1760,7 +1760,7 @@ function mvc_render_research_page() {
                                 <span>➕</span> Publish First Research Paper
                             </button>
                             <a href="<?php echo esc_url(admin_url('post-new.php?post_type=research')); ?>" class="mvc-res-empty-admin-link">
-                                <span>🏛️</span> Publish via WP Admin Desk &rarr;
+                                <span>🏛️</span> Publish via Admin Desk &rarr;
                             </a>
                         <?php else: ?>
                             <a href="<?php echo esc_url(home_url('/portal/')); ?>" class="mvc-btn-publish-trigger" style="display:inline-flex; text-decoration:none;">
@@ -1965,50 +1965,6 @@ function mvc_render_research_page() {
                 endif;
                 ?>
             </div>
-
-            <!-- 7. DIGITAL RESEARCH CONSORTIA WINGS -->
-            <section class="mvc-res-consortia-grid" aria-label="Digital Research Networks">
-                <div class="mvc-res-consortia-card mvc-res-card-onos">
-                    <div class="mvc-res-consortia-kicker">Government of India National Initiative</div>
-                    <h3 class="mvc-res-consortia-title">One Nation One Subscription (ONOS)</h3>
-                    <p class="mvc-res-consortia-desc">
-                        Centrally funded access to premier international publishers including Elsevier, Springer Nature, Wiley, IEEE, and Taylor &amp; Francis for faculty and research scholars.
-                        <br><br>
-                        <strong>Nodal Officer:</strong> Dr. Ravi Thakur, Department of Chemistry.
-                    </p>
-                    <a href="<?php echo esc_url(home_url('/onos/')); ?>" class="mvc-res-consortia-btn">
-                        Explore ONOS Portals &rarr;
-                    </a>
-                </div>
-
-                <div class="mvc-res-consortia-card mvc-res-card-inflibnet">
-                    <div class="mvc-res-consortia-kicker">UGC INFLIBNET Central Consortia</div>
-                    <h3 class="mvc-res-consortia-title">INFLIBNET N-LIST Repository</h3>
-                    <p class="mvc-res-consortia-desc">
-                        Remote 24x7 automated access to 6,000+ peer-reviewed e-journals and 1,99,500+ academic e-books across humanities, science, and social sciences via the college library.
-                        <br><br>
-                        <strong>Custodian:</strong> Automated Central Library &amp; e-Resource Center.
-                    </p>
-                    <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-res-consortia-btn">
-                        Digital Library Gateway &rarr;
-                    </a>
-                </div>
-            </section>
-
-            <!-- 8. RESEARCH ETHICS & PLAGIARISM PROTOCOL -->
-            <section class="mvc-res-policy-banner" aria-label="Research Ethics and Integrity Policy">
-                <div class="mvc-res-policy-content">
-                    <h3 class="mvc-res-policy-title">Institutional Research Ethics &amp; Anti-Plagiarism Protocol</h3>
-                    <p class="mvc-res-policy-desc">
-                        All research manuscripts, theses, and seminar papers published under Maharshi Vishwamitra Mahavidyalaya adhere strictly to UGC Academic Integrity Regulations (2018). Faculty manuscripts undergo mandatory similarity screening (&lt;10% threshold) using approved plagiarism software prior to submission for publication or institutional funding.
-                    </p>
-                </div>
-                <div>
-                    <a href="<?php echo esc_url(home_url('/teaching-staff/')); ?>" class="mvc-res-action-btn mvc-res-btn-doi" style="padding:10px 18px; font-size:13px;">
-                        👨‍🏫 Faculty Directories &amp; CVs &rarr;
-                    </a>
-                </div>
-            </section>
         </main>
 
         <!-- 9. EXECUTIVE PUBLISHING MODAL (FOR ADMIN, CM, HOD) -->
