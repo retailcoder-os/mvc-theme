@@ -40,17 +40,19 @@ add_action('after_setup_theme', 'mvc_register_menus');
 /* ==========================================
    3. ACF GLOBAL OPTIONS PAGE (Header/Footer Data)
    ========================================== */
-if (function_exists('acf_add_options_page')) {
-    acf_add_options_page(array(
-        'page_title'    => 'College Global Settings',
-        'menu_title'    => 'Global Settings',
-        'menu_slug'     => 'college-global-settings',
-        'capability'    => 'edit_posts',
-        'redirect'      => false,
-        'icon_url'      => 'dashicons-admin-site-alt3',
-        'position'      => 30
-    ));
-}
+add_action('acf/init', function() {
+    if (function_exists('acf_add_options_page')) {
+        acf_add_options_page(array(
+            'page_title'    => 'College Global Settings',
+            'menu_title'    => 'Global Settings',
+            'menu_slug'     => 'college-global-settings',
+            'capability'    => 'edit_posts',
+            'redirect'      => false,
+            'icon_url'      => 'dashicons-admin-site-alt3',
+            'position'      => 30
+        ));
+    }
+});
 
 // Add Email & SMTP Gateway Shortcut Submenu (Zoho Compatible)
 add_action('admin_menu', function() {

@@ -42,6 +42,7 @@ require_once MVC_ADMIN_DIR . 'accounts.php';
 require_once MVC_ADMIN_DIR . 'mode-toggle.php';
 require_once MVC_ADMIN_DIR . 'update-lock.php';
 require_once MVC_ADMIN_DIR . 'maintenance-mode.php';
+require_once MVC_ADMIN_DIR . 'global-settings.php';
 
 // 3. Load REST API Subsystem
 require_once MVC_ADMIN_DIR . 'rest/rest-bootstrap.php';
