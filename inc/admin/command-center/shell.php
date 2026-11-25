@@ -49,6 +49,7 @@ $counts = array(
     'press_media'        => (int) ((wp_count_posts('press-media')->publish ?? 0) ?: (wp_count_posts('press_media')->publish ?? 0)),
     'press-media'        => (int) ((wp_count_posts('press-media')->publish ?? 0) ?: (wp_count_posts('press_media')->publish ?? 0)),
     'study_material'     => (int) (wp_count_posts('study_material')->publish ?? 0),
+    'research'           => (int) (wp_count_posts('research')->publish ?? 0),
     'committee'          => (int) (wp_count_posts('committee')->publish ?? 0),
     'staff_member'       => (int) (wp_count_posts('staff_member')->publish ?? 0),
     'page'               => (int) (wp_count_posts('page')->publish ?? 0),
@@ -441,6 +442,18 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         </div>
                         <div class="mvc-nav-quick-actions">
                             <a href="<?php echo esc_url(admin_url('post-new.php?post_type=study_material')); ?>" class="mvc-nav-add-btn" title="Add Study Material">+ Add</a>
+                        </div>
+                    </div>
+
+                    <!-- Research & Publications -->
+                    <div class="mvc-nav-item-has-submenu">
+                        <div class="mvc-cc-nav-item mvc-nav-cpt" data-section="content-desk" data-cpt="research">
+                            <span class="mvc-nav-icon dashicons dashicons-welcome-learn-more"></span>
+                            <span class="mvc-nav-text">Research &amp; Publications</span>
+                            <span class="mvc-nav-count"><?php echo esc_html($counts['research']); ?></span>
+                        </div>
+                        <div class="mvc-nav-quick-actions">
+                            <a href="<?php echo esc_url(admin_url('post-new.php?post_type=research')); ?>" class="mvc-nav-add-btn" title="Add Research Publication">+ Add</a>
                         </div>
                     </div>
 
@@ -908,6 +921,20 @@ if (function_exists('mvc_render_command_center_preloader')) {
                         <div class="mvc-cms-card-actions">
                             <button type="button" class="mvc-btn mvc-btn-outline mvc-open-desk-btn" data-cpt="study_material">Browse All</button>
                             <a href="<?php echo esc_url(admin_url('post-new.php?post_type=study_material')); ?>" class="mvc-btn mvc-btn-primary">+ Add Material</a>
+                        </div>
+                    </div>
+
+                    <!-- 11B. Research & Publications -->
+                    <div class="mvc-cms-card" data-keywords="research publications journals papers articles scopus ugc care books patents">
+                        <div class="mvc-cms-card-top">
+                            <div class="mvc-cms-card-icon mvc-icon-blue">🔬</div>
+                            <span class="mvc-badge mvc-badge-publish"><?php echo esc_html($counts['research']); ?> Pubs</span>
+                        </div>
+                        <h3 class="mvc-cms-card-title">Researches &amp; Publications</h3>
+                        <p class="mvc-cms-card-desc">Faculty research papers, UGC-CARE / Scopus journals, books, grants, and conference proceedings.</p>
+                        <div class="mvc-cms-card-actions">
+                            <button type="button" class="mvc-btn mvc-btn-outline mvc-open-desk-btn" data-cpt="research">Browse All</button>
+                            <a href="<?php echo esc_url(admin_url('post-new.php?post_type=research')); ?>" class="mvc-btn mvc-btn-primary">+ Add Research</a>
                         </div>
                     </div>
 

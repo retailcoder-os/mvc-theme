@@ -539,6 +539,7 @@ function mvc_rest_search($request) {
             'event',
             'faculty',
             'study_material',
+            'research',
             'department',
             'slider',
             'leadership',
@@ -1598,6 +1599,7 @@ function mvc_rest_get_content_list($request) {
         'press-media'        => 'Press Media & Clippings',
         'press_media'        => 'Press Media & Clippings',
         'study_material'     => 'Study Materials & Notes',
+        'research'           => 'Researches & Publications',
         'committee'          => 'Committees & Cells',
         'staff_member'       => 'Non-Teaching Staff',
         'page'               => 'Institutional Pages',
@@ -1625,7 +1627,7 @@ function mvc_rest_get_content_list($request) {
     // Role-based scope for department heads
     if (mvc_is_user_dept_scoped()) {
         $dept_term_id = (int) get_user_meta(get_current_user_id(), 'mvc_dept_term_id', true);
-        if ($dept_term_id && in_array($post_type, array('notice', 'event', 'faculty', 'study_material', 'department'), true)) {
+        if ($dept_term_id && in_array($post_type, array('notice', 'event', 'faculty', 'study_material', 'research', 'department'), true)) {
             $args['tax_query'] = array(
                 array(
                     'taxonomy' => 'dept_link',

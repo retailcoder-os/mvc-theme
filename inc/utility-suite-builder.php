@@ -839,7 +839,7 @@ function mvc_render_library_page() {
                                     <th style="width:70px;">Sr. No.</th>
                                     <th>Committee Member</th>
                                     <th>Designation / Department</th>
-                                    <th>Role in Committee</th>
+                                    <!-- <th>Role in Committee</th> -->
                                     <th>Contact</th>
                                 </tr>
                             </thead>
@@ -848,28 +848,28 @@ function mvc_render_library_page() {
                                     <td data-label="Sr. No.">1</td>
                                     <td data-label="Member"><strong>Prof. (Dr.) Krishna Kant Singh</strong></td>
                                     <td data-label="Designation">Principal, M.V. College, Buxar</td>
-                                    <td data-label="Role"><span class="mvc-util-badge" style="background:#ecfdf5; color:#065f46;">Chairman</span></td>
+                                    <!-- <td data-label="Role"><span class="mvc-util-badge" style="background:#ecfdf5; color:#065f46;">Chairman</span></td> -->
                                     <td data-label="Contact">principalmvcbuxar@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td data-label="Sr. No.">2</td>
                                     <td data-label="Member"><strong>Dr. Yogershi Rajpoot</strong></td>
                                     <td data-label="Designation">Assistant Professor (Pol. Science)</td>
-                                    <td data-label="Role">Convener</td>
+                                    <!-- <td data-label="Role">Convener</td> -->
                                     <td data-label="Contact">yogirshi@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td data-label="Sr. No.">3</td>
                                     <td data-label="Member"><strong>Senior Faculty Nominees</strong></td>
                                     <td data-label="Designation">Arts, Science & Commerce Heads</td>
-                                    <td data-label="Role">Members</td>
+                                    <!-- <td data-label="Role">Members</td> -->
                                     <td data-label="Contact"><?php echo esc_html(mvc_get_global_setting('library_email', 'mvcollegebuxar@gmail.com')); ?></td>
                                 </tr>
                                 <tr>
                                     <td data-label="Sr. No.">4</td>
                                     <td data-label="Member"><strong>Library In-Charge / Assistant</strong></td>
                                     <td data-label="Designation">Library Staff</td>
-                                    <td data-label="Role">Member Secretary</td>
+                                    <!-- <td data-label="Role">Member Secretary</td> -->
                                     <td data-label="Contact">mvcollegebuxar@gmail.com</td>
                                 </tr>
                             </tbody>
@@ -1044,7 +1044,7 @@ function mvc_render_e_resources_page() {
                             <div>
                                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
                                     <span style="font-size:32px;"><?php echo esc_html($res['icon']); ?></span>
-                                    <span class="mvc-util-badge"><?php echo esc_html($res['badge']); ?></span>
+                                    <!-- <span class="mvc-util-badge"><?php echo esc_html($res['badge']); ?></span> -->
                                 </div>
                                 <h3 style="font-size:18px; font-weight:800; color:var(--mvc-navy); margin:0 0 6px;">
                                     <?php echo esc_html($res['title']); ?>
@@ -1438,29 +1438,6 @@ function mvc_render_tender_page() {
                         </div>
                         <div class="mvc-pagination-controls" id="mvcTenderPagControls"></div>
                     </nav>
-                </div>
-
-                <!-- Terms & Conditions for Bidders -->
-                <div class="mvc-util-card">
-                    <div class="mvc-util-section-header">
-                        <h2 class="mvc-util-section-title">General Instructions & Submission Guidelines for Bidders</h2>
-                        <span class="mvc-util-badge">Procurement Rules</span>
-                    </div>
-
-                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; font-size:13.5px; color:var(--mvc-slate); line-height:1.6;">
-                        <div style="background:var(--mvc-bg-alt); padding:20px; border-radius:10px;">
-                            <strong style="color:var(--mvc-navy); font-size:15px; display:block; margin-bottom:6px;">1. Two-Bid Sealing Protocol</strong>
-                            Bidders must submit technical and financial evaluations in separate sealed envelopes clearly marked "Technical Bid" and "Financial Bid", placed inside an outer master envelope referencing the tender number.
-                        </div>
-                        <div style="background:var(--mvc-bg-alt); padding:20px; border-radius:10px;">
-                            <strong style="color:var(--mvc-navy); font-size:15px; display:block; margin-bottom:6px;">2. Mandatory Statutory Credentials</strong>
-                            Vendors must enclose certified GST Registration, permanent PAN Card, audited balance sheets of the preceding three financial years, and non-blacklisting affidavits.
-                        </div>
-                        <div style="background:var(--mvc-bg-alt); padding:20px; border-radius:10px;">
-                            <strong style="color:var(--mvc-navy); font-size:15px; display:block; margin-bottom:6px;">3. Submission Venue & Authority</strong>
-                            All physical bids must be delivered via registered/speed post or deposited in the Purchase Committee Tender Box at: <em>Office of the Principal, Maharshi Vishwamitra Mahavidyalaya, Charitravan, Buxar (Bihar) - 802101</em>.
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>
@@ -2802,96 +2779,5 @@ function mvc_render_onos_page() {
 
 /**
  * 7. RESEARCH & PUBLICATIONS PAGE RENDERER (/research/)
+ * Handled comprehensively by inc/research-builder.php
  */
-function mvc_render_research_page() {
-    mvc_render_utility_suite_styles();
-    $post_id = get_the_ID() ?: 1344;
-    $hero_title = "Research & Publications";
-    $hero_subtitle = "शोध, नवाचार एवं संकाय प्रकाशन प्रकोष्ठ";
-    $hero_desc = "Fostering academic inquiry, faculty research monographs, peer-reviewed journal papers, and multidisciplinary investigation across Humanities, Social Sciences, and Sciences at Maharshi Vishwamitra Mahavidyalaya, Buxar.";
-
-    ?>
-    <div class="mvc-util-page">
-        <!-- Hero Header -->
-        <header class="mvc-util-hero">
-            <div class="mvc-util-hero-inner">
-                <nav class="mvc-util-breadcrumb" aria-label="Breadcrumbs">
-                    <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
-                    <span class="mvc-util-bc-sep">/</span>
-                    <a href="<?php echo esc_url(home_url('/department-details/')); ?>">Academics</a>
-                    <span class="mvc-util-bc-sep">/</span>
-                    <span class="mvc-util-bc-curr">Research &amp; Publications</span>
-                </nav>
-                <div class="mvc-util-hero-icon-box">
-                    <span>🔬</span>
-                </div>
-                <h1 class="mvc-util-hero-title"><?php echo esc_html($hero_title); ?></h1>
-
-                <div class="mvc-util-hero-pills">
-                    <span class="mvc-util-pill mvc-util-pill-gold">🏛 UGC Recognized Research</span>
-                    <span class="mvc-util-pill">📖 Peer-Reviewed Publications</span>
-                    <span class="mvc-util-pill">🌐 ONOS &amp; INFLIBNET N-LIST Access</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="mvc-util-main">
-            <div class="mvc-util-content-card">
-                <!-- Research Mission -->
-                <div style="margin-bottom: 35px;">
-                    <h2 style="font-size: 22px; font-weight: 800; color: var(--mvc-navy); margin-bottom: 14px;">
-                        Institutional Research Framework
-                    </h2>
-                    <p style="font-size: 15px; color: #475569; line-height: 1.7; margin-bottom: 16px;">
-                        Maharshi Vishwamitra Mahavidyalaya actively encourages intellectual curiosity and scholarly research among its faculty and students. Situated in the historic Siddhashram region of Buxar, the college provides a stimulating environment for academic study spanning literature, history, social change, pure sciences, and applied technologies.
-                    </p>
-                </div>
-
-                <!-- Digital Research Networks (ONOS & INFLIBNET) -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 40px;">
-                    <div style="background: linear-gradient(135deg, #002147 0%, #00152e 100%); color: #fff; border-radius: 14px; padding: 24px; border: 1.5px solid var(--mvc-gold);">
-                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #FEF08A; margin-bottom: 6px;">National Subscription</div>
-                        <h3 style="margin: 0 0 8px; font-size: 20px; color: #fff;">One Nation One Subscription (ONOS)</h3>
-                        <p style="font-size: 13.5px; color: #CBD5E1; line-height: 1.6; margin-bottom: 16px;">
-                            Centrally funded access to premier international publishers (Elsevier, Springer, Wiley, IEEE). Nodal Officer: <strong>Dr. Ravi Thakur</strong>, Dept of Chemistry.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/onos/')); ?>" style="display: inline-flex; align-items: center; gap: 6px; background: var(--mvc-gold); color: #002147; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 800; text-decoration: none;">
-                            View ONOS Details &rarr;
-                        </a>
-                    </div>
-
-                    <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px; padding: 24px;">
-                        <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--mvc-navy); margin-bottom: 6px;">UGC INFLIBNET Consortium</div>
-                        <h3 style="margin: 0 0 8px; font-size: 20px; color: var(--mvc-navy);">INFLIBNET N-LIST Repository</h3>
-                        <p style="font-size: 13.5px; color: #64748B; line-height: 1.6; margin-bottom: 16px;">
-                            Over 6,000+ e-journals and 1,99,500+ e-books accessible to faculty and enrolled students via the Automated Central Library portal.
-                        </p>
-                        <a href="<?php echo esc_url(home_url('/library/')); ?>" style="display: inline-flex; align-items: center; gap: 6px; background: var(--mvc-navy); color: #fff; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none;">
-                            Library Resources &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Research & Publications Guidelines -->
-                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; margin-bottom: 30px;">
-                    <h3 style="font-size: 18px; font-weight: 800; color: var(--mvc-navy); margin: 0 0 10px;">
-                        Faculty Publications &amp; Academic Contributions
-                    </h3>
-                    <p style="font-size: 14.5px; color: #475569; line-height: 1.6; margin-bottom: 14px;">
-                        The teaching faculty of Maharshi Vishwamitra Mahavidyalaya consistently contributes to national and international peer-reviewed journals, books, and conference proceedings. Detailed research portfolios and individual publication lists are maintained in the respective department sections and faculty curriculum vitae.
-                    </p>
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                        <a href="<?php echo esc_url(home_url('/teaching-staff/')); ?>" class="mvc-btn-download" style="background: var(--mvc-navy); color: #fff;">
-                            👨‍🏫 View Faculty Directory &amp; CVs &rarr;
-                        </a>
-                        <a href="<?php echo esc_url(home_url('/department-details/')); ?>" class="mvc-btn-download" style="background: #F1F5F9; color: var(--mvc-navy); border: 1px solid #CBD5E1;">
-                            🏛 Academic Departments &rarr;
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-    <?php
-}

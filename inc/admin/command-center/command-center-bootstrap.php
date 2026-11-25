@@ -72,6 +72,7 @@ function mvc_enqueue_command_center_assets($hook) {
         'press_media'        => (int) ((wp_count_posts('press-media')->publish ?? 0) ?: (wp_count_posts('press_media')->publish ?? 0)),
         'press-media'        => (int) ((wp_count_posts('press-media')->publish ?? 0) ?: (wp_count_posts('press_media')->publish ?? 0)),
         'study_material'     => (int) (wp_count_posts('study_material')->publish ?? 0),
+        'research'           => (int) (wp_count_posts('research')->publish ?? 0),
         'committee'          => (int) (wp_count_posts('committee')->publish ?? 0),
         'staff_member'       => (int) (wp_count_posts('staff_member')->publish ?? 0),
         'page'               => (int) (wp_count_posts('page')->publish ?? 0),
@@ -81,7 +82,7 @@ function mvc_enqueue_command_center_assets($hook) {
     // Pending review count
     $pending_query = new WP_Query(array(
         'post_status'    => 'pending',
-        'post_type'      => array('notice', 'event', 'faculty', 'study_material', 'department'),
+        'post_type'      => array('notice', 'event', 'faculty', 'study_material', 'research', 'department'),
         'posts_per_page' => 1,
         'fields'         => 'ids'
     ));
@@ -151,6 +152,8 @@ function mvc_enqueue_command_center_assets($hook) {
             'galleries_all'     => admin_url('edit-tags.php?taxonomy=gallery_category'),
             'study_all'         => admin_url('edit.php?post_type=study_material'),
             'study_add'         => admin_url('post-new.php?post_type=study_material'),
+            'research_all'      => admin_url('edit.php?post_type=research'),
+            'research_add'      => admin_url('post-new.php?post_type=research'),
             'committees_all'    => admin_url('edit.php?post_type=committee'),
             'committees_add'    => admin_url('post-new.php?post_type=committee'),
             'staff_all'         => admin_url('edit.php?post_type=staff_member'),

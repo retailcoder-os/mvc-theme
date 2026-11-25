@@ -55,6 +55,7 @@
         press_media: { title: '📰 Press Media & Clippings Desk', desc: 'Manage newspaper coverage clippings, press releases, and print media archives.', addLabel: 'Clipping' },
         page: { title: '📄 Institutional Pages Desk', desc: 'Manage core institutional static pages, statutory disclosures, and campus overviews.', addLabel: 'Page' },
         study_material: { title: '📚 Study Materials & Notes Desk', desc: 'Manage departmental lecture notes, e-learning resources, and study modules.', addLabel: 'Material' },
+        research: { title: '🔬 Research & Publications Desk', desc: 'Manage scholarly journals, faculty papers, book chapters, and research grants.', addLabel: 'Research' },
         committee: { title: '🤝 Committees & Academic Cells Desk', desc: 'Manage statutory committees, Anti-Ragging Cell, ICC, and member rosters.', addLabel: 'Committee' },
         staff_member: { title: '👥 Non-Teaching Staff Roster Desk', desc: 'Manage clerical, technical, laboratory assistants, and administrative cadres.', addLabel: 'Staff Member' },
         post: { title: '✍️ Articles & Campus Posts Desk', desc: 'Manage collegiate articles, student blog posts, and campus news stories.', addLabel: 'Post' }

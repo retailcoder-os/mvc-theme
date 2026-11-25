@@ -34,6 +34,7 @@ function mvc_cpt_capability_pairs() {
         'calendar_gazette'   => array('singular' => 'gazette',          'plural' => 'gazettes'),
         'grievance'          => array('singular' => 'grievance',        'plural' => 'grievances'),
         'study_material'     => array('singular' => 'study_material',   'plural' => 'study_materials'),
+        'research'           => array('singular' => 'research',         'plural' => 'researches'),
     );
 }
 
@@ -113,8 +114,8 @@ function mvc_role_definitions() {
         'read'         => true,
         'upload_files' => true,
     );
-    // FULL on: notices, events, faculty, study_material, galleries, videos, press, slider, testimonials, gazettes, milestones
-    $cm_full_cpts = array('notice', 'event', 'faculty', 'study_material', 'gallery-cat', 'video', 'press-media', 'slider', 'testimonial', 'calendar_gazette', 'calendar_milestone');
+    // FULL on: notices, events, faculty, study_material, researches, galleries, videos, press, slider, testimonials, gazettes, milestones
+    $cm_full_cpts = array('notice', 'event', 'faculty', 'study_material', 'research', 'gallery-cat', 'video', 'press-media', 'slider', 'testimonial', 'calendar_gazette', 'calendar_milestone');
     foreach ($cm_full_cpts as $cpt) {
         $cm_caps = array_merge($cm_caps, mvc_get_full_cpt_caps($cpt_pairs[$cpt]['plural']));
     }
@@ -187,6 +188,15 @@ function mvc_role_definitions() {
     foreach ($dh_dept_cpts as $cpt) {
         $dh_caps = array_merge($dh_caps, mvc_get_dept_cpt_caps($cpt_pairs[$cpt]['plural']));
     }
+
+    // Researches & Publications: HODs can edit and PUBLISH scholarly research for their department
+    $res_plural = $cpt_pairs['research']['plural'];
+    $dh_caps["edit_{$res_plural}"]            = true;
+    $dh_caps["edit_others_{$res_plural}"]     = true;
+    $dh_caps["edit_published_{$res_plural}"]  = true;
+    $dh_caps["publish_{$res_plural}"]         = true;
+    $dh_caps["delete_{$res_plural}"]          = true;
+    $dh_caps["delete_published_{$res_plural}"]= false;
     // Departments (Own department: edit, edit others, edit published - A1)
     $dh_caps["edit_{$dept_plural}"]           = true;
     $dh_caps["edit_others_{$dept_plural}"]    = true;
@@ -420,8 +430,64 @@ function mvc_register_cpts_with_capabilities() {
         'rewrite'           => false,
     ));
 
-    // 3. Register dept_link taxonomy (attached to content post types and grievances)
-    register_taxonomy('dept_link', array('faculty', 'notice', 'event', 'study_material', 'grievance'), array(
+    // 3. Register research CPT (Research & Publications)
+    register_post_type('research', array(
+        'labels' => array(
+            'name'               => __('Researches & Publications', 'mvc-college'),
+            'singular_name'      => __('Research Work', 'mvc-college'),
+            'add_new'            => __('Add New Research', 'mvc-college'),
+            'add_new_item'       => __('Add New Research / Publication', 'mvc-college'),
+            'edit_item'          => __('Edit Research Publication', 'mvc-college'),
+            'all_items'          => __('All Researches & Publications', 'mvc-college'),
+            'menu_name'          => __('Research & Pubs', 'mvc-college'),
+            'search_items'       => __('Search Research Works', 'mvc-college'),
+            'not_found'          => __('No research publications found', 'mvc-college'),
+            'not_found_in_trash' => __('No research publications found in Trash', 'mvc-college'),
+        ),
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'menu_icon'          => 'dashicons-welcome-learn-more',
+        'menu_position'      => 25,
+        'supports'           => array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'custom-fields'),
+        'capability_type'    => array($cpt_pairs['research']['singular'], $cpt_pairs['research']['plural']),
+        'map_meta_cap'       => true,
+        'has_archive'        => false,
+        'rewrite'            => array('slug' => 'research-item'),
+    ));
+
+    // Register research_type taxonomy
+    register_taxonomy('research_type', array('research'), array(
+        'labels' => array(
+            'name'              => __('Research Categories', 'mvc-college'),
+            'singular_name'     => __('Research Category', 'mvc-college'),
+            'search_items'      => __('Search Categories', 'mvc-college'),
+            'all_items'         => __('All Categories', 'mvc-college'),
+            'edit_item'         => __('Edit Category', 'mvc-college'),
+            'update_item'       => __('Update Category', 'mvc-college'),
+            'add_new_item'      => __('Add New Category', 'mvc-college'),
+            'new_item_name'     => __('New Category Name', 'mvc-college'),
+            'menu_name'         => __('Research Categories', 'mvc-college'),
+        ),
+        'hierarchical'      => true,
+        'public'            => true,
+        'show_ui'           => true,
+        'show_in_menu'      => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true,
+        'capabilities'      => array(
+            'manage_terms' => 'mvc_access_admin',
+            'edit_terms'   => 'mvc_access_admin',
+            'delete_terms' => 'manage_options',
+            'assign_terms' => 'mvc_access_admin',
+        ),
+        'rewrite'           => array('slug' => 'research-category'),
+    ));
+
+    // 4. Register dept_link taxonomy (attached to content post types, research, and grievances)
+    register_taxonomy('dept_link', array('faculty', 'notice', 'event', 'study_material', 'grievance', 'research'), array(
         'labels' => array(
             'name'              => __('Academic Departments', 'mvc-college'),
             'singular_name'     => __('Academic Department', 'mvc-college'),

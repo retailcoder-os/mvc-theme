@@ -61,6 +61,7 @@ function mvc_scoped_types() {
         'study_material',
         'department',
         'grievance',
+        'research',
     ));
 }
 

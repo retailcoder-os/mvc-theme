@@ -298,6 +298,13 @@ if (file_exists(get_stylesheet_directory() . '/inc/utility-suite-builder.php')) 
 }
 
 /* ==========================================
+   18E-2. RESEARCH & PUBLICATIONS ENGINE & REPOSITORY BUILDER
+   ========================================== */
+if (file_exists(get_stylesheet_directory() . '/inc/research-builder.php')) {
+    require_once get_stylesheet_directory() . '/inc/research-builder.php';
+}
+
+/* ==========================================
    18F. NOTICES & OFFICIAL CIRCULARS MASTER REPOSITORY BUILDER
    ========================================== */
 if (file_exists(get_stylesheet_directory() . '/inc/notices-page-builder.php')) {
