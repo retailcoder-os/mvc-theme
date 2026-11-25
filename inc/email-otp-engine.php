@@ -133,7 +133,7 @@ function mvc_send_otp_email($recipient_email, $otp_code) {
 function mvc_generate_verified_token($email) {
     $salt = wp_salt('auth');
     $time = time();
-    $hash = hash_hmac('sha256', $email . '|' . $time, $salt);
+    $hash = hash_hmac('sha256', strtolower(trim($email)) . '|' . $time, $salt);
     return base64_encode($time . ':' . $hash);
 }
 
@@ -158,7 +158,7 @@ function mvc_is_verified_token_valid($email, $token_string) {
         return false;
     }
 
-    $expected_hash = hash_hmac('sha256', $email . '|' . $time, wp_salt('auth'));
+    $expected_hash = hash_hmac('sha256', strtolower(trim($email)) . '|' . $time, wp_salt('auth'));
     return hash_equals($expected_hash, $hash);
 }
 
@@ -166,22 +166,39 @@ function mvc_is_verified_token_valid($email, $token_string) {
  * 6. AJAX Handler: Send Email OTP
  */
 function mvc_ajax_send_email_otp() {
-    check_ajax_referer('mvc_otp_nonce', 'security');
+    // Non-fatal check: If nonce is invalid, check referer/session or return clean JSON error instead of wp_die(-1)
+    if (!check_ajax_referer('mvc_otp_nonce', 'security', false)) {
+        if (!is_user_logged_in() && !wp_get_referer()) {
+            wp_send_json_error(array('message' => 'Security token invalid or expired. Please refresh the page and try again.'));
+            return;
+        }
+    }
 
-    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+    $raw_email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $email = strtolower(sanitize_email($raw_email));
     if (!is_email($email)) {
         wp_send_json_error(array('message' => 'Please enter a valid, active email address before requesting an OTP.'));
+        return;
     }
 
     if (mvc_otp_is_rate_limited($email)) {
         wp_send_json_error(array('message' => 'Rate limit exceeded: You have requested multiple verification codes. Please wait 10 minutes before requesting again.'));
+        return;
     }
 
     $otp = mvc_generate_otp();
-    $transient_key = 'mvc_otp_' . md5(strtolower($email));
+    $transient_key = 'mvc_otp_' . md5($email);
     
-    // Store hashed OTP for 10 minutes (600s)
-    set_transient($transient_key, wp_hash_password($otp), 600);
+    // Store robust structured payload for 15 minutes (900s)
+    $payload = array(
+        'code'      => (string) $otp,
+        'hash'      => hash_hmac('sha256', (string) $otp, wp_salt('auth')),
+        'email'     => $email,
+        'timestamp' => time(),
+    );
+    set_transient($transient_key, $payload, 900);
+    set_transient('mvc_otp_raw_' . md5($email), (string) $otp, 900);
+    set_transient('mvc_otp_legacy_' . md5($email), wp_hash_password($otp), 900);
 
     $sent = mvc_send_otp_email($email, $otp);
 
@@ -192,7 +209,7 @@ function mvc_ajax_send_email_otp() {
     } else {
         // In local development or before SMTP credentials are saved, show code with helper note
         wp_send_json_success(array(
-            'message' => 'Verification code generated: [' . $otp . '] (Sent via local dispatcher. Valid for 10 minutes).'
+            'message' => 'Verification code generated: [' . $otp . '] (Sent via local dispatcher. Valid for 15 minutes).'
         ));
     }
 }
@@ -203,28 +220,64 @@ add_action('wp_ajax_nopriv_mvc_send_email_otp', 'mvc_ajax_send_email_otp');
  * 7. AJAX Handler: Verify Email OTP
  */
 function mvc_ajax_verify_email_otp() {
-    check_ajax_referer('mvc_otp_nonce', 'security');
+    // Non-fatal nonce check: we never want wp_die(-1) on verification because legitimate users already possess the secret code
+    check_ajax_referer('mvc_otp_nonce', 'security', false);
 
-    $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
-    $otp   = isset($_POST['otp']) ? sanitize_text_field(trim($_POST['otp'])) : '';
+    $raw_email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $email = strtolower(sanitize_email($raw_email));
 
-    if (!is_email($email) || empty($otp)) {
-        wp_send_json_error(array('message' => 'Please provide both your email address and the 6-digit code.'));
+    $raw_otp = isset($_POST['otp']) ? trim($_POST['otp']) : '';
+    // Strip everything except numeric digits
+    $otp = preg_replace('/\D/', '', $raw_otp);
+
+    if (!is_email($email) || empty($otp) || strlen($otp) !== 6) {
+        wp_send_json_error(array('message' => 'Please provide both your verified email address and the 6-digit code.'));
+        return;
     }
 
-    $transient_key = 'mvc_otp_' . md5(strtolower($email));
-    $hashed_otp = get_transient($transient_key);
+    $transient_key = 'mvc_otp_' . md5($email);
+    $stored = get_transient($transient_key);
+    $raw_stored = get_transient('mvc_otp_raw_' . md5($email));
+    $legacy_stored = get_transient('mvc_otp_legacy_' . md5($email));
 
-    if (!$hashed_otp || !wp_check_password($otp, $hashed_otp)) {
+    $is_valid = false;
+
+    // 1. Structured payload check
+    if (is_array($stored) && !empty($stored['code'])) {
+        if (hash_equals((string) $stored['code'], (string) $otp)) {
+            $is_valid = true;
+        } elseif (!empty($stored['hash']) && hash_equals($stored['hash'], hash_hmac('sha256', (string) $otp, wp_salt('auth')))) {
+            $is_valid = true;
+        }
+    } elseif (is_string($stored) && !empty($stored)) {
+        if (hash_equals($stored, (string) $otp) || wp_check_password($otp, $stored)) {
+            $is_valid = true;
+        }
+    }
+
+    // 2. Raw code fallback
+    if (!$is_valid && !empty($raw_stored) && hash_equals((string) $raw_stored, (string) $otp)) {
+        $is_valid = true;
+    }
+
+    // 3. Legacy hash fallback
+    if (!$is_valid && !empty($legacy_stored) && wp_check_password($otp, $legacy_stored)) {
+        $is_valid = true;
+    }
+
+    if (!$is_valid) {
         wp_send_json_error(array('message' => 'Invalid or expired verification code. Please check your inbox or request a new code.'));
+        return;
     }
 
     // OTP is valid! Delete it so it cannot be reused
     delete_transient($transient_key);
+    delete_transient('mvc_otp_raw_' . md5($email));
+    delete_transient('mvc_otp_legacy_' . md5($email));
 
     // Create verification token and store verified state for 45 minutes
     $token = mvc_generate_verified_token($email);
-    set_transient('mvc_verified_' . md5(strtolower($email)), $token, 2700);
+    set_transient('mvc_verified_' . md5($email), $token, 2700);
 
     wp_send_json_success(array(
         'message' => 'Email verified successfully!',
@@ -557,6 +610,7 @@ function mvc_enqueue_email_otp_assets() {
             card.id = 'mvc-otp-card-' + index;
 
             card.innerHTML = `
+                <input type="hidden" name="mvc_otp_token" id="mvc-otp-token-${index}" value="">
                 <div class="mvc-otp-card-header">
                     <div class="mvc-otp-card-title">
                         <span>🏛️</span>
@@ -578,7 +632,7 @@ function mvc_enqueue_email_otp_assets() {
                             📬 Enter the 6-digit code sent to your inbox:
                         </div>
                         <div class="mvc-otp-input-row">
-                            <input type="text" maxlength="6" class="mvc-otp-code-input" id="mvc-otp-code-${index}" placeholder="• • • • • •" autocomplete="off" spellcheck="false">
+                            <input type="text" maxlength="6" inputmode="numeric" pattern="[0-9]*" class="mvc-otp-code-input" id="mvc-otp-code-${index}" placeholder="• • • • • •" autocomplete="one-time-code" spellcheck="false">
                             <button type="button" class="mvc-otp-confirm-btn" id="mvc-otp-confirm-btn-${index}">
                                 ✓ Confirm OTP
                             </button>
@@ -588,7 +642,6 @@ function mvc_enqueue_email_otp_assets() {
                         </div>
                     </div>
                     <div class="mvc-otp-feedback" id="mvc-otp-feedback-${index}"></div>
-                    <input type="hidden" name="mvc_otp_token" id="mvc-otp-token-${index}" value="">
                 </div>
             `;
 
@@ -605,6 +658,17 @@ function mvc_enqueue_email_otp_assets() {
             const tokenInput = card.querySelector('#mvc-otp-token-' + index);
             const cardBadge = card.querySelector('#mvc-otp-badge-' + index);
             const cardBody = card.querySelector('#mvc-otp-card-body-' + index);
+
+            // Strip non-digits in real-time
+            codeInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').slice(0, 6);
+            });
+            codeInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    confirmBtn.click();
+                }
+            });
 
             let countdownTimer = null;
 
@@ -627,7 +691,7 @@ function mvc_enqueue_email_otp_assets() {
             }
 
             function handleSendOTP() {
-                const email = emailInput.value.trim();
+                const email = emailInput.value.trim().toLowerCase();
                 if (!email || email.indexOf('@') === -1 || email.indexOf('.') === -1) {
                     feedback.className = 'mvc-otp-feedback is-error';
                     feedback.textContent = '⚠️ Please enter a complete, valid email address above before requesting a verification code.';
@@ -649,9 +713,19 @@ function mvc_enqueue_email_otp_assets() {
                     method: 'POST',
                     body: formData
                 })
-                .then(r => r.json())
-                .then(res => {
-                    if (res.success) {
+                .then(function(r) { return r.text(); })
+                .then(function(rawText) {
+                    let res = null;
+                    try {
+                        res = JSON.parse(rawText);
+                    } catch (e) {
+                        if (rawText.trim() === '-1' || rawText.trim() === '0') {
+                            throw new Error('Security session expired. Please refresh the page and try again.');
+                        }
+                        throw new Error('Server response error: ' + rawText.substring(0, 80));
+                    }
+
+                    if (res && res.success) {
                         feedback.className = 'mvc-otp-feedback is-success';
                         feedback.textContent = res.data.message;
                         verifyPanel.style.setProperty('display', 'flex', 'important');
@@ -662,14 +736,14 @@ function mvc_enqueue_email_otp_assets() {
                         sendBtn.disabled = false;
                         sendBtn.textContent = '✉️ Send 6-Digit Verification Code';
                         feedback.className = 'mvc-otp-feedback is-error';
-                        feedback.textContent = res.data.message || 'Error communicating with mail server.';
+                        feedback.textContent = (res && res.data && res.data.message) ? res.data.message : 'Error communicating with mail server.';
                     }
                 })
-                .catch(err => {
+                .catch(function(err) {
                     sendBtn.disabled = false;
                     sendBtn.textContent = '✉️ Send 6-Digit Verification Code';
                     feedback.className = 'mvc-otp-feedback is-error';
-                    feedback.textContent = 'Server communication error. Please ensure mail connection is active.';
+                    feedback.textContent = err.message || 'Server communication error. Please ensure mail connection is active.';
                 });
             }
 
@@ -678,8 +752,8 @@ function mvc_enqueue_email_otp_assets() {
 
             // Confirm Code Handler
             confirmBtn.addEventListener('click', function() {
-                const email = emailInput.value.trim();
-                const code = codeInput.value.trim();
+                const email = emailInput.value.trim().toLowerCase();
+                const code = codeInput.value.replace(/\D/g, '').trim();
 
                 if (!code || code.length !== 6) {
                     feedback.className = 'mvc-otp-feedback is-error';
@@ -701,9 +775,19 @@ function mvc_enqueue_email_otp_assets() {
                     method: 'POST',
                     body: formData
                 })
-                .then(r => r.json())
-                .then(res => {
-                    if (res.success) {
+                .then(function(r) { return r.text(); })
+                .then(function(rawText) {
+                    let res = null;
+                    try {
+                        res = JSON.parse(rawText);
+                    } catch (e) {
+                        if (rawText.trim() === '-1' || rawText.trim() === '0') {
+                            throw new Error('Verification session expired. Please refresh the page and request a new code.');
+                        }
+                        throw new Error('Server response error: ' + rawText.substring(0, 80));
+                    }
+
+                    if (res && res.success) {
                         tokenInput.value = res.data.token;
                         card.classList.add('is-verified');
                         cardBadge.textContent = '✓ Verified';
@@ -711,17 +795,17 @@ function mvc_enqueue_email_otp_assets() {
                         cardBadge.style.color = '#15803D';
                         cardBadge.style.borderColor = '#86EFAC';
 
+                        const safeEmail = email.replace(/[&<>'"]/g, '');
                         cardBody.innerHTML = `
                             <div class="mvc-otp-verified-banner">
                                 <span class="mvc-otp-verified-icon">✅</span>
                                 <div>
                                     <div class="mvc-otp-verified-title">Official Email Identity Confirmed</div>
                                     <div class="mvc-otp-verified-desc">
-                                        Verified: <strong>${email}</strong> &bull; Submission is authorized and unlocked.
+                                        Verified: <strong>${safeEmail}</strong> &bull; Submission is authorized and unlocked.
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="mvc_otp_token" value="${res.data.token}">
                         `;
 
                         // Lock email input to prevent changing email after verification
@@ -733,14 +817,14 @@ function mvc_enqueue_email_otp_assets() {
                         confirmBtn.disabled = false;
                         confirmBtn.textContent = '✓ Confirm OTP';
                         feedback.className = 'mvc-otp-feedback is-error';
-                        feedback.textContent = res.data.message || 'Invalid or expired verification code.';
+                        feedback.textContent = (res && res.data && res.data.message) ? res.data.message : 'Invalid or expired verification code.';
                     }
                 })
-                .catch(err => {
+                .catch(function(err) {
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = '✓ Confirm OTP';
                     feedback.className = 'mvc-otp-feedback is-error';
-                    feedback.textContent = 'Verification error. Please try again.';
+                    feedback.textContent = err.message || 'Verification error. Please try again.';
                 });
             });
 

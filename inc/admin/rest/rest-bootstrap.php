@@ -728,19 +728,26 @@ function mvc_rest_content_status($request) {
 
 // 9. /notices - Quick Publish
 function mvc_rest_quick_notice($request) {
-    $title    = sanitize_text_field(trim($request['title'] ?? ''));
-    $memo_no  = sanitize_text_field(trim($request['memo_no'] ?? ''));
-    $content  = sanitize_textarea_field(trim($request['content'] ?? ''));
-    $audience = sanitize_text_field(trim($request['audience'] ?? 'Students'));
-    $is_pin   = !empty($request['pinned']) ? 1 : 0;
-    $is_new   = !empty($request['new_badge']) ? 1 : 0;
+    $title         = sanitize_text_field(trim($request['title'] ?? ''));
+    $memo_no       = sanitize_text_field(trim($request['memo_no'] ?? ''));
+    $content       = wp_kses_post(trim($request['content'] ?? ''));
+    $audience      = sanitize_text_field(trim($request['audience'] ?? 'Students'));
+    $dept_id       = !empty($request['dept_id']) && $request['dept_id'] !== 'all' ? (int) $request['dept_id'] : 0;
+    $is_pin        = !empty($request['pinned']) ? 1 : 0;
+    $file_url      = esc_url_raw(trim($request['file_url'] ?? ''));
+    $attachment_id = !empty($request['attachment_id']) ? (int) $request['attachment_id'] : 0;
 
     if (empty($title)) {
         return new WP_Error('mvc_missing_title', __('Notice headline is required.', 'mvc-college'), array('status' => 400));
     }
 
+    // Auto-generate official memo number if omitted
+    if (empty($memo_no)) {
+        $memo_no = 'MVC/NOT/' . current_time('Y') . '/' . wp_rand(101, 999);
+    }
+
     $user_id = get_current_user_id();
-    $status = current_user_can('publish_notices') ? 'publish' : 'pending';
+    $status = (current_user_can('publish_notices') || current_user_can('manage_options')) ? 'publish' : 'pending';
 
     $post_id = wp_insert_post(array(
         'post_type'    => 'notice',
@@ -757,39 +764,55 @@ function mvc_rest_quick_notice($request) {
     update_post_meta($post_id, 'memo_number', $memo_no);
     update_post_meta($post_id, 'date_picker', current_time('Ymd'));
     update_post_meta($post_id, 'pin_to_homepage', $is_pin);
-    update_post_meta($post_id, 'new_badge', $is_new);
+    update_post_meta($post_id, 'new_badge', 1);
+
+    if (!empty($file_url)) {
+        update_post_meta($post_id, '_pdf_url', $file_url);
+        update_post_meta($post_id, 'pdf_file', $file_url);
+    }
+    if ($attachment_id > 0) {
+        update_post_meta($post_id, '_pdf_attachment_id', $attachment_id);
+        update_post_meta($post_id, 'pdf_file', $attachment_id);
+    }
 
     if (function_exists('update_field')) {
         update_field('memo_number', $memo_no, $post_id);
         update_field('date_picker', current_time('Ymd'), $post_id);
         update_field('pin_to_homepage', $is_pin, $post_id);
-        update_field('new_badge', $is_new, $post_id);
-    }
-
-    // Set audience
-    wp_set_object_terms($post_id, $audience, 'audience', false);
-
-    // If Department Head, dept_link is forced by save_post hook
-    if (mvc_is_user_dept_scoped($user_id)) {
-        $term_id = (int) get_user_meta($user_id, 'mvc_dept_term_id', true);
-        if ($term_id) {
-            wp_set_object_terms($post_id, array($term_id), 'dept_link', false);
+        update_field('new_badge', 1, $post_id);
+        if ($attachment_id > 0) {
+            update_field('pdf_file', $attachment_id, $post_id);
+        } elseif (!empty($file_url)) {
+            update_field('pdf_file', $file_url, $post_id);
         }
     }
 
-    // If publishing, run notice validation
-    if ($status === 'publish') {
-        $val = mvc_validate_before_publish($post_id);
-        if (is_wp_error($val)) {
-            wp_update_post(array('ID' => $post_id, 'post_status' => 'draft'));
-            return new WP_Error($val->get_error_code(), $val->get_error_message(), array('status' => 422));
+    // Set audience taxonomy
+    if (!empty($audience)) {
+        wp_set_object_terms($post_id, $audience, 'audience', false);
+    }
+
+    // Set department taxonomy
+    if ($dept_id > 0) {
+        wp_set_object_terms($post_id, array($dept_id), 'dept_link', false);
+    } elseif (mvc_is_user_dept_scoped($user_id)) {
+        $scoped_dept = (int) get_user_meta($user_id, 'mvc_dept_term_id', true);
+        if ($scoped_dept) {
+            wp_set_object_terms($post_id, array($scoped_dept), 'dept_link', false);
         }
     }
+
+    // Flush any notice caches
+    delete_transient('mvc_latest_notices_home');
+    delete_transient('mvc_notices_cache');
 
     return rest_ensure_response(array(
         'success' => true,
         'id'      => $post_id,
+        'title'   => $title,
         'status'  => $status,
+        'url'     => get_permalink($post_id),
+        'message' => __('Notice published successfully.', 'mvc-college')
     ));
 }
 

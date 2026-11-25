@@ -1021,45 +1021,95 @@ if (function_exists('mvc_render_command_center_preloader')) {
                 <div class="mvc-cc-header">
                     <div>
                         <h2 class="mvc-cc-heading">⚡ Quick Dispatch Notice Desk</h2>
-                        <div class="mvc-cc-desc">Publish official gazette circulars with automated memo formatting and instant validation.</div>
+                        <div class="mvc-cc-desc">Fast-track official institutional notices, student circulars, and certified administrative memos.</div>
                     </div>
                 </div>
 
                 <div class="mvc-card" style="max-width:820px;">
+                    <!-- Inline Feedback Alert -->
+                    <div id="mvcQuickNoticeFeedback" style="display:none; margin:20px 24px 0; padding:14px 18px; border-radius:8px; font-size:13.5px; font-weight:600;"></div>
+
                     <form id="mvcQuickNoticeForm" style="padding:24px; display:flex; flex-direction:column; gap:18px;">
+                        <!-- 1. Notice Title -->
                         <div>
-                            <label style="display:block; font-weight:600; margin-bottom:6px;">Notice Headline / Title *</label>
-                            <input type="text" id="mvcNoticeTitle" required placeholder="e.g. Schedule for UG Semester-I Examination Form Submission" class="mvc-input">
+                            <label style="display:block; font-weight:700; margin-bottom:6px; font-size:13.5px; color:var(--mvc-text);">Notice Headline / Title <span style="color:#DC2626;">*</span></label>
+                            <input type="text" id="mvcNoticeTitle" required placeholder="e.g. Schedule for UG Semester-I Examination Form Submission" class="mvc-input" style="font-size:14.5px; font-weight:600;">
                         </div>
 
+                        <!-- 2. Primary Audience & Department -->
                         <div class="mvc-form-grid-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
                             <div>
-                                <label style="display:block; font-weight:600; margin-bottom:6px;">Official Memo / Dispatch Number *</label>
-                                <input type="text" id="mvcNoticeMemo" required placeholder="e.g. MVC/NOT/2026/088" class="mvc-input">
-                            </div>
-                            <div>
-                                <label style="display:block; font-weight:600; margin-bottom:6px;">Primary Audience</label>
+                                <label style="display:block; font-weight:700; margin-bottom:6px; font-size:13px; color:var(--mvc-text);">Target Audience</label>
                                 <select id="mvcNoticeAudience" class="mvc-input">
-                                    <option value="Students">Students &amp; Scholars</option>
-                                    <option value="General">General Public</option>
-                                    <option value="Officials">Officials &amp; Administration</option>
+                                    <option value="Students" selected>Students &amp; Scholars</option>
+                                    <option value="General">General Public &amp; Visitors</option>
+                                    <option value="Faculty">Faculty &amp; Teaching Staff</option>
+                                    <option value="Officials">Administration &amp; Officials</option>
                                     <option value="Examination">Examination Division</option>
                                     <option value="Alumni">Alumni Network</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div>
-                            <label style="display:block; font-weight:600; margin-bottom:6px;">Notice Body Text (minimum 20 characters) *</label>
-                            <textarea id="mvcNoticeContent" rows="7" required placeholder="Enter official gazette order text..." class="mvc-input"></textarea>
-                        </div>
-
-                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:12px; border-top:1px solid var(--mvc-border);">
-                            <div style="font-size:12.5px; color:var(--mvc-text-muted);">
-                                🔒 Automatically signed by <strong><?php echo esc_html($user_display); ?></strong>
+                            <div>
+                                <label style="display:block; font-weight:700; margin-bottom:6px; font-size:13px; color:var(--mvc-text);">Academic Department</label>
+                                <select id="mvcNoticeDept" class="mvc-input">
+                                    <option value="all">General / All Departments (Institutional)</option>
+                                    <?php
+                                    $quick_depts = get_terms(array(
+                                        'taxonomy'   => 'dept_link',
+                                        'hide_empty' => false,
+                                        'orderby'    => 'name',
+                                        'order'      => 'ASC'
+                                    ));
+                                    if (!empty($quick_depts) && !is_wp_error($quick_depts)):
+                                        foreach ($quick_depts as $qd):
+                                            printf('<option value="%d">%s</option>', (int) $qd->term_id, esc_html($qd->name));
+                                        endforeach;
+                                    endif;
+                                    ?>
+                                </select>
                             </div>
-                            <button type="submit" class="mvc-btn mvc-btn-primary" style="padding:10px 24px;">
-                                🚀 Publish / Submit Notice
+                        </div>
+
+                        <!-- 3. Pin to Homepage Toggle -->
+                        <div style="background:var(--mvc-card-bg, #f8fafc); border:1px solid var(--mvc-border); border-radius:8px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                            <div>
+                                <div style="font-weight:700; font-size:13.5px; color:var(--mvc-text);">Featured on Homepage &amp; Marquee</div>
+                                <div style="font-size:12px; color:var(--mvc-text-muted);">Pin this notice prominently to the homepage ticker, notification modal, and urgent circulars bar.</div>
+                            </div>
+                            <label style="display:inline-flex; align-items:center; cursor:pointer; gap:8px;">
+                                <input type="checkbox" id="mvcNoticePinHomepage" checked style="width:18px; height:18px; accent-color:var(--mvc-navy, #002147); cursor:pointer;">
+                                <span style="font-size:13px; font-weight:700;">Pin to Homepage</span>
+                            </label>
+                        </div>
+
+                        <!-- 4. File Attachment (PDF / Document) -->
+                        <div>
+                            <label style="display:block; font-weight:700; margin-bottom:6px; font-size:13px; color:var(--mvc-text);">Official PDF / Document Attachment</label>
+                            <div style="display:flex; gap:10px; align-items:center;">
+                                <input type="text" id="mvcNoticeFileUrl" placeholder="Paste file URL or click Upload &rarr;" class="mvc-input" style="flex:1;">
+                                <input type="hidden" id="mvcNoticeAttachmentId" value="">
+                                <button type="button" id="mvcNoticeUploadBtn" class="mvc-btn mvc-btn-secondary" style="white-space:nowrap; padding:9px 16px; font-size:13px;">
+                                    📎 Upload / Select File
+                                </button>
+                            </div>
+                            <div id="mvcNoticeFilePreview" style="display:none; align-items:center; gap:8px; margin-top:8px; font-size:12.5px; background:rgba(0,33,71,0.04); padding:6px 12px; border-radius:6px; border:1px dashed var(--mvc-border);"></div>
+                        </div>
+
+                        <!-- 5. Notice Description / Body Text (Optional) -->
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                <label style="font-weight:700; font-size:13px; color:var(--mvc-text);">Notice Description / Body Text</label>
+                                <span style="font-size:12px; color:var(--mvc-text-muted); font-weight:600;">Optional</span>
+                            </div>
+                            <textarea id="mvcNoticeContent" rows="4" placeholder="Brief circular description, instructions, or synopsis (optional)..." class="mvc-input"></textarea>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:14px; border-top:1px solid var(--mvc-border);">
+                            <div style="font-size:12.5px; color:var(--mvc-text-muted);">
+                                🔒 Authenticated by <strong><?php echo esc_html($user_display); ?></strong>
+                            </div>
+                            <button type="submit" class="mvc-btn mvc-btn-primary" style="padding:10px 24px; font-size:14px; font-weight:700;">
+                                🚀 Publish / Dispatch Notice
                             </button>
                         </div>
                     </form>

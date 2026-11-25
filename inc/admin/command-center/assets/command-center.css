@@ -2266,3 +2266,55 @@ html.wp-toolbar {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
+/* ==========================================================================
+   TOAST NOTIFICATION ENGINE
+   ========================================================================== */
+.mvc-toast-container {
+    position: fixed !important;
+    top: 24px !important;
+    right: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    z-index: 99999999 !important;
+    pointer-events: none !important;
+    max-width: 440px !important;
+    width: calc(100% - 48px) !important;
+}
+
+.mvc-toast {
+    pointer-events: auto !important;
+    background: #002147 !important;
+    color: #ffffff !important;
+    padding: 14px 20px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    border-left: 5px solid #10B981 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    animation: mvcToastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.mvc-toast.is-danger,
+.mvc-toast[style*="EF4444"] {
+    background: #7F1D1D !important;
+    border-left-color: #EF4444 !important;
+}
+
+@keyframes mvcToastIn {
+    from {
+        opacity: 0;
+        transform: translateY(-16px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+

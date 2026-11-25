@@ -829,27 +829,130 @@
         const quickNoticeForm = document.getElementById('mvcQuickNoticeForm');
         if (!quickNoticeForm) return;
 
+        // Media Uploader for Document Attachment
+        const uploadBtn = document.getElementById('mvcNoticeUploadBtn');
+        const fileUrlInput = document.getElementById('mvcNoticeFileUrl');
+        const fileIdInput = document.getElementById('mvcNoticeAttachmentId');
+        const filePreview = document.getElementById('mvcNoticeFilePreview');
+
+        if (uploadBtn) {
+            uploadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (window.wp && window.wp.media) {
+                    const customUploader = window.wp.media({
+                        title: 'Select or Upload Notice PDF/Document',
+                        button: { text: 'Use this document' },
+                        multiple: false
+                    });
+                    customUploader.on('select', function() {
+                        const attachment = customUploader.state().get('selection').first().toJSON();
+                        if (fileUrlInput) fileUrlInput.value = attachment.url;
+                        if (fileIdInput) fileIdInput.value = attachment.id;
+                        if (filePreview) {
+                            filePreview.style.display = 'flex';
+                            filePreview.innerHTML = `📎 <strong>Attached:</strong> <a href="${attachment.url}" target="_blank" style="color:var(--mvc-navy); text-decoration:underline;">${attachment.filename || attachment.title || 'View Document'}</a>`;
+                        }
+                    });
+                    customUploader.open();
+                } else {
+                    const directUrl = prompt('Enter document URL (PDF/Image/Doc):');
+                    if (directUrl && fileUrlInput) {
+                        fileUrlInput.value = directUrl.trim();
+                        if (filePreview) {
+                            filePreview.style.display = 'flex';
+                            filePreview.innerHTML = `📎 <strong>Attached:</strong> <a href="${directUrl}" target="_blank" style="color:var(--mvc-navy); text-decoration:underline;">View Document</a>`;
+                        }
+                    }
+                }
+            });
+        }
+
         quickNoticeForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const title = document.getElementById('mvcNoticeTitle').value;
-            const memoNo = document.getElementById('mvcNoticeMemo').value;
-            const audience = document.getElementById('mvcNoticeAudience').value;
-            const content = document.getElementById('mvcNoticeContent').value;
+            const submitBtn = quickNoticeForm.querySelector('button[type="submit"]');
+            const feedbackEl = document.getElementById('mvcQuickNoticeFeedback');
+
+            const title = (document.getElementById('mvcNoticeTitle')?.value || '').trim();
+            const audience = document.getElementById('mvcNoticeAudience')?.value || 'Students';
+            const deptId = document.getElementById('mvcNoticeDept')?.value || 'all';
+            const isHomepage = document.getElementById('mvcNoticePinHomepage')?.checked ? 1 : 0;
+            const fileUrl = (document.getElementById('mvcNoticeFileUrl')?.value || '').trim();
+            const attachmentId = document.getElementById('mvcNoticeAttachmentId')?.value || '';
+            const content = (document.getElementById('mvcNoticeContent')?.value || '').trim();
+
+            if (!title) {
+                showToast('Notice headline / title is required.', 'danger');
+                return;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '⏳ Publishing Notice...';
+            }
 
             try {
                 const res = await mvcApi('/notices', {
                     method: 'POST',
                     body: {
                         title: title,
-                        memo_no: memoNo,
                         audience: audience,
+                        dept_id: deptId,
+                        pinned: isHomepage,
+                        file_url: fileUrl,
+                        attachment_id: attachmentId,
                         content: content
                     }
                 });
-                showToast(`Notice published successfully (Status: ${(res.status || 'published').toUpperCase()})`);
+
+                const postTitle = res.title || title;
+                const viewUrl = res.url || `/?p=${res.id}`;
+                const msg = `Notice "${postTitle}" published successfully!`;
+
+                showToast(msg);
+
+                if (feedbackEl) {
+                    feedbackEl.style.display = 'flex';
+                    feedbackEl.style.background = '#ECFDF5';
+                    feedbackEl.style.color = '#065F46';
+                    feedbackEl.style.border = '1.5px solid #6EE7B7';
+                    feedbackEl.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center; width:100%; gap:12px; flex-wrap:wrap;">
+                            <div>
+                                <strong>✅ Success!</strong> Notice published successfully and dispatched to archives.
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <a href="${viewUrl}" target="_blank" class="mvc-btn mvc-btn-primary" style="font-size:12px; padding:4px 10px; text-decoration:none;">
+                                    View Notice ↗
+                                </a>
+                                <button type="button" class="mvc-btn mvc-btn-outline" style="font-size:12px; padding:4px 10px;" onclick="if(window.mvcOpenContentDesk){window.mvcOpenContentDesk('notice');}">
+                                    Notice Desk &rarr;
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    feedbackEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
                 quickNoticeForm.reset();
+                if (filePreview) filePreview.style.display = 'none';
+
+                // Refresh overview metrics
+                loadOverviewMetrics();
             } catch (err) {
+                console.error('[Quick Notice Error]', err);
                 showToast('Failed to create notice: ' + (err.message || 'Validation error'), 'danger');
+                if (feedbackEl) {
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.background = '#FEF2F2';
+                    feedbackEl.style.color = '#991B1B';
+                    feedbackEl.style.border = '1.5px solid #F87171';
+                    feedbackEl.innerHTML = `<strong>⚠️ Submission Error:</strong> ${escapeHtml(err.message || 'Validation error')}`;
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '🚀 Publish / Dispatch Notice';
+                }
             }
         });
     }
@@ -1874,19 +1977,17 @@
         }
 
         const toast = document.createElement('div');
-        toast.className = 'mvc-toast';
-        if (type === 'danger') {
-            toast.style.borderLeftColor = '#EF4444';
-        }
-        toast.innerText = message;
+        toast.className = 'mvc-toast' + (type === 'danger' ? ' is-danger' : '');
+        const icon = type === 'danger' ? '⚠️' : '✅';
+        toast.innerHTML = `<span style="font-size:18px;">${icon}</span><span style="flex:1;">${escapeHtml(message)}</span>`;
         container.appendChild(toast);
 
         setTimeout(() => {
             toast.style.opacity = '0';
-            toast.style.transform = 'translateY(10px)';
+            toast.style.transform = 'translateY(-10px)';
             toast.style.transition = 'all 0.3s ease';
             setTimeout(() => toast.remove(), 300);
-        }, 4000);
+        }, 4500);
     }
 
     function escapeHtml(str) {

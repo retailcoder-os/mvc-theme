@@ -51,6 +51,9 @@ function mvc_enqueue_command_center_assets($hook) {
         return;
     }
 
+    // Enqueue native WP media modal for document & file attachments
+    wp_enqueue_media();
+
     $ver = '2.1.0';
     $base_url = get_stylesheet_directory_uri() . '/inc/admin/command-center/assets';
 
