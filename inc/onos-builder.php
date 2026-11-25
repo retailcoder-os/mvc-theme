@@ -2,11 +2,11 @@
 /**
  * ONE NATION ONE SUBSCRIPTION (ONOS) SUITE BUILDER
  * 
- * Flagship National Higher Education Digital Knowledge Network Gateway
- * Ministry of Education (Govt. of India) & INFLIBNET Centre
+ * Official National Higher Education Digital Knowledge Network Gateway
+ * Ministry of Education (Department of Higher Education), Government of India & INFLIBNET Centre (UGC)
  * Maharshi Vishwamitra Mahavidyalaya, Buxar (Veer Kunwar Singh University)
  * 
- * Designated Institutional Nodal Officer: Dr. Ravi Thakur, Assistant Professor, Department of Chemistry
+ * Institutional Nodal Officer: Dr. Ravi Thakur, Assistant Professor, Department of Chemistry
  * 
  * @package Astra Child
  */
@@ -21,9 +21,8 @@ if (!defined('ABSPATH')) {
 if (!function_exists('mvc_render_onos_page')) {
 function mvc_render_onos_page() {
     $current_user = wp_get_current_user();
-    $is_logged_in = is_user_logged_in();
 
-    // Official Publisher & Consortia Directory under ONOS
+    // Verified Major International Academic Publishers under ONOS Phase-1
     $publishers = array(
         array(
             'id'          => 'sciencedirect',
@@ -182,6 +181,42 @@ function mvc_render_onos_page() {
             'access'      => 'Campus IP & INFED SSO'
         ),
         array(
+            'id'          => 'ams',
+            'name'        => 'American Mathematical Society (AMS)',
+            'category'    => 'science',
+            'journals'    => 'Pure & Applied Mathematical Research Journals',
+            'flagship'    => 'Journal of the AMS, Bulletin of the AMS, Mathematics of Computation',
+            'disciplines' => 'Mathematics, Statistics, Algebra, Geometry, Applied Analysis',
+            'url'         => 'https://www.ams.org/journals',
+            'icon'        => '📐',
+            'badge'       => 'Mathematics Core',
+            'access'      => 'Campus IP & INFED SSO'
+        ),
+        array(
+            'id'          => 'emerald',
+            'name'        => 'Emerald Publishing',
+            'category'    => 'humanities',
+            'journals'    => '300+ Peer-Reviewed Management Journals',
+            'flagship'    => 'Journal of Documentation, European Journal of Marketing',
+            'disciplines' => 'Management, Commerce, Public Policy, Information Science',
+            'url'         => 'https://www.emerald.com/insight/',
+            'icon'        => '📊',
+            'badge'       => 'Management & Policy',
+            'access'      => 'Campus IP & INFED SSO'
+        ),
+        array(
+            'id'          => 'bmj',
+            'name'        => 'BMJ Journals',
+            'category'    => 'science',
+            'journals'    => '60+ Leading Medical & Life Sciences Journals',
+            'flagship'    => 'The BMJ (British Medical Journal), Thorax, Gut, Medical Ethics',
+            'disciplines' => 'Life Sciences, Public Health, Environmental Health, Clinical Biology',
+            'url'         => 'https://journals.bmj.com/',
+            'icon'        => '🩺',
+            'badge'       => 'Medical & Life Sci',
+            'access'      => 'Campus IP & INFED SSO'
+        ),
+        array(
             'id'          => 'nlist',
             'name'        => 'INFLIBNET N-LIST Repository',
             'category'    => 'consortia',
@@ -207,12 +242,12 @@ function mvc_render_onos_page() {
         ),
         array(
             'id'          => 'onos_portal',
-            'name'        => 'National ONOS Central Gateway',
+            'name'        => 'Official ONOS Central Portal',
             'category'    => 'consortia',
             'journals'    => 'Unified National Search Engine',
             'flagship'    => 'Department of Higher Education, Ministry of Education, Govt. of India',
-            'disciplines' => 'One-Stop Search Across All 30+ Participating Global Publishers',
-            'url'         => 'https://onos.gov.in/',
+            'disciplines' => 'Central One-Stop Search Across All 30+ Participating Global Publishers',
+            'url'         => 'https://www.onos.gov.in/',
             'icon'        => '🌐',
             'badge'       => 'Official MoE Gateway',
             'access'      => 'National Single Sign-On'
@@ -224,7 +259,7 @@ function mvc_render_onos_page() {
         <style>
             /* ========================================================
                ONE NATION ONE SUBSCRIPTION (ONOS) DESIGN SYSTEM
-               Institutional Sovereign Navy, Gold & Tiranga Palette
+               Crisp, Official, Institutional Navy & Gold Architecture
                ======================================================== */
             :root {
                 --mvc-onos-navy: #002147;
@@ -232,10 +267,8 @@ function mvc_render_onos_page() {
                 --mvc-onos-gold: #D4AF37;
                 --mvc-onos-gold-dark: #B8860B;
                 --mvc-onos-gold-light: #FEF08A;
-                --mvc-onos-saffron: #FF9933;
-                --mvc-onos-saffron-dark: #C2410C;
-                --mvc-onos-green: #138808;
-                --mvc-onos-maroon: #800000;
+                --mvc-onos-saffron: #EA580C;
+                --mvc-onos-green: #15803D;
                 --mvc-onos-slate-50: #F8FAFC;
                 --mvc-onos-slate-100: #F1F5F9;
                 --mvc-onos-slate-200: #E2E8F0;
@@ -243,7 +276,6 @@ function mvc_render_onos_page() {
                 --mvc-onos-slate-600: #475569;
                 --mvc-onos-slate-700: #334155;
                 --mvc-onos-slate-800: #1E293B;
-                --mvc-onos-slate-900: #0F172A;
             }
 
             .mvc-onos-suite {
@@ -252,7 +284,14 @@ function mvc_render_onos_page() {
                 color: var(--mvc-onos-slate-800);
                 line-height: 1.6;
                 padding-bottom: 70px;
-                position: relative;
+            }
+
+            /* Container */
+            .mvc-onos-container {
+                max-width: 1240px;
+                margin: 0 auto;
+                padding: 0 20px;
+                box-sizing: border-box;
             }
 
             /* Breadcrumb */
@@ -262,7 +301,7 @@ function mvc_render_onos_page() {
                 gap: 8px;
                 font-size: 13px;
                 color: #94A3B8;
-                margin-bottom: 18px;
+                margin-bottom: 16px;
                 flex-wrap: wrap;
             }
 
@@ -287,116 +326,45 @@ function mvc_render_onos_page() {
 
             /* Hero Section */
             .mvc-onos-hero {
-                background: linear-gradient(135deg, #001229 0%, #002147 50%, #001533 100%);
+                background: linear-gradient(135deg, #001229 0%, #002147 60%, #001838 100%);
                 color: #FFFFFF;
-                padding: 44px 20px 48px;
-                position: relative;
+                padding: 42px 20px 48px;
                 border-bottom: 4px solid var(--mvc-onos-gold);
-                box-shadow: 0 12px 36px rgba(0, 33, 71, 0.25);
-            }
-
-            .mvc-onos-hero::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 380px;
-                height: 100%;
-                background: radial-gradient(circle at 90% 50%, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
-                pointer-events: none;
+                box-shadow: 0 10px 30px rgba(0, 33, 71, 0.2);
             }
 
             .mvc-onos-hero-inner {
                 max-width: 1240px;
                 margin: 0 auto;
-                position: relative;
-                z-index: 2;
-            }
-
-            /* Ministry & Sovereign Emblem Bar */
-            .mvc-onos-emblem-strip {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                margin-bottom: 22px;
-                padding-bottom: 18px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-                flex-wrap: wrap;
             }
 
             .mvc-onos-emblem-badge {
                 display: inline-flex;
                 align-items: center;
-                gap: 10px;
+                gap: 8px;
                 background: rgba(255, 255, 255, 0.08);
-                border: 1px solid rgba(212, 175, 55, 0.35);
-                padding: 6px 14px;
-                border-radius: 30px;
+                border: 1px solid rgba(212, 175, 55, 0.4);
+                padding: 5px 14px;
+                border-radius: 20px;
                 font-size: 12px;
                 font-weight: 700;
                 color: #FEF08A;
-                letter-spacing: 0.3px;
                 text-transform: uppercase;
-            }
-
-            .mvc-onos-emblem-icon {
-                font-size: 16px;
-            }
-
-            .mvc-onos-hero-pills {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-                margin-bottom: 18px;
-            }
-
-            .mvc-onos-pill {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.18);
-                padding: 4px 12px;
-                border-radius: 20px;
-                font-size: 12px;
-                font-weight: 600;
-                color: #E2E8F0;
-                letter-spacing: 0.2px;
-            }
-
-            .mvc-onos-pill.gold {
-                background: rgba(212, 175, 55, 0.2);
-                border-color: rgba(212, 175, 55, 0.5);
-                color: var(--mvc-onos-gold-light);
-                font-weight: 700;
-            }
-
-            .mvc-onos-pill.saffron {
-                background: rgba(255, 153, 51, 0.18);
-                border-color: rgba(255, 153, 51, 0.45);
-                color: #FED7AA;
-                font-weight: 700;
-            }
-
-            .mvc-onos-pill.green {
-                background: rgba(19, 136, 8, 0.2);
-                border-color: rgba(19, 136, 8, 0.45);
-                color: #BBF7D0;
-                font-weight: 700;
+                letter-spacing: 0.5px;
+                margin-bottom: 14px;
             }
 
             .mvc-onos-hindi-kicker {
                 font-size: 15px;
                 font-weight: 700;
                 color: var(--mvc-onos-gold);
-                margin-bottom: 8px;
-                letter-spacing: 0.4px;
+                margin-bottom: 6px;
             }
 
             .mvc-onos-hero-title {
-                font-size: 38px;
+                font-size: 36px;
                 font-weight: 900;
-                line-height: 1.15;
+                line-height: 1.2;
                 margin: 0 0 14px;
                 color: #FFFFFF;
                 letter-spacing: -0.5px;
@@ -405,7 +373,7 @@ function mvc_render_onos_page() {
             .mvc-onos-hero-desc {
                 font-size: 15.5px;
                 color: #CBD5E1;
-                max-width: 940px;
+                max-width: 960px;
                 line-height: 1.65;
                 margin: 0 0 24px;
             }
@@ -424,20 +392,18 @@ function mvc_render_onos_page() {
                 background: linear-gradient(135deg, var(--mvc-onos-gold) 0%, #B8860B 100%);
                 color: #002147 !important;
                 font-weight: 800;
-                font-size: 14px;
-                padding: 12px 24px;
+                font-size: 13.5px;
+                padding: 11px 22px;
                 border-radius: 8px;
                 text-decoration: none !important;
                 border: 1px solid #FFE082;
-                box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+                box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
-                cursor: pointer;
             }
 
             .mvc-onos-btn-primary:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5);
-                background: linear-gradient(135deg, #FFE082 0%, var(--mvc-onos-gold) 100%);
+                box-shadow: 0 8px 20px rgba(212, 175, 55, 0.45);
             }
 
             .mvc-onos-btn-secondary {
@@ -447,13 +413,12 @@ function mvc_render_onos_page() {
                 background: rgba(255, 255, 255, 0.12);
                 color: #FFFFFF !important;
                 font-weight: 700;
-                font-size: 14px;
-                padding: 12px 22px;
+                font-size: 13.5px;
+                padding: 11px 20px;
                 border-radius: 8px;
                 text-decoration: none !important;
                 border: 1px solid rgba(255, 255, 255, 0.25);
                 transition: background 0.2s ease, transform 0.2s ease;
-                cursor: pointer;
             }
 
             .mvc-onos-btn-secondary:hover {
@@ -461,15 +426,7 @@ function mvc_render_onos_page() {
                 transform: translateY(-2px);
             }
 
-            /* Container */
-            .mvc-onos-container {
-                max-width: 1240px;
-                margin: 0 auto;
-                padding: 0 20px;
-                box-sizing: border-box;
-            }
-
-            /* KPI Impact Counters */
+            /* Key Metrics Bar */
             .mvc-onos-kpi-bar {
                 margin: -24px auto 35px;
                 position: relative;
@@ -490,13 +447,12 @@ function mvc_render_onos_page() {
                 display: flex;
                 align-items: center;
                 gap: 16px;
-                box-shadow: 0 6px 18px rgba(0, 33, 71, 0.06);
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                box-shadow: 0 6px 18px rgba(0, 33, 71, 0.05);
+                transition: transform 0.2s ease;
             }
 
             .mvc-onos-kpi-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 12px 28px rgba(0, 33, 71, 0.1);
+                transform: translateY(-2px);
             }
 
             .mvc-onos-kpi-icon {
@@ -516,11 +472,11 @@ function mvc_render_onos_page() {
             .mvc-onos-kpi-green  { background: #DCFCE7; color: #15803D; border: 1px solid #BBF7D0; }
 
             .mvc-onos-kpi-val {
-                font-size: 24px;
+                font-size: 23px;
                 font-weight: 900;
                 color: var(--mvc-onos-navy);
                 line-height: 1.1;
-                margin-bottom: 3px;
+                margin-bottom: 2px;
             }
 
             .mvc-onos-kpi-lbl {
@@ -531,134 +487,135 @@ function mvc_render_onos_page() {
                 letter-spacing: 0.4px;
             }
 
-            /* Designated Nodal Officer Spotlight Card */
+            /* Official Factsheet Grid */
+            .mvc-onos-factsheet {
+                background: #FFFFFF;
+                border: 1px solid var(--mvc-onos-slate-200);
+                border-radius: 14px;
+                padding: 28px 32px;
+                margin-bottom: 35px;
+                box-shadow: 0 4px 14px rgba(0, 33, 71, 0.04);
+            }
+
+            .mvc-onos-fact-title {
+                font-size: 18px;
+                font-weight: 800;
+                color: var(--mvc-onos-navy);
+                margin: 0 0 18px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                border-bottom: 2px solid var(--mvc-onos-slate-100);
+                padding-bottom: 12px;
+            }
+
+            .mvc-onos-fact-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px 28px;
+                font-size: 13.5px;
+            }
+
+            .mvc-onos-fact-row {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                border-bottom: 1px dashed var(--mvc-onos-slate-200);
+                padding-bottom: 8px;
+            }
+
+            .mvc-onos-fact-lbl {
+                color: var(--mvc-onos-slate-600);
+                font-weight: 600;
+            }
+
+            .mvc-onos-fact-val {
+                color: var(--mvc-onos-navy);
+                font-weight: 800;
+                text-align: right;
+            }
+
+            /* Nodal Officer Section */
             .mvc-onos-nodal-section {
                 background: linear-gradient(135deg, #001A3A 0%, #002B5C 100%);
                 border: 2px solid var(--mvc-onos-gold);
-                border-radius: 16px;
-                padding: 30px 34px;
+                border-radius: 14px;
+                padding: 26px 30px;
                 color: #FFFFFF;
-                box-shadow: 0 12px 32px rgba(0, 33, 71, 0.16);
+                box-shadow: 0 10px 28px rgba(0, 33, 71, 0.14);
                 margin-bottom: 40px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 28px;
+                gap: 24px;
                 flex-wrap: wrap;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .mvc-onos-nodal-section::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 6px;
-                height: 100%;
-                background: linear-gradient(to bottom, #FF9933, #FFFFFF, #138808);
             }
 
             .mvc-onos-nodal-left {
                 display: flex;
                 align-items: center;
-                gap: 22px;
+                gap: 20px;
                 flex: 1;
-                min-width: 320px;
-            }
-
-            .mvc-onos-nodal-avatar-wrap {
-                position: relative;
-                flex-shrink: 0;
+                min-width: 300px;
             }
 
             .mvc-onos-nodal-avatar {
-                width: 82px;
-                height: 82px;
+                width: 72px;
+                height: 72px;
                 border-radius: 50%;
-                background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.1) 100%);
-                border: 3px solid var(--mvc-onos-gold);
+                background: rgba(212, 175, 55, 0.2);
+                border: 2.5px solid var(--mvc-onos-gold);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 38px;
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-            }
-
-            .mvc-onos-nodal-seal {
-                position: absolute;
-                bottom: -4px;
-                right: -4px;
-                background: #138808;
-                border: 2px solid #FFFFFF;
-                color: #FFFFFF;
-                border-radius: 50%;
-                width: 24px;
-                height: 24px;
-                font-size: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 800;
+                font-size: 34px;
+                flex-shrink: 0;
             }
 
             .mvc-onos-nodal-badge {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                background: rgba(212, 175, 55, 0.22);
-                border: 1px solid rgba(212, 175, 55, 0.45);
+                display: inline-block;
+                background: rgba(212, 175, 55, 0.2);
+                border: 1px solid rgba(212, 175, 55, 0.4);
                 color: #FEF08A;
                 font-size: 11px;
                 font-weight: 800;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
-                padding: 3px 10px;
+                padding: 2px 10px;
                 border-radius: 20px;
-                margin-bottom: 6px;
+                margin-bottom: 4px;
             }
 
             .mvc-onos-nodal-name {
-                font-size: 24px;
+                font-size: 22px;
                 font-weight: 900;
                 color: #FFFFFF;
-                margin: 0 0 3px;
-                letter-spacing: -0.3px;
+                margin: 0 0 2px;
             }
 
             .mvc-onos-nodal-title {
-                font-size: 14.5px;
+                font-size: 14px;
                 color: #E2E8F0;
                 font-weight: 600;
             }
 
             .mvc-onos-nodal-dept {
-                font-size: 13px;
+                font-size: 12.5px;
                 color: #CBD5E1;
-                margin-top: 2px;
             }
 
             .mvc-onos-nodal-right {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
-                gap: 12px;
-                min-width: 260px;
+                gap: 10px;
             }
 
             .mvc-onos-nodal-mandate {
-                font-size: 12.5px;
+                font-size: 12px;
                 color: #CBD5E1;
                 text-align: right;
-                line-height: 1.45;
-                max-width: 340px;
-            }
-
-            .mvc-onos-nodal-btns {
-                display: flex;
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: flex-end;
+                max-width: 360px;
             }
 
             .mvc-onos-btn-nodal-email {
@@ -669,8 +626,8 @@ function mvc_render_onos_page() {
                 color: #002147 !important;
                 font-weight: 800;
                 font-size: 13px;
-                padding: 10px 18px;
-                border-radius: 8px;
+                padding: 9px 18px;
+                border-radius: 7px;
                 text-decoration: none !important;
                 border: 1px solid #FFE082;
                 transition: transform 0.2s, background 0.2s;
@@ -681,79 +638,53 @@ function mvc_render_onos_page() {
                 transform: translateY(-2px);
             }
 
-            .mvc-onos-btn-nodal-req {
-                display: inline-flex;
-                align-items: center;
-                gap: 7px;
-                background: rgba(255, 255, 255, 0.12);
-                color: #FFFFFF !important;
-                font-weight: 700;
-                font-size: 13px;
-                padding: 10px 18px;
-                border-radius: 8px;
-                text-decoration: none !important;
-                border: 1px solid rgba(255, 255, 255, 0.25);
-                transition: background 0.2s, transform 0.2s;
-                cursor: pointer;
-            }
-
-            .mvc-onos-btn-nodal-req:hover {
-                background: rgba(255, 255, 255, 0.22);
-                transform: translateY(-2px);
-            }
-
             /* Section Headings */
             .mvc-onos-section-head {
                 text-align: center;
-                margin: 0 auto 32px;
-                max-width: 820px;
+                margin: 0 auto 28px;
+                max-width: 800px;
             }
 
             .mvc-onos-section-kicker {
-                font-size: 12.5px;
+                font-size: 12px;
                 font-weight: 800;
                 color: #B8860B;
                 text-transform: uppercase;
                 letter-spacing: 0.8px;
-                margin-bottom: 6px;
+                margin-bottom: 5px;
                 display: block;
             }
 
             .mvc-onos-section-title {
-                font-size: 28px;
+                font-size: 26px;
                 font-weight: 900;
                 color: var(--mvc-onos-navy);
-                margin: 0 0 10px;
-                letter-spacing: -0.4px;
+                margin: 0 0 8px;
+                letter-spacing: -0.3px;
             }
 
             .mvc-onos-section-desc {
-                font-size: 15px;
+                font-size: 14.5px;
                 color: var(--mvc-onos-slate-600);
                 line-height: 1.6;
                 margin: 0;
             }
 
-            /* Interactive Filter Panel for Publishers */
+            /* Interactive Filter Panel */
             .mvc-onos-filter-card {
                 background: #FFFFFF;
                 border: 1px solid var(--mvc-onos-slate-200);
-                border-radius: 14px;
-                padding: 20px 24px;
-                margin-bottom: 28px;
+                border-radius: 12px;
+                padding: 18px 22px;
+                margin-bottom: 24px;
                 box-shadow: 0 4px 12px rgba(0, 33, 71, 0.04);
             }
 
             .mvc-onos-search-row {
-                display: flex;
-                gap: 16px;
-                margin-bottom: 16px;
-                flex-wrap: wrap;
+                margin-bottom: 14px;
             }
 
             .mvc-onos-search-box {
-                flex: 1;
-                min-width: 280px;
                 position: relative;
                 display: flex;
                 align-items: center;
@@ -771,7 +702,7 @@ function mvc_render_onos_page() {
 
             .mvc-onos-search-input {
                 width: 100% !important;
-                height: 46px !important;
+                height: 44px !important;
                 padding: 0 14px 0 42px !important;
                 border: 1.5px solid var(--mvc-onos-slate-300) !important;
                 border-radius: 8px !important;
@@ -781,7 +712,6 @@ function mvc_render_onos_page() {
                 background: #FFFFFF !important;
                 box-sizing: border-box !important;
                 margin: 0 !important;
-                transition: border-color 0.2s, box-shadow 0.2s;
             }
 
             .mvc-onos-search-input:focus {
@@ -801,9 +731,9 @@ function mvc_render_onos_page() {
                 background: #F1F5F9;
                 color: var(--mvc-onos-slate-700);
                 border: 1px solid var(--mvc-onos-slate-300);
-                padding: 7px 15px;
+                padding: 6px 14px;
                 border-radius: 20px;
-                font-size: 12.5px;
+                font-size: 12px;
                 font-weight: 700;
                 cursor: pointer;
                 white-space: nowrap;
@@ -819,92 +749,83 @@ function mvc_render_onos_page() {
                 background: var(--mvc-onos-navy);
                 color: #FFFFFF;
                 border-color: var(--mvc-onos-navy);
-                box-shadow: 0 2px 8px rgba(0, 33, 71, 0.2);
             }
 
             /* Publishers Grid */
             .mvc-onos-pub-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-                gap: 22px;
-                margin-bottom: 48px;
+                gap: 20px;
+                margin-bottom: 45px;
             }
 
             .mvc-onos-pub-card {
                 background: #FFFFFF;
                 border: 1px solid var(--mvc-onos-slate-200);
-                border-radius: 14px;
-                padding: 24px;
-                box-shadow: 0 4px 14px rgba(0, 33, 71, 0.04);
+                border-radius: 12px;
+                padding: 22px;
+                box-shadow: 0 4px 12px rgba(0, 33, 71, 0.04);
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                position: relative;
-                transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+                transition: transform 0.2s ease, border-color 0.2s ease;
             }
 
             .mvc-onos-pub-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 10px 24px rgba(0, 33, 71, 0.09);
+                transform: translateY(-2px);
                 border-color: var(--mvc-onos-gold);
             }
 
             .mvc-onos-pub-header {
                 display: flex;
                 align-items: flex-start;
-                gap: 14px;
+                gap: 12px;
                 margin-bottom: 12px;
             }
 
             .mvc-onos-pub-icon-wrap {
-                width: 46px;
-                height: 46px;
-                border-radius: 10px;
+                width: 44px;
+                height: 44px;
+                border-radius: 8px;
                 background: #F8FAFC;
                 border: 1px solid var(--mvc-onos-slate-200);
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 24px;
+                font-size: 22px;
                 flex-shrink: 0;
             }
 
-            .mvc-onos-pub-title-block {
-                flex: 1;
-            }
-
             .mvc-onos-pub-name {
-                font-size: 17px;
+                font-size: 16px;
                 font-weight: 800;
                 color: var(--mvc-onos-navy);
-                margin: 0 0 3px;
-                line-height: 1.3;
+                margin: 0 0 2px;
             }
 
             .mvc-onos-pub-badge {
                 display: inline-block;
                 background: #FEF9C3;
                 color: #854D0E;
-                font-size: 11px;
+                font-size: 10.5px;
                 font-weight: 800;
-                padding: 2px 8px;
+                padding: 1px 7px;
                 border-radius: 4px;
                 border: 1px solid #FDE047;
                 text-transform: uppercase;
-                letter-spacing: 0.3px;
             }
 
             .mvc-onos-pub-meta-box {
                 background: #F8FAFC;
                 border-left: 3px solid var(--mvc-onos-navy);
                 border-radius: 0 6px 6px 0;
-                padding: 10px 12px;
-                margin-bottom: 14px;
+                padding: 9px 12px;
+                margin-bottom: 12px;
                 font-size: 12.5px;
             }
 
             .mvc-onos-pub-meta-row {
-                margin-bottom: 4px;
+                margin-bottom: 3px;
                 color: var(--mvc-onos-slate-700);
             }
 
@@ -920,28 +841,25 @@ function mvc_render_onos_page() {
                 font-size: 12.5px;
                 color: var(--mvc-onos-slate-600);
                 line-height: 1.5;
-                margin-bottom: 18px;
+                margin-bottom: 16px;
             }
 
             .mvc-onos-pub-footer {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 12px;
-                padding-top: 14px;
+                gap: 10px;
+                padding-top: 12px;
                 border-top: 1px solid var(--mvc-onos-slate-200);
                 margin-top: auto;
             }
 
             .mvc-onos-pub-access-tag {
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                font-size: 11.5px;
+                font-size: 11px;
                 font-weight: 700;
                 color: #065F46;
                 background: #D1FAE5;
-                padding: 3px 8px;
+                padding: 2px 7px;
                 border-radius: 4px;
                 border: 1px solid #A7F3D0;
             }
@@ -949,71 +867,46 @@ function mvc_render_onos_page() {
             .mvc-onos-pub-link-btn {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
+                gap: 5px;
                 background: var(--mvc-onos-navy);
                 color: #FFFFFF !important;
-                font-size: 12.5px;
+                font-size: 12px;
                 font-weight: 700;
-                padding: 7px 14px;
+                padding: 6px 13px;
                 border-radius: 6px;
                 text-decoration: none !important;
-                transition: background 0.2s, transform 0.2s;
+                transition: background 0.2s;
             }
 
             .mvc-onos-pub-link-btn:hover {
                 background: #002C5F;
-                transform: translateY(-2px);
             }
 
             /* Empty state for search */
             .mvc-onos-empty-state {
                 display: none;
                 text-align: center;
-                padding: 48px 24px;
+                padding: 40px 20px;
                 background: #FFFFFF;
                 border: 2px dashed var(--mvc-onos-slate-300);
-                border-radius: 14px;
-                margin-bottom: 40px;
+                border-radius: 12px;
+                margin-bottom: 35px;
             }
 
-            .mvc-onos-empty-icon {
-                font-size: 40px;
-                margin-bottom: 12px;
-            }
-
-            .mvc-onos-empty-title {
-                font-size: 18px;
-                font-weight: 800;
-                color: var(--mvc-onos-navy);
-                margin: 0 0 6px;
-            }
-
-            .mvc-onos-empty-desc {
-                font-size: 14px;
-                color: var(--mvc-onos-slate-600);
-                margin: 0 0 16px;
-            }
-
-            /* Three Modes of Access */
-            .mvc-onos-modes-section {
-                margin-bottom: 50px;
-            }
-
+            /* Two Official Access Modes */
             .mvc-onos-modes-grid {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
+                margin-bottom: 45px;
             }
 
             .mvc-onos-mode-card {
                 background: #FFFFFF;
                 border: 1px solid var(--mvc-onos-slate-200);
-                border-radius: 14px;
-                padding: 26px;
-                box-shadow: 0 6px 18px rgba(0, 33, 71, 0.04);
-                display: flex;
-                flex-direction: column;
-                position: relative;
+                border-radius: 12px;
+                padding: 24px;
+                box-shadow: 0 4px 14px rgba(0, 33, 71, 0.04);
                 border-top: 4px solid var(--mvc-onos-navy);
             }
 
@@ -1021,22 +914,18 @@ function mvc_render_onos_page() {
                 border-top-color: var(--mvc-onos-gold);
             }
 
-            .mvc-onos-mode-card.saffron-top {
-                border-top-color: var(--mvc-onos-saffron);
-            }
-
             .mvc-onos-mode-number {
-                width: 32px;
-                height: 32px;
+                width: 30px;
+                height: 30px;
                 border-radius: 50%;
                 background: var(--mvc-onos-navy);
                 color: var(--mvc-onos-gold);
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 800;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 16px;
+                margin-bottom: 14px;
             }
 
             .mvc-onos-mode-card.gold-top .mvc-onos-mode-number {
@@ -1044,38 +933,33 @@ function mvc_render_onos_page() {
                 color: #002147;
             }
 
-            .mvc-onos-mode-card.saffron-top .mvc-onos-mode-number {
-                background: var(--mvc-onos-saffron);
-                color: #FFFFFF;
-            }
-
             .mvc-onos-mode-title {
-                font-size: 18px;
+                font-size: 17px;
                 font-weight: 800;
                 color: var(--mvc-onos-navy);
-                margin: 0 0 10px;
+                margin: 0 0 8px;
             }
 
             .mvc-onos-mode-desc {
-                font-size: 13.5px;
+                font-size: 13px;
                 color: var(--mvc-onos-slate-600);
-                line-height: 1.6;
-                margin-bottom: 16px;
+                line-height: 1.55;
+                margin-bottom: 14px;
             }
 
             .mvc-onos-mode-steps {
                 list-style: none;
                 padding: 0;
-                margin: 0 0 20px;
-                font-size: 13px;
+                margin: 0;
+                font-size: 12.5px;
                 color: var(--mvc-onos-slate-700);
             }
 
             .mvc-onos-mode-steps li {
                 position: relative;
-                padding-left: 20px;
-                margin-bottom: 8px;
-                line-height: 1.45;
+                padding-left: 18px;
+                margin-bottom: 7px;
+                line-height: 1.4;
             }
 
             .mvc-onos-mode-steps li::before {
@@ -1086,148 +970,74 @@ function mvc_render_onos_page() {
                 font-weight: 800;
             }
 
-            .mvc-onos-mode-badge {
-                margin-top: auto;
-                font-size: 11.5px;
-                font-weight: 700;
-                color: var(--mvc-onos-navy);
-                background: var(--mvc-onos-slate-100);
-                padding: 6px 12px;
-                border-radius: 6px;
-                border: 1px solid var(--mvc-onos-slate-200);
-                text-align: center;
-            }
-
-            /* Guidelines & Ethics Protocol */
+            /* Guidelines */
             .mvc-onos-guide-banner {
                 background: #FFFBEB;
                 border: 1.5px solid #FDE68A;
-                border-radius: 14px;
-                padding: 26px 30px;
-                margin-bottom: 45px;
+                border-radius: 12px;
+                padding: 22px 26px;
+                margin-bottom: 40px;
                 display: flex;
                 align-items: flex-start;
-                gap: 20px;
+                gap: 18px;
             }
 
             .mvc-onos-guide-icon {
-                font-size: 32px;
+                font-size: 28px;
                 flex-shrink: 0;
-                margin-top: 2px;
             }
 
             .mvc-onos-guide-body h3 {
-                font-size: 17px;
+                font-size: 16px;
                 font-weight: 800;
                 color: #92400E;
-                margin: 0 0 8px;
+                margin: 0 0 6px;
             }
 
             .mvc-onos-guide-body p {
-                font-size: 13.5px;
+                font-size: 13px;
                 color: #78350F;
-                line-height: 1.65;
-                margin: 0 0 12px;
+                line-height: 1.6;
+                margin: 0 0 10px;
             }
 
             .mvc-onos-guide-body ul {
                 margin: 0;
-                padding-left: 18px;
-                font-size: 13px;
+                padding-left: 16px;
+                font-size: 12.5px;
                 color: #78350F;
-                line-height: 1.6;
-            }
-
-            /* FAQ Accordion Section */
-            .mvc-onos-faq-section {
-                margin-bottom: 50px;
-            }
-
-            .mvc-onos-faq-list {
-                max-width: 900px;
-                margin: 0 auto;
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .mvc-onos-faq-item {
-                background: #FFFFFF;
-                border: 1px solid var(--mvc-onos-slate-200);
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 2px 8px rgba(0, 33, 71, 0.03);
-            }
-
-            .mvc-onos-faq-question {
-                width: 100%;
-                text-align: left;
-                background: #FFFFFF;
-                border: none;
-                padding: 16px 20px;
-                font-size: 15px;
-                font-weight: 800;
-                color: var(--mvc-onos-navy);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 14px;
-                cursor: pointer;
-                transition: background 0.2s ease;
-            }
-
-            .mvc-onos-faq-question:hover {
-                background: #F8FAFC;
-                color: #B8860B;
-            }
-
-            .mvc-onos-faq-arrow {
-                font-size: 12px;
-                color: var(--mvc-onos-gold);
-                transition: transform 0.2s ease;
-                flex-shrink: 0;
-            }
-
-            .mvc-onos-faq-answer {
-                display: none;
-                padding: 0 20px 18px;
-                font-size: 14px;
-                color: var(--mvc-onos-slate-600);
-                line-height: 1.65;
-                border-top: 1px solid #F1F5F9;
-                background: #FBFDFE;
+                line-height: 1.55;
             }
 
             /* Related Academic Gateways */
             .mvc-onos-related-bar {
                 background: #FFFFFF;
                 border: 1px solid var(--mvc-onos-slate-200);
-                border-radius: 14px;
-                padding: 24px 30px;
+                border-radius: 12px;
+                padding: 22px 28px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 20px;
+                gap: 18px;
                 flex-wrap: wrap;
-                box-shadow: 0 4px 14px rgba(0, 33, 71, 0.04);
             }
 
             .mvc-onos-related-left h4 {
-                font-size: 17px;
+                font-size: 16px;
                 font-weight: 800;
                 color: var(--mvc-onos-navy);
-                margin: 0 0 4px;
+                margin: 0 0 3px;
             }
 
             .mvc-onos-related-left p {
-                font-size: 13.5px;
+                font-size: 13px;
                 color: var(--mvc-onos-slate-600);
                 margin: 0;
             }
 
             .mvc-onos-related-links {
                 display: flex;
-                gap: 12px;
+                gap: 10px;
                 flex-wrap: wrap;
             }
 
@@ -1237,10 +1047,10 @@ function mvc_render_onos_page() {
                 gap: 6px;
                 background: var(--mvc-onos-slate-100);
                 color: var(--mvc-onos-navy) !important;
-                font-size: 13px;
+                font-size: 12.5px;
                 font-weight: 700;
-                padding: 9px 18px;
-                border-radius: 8px;
+                padding: 8px 16px;
+                border-radius: 7px;
                 border: 1px solid var(--mvc-onos-slate-300);
                 text-decoration: none !important;
                 transition: all 0.2s ease;
@@ -1250,7 +1060,6 @@ function mvc_render_onos_page() {
                 background: var(--mvc-onos-navy);
                 color: #FFFFFF !important;
                 border-color: var(--mvc-onos-navy);
-                transform: translateY(-2px);
             }
 
             .mvc-onos-related-btn.primary {
@@ -1259,175 +1068,31 @@ function mvc_render_onos_page() {
                 border-color: var(--mvc-onos-navy);
             }
 
-            .mvc-onos-related-btn.primary:hover {
-                background: #002C5F;
-            }
-
-            /* Research Request Modal */
-            .mvc-onos-modal-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 18, 41, 0.75);
-                backdrop-filter: blur(4px);
-                z-index: 99999;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-                box-sizing: border-box;
-            }
-
-            .mvc-onos-modal-dialog {
-                background: #FFFFFF;
-                border-radius: 16px;
-                width: 100%;
-                max-width: 620px;
-                max-height: 90vh;
-                overflow-y: auto;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-                border: 1px solid var(--mvc-onos-slate-200);
-                animation: mvcOnosModalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-
-            @keyframes mvcOnosModalIn {
-                from { opacity: 0; transform: scale(0.95) translateY(10px); }
-                to   { opacity: 1; transform: scale(1) translateY(0); }
-            }
-
-            .mvc-onos-modal-header {
-                background: var(--mvc-onos-navy);
-                color: #FFFFFF;
-                padding: 20px 26px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                border-bottom: 3px solid var(--mvc-onos-gold);
-            }
-
-            .mvc-onos-modal-header h3 {
-                font-size: 18px;
-                font-weight: 800;
-                margin: 0 0 3px;
-                color: #FFFFFF;
-            }
-
-            .mvc-onos-modal-header p {
-                font-size: 12px;
-                color: #CBD5E1;
-                margin: 0;
-            }
-
-            .mvc-onos-modal-close {
-                background: transparent;
-                border: none;
-                color: #FFFFFF;
-                font-size: 26px;
-                cursor: pointer;
-                line-height: 1;
-                padding: 0;
-                opacity: 0.8;
-                transition: opacity 0.2s;
-            }
-
-            .mvc-onos-modal-close:hover {
-                opacity: 1;
-                color: var(--mvc-onos-gold);
-            }
-
-            .mvc-onos-modal-body {
-                padding: 24px 26px;
-            }
-
-            .mvc-onos-form-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-
-            .mvc-onos-form-full {
-                grid-column: 1 / -1;
-            }
-
-            .mvc-onos-form-group label {
-                display: block;
-                font-size: 12.5px;
-                font-weight: 700;
-                color: var(--mvc-onos-slate-700);
-                margin-bottom: 6px;
-            }
-
-            .mvc-onos-form-group input,
-            .mvc-onos-form-group select,
-            .mvc-onos-form-group textarea {
-                width: 100% !important;
-                padding: 9px 12px !important;
-                border: 1.5px solid var(--mvc-onos-slate-300) !important;
-                border-radius: 7px !important;
-                font-size: 13.5px !important;
-                color: var(--mvc-onos-slate-800) !important;
-                box-sizing: border-box !important;
-                outline: none !important;
-                background: #FFFFFF !important;
-            }
-
-            .mvc-onos-form-group input:focus,
-            .mvc-onos-form-group select:focus,
-            .mvc-onos-form-group textarea:focus {
-                border-color: var(--mvc-onos-navy) !important;
-                box-shadow: 0 0 0 3px rgba(0, 33, 71, 0.1) !important;
-            }
-
-            .mvc-onos-modal-footer {
-                padding: 16px 26px 22px;
-                border-top: 1px solid var(--mvc-onos-slate-200);
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                gap: 12px;
-            }
-
-            .mvc-onos-alert-box {
-                display: none;
-                padding: 12px 16px;
-                border-radius: 8px;
-                font-size: 13px;
-                font-weight: 600;
-                margin-bottom: 16px;
-            }
-
-            .mvc-onos-alert-success { background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7; }
-            .mvc-onos-alert-error   { background: #FEE2E2; color: #991B1B; border: 1px solid #FCA5A5; }
-
             /* Responsive */
             @media (max-width: 992px) {
                 .mvc-onos-kpi-grid {
                     grid-template-columns: repeat(2, 1fr);
+                }
+                .mvc-onos-fact-grid {
+                    grid-template-columns: 1fr;
                 }
                 .mvc-onos-modes-grid {
                     grid-template-columns: 1fr;
                 }
                 .mvc-onos-nodal-right {
                     align-items: flex-start;
-                    min-width: 100%;
                 }
                 .mvc-onos-nodal-mandate {
                     text-align: left;
-                    max-width: 100%;
-                }
-                .mvc-onos-nodal-btns {
-                    justify-content: flex-start;
                 }
             }
 
             @media (max-width: 640px) {
                 .mvc-onos-hero {
-                    padding: 32px 16px 40px;
+                    padding: 30px 16px 36px;
                 }
                 .mvc-onos-hero-title {
-                    font-size: 28px;
+                    font-size: 26px;
                 }
                 .mvc-onos-kpi-grid {
                     grid-template-columns: 1fr;
@@ -1435,23 +1100,18 @@ function mvc_render_onos_page() {
                 .mvc-onos-pub-grid {
                     grid-template-columns: 1fr;
                 }
-                .mvc-onos-form-grid {
-                    grid-template-columns: 1fr;
-                }
                 .mvc-onos-nodal-left {
                     flex-direction: column;
                     text-align: center;
                 }
-                .mvc-onos-nodal-avatar-wrap {
-                    margin: 0 auto;
-                }
                 .mvc-onos-nodal-right {
                     text-align: center;
+                    width: 100%;
                 }
                 .mvc-onos-nodal-mandate {
                     text-align: center;
                 }
-                .mvc-onos-nodal-btns {
+                .mvc-onos-btn-nodal-email {
                     justify-content: center;
                     width: 100%;
                 }
@@ -1472,50 +1132,30 @@ function mvc_render_onos_page() {
                     <span class="current">ONOS National Gateway</span>
                 </nav>
 
-                <!-- National Sovereign Emblem Bar -->
-                <div class="mvc-onos-emblem-strip">
-                    <div class="mvc-onos-emblem-badge">
-                        <span class="mvc-onos-emblem-icon">🇮🇳</span>
-                        <span>Government of India &bull; Ministry of Education</span>
-                    </div>
-                    <div class="mvc-onos-emblem-badge">
-                        <span class="mvc-onos-emblem-icon">🌐</span>
-                        <span>UGC INFLIBNET Centre National Coordination</span>
-                    </div>
-                    <div class="mvc-onos-emblem-badge">
-                        <span class="mvc-onos-emblem-icon">🏛️</span>
-                        <span>VKSU Constituent College Network</span>
-                    </div>
-                </div>
-
-                <!-- Hero Badges -->
-                <div class="mvc-onos-hero-pills">
-                    <span class="mvc-onos-pill gold">🏛 ₹6,000 Cr Centrally Funded Scheme</span>
-                    <span class="mvc-onos-pill saffron">📜 NEP-2020 High-Impact Research</span>
-                    <span class="mvc-onos-pill">📚 30+ Global Tier-1 Publishers</span>
-                    <span class="mvc-onos-pill green">✓ 100% Free Scholar Access</span>
-                    <span class="mvc-onos-pill">📡 Campus IP &amp; INFED SSO Active</span>
+                <!-- National Sovereign Emblem Badge -->
+                <div class="mvc-onos-emblem-badge">
+                    <span>🇮🇳 Ministry of Education, Govt. of India &bull; INFLIBNET Centre</span>
                 </div>
 
                 <!-- Title Cluster -->
                 <div class="mvc-onos-hindi-kicker">
-                    एक राष्ट्र, एक सदस्यता (One Nation One Subscription) &bull; राष्ट्रीय उच्च शिक्षा अनुसंधान ज्ञान नेटवर्क
+                    एक राष्ट्र, एक सदस्यता &bull; One Nation One Subscription (ONOS)
                 </div>
                 <h1 class="mvc-onos-hero-title">
-                    One Nation One Subscription (ONOS)
+                    National Higher Education Research Knowledge Network
                 </h1>
                 <p class="mvc-onos-hero-desc">
-                    Maharshi Vishwamitra Mahavidyalaya is fully integrated into <strong>One Nation One Subscription (ONOS)</strong> — a landmark sovereign digital knowledge mission by the Ministry of Education, Government of India. Under this central national site license, all undergraduate scholars, postgraduate researchers, and faculty members enjoy seamless, zero-cost, 24&times;7 access to over 13,000+ top-tier international peer-reviewed journals, conference proceedings, and scholarly databases from the world's leading publishers without individual paywalls.
+                    Approved by the Union Cabinet on 25 November 2024 and launched nationwide on 1 January 2025, <strong>One Nation One Subscription (ONOS)</strong> is a ₹6,000 Crore flagship initiative by the Ministry of Education, Government of India, coordinated through the INFLIBNET Centre. It provides centralized, zero-cost national access to over 13,000+ international peer-reviewed journals from 30 major global publishers across 6,500+ government higher education institutions, benefiting 1.8 crore students, researchers, and faculty members.
                 </p>
 
                 <!-- Action Triggers -->
                 <div class="mvc-onos-hero-actions">
-                    <a href="#mvcOnosCatalog" class="mvc-onos-btn-primary">
-                        <span>🔍</span> Explore 16+ Global Publisher Gateways
+                    <a href="https://www.onos.gov.in/" target="_blank" rel="noopener noreferrer" class="mvc-onos-btn-primary">
+                        <span>🌐</span> Search Official National Portal (onos.gov.in) &nearr;
                     </a>
-                    <button type="button" class="mvc-onos-btn-secondary" onclick="mvcOpenOnosRequestModal();">
-                        <span>📋</span> Request Literature / PDF Assistance
-                    </button>
+                    <a href="#mvcOnosCatalog" class="mvc-onos-btn-secondary">
+                        <span>🔍</span> Browse Participating Publishers Catalog ↓
+                    </a>
                     <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-onos-btn-secondary">
                         <span>📚</span> Central Digital Library &rarr;
                     </a>
@@ -1546,7 +1186,7 @@ function mvc_render_onos_page() {
                     <div class="mvc-onos-kpi-card">
                         <div class="mvc-onos-kpi-icon mvc-onos-kpi-purple">🌐</div>
                         <div>
-                            <div class="mvc-onos-kpi-val">6,300+</div>
+                            <div class="mvc-onos-kpi-val">6,500+</div>
                             <div class="mvc-onos-kpi-lbl">Institutions in National Grid</div>
                         </div>
                     </div>
@@ -1555,58 +1195,99 @@ function mvc_render_onos_page() {
                         <div class="mvc-onos-kpi-icon mvc-onos-kpi-green">₹0</div>
                         <div>
                             <div class="mvc-onos-kpi-val">100% Free</div>
-                            <div class="mvc-onos-kpi-lbl">Zero Paywall for MVC Scholars</div>
+                            <div class="mvc-onos-kpi-lbl">Zero Paywall for Scholars</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. DESIGNATED INSTITUTIONAL NODAL OFFICER SPOTLIGHT -->
+            <!-- 3. OFFICIAL SCHEME FACTSHEET MATRIX -->
+            <section class="mvc-onos-factsheet" aria-label="ONOS Scheme Factsheet">
+                <h2 class="mvc-onos-fact-title">
+                    <span>📋</span> Official ONOS Scheme Factsheet &amp; Implementation Parameters
+                </h2>
+                <div class="mvc-onos-fact-grid">
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Official Name</span>
+                        <span class="mvc-onos-fact-val">One Nation One Subscription (ONOS) / एक राष्ट्र, एक सदस्यता</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Union Cabinet Approval</span>
+                        <span class="mvc-onos-fact-val">25 November 2024</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Nationwide Launch</span>
+                        <span class="mvc-onos-fact-val">1 January 2025</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Phase-1 Implementation</span>
+                        <span class="mvc-onos-fact-val">2025 – 2027 (3-Year Block)</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Central Financial Outlay</span>
+                        <span class="mvc-onos-fact-val">₹6,000 Crore (Centrally Funded)</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Nodal Ministry</span>
+                        <span class="mvc-onos-fact-val">Dept. of Higher Education, Ministry of Education, Govt. of India</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Central Executing Agency</span>
+                        <span class="mvc-onos-fact-val">INFLIBNET Centre, Gandhinagar (Autonomous IUC of UGC)</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Official National Portal</span>
+                        <span class="mvc-onos-fact-val"><a href="https://www.onos.gov.in" target="_blank" rel="noopener" style="color:var(--mvc-onos-navy);">https://www.onos.gov.in ↗</a></span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Target Beneficiaries</span>
+                        <span class="mvc-onos-fact-val">1.8 Crore Scholars in 6,500+ Govt HEIs &amp; R&amp;D Labs</span>
+                    </div>
+                    <div class="mvc-onos-fact-row">
+                        <span class="mvc-onos-fact-lbl">Cost to Students &amp; Faculty</span>
+                        <span class="mvc-onos-fact-val" style="color:var(--mvc-onos-green);">₹0 (100% Free / No Paywalls)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. INSTITUTIONAL NODAL OFFICER SPOTLIGHT -->
             <section class="mvc-onos-nodal-section" aria-label="Designated ONOS Nodal Desk">
                 <div class="mvc-onos-nodal-left">
-                    <div class="mvc-onos-nodal-avatar-wrap">
-                        <div class="mvc-onos-nodal-avatar">👨‍🔬</div>
-                        <div class="mvc-onos-nodal-seal" title="Officially Appointed Nodal Officer">✓</div>
-                    </div>
+                    <div class="mvc-onos-nodal-avatar">👨‍🔬</div>
                     <div>
                         <div class="mvc-onos-nodal-badge">
-                            <span>🏛️ Officially Designated Institutional Nodal Officer</span>
+                            <span>🏛️ Designated Institutional Nodal Officer (ONOS)</span>
                         </div>
-                        <h2 class="mvc-onos-nodal-name">Dr. Ravi Thakur</h2>
+                        <h3 class="mvc-onos-nodal-name">Dr. Ravi Thakur</h3>
                         <div class="mvc-onos-nodal-title">
                             Assistant Professor, Department of Chemistry
                         </div>
                         <div class="mvc-onos-nodal-dept">
                             Maharshi Vishwamitra Mahavidyalaya, Buxar &bull; Constituent of VKSU Ara
                         </div>
-                        <div style="font-size: 12px; color: #94A3B8; margin-top: 4px;">
-                            Office: Science Block, Chemistry Research Wing / Central Library Desk
+                        <div style="font-size: 12px; color: #94A3B8; margin-top: 3px;">
+                            Desk: Science Block, Chemistry Research Wing / Central Library Research Cell
                         </div>
                     </div>
                 </div>
 
                 <div class="mvc-onos-nodal-right">
                     <div class="mvc-onos-nodal-mandate">
-                        Mandated by the Principal to facilitate institutional scholar registration, IP range verification, Mendeley citation indexing, and remote INFED federated access.
+                        Officially appointed to assist enrolled students and faculty with IP access whitelisting, literature retrieval, Mendeley citations, and off-campus INFED federated login.
                     </div>
-                    <div class="mvc-onos-nodal-btns">
-                        <a href="mailto:mvcollegebuxar@gmail.com?subject=ONOS%20Scholar%20Inquiry%20-%20Attn%20Dr.%20Ravi%20Thakur" class="mvc-onos-btn-nodal-email">
-                            <span>✉️</span> Email Nodal Officer
-                        </a>
-                        <button type="button" class="mvc-onos-btn-nodal-req" onclick="mvcOpenOnosRequestModal();">
-                            <span>📋</span> Request Research Help
-                        </button>
-                    </div>
+                    <a href="mailto:mvcollegebuxar@gmail.com?subject=ONOS%20Scholar%20Inquiry%20-%20Attn%20Dr.%20Ravi%20Thakur" class="mvc-onos-btn-nodal-email">
+                        <span>✉️</span> Email Nodal Officer
+                    </a>
                 </div>
             </section>
 
-            <!-- 4. PARTICIPATING GLOBAL PUBLISHERS DIRECTORY & CATALOG -->
+            <!-- 5. PARTICIPATING GLOBAL PUBLISHERS DIRECTORY & CATALOG -->
             <section id="mvcOnosCatalog" class="mvc-onos-catalog-section" aria-label="Global Publishers Directory">
                 <div class="mvc-onos-section-head">
                     <span class="mvc-onos-section-kicker">International Academic Publisher Network</span>
                     <h2 class="mvc-onos-section-title">Participating Global Publishers &amp; Digital Databases</h2>
                     <p class="mvc-onos-section-desc">
-                        Explore major international publishers licensed under the Government of India One Nation One Subscription framework. Click any gateway to search, read, and download peer-reviewed literature across Pure Sciences, Computing, Humanities, and Social Sciences.
+                        Under ONOS Phase-1, the central government procures national licenses directly from premier international publishers. Explore the participating publisher gateways below to search, read, and download full-text research papers:
                     </p>
                 </div>
 
@@ -1644,9 +1325,9 @@ function mvc_render_onos_page() {
 
                 <!-- Empty State for Filters -->
                 <div class="mvc-onos-empty-state" id="mvcOnosEmptyState">
-                    <div class="mvc-onos-empty-icon">🔍</div>
-                    <h3 class="mvc-onos-empty-title">No Matching Gateways Found</h3>
-                    <p class="mvc-onos-empty-desc">No participating publishers match your keyword search or discipline filter.</p>
+                    <div style="font-size:32px; margin-bottom:8px;">🔍</div>
+                    <h4 style="font-size:16px; font-weight:800; color:var(--mvc-onos-navy); margin:0 0 6px;">No Matching Gateways Found</h4>
+                    <p style="font-size:13.5px; color:var(--mvc-onos-slate-600); margin:0 0 14px;">No participating publishers match your keyword search or discipline filter.</p>
                     <button type="button" class="mvc-onos-btn-primary" onclick="mvcResetPubFilters();" style="display:inline-flex;">
                         <span>↺</span> Reset Publisher Filters
                     </button>
@@ -1664,7 +1345,7 @@ function mvc_render_onos_page() {
                             <div>
                                 <div class="mvc-onos-pub-header">
                                     <div class="mvc-onos-pub-icon-wrap"><?php echo $pub['icon']; ?></div>
-                                    <div class="mvc-onos-pub-title-block">
+                                    <div style="flex:1;">
                                         <h3 class="mvc-onos-pub-name"><?php echo esc_html($pub['name']); ?></h3>
                                         <span class="mvc-onos-pub-badge"><?php echo esc_html($pub['badge']); ?></span>
                                     </div>
@@ -1697,13 +1378,13 @@ function mvc_render_onos_page() {
                 </div>
             </section>
 
-            <!-- 5. THREE ACCESS MODES (STEP-BY-STEP USER GUIDE) -->
+            <!-- 6. TWO SANCTIONED ACCESS MODES -->
             <section class="mvc-onos-modes-section" aria-label="Access Protocols">
                 <div class="mvc-onos-section-head">
-                    <span class="mvc-onos-section-kicker">User Enablement Protocol</span>
-                    <h2 class="mvc-onos-section-title">How to Access ONOS at Maharshi Vishwamitra Mahavidyalaya</h2>
+                    <span class="mvc-onos-section-kicker">User Authentication Protocol</span>
+                    <h2 class="mvc-onos-section-title">How Scholars Access ONOS Literature</h2>
                     <p class="mvc-onos-section-desc">
-                        Scholars and faculty members can retrieve full-text articles through three sanctioned access protocols:
+                        Access to participating journal articles is available through two standardized methods:
                     </p>
                 </div>
 
@@ -1711,146 +1392,45 @@ function mvc_render_onos_page() {
                     <!-- Mode 1: Campus IP -->
                     <div class="mvc-onos-mode-card">
                         <div class="mvc-onos-mode-number">1</div>
-                        <h3 class="mvc-onos-mode-title">Campus Wi-Fi &amp; IP Network</h3>
+                        <h3 class="mvc-onos-mode-title">On-Campus IP Recognition (Automatic)</h3>
                         <p class="mvc-onos-mode-desc">
-                            Direct, automated institutional access without individual logins whenever connected to the college network.
+                            Direct, automated access when connected to the official college Wi-Fi or Central Library computer lab.
                         </p>
                         <ul class="mvc-onos-mode-steps">
-                            <li>Connect your device to <strong>MVC Campus High-Speed Wi-Fi</strong> or library LAN.</li>
-                            <li>Navigate directly to any participating publisher site (e.g., <code>sciencedirect.com</code> or <code>springer.com</code>).</li>
-                            <li>The banner will automatically show: <em>"Access provided by Maharshi Vishwamitra Mahavidyalaya / ONOS"</em>.</li>
-                            <li>Read and download complete full-text PDF manuscripts instantly.</li>
+                            <li>Connect your device to <strong>MVC Campus Wi-Fi</strong> or library local network.</li>
+                            <li>Navigate directly to any participating publisher site (e.g. <code>sciencedirect.com</code> or <code>springer.com</code>).</li>
+                            <li>The publisher will recognize the institutional IP range and unlock full-text PDF downloads without a password.</li>
                         </ul>
-                        <div class="mvc-onos-mode-badge">
-                            📍 Available across all academic wings &amp; labs
-                        </div>
                     </div>
 
-                    <!-- Mode 2: Remote / Off-Campus INFED -->
+                    <!-- Mode 2: Remote Access via INFED -->
                     <div class="mvc-onos-mode-card gold-top">
                         <div class="mvc-onos-mode-number">2</div>
-                        <h3 class="mvc-onos-mode-title">Remote Access via INFED / SSO</h3>
+                        <h3 class="mvc-onos-mode-title">Off-Campus Remote Access via INFED (SSO)</h3>
                         <p class="mvc-onos-mode-desc">
-                            Access international peer-reviewed journals from home, research field trips, or anywhere in the world.
+                            24&times;7 remote access from home, hostel, or field research locations worldwide.
                         </p>
                         <ul class="mvc-onos-mode-steps">
-                            <li>Visit the target journal website or official <code>onos.gov.in</code>.</li>
-                            <li>Click on <strong>"Institutional Login"</strong> or <strong>"Log In via your Institution"</strong>.</li>
-                            <li>Select the Indian national federation: <strong>INFLIBNET / INFED</strong>.</li>
-                            <li>Search and select <strong>"Maharshi Vishwamitra Mahavidyalaya, Buxar"</strong>.</li>
-                            <li>Sign in with your verified institutional Google workspace / college scholar email.</li>
+                            <li>Visit the target journal website or official national gateway at <code>onos.gov.in</code>.</li>
+                            <li>Click <strong>"Institutional Login"</strong> and choose the national identity federation: <strong>INFLIBNET / INFED</strong>.</li>
+                            <li>Search and select <strong>"Maharshi Vishwamitra Mahavidyalaya, Buxar"</strong> and authenticate with your institutional credentials.</li>
                         </ul>
-                        <div class="mvc-onos-mode-badge" style="background:#FEF9C3; border-color:#FDE047; color:#854D0E;">
-                            🌐 24&times;7 Remote Scholar Access Active
-                        </div>
-                    </div>
-
-                    <!-- Mode 3: Central Library Terminals -->
-                    <div class="mvc-onos-mode-card saffron-top">
-                        <div class="mvc-onos-mode-number">3</div>
-                        <h3 class="mvc-onos-mode-title">Central Library Research Terminals</h3>
-                        <p class="mvc-onos-mode-desc">
-                            Dedicated desktop computing terminals with dedicated gigabit lease lines, Mendeley software, and printing facilities.
-                        </p>
-                        <ul class="mvc-onos-mode-steps">
-                            <li>Visit the <strong>Automated Central Digital Library &amp; e-Resource Centre</strong>.</li>
-                            <li>Log in to any of the 20+ dedicated research terminals using your student/faculty ID.</li>
-                            <li>Staff librarians and Nodal Officer Dr. Ravi Thakur provide hands-on assistance for Boolean literature search.</li>
-                            <li>High-speed local printing, citation downloads, and Mendeley/Zotero exports available.</li>
-                        </ul>
-                        <div class="mvc-onos-mode-badge" style="background:#FFF7ED; border-color:#FFEDD5; color:#C2410C;">
-                            📖 Library Hours: Mon – Sat 10:00 AM – 05:00 PM
-                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 6. GUIDELINES & FAIR USE PROTOCOL -->
+            <!-- 7. ACADEMIC INTEGRITY & FAIR USE -->
             <section class="mvc-onos-guide-banner" aria-label="ONOS Fair Use Protocol">
                 <div class="mvc-onos-guide-icon">⚖️</div>
                 <div class="mvc-onos-guide-body">
                     <h3>National Academic Integrity &amp; Fair-Use Regulations</h3>
                     <p>
-                        Electronic journals and databases provided under One Nation One Subscription are governed by international copyright laws and Government of India Ministry of Education license agreements. All members of Maharshi Vishwamitra Mahavidyalaya must adhere to these statutory fair-use standards:
+                        Journals provided under One Nation One Subscription are governed by international copyright laws and Government of India site licenses:
                     </p>
                     <ul>
-                        <li><strong>Permitted Scholarly Use:</strong> Viewing, downloading, and printing single copies of peer-reviewed articles strictly for individual academic coursework, dissertation preparation, empirical research, and classroom teaching.</li>
-                        <li><strong>Prohibited Misuse:</strong> Automated systematic downloading, bulk web-scraping using software robots, sharing credentials with non-institutional users, or commercial re-distribution of copyrighted manuscripts.</li>
-                        <li><strong>Plagiarism Threshold:</strong> Under UGC Regulations 2018, all research theses and papers citing ONOS literature must undergo mandatory similarity screening (&lt;10% threshold) through the college Central Research Cell.</li>
+                        <li><strong>Permitted Scholarly Use:</strong> Viewing, reading, downloading, and printing single copies of peer-reviewed articles strictly for individual academic coursework, dissertation preparation, empirical research, and classroom teaching.</li>
+                        <li><strong>Prohibited Misuse:</strong> Automated systematic downloading, bulk web-scraping using software robots, sharing credentials with non-institutional users, or commercial re-distribution.</li>
                     </ul>
-                </div>
-            </section>
-
-            <!-- 7. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION) -->
-            <section class="mvc-onos-faq-section" aria-label="Frequently Asked Questions">
-                <div class="mvc-onos-section-head">
-                    <span class="mvc-onos-section-kicker">Clarifications &amp; Guidance</span>
-                    <h2 class="mvc-onos-section-title">Frequently Asked Questions</h2>
-                    <p class="mvc-onos-section-desc">
-                        Common queries regarding One Nation One Subscription eligibility, literature retrieval, and credentials at MVC Buxar.
-                    </p>
-                </div>
-
-                <div class="mvc-onos-faq-list">
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>1. Who is eligible to use ONOS at Maharshi Vishwamitra Mahavidyalaya?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            All enrolled Four-Year FYUGP NEP undergraduate students, postgraduate scholars, permanent teaching faculty, ad-hoc guest professors, and administrative research personnel of Maharshi Vishwamitra Mahavidyalaya are fully entitled to free access under the college's constituent affiliation with Veer Kunwar Singh University (VKSU).
-                        </div>
-                    </div>
-
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>2. Is there any subscription or download fee charged to students?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            No. One Nation One Subscription is 100% centrally funded by the Government of India through the Ministry of Education. Neither the college nor the publishers charge any subscription fee, paywall unlocks, or article processing charges (APCs) to students and faculty.
-                        </div>
-                    </div>
-
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>3. How is ONOS different from INFLIBNET N-LIST?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            INFLIBNET N-LIST provides access to college-focused e-books (1,99,500+) and select e-journals primarily for undergraduate colleges. ONOS is a comprehensive national site license scheme covering tier-1 international research journals (Elsevier, Springer Nature, Wiley, IEEE, ACS, RSC, OUP, CUP) that were previously accessible only at central universities and IITs. Both platforms complement each other at MVC Buxar.
-                        </div>
-                    </div>
-
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>4. What should I do if a paper on ScienceDirect or Springer shows a paywall on campus?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            Ensure your device is connected to the official college Wi-Fi and not your private mobile hotspot. If an IP renewal issue occurs, click "Request Literature / PDF Assistance" on this page, or contact Nodal Officer Dr. Ravi Thakur at the Department of Chemistry. The paper will be retrieved for you via the Central Library console within 24 hours.
-                        </div>
-                    </div>
-
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>5. Can undergraduate students cite ONOS journals in their NEP seminar projects?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            Yes, absolutely! The National Education Policy (NEP 2020) curriculum actively encourages empirical scientific inquiry, secondary literature reviews, and research methodology for 3rd and 4th-year FYUGP degree students. Citing peer-reviewed ONOS journals significantly improves student project evaluation scores.
-                        </div>
-                    </div>
-
-                    <div class="mvc-onos-faq-item">
-                        <button type="button" class="mvc-onos-faq-question" onclick="mvcToggleFaq(this);">
-                            <span>6. How can faculty members organize an ONOS orientation session for their department?</span>
-                            <span class="mvc-onos-faq-arrow">▼</span>
-                        </button>
-                        <div class="mvc-onos-faq-answer">
-                            Department Heads (HODs) can send an official note or email to Nodal Officer Dr. Ravi Thakur (mvcollegebuxar@gmail.com) requesting an orientation workshop. Special training on advanced Boolean search, citation management with Mendeley, and predatory journal avoidance is regularly arranged in the Central Library Audio-Visual Hall.
-                        </div>
-                    </div>
                 </div>
             </section>
 
@@ -1858,109 +1438,23 @@ function mvc_render_onos_page() {
             <section class="mvc-onos-related-bar" aria-label="Related Academic Gateways">
                 <div class="mvc-onos-related-left">
                     <h4>Connected Institutional Academic Portals</h4>
-                    <p>Access companion scholarly repositories, automated catalog OPAC, and departmental faculty profiles.</p>
+                    <p>Access companion scholarly repositories, automated library catalog, and faculty profiles.</p>
                 </div>
                 <div class="mvc-onos-related-links">
-                    <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-onos-related-btn primary">
-                        <span>📚</span> Central Digital Library &amp; OPAC &rarr;
+                    <a href="https://www.onos.gov.in/" target="_blank" rel="noopener noreferrer" class="mvc-onos-related-btn primary">
+                        <span>🌐</span> Official ONOS Portal (onos.gov.in) ↗
+                    </a>
+                    <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-onos-related-btn">
+                        <span>📚</span> Central Digital Library &rarr;
                     </a>
                     <a href="<?php echo esc_url(home_url('/research/')); ?>" class="mvc-onos-related-btn">
-                        <span>🔬</span> Research &amp; Publications Portal &rarr;
-                    </a>
-                    <a href="<?php echo esc_url(home_url('/teaching-staff/')); ?>" class="mvc-onos-related-btn">
-                        <span>👨‍🏫</span> Teaching Faculty Directory &rarr;
+                        <span>🔬</span> Research &amp; Publications &rarr;
                     </a>
                 </div>
             </section>
         </div>
 
-        <!-- 9. SCHOLAR LITERATURE REQUEST MODAL -->
-        <div class="mvc-onos-modal-overlay" id="mvcOnosRequestModal" onclick="if(event.target === this) mvcCloseOnosRequestModal();" role="dialog" aria-modal="true" aria-labelledby="mvcOnosModalTitle">
-            <div class="mvc-onos-modal-dialog">
-                <div class="mvc-onos-modal-header">
-                    <div>
-                        <h3 id="mvcOnosModalTitle">Request Full-Text Literature / Article Assistance</h3>
-                        <p>ONOS Institutional Nodal Desk &bull; Dr. Ravi Thakur &amp; Central Library</p>
-                    </div>
-                    <button type="button" class="mvc-onos-modal-close" onclick="mvcCloseOnosRequestModal();" aria-label="Close modal">&times;</button>
-                </div>
-
-                <div class="mvc-onos-modal-body">
-                    <div id="mvcOnosModalAlert" class="mvc-onos-alert-box"></div>
-
-                    <form id="mvcOnosRequestForm" onsubmit="mvcSubmitOnosRequest(event);">
-                        <div class="mvc-onos-form-grid">
-                            <div class="mvc-onos-form-group">
-                                <label for="onos_req_name">Scholar / Faculty Name <span style="color:#DC2626;">*</span></label>
-                                <input type="text" id="onos_req_name" name="requester_name" value="<?php echo esc_attr($current_user->display_name); ?>" placeholder="e.g. Ramesh Kumar" required>
-                            </div>
-
-                            <div class="mvc-onos-form-group">
-                                <label for="onos_req_email">Institutional / Contact Email <span style="color:#DC2626;">*</span></label>
-                                <input type="email" id="onos_req_email" name="requester_email" value="<?php echo esc_attr($current_user->user_email); ?>" placeholder="e.g. scholar@gmail.com" required>
-                            </div>
-
-                            <div class="mvc-onos-form-group">
-                                <label for="onos_req_role">Academic Designation / Program <span style="color:#DC2626;">*</span></label>
-                                <select id="onos_req_role" name="requester_role" required>
-                                    <option value="UG Student (FYUGP NEP)">UG Student (Four-Year FYUGP NEP)</option>
-                                    <option value="Postgraduate (P.G.) Scholar">Postgraduate (P.G.) Scholar</option>
-                                    <option value="Teaching Faculty / Professor">Teaching Faculty / Professor</option>
-                                    <option value="Research Scholar / Ph.D.">Research Scholar / Ph.D.</option>
-                                    <option value="Department Head (HOD)">Department Head (HOD)</option>
-                                </select>
-                            </div>
-
-                            <div class="mvc-onos-form-group">
-                                <label for="onos_req_dept">Academic Department <span style="color:#DC2626;">*</span></label>
-                                <select id="onos_req_dept" name="requester_dept" required>
-                                    <option value="Chemistry">Department of Chemistry</option>
-                                    <option value="Physics">Department of Physics</option>
-                                    <option value="Mathematics">Department of Mathematics</option>
-                                    <option value="Botany">Department of Botany</option>
-                                    <option value="Zoology">Department of Zoology</option>
-                                    <option value="History">Department of History</option>
-                                    <option value="Political Science">Department of Political Science</option>
-                                    <option value="Economics">Department of Economics</option>
-                                    <option value="Hindi">Department of Hindi</option>
-                                    <option value="English">Department of English</option>
-                                    <option value="Philosophy">Department of Philosophy</option>
-                                    <option value="Sanskrit">Department of Sanskrit</option>
-                                    <option value="Urdu">Department of Urdu</option>
-                                    <option value="Psychology">Department of Psychology</option>
-                                    <option value="Geography">Department of Geography</option>
-                                    <option value="Commerce & Vocational">Commerce / BCA / Vocational</option>
-                                </select>
-                            </div>
-
-                            <div class="mvc-onos-form-full mvc-onos-form-group">
-                                <label for="onos_article_title">Paper / Manuscript Title or Research Topic <span style="color:#DC2626;">*</span></label>
-                                <input type="text" id="onos_article_title" name="article_title" placeholder="e.g. Synthesis of Transition Metal Catalysts in Water..." required>
-                            </div>
-
-                            <div class="mvc-onos-form-full mvc-onos-form-group">
-                                <label for="onos_article_doi">DOI / Article URL / Journal &amp; Publisher Details</label>
-                                <input type="text" id="onos_article_doi" name="article_doi" placeholder="e.g. https://doi.org/10.1016/j.tet.2024.133456 or Elsevier ScienceDirect">
-                            </div>
-
-                            <div class="mvc-onos-form-full mvc-onos-form-group">
-                                <label for="onos_req_notes">Additional Research Notes / Specific Volume or Issue Needed</label>
-                                <textarea id="onos_req_notes" name="notes" rows="3" placeholder="Mention volume, issue numbers, or specific chapters needed for your coursework or dissertation..."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="mvc-onos-modal-footer">
-                            <button type="button" class="mvc-onos-btn-secondary" style="color:var(--mvc-onos-slate-700)!important;" onclick="mvcCloseOnosRequestModal();">Cancel</button>
-                            <button type="submit" class="mvc-onos-btn-primary" id="mvcBtnSubmitOnos">
-                                <span>🚀</span> Submit Request to Nodal Desk
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- 10. CLIENT ENGINE JAVASCRIPT -->
+        <!-- 9. CLIENT ENGINE JAVASCRIPT -->
         <script>
             var mvcActivePubCategory = 'all';
 
@@ -2017,92 +1511,7 @@ function mvc_render_onos_page() {
                 mvcSelectPubTab('all', allTab);
             }
 
-            // FAQ Accordion Toggle
-            function mvcToggleFaq(btn) {
-                var answer = btn.nextElementSibling;
-                var arrow = btn.querySelector('.mvc-onos-faq-arrow');
-                if (!answer) return;
-
-                var isVisible = answer.style.display === 'block';
-                if (isVisible) {
-                    answer.style.display = 'none';
-                    if (arrow) arrow.textContent = '▼';
-                } else {
-                    answer.style.display = 'block';
-                    if (arrow) arrow.textContent = '▲';
-                }
-            }
-
-            // Modal Handlers
-            function mvcOpenOnosRequestModal() {
-                var modal = document.getElementById('mvcOnosRequestModal');
-                if (modal) {
-                    modal.style.display = 'flex';
-                    var alertBox = document.getElementById('mvcOnosModalAlert');
-                    if (alertBox) alertBox.style.display = 'none';
-                }
-            }
-
-            function mvcCloseOnosRequestModal() {
-                var modal = document.getElementById('mvcOnosRequestModal');
-                if (modal) modal.style.display = 'none';
-            }
-
-            // Literature Request Form Handler
-            function mvcSubmitOnosRequest(e) {
-                e.preventDefault();
-                var form = document.getElementById('mvcOnosRequestForm');
-                var submitBtn = document.getElementById('mvcBtnSubmitOnos');
-                var alertBox = document.getElementById('mvcOnosModalAlert');
-
-                if (!form || !submitBtn) return;
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span>⏳</span> Transmitting to Nodal Desk...';
-
-                // Collect request details
-                var name    = document.getElementById('onos_req_name').value.trim();
-                var email   = document.getElementById('onos_req_email').value.trim();
-                var role    = document.getElementById('onos_req_role').value;
-                var dept    = document.getElementById('onos_req_dept').value;
-                var title   = document.getElementById('onos_article_title').value.trim();
-                var doi     = document.getElementById('onos_article_doi').value.trim();
-                var notes   = document.getElementById('onos_req_notes').value.trim();
-
-                // Format mailto fallback for direct communication
-                var mailSubject = encodeURIComponent('ONOS Literature Retrieval Request: ' + title);
-                var mailBody = encodeURIComponent(
-                    'Dear Dr. Ravi Thakur (Institutional Nodal Officer, ONOS),\n\n' +
-                    'I am requesting full-text literature retrieval assistance under the ONOS framework:\n\n' +
-                    '• Requester Name: ' + name + '\n' +
-                    '• Designation/Role: ' + role + '\n' +
-                    '• Department: ' + dept + '\n' +
-                    '• Contact Email: ' + email + '\n\n' +
-                    '• Article Title: ' + title + '\n' +
-                    '• DOI / Publisher Link: ' + doi + '\n' +
-                    '• Additional Notes: ' + notes + '\n\n' +
-                    'Thank you,\n' + name + '\nMaharshi Vishwamitra Mahavidyalaya, Buxar'
-                );
-
-                setTimeout(function() {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<span>🚀</span> Submit Request to Nodal Desk';
-
-                    alertBox.className = 'mvc-onos-alert-box mvc-onos-alert-success';
-                    alertBox.innerHTML = '<strong>Request Logged Successfully!</strong><br>Opening your institutional email to dispatch your literature request directly to Nodal Officer Dr. Ravi Thakur...';
-                    alertBox.style.display = 'block';
-
-                    // Trigger client email dispatch
-                    window.location.href = 'mailto:mvcollegebuxar@gmail.com?subject=' + mailSubject + '&body=' + mailBody;
-
-                    setTimeout(function() {
-                        mvcCloseOnosRequestModal();
-                        form.reset();
-                    }, 2500);
-                }, 800);
-            }
-
-            // Run verification on DOM load
+            // Run on DOM ready
             document.addEventListener('DOMContentLoaded', function() {
                 mvcFilterPublishers();
             });
