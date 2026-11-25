@@ -361,7 +361,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
         <div class="mvc-container">
             <div class="mvc-bottom-flex">
                 <div class="mvc-bottom-copyright">
-                    <span class="mvc-inst-copy">&copy; <?php echo date('Y'); ?> <strong>Maharshi Vishwamitra Mahavidyalaya, Buxar</strong></span>
+                    <span class="mvc-inst-copy">&copy;&nbsp;<?php echo date('Y'); ?> <strong>Maharshi Vishwamitra Mahavidyalaya, Buxar</strong></span>
                     <span class="mvc-sep mvc-sep-credits" aria-hidden="true">&bull;</span>
                     <span class="mvc-dev-inline">Designed by <a href="https://retailcoder.com" target="_blank" rel="noopener" class="mvc-credit-link">RetailCoder</a></span>
                     <span class="mvc-sep" aria-hidden="true">&bull;</span>
@@ -881,7 +881,7 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
     box-sizing: border-box;
 }
@@ -895,7 +895,8 @@ $active_count       = (is_array($active_transient) && count($active_transient) >
     flex-shrink: 0;
 }
 .mvc-inst-copy {
-    display: inline;
+    display: inline-block;
+    white-space: nowrap;
 }
 .mvc-bottom-copyright strong {
     color: #ffffff;

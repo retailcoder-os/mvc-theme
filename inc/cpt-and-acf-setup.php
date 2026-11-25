@@ -1988,6 +1988,7 @@ function mvc_custom_cpt_menu_icons($args, $post_type) {
         'testimonial'        => 'dashicons-format-quote',          // Speech quotation
         'committee'          => 'dashicons-groups',                // Working committee council
         'grievance'          => 'dashicons-shield',                // Protection / grievance redressal
+        'research'           => 'dashicons-welcome-learn-more',    // Scholarly Research & Publications
     );
 
     if (isset($icons[$post_type])) {

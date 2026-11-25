@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 
 // 1. Define Architecture Constants
 if (!defined('MVC_ROLES_VERSION')) {
-    define('MVC_ROLES_VERSION', '1.1.0');
+    define('MVC_ROLES_VERSION', '1.2.0');
 }
 if (!defined('MVC_DB_VERSION')) {
     define('MVC_DB_VERSION', '1.0.0');
