@@ -322,8 +322,6 @@ function mvc_render_research_page() {
         }
     }
 
-    $active_depts_count = count($depts_active_map) ?: 16;
-    $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) : 88;
     $active_depts_count = count($depts_active_map);
     $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) . '%' : 'UGC CARE';
 
@@ -1359,32 +1357,166 @@ function mvc_render_research_page() {
             .mvc-res-alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
             .mvc-res-alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
-            /* Empty state */
+            /* Enhanced Zero-Data & Filter Empty State */
             .mvc-res-empty-state {
-                display: none;
                 text-align: center;
-                padding: 60px 20px;
+                padding: 56px 28px;
                 background: #ffffff;
-                border: 1.5px dashed var(--mvc-res-slate-300);
-                border-radius: 14px;
+                border: 2px dashed rgba(212, 175, 55, 0.45);
+                border-radius: 18px;
+                box-shadow: 0 10px 30px rgba(0, 33, 71, 0.04);
+                max-width: 900px;
+                margin: 0 auto 35px;
             }
 
-            .mvc-res-empty-icon {
-                font-size: 42px;
-                margin-bottom: 12px;
+            .mvc-res-empty-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 5px 14px;
+                background: rgba(212, 175, 55, 0.12);
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                color: #854d0e;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                margin-bottom: 20px;
+            }
+
+            .mvc-res-empty-badge-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #D4AF37;
+                display: inline-block;
+            }
+
+            .mvc-res-empty-icon-wrap {
+                width: 72px;
+                height: 72px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, rgba(0, 33, 71, 0.06), rgba(212, 175, 55, 0.15));
+                border: 1.5px solid rgba(212, 175, 55, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 16px;
+                font-size: 34px;
             }
 
             .mvc-res-empty-title {
-                font-size: 18px;
+                font-size: 22px;
                 font-weight: 800;
                 color: var(--mvc-res-navy);
-                margin: 0 0 6px;
+                margin: 0 0 10px;
+                letter-spacing: -0.3px;
             }
 
             .mvc-res-empty-desc {
-                font-size: 14px;
+                font-size: 15px;
                 color: var(--mvc-res-slate-600);
-                margin: 0 0 16px;
+                line-height: 1.6;
+                max-width: 680px;
+                margin: 0 auto 24px;
+            }
+
+            .mvc-res-empty-actions {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 14px;
+                flex-wrap: wrap;
+                margin-bottom: 32px;
+            }
+
+            .mvc-res-empty-admin-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 10px 18px;
+                border-radius: 8px;
+                background: #f1f5f9;
+                color: #0f172a !important;
+                font-size: 13.5px;
+                font-weight: 700;
+                text-decoration: none !important;
+                border: 1px solid #cbd5e1;
+                transition: all 0.2s ease;
+            }
+
+            .mvc-res-empty-admin-link:hover {
+                background: #e2e8f0;
+                border-color: #94a3b8;
+                transform: translateY(-2px);
+            }
+
+            .mvc-res-empty-guide {
+                border-top: 1px solid var(--mvc-res-slate-200);
+                padding-top: 26px;
+                margin-top: 8px;
+                text-align: left;
+            }
+
+            .mvc-res-guide-heading {
+                font-size: 13.5px;
+                font-weight: 800;
+                color: var(--mvc-res-navy);
+                text-align: center;
+                margin: 0 0 18px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .mvc-res-guide-steps {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+
+            .mvc-res-guide-step {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                background: #f8fafc;
+                border: 1px solid var(--mvc-res-slate-200);
+                border-radius: 10px;
+                padding: 14px 16px;
+            }
+
+            .mvc-res-step-badge {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: var(--mvc-res-navy);
+                color: var(--mvc-res-gold);
+                font-size: 12px;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .mvc-res-step-body strong {
+                display: block;
+                font-size: 13px;
+                color: var(--mvc-res-navy);
+                margin-bottom: 3px;
+            }
+
+            .mvc-res-step-body p {
+                font-size: 12px;
+                color: var(--mvc-res-slate-600);
+                margin: 0;
+                line-height: 1.45;
+            }
+
+            @media (max-width: 768px) {
+                .mvc-res-guide-steps {
+                    grid-template-columns: 1fr;
+                }
             }
 
             /* Responsive Adjustments */
@@ -1599,39 +1731,83 @@ function mvc_render_research_page() {
             </div>
 
             <!-- Empty State -->
-            <div class="mvc-res-empty-state" id="mvcResEmptyState">
             <div class="mvc-res-empty-state" id="mvcResEmptyState" style="<?php echo $total_researches === 0 ? 'display: block;' : 'display: none;'; ?>">
-                <div class="mvc-res-empty-icon">🔬</div>
-                <h3 class="mvc-res-empty-title">No Research Publications Found</h3>
-                <p class="mvc-res-empty-desc">No publications match your selected department, category, or search keywords.</p>
-                <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">Reset Filters</button>
-                <h3 class="mvc-res-empty-title">
-                    <?php echo $total_researches === 0 ? 'Institutional Research Repository Ready' : 'No Research Publications Found'; ?>
+                <div class="mvc-res-empty-badge">
+                    <span class="mvc-res-empty-badge-dot"></span>
+                    <span>Institutional Scholarly Archive</span>
+                </div>
+
+                <div class="mvc-res-empty-icon-wrap">
+                    <span class="mvc-res-empty-icon">🔬</span>
+                </div>
+
+                <h3 class="mvc-res-empty-title" id="mvcResEmptyTitle">
+                    <?php echo $total_researches === 0 ? 'Institutional Research Repository is Ready' : 'No Research Publications Found'; ?>
                 </h3>
-                <p class="mvc-res-empty-desc">
+
+                <p class="mvc-res-empty-desc" id="mvcResEmptyDesc">
                     <?php if ($total_researches === 0): ?>
-                        No research publications or funded project dossiers have been indexed yet. Department Heads (HODs), academic researchers, and administrators can publish scholarly papers, books, monographs, and research grants using the authorized portal desk.
+                        The Maharshi Vishwamitra Mahavidyalaya scholarly repository is open for archiving peer-reviewed articles, UGC-CARE indexed papers, faculty monographs, conference proceedings, patents, and funded research grants. Department Heads (HODs), faculty researchers, and administrators can publish scholarly works directly to the public portal.
                     <?php else: ?>
-                        No publications match your selected department, category, or search keywords.
+                        No publications match your selected department, publication category, or search keywords.
                     <?php endif; ?>
                 </p>
-                <?php if ($total_researches === 0): ?>
-                    <?php if ($can_publish): ?>
-                        <button type="button" class="mvc-btn-publish-trigger" onclick="mvcOpenPublishModal();" style="display:inline-flex;">
-                            <span>➕</span> Publish First Research Paper
-                        </button>
+
+                <div class="mvc-res-empty-actions" id="mvcResEmptyActions">
+                    <?php if ($total_researches === 0): ?>
+                        <?php if ($can_publish): ?>
+                            <button type="button" class="mvc-btn-publish-trigger" onclick="mvcOpenPublishModal();" style="display:inline-flex;">
+                                <span>➕</span> Publish First Research Paper
+                            </button>
+                            <a href="<?php echo esc_url(admin_url('post-new.php?post_type=research')); ?>" class="mvc-res-empty-admin-link">
+                                <span>🏛️</span> Publish via WP Admin Desk &rarr;
+                            </a>
+                        <?php else: ?>
+                            <a href="<?php echo esc_url(home_url('/portal/')); ?>" class="mvc-btn-publish-trigger" style="display:inline-flex; text-decoration:none;">
+                                <span>🔐</span> Scholar Portal Login to Submit &rarr;
+                            </a>
+                            <a href="<?php echo esc_url(home_url('/library/')); ?>" class="mvc-res-empty-admin-link">
+                                <span>📖</span> Central Library &amp; ONOS Gateway &rarr;
+                            </a>
+                        <?php endif; ?>
                     <?php else: ?>
-                        <a href="<?php echo esc_url(home_url('/portal/')); ?>" class="mvc-btn-publish-trigger" style="display:inline-flex; text-decoration:none;">
-                            <span>🔐</span> Scholar Portal Login to Submit &rarr;
-                        </a>
+                        <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">
+                            <span>↺</span> Reset All Filters
+                        </button>
                     <?php endif; ?>
-                <?php else: ?>
-                    <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">Reset Filters</button>
+                </div>
+
+                <?php if ($total_researches === 0): ?>
+                    <div class="mvc-res-empty-guide" id="mvcResEmptyGuide">
+                        <h4 class="mvc-res-guide-heading">Fast 3-Step Publishing Workflow for Faculty &amp; HODs</h4>
+                        <div class="mvc-res-guide-steps">
+                            <div class="mvc-res-guide-step">
+                                <div class="mvc-res-step-badge">1</div>
+                                <div class="mvc-res-step-body">
+                                    <strong>Authenticate</strong>
+                                    <p>Sign in using institutional credentials (HOD, Content Manager, or Principal).</p>
+                                </div>
+                            </div>
+                            <div class="mvc-res-guide-step">
+                                <div class="mvc-res-step-badge">2</div>
+                                <div class="mvc-res-step-body">
+                                    <strong>Submit Scholarly Dossier</strong>
+                                    <p>Enter title, authors, DOI, ISSN, UGC-CARE / Scopus indexing, and attach PDF.</p>
+                                </div>
+                            </div>
+                            <div class="mvc-res-guide-step">
+                                <div class="mvc-res-step-badge">3</div>
+                                <div class="mvc-res-step-body">
+                                    <strong>Public Indexing &amp; Citation</strong>
+                                    <p>Instantly indexed with live APA citations, department filters, and open-access downloads.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </div>
 
             <!-- 5. PUBLICATION CARDS GRID -->
-            <div class="mvc-res-cards-grid" id="mvcResCardsGrid">
             <div class="mvc-res-cards-grid" id="mvcResCardsGrid" style="<?php echo $total_researches === 0 ? 'display: none;' : 'display: grid;'; ?>">
                 <?php
                 if (!empty($researches)):
@@ -1741,7 +1917,7 @@ function mvc_render_research_page() {
             </div>
 
             <!-- 6. APA BIBLIOGRAPHY LIST VIEW -->
-            <div class="mvc-res-bib-list" id="mvcResBibList">
+            <div class="mvc-res-bib-list" id="mvcResBibList" style="display: none;">
                 <?php
                 if (!empty($researches)):
                     foreach ($researches as $r):
@@ -2027,10 +2203,27 @@ function mvc_render_research_page() {
 
                 // Handle empty state
                 var emptyEl = document.getElementById('mvcResEmptyState');
+                var emptyTitle = document.getElementById('mvcResEmptyTitle');
+                var emptyDesc = document.getElementById('mvcResEmptyDesc');
+                var emptyActions = document.getElementById('mvcResEmptyActions');
+                var emptyGuide = document.getElementById('mvcResEmptyGuide');
                 var cardsGrid = document.getElementById('mvcResCardsGrid');
                 var bibList = document.getElementById('mvcResBibList');
 
-                if (visibleCount === 0) {
+                if (cards.length === 0) {
+                    // 0 total database records: keep the premier institutional onboarding empty state
+                    if (emptyEl) emptyEl.style.display = 'block';
+                    if (cardsGrid) cardsGrid.style.display = 'none';
+                    if (bibList) bibList.style.display = 'none';
+                    if (emptyGuide) emptyGuide.style.display = 'block';
+                } else if (visibleCount === 0) {
+                    // Filters returned 0 records: show filter-specific empty state
+                    if (emptyTitle) emptyTitle.textContent = 'No Research Publications Found';
+                    if (emptyDesc) emptyDesc.textContent = 'No publications match your selected department, publication category, or search keywords.';
+                    if (emptyActions) {
+                        emptyActions.innerHTML = '<button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;"><span>↺</span> Reset All Filters</button>';
+                    }
+                    if (emptyGuide) emptyGuide.style.display = 'none';
                     if (emptyEl) emptyEl.style.display = 'block';
                     if (cardsGrid) cardsGrid.style.display = 'none';
                     if (bibList) bibList.style.display = 'none';
@@ -2045,6 +2238,11 @@ function mvc_render_research_page() {
                     }
                 }
             }
+
+            // Auto-run filter verification when DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+                mvcFilterResearch();
+            });
 
             // Category Tab Selection
             function mvcSelectTypeFilter(type, btn) {
