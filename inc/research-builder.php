@@ -322,8 +322,8 @@ function mvc_render_research_page() {
         }
     }
 
-    $active_depts_count = count($depts_active_map) ?: 16;
-    $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) : 88;
+    $active_depts_count = count($depts_active_map);
+    $scopus_pct = $total_researches > 0 ? round(($scopus_count / $total_researches) * 100) . '%' : 'UGC CARE';
 
     $ajax_nonce = wp_create_nonce('mvc_publish_research_nonce');
     ?>
@@ -1482,16 +1482,16 @@ function mvc_render_research_page() {
                 <div class="mvc-res-kpi-card">
                     <div class="mvc-res-kpi-icon-box mvc-res-kpi-gold">🏆</div>
                     <div class="mvc-res-kpi-content">
-                        <span class="mvc-res-kpi-number"><?php echo (int) $scopus_pct; ?>%</span>
-                        <span class="mvc-res-kpi-label">UGC-CARE / Scopus Indexed</span>
+                        <span class="mvc-res-kpi-number"><?php echo esc_html($scopus_pct); ?></span>
+                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'UGC-CARE / Scopus Indexed' : 'Peer-Review Benchmark'; ?></span>
                     </div>
                 </div>
 
                 <div class="mvc-res-kpi-card">
                     <div class="mvc-res-kpi-icon-box mvc-res-kpi-purple">🏛</div>
                     <div class="mvc-res-kpi-content">
-                        <span class="mvc-res-kpi-number"><?php echo (int) $active_depts_count; ?></span>
-                        <span class="mvc-res-kpi-label">Active Academic Faculties</span>
+                        <span class="mvc-res-kpi-number"><?php echo $total_researches > 0 ? (int) $active_depts_count : '16'; ?></span>
+                        <span class="mvc-res-kpi-label"><?php echo $total_researches > 0 ? 'Contributing Faculties' : 'Academic Faculties'; ?></span>
                     </div>
                 </div>
 
@@ -1577,15 +1577,35 @@ function mvc_render_research_page() {
             </div>
 
             <!-- Empty State -->
-            <div class="mvc-res-empty-state" id="mvcResEmptyState">
+            <div class="mvc-res-empty-state" id="mvcResEmptyState" style="<?php echo $total_researches === 0 ? 'display: block;' : 'display: none;'; ?>">
                 <div class="mvc-res-empty-icon">🔬</div>
-                <h3 class="mvc-res-empty-title">No Research Publications Found</h3>
-                <p class="mvc-res-empty-desc">No publications match your selected department, category, or search keywords.</p>
-                <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">Reset Filters</button>
+                <h3 class="mvc-res-empty-title">
+                    <?php echo $total_researches === 0 ? 'Institutional Research Repository Ready' : 'No Research Publications Found'; ?>
+                </h3>
+                <p class="mvc-res-empty-desc">
+                    <?php if ($total_researches === 0): ?>
+                        No research publications or funded project dossiers have been indexed yet. Department Heads (HODs), academic researchers, and administrators can publish scholarly papers, books, monographs, and research grants using the authorized portal desk.
+                    <?php else: ?>
+                        No publications match your selected department, category, or search keywords.
+                    <?php endif; ?>
+                </p>
+                <?php if ($total_researches === 0): ?>
+                    <?php if ($can_publish): ?>
+                        <button type="button" class="mvc-btn-publish-trigger" onclick="mvcOpenPublishModal();" style="display:inline-flex;">
+                            <span>➕</span> Publish First Research Paper
+                        </button>
+                    <?php else: ?>
+                        <a href="<?php echo esc_url(home_url('/portal/')); ?>" class="mvc-btn-publish-trigger" style="display:inline-flex; text-decoration:none;">
+                            <span>🔐</span> Scholar Portal Login to Submit &rarr;
+                        </a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <button type="button" class="mvc-btn-publish-trigger" onclick="mvcResetFilters();" style="display:inline-flex;">Reset Filters</button>
+                <?php endif; ?>
             </div>
 
             <!-- 5. PUBLICATION CARDS GRID -->
-            <div class="mvc-res-cards-grid" id="mvcResCardsGrid">
+            <div class="mvc-res-cards-grid" id="mvcResCardsGrid" style="<?php echo $total_researches === 0 ? 'display: none;' : 'display: grid;'; ?>">
                 <?php
                 if (!empty($researches)):
                     foreach ($researches as $r):
